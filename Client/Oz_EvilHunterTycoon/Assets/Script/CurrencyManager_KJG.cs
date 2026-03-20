@@ -15,10 +15,11 @@ public class CurrencyManager_KJG : MonoBehaviour
     public float expMultiplier = 1f;
     public float dropRateBouns = 0f;
 
+    //다른곳에서 접근못하게 프라이빗으로 하되 프로퍼티로 값을 바꿀수 있게 구현
     public double Gold
     {
         get => gold;
-        set => gold = Math.Max(0, value);  // 음수 방지 예시
+        set => gold = Math.Max(0, value);  //음수 방지
     }
 
     public long Exp
@@ -83,6 +84,7 @@ public class CurrencyManager_KJG : MonoBehaviour
         goldMultiplier = 1f;
     }
 
+    // 치트 G키=골드 증가, C키= 캐시 증가
     private void CheatInput()
     {
         if (Input.GetKeyDown(KeyCode.G))
