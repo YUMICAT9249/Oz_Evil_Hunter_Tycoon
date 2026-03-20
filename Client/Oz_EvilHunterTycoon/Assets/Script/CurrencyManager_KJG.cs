@@ -60,6 +60,7 @@ public class CurrencyManager_KJG : MonoBehaviour
     public void AddGold(double amount)
     {
         gold += amount * goldMultiplier;
+        // UI 업데이트 이벤트 발생 (나중에 EventManager로)
         Debug.Log($"gold Add: +{amount} → {gold:N0}");
     }
 
@@ -83,6 +84,8 @@ public class CurrencyManager_KJG : MonoBehaviour
     {
         goldMultiplier = 1f;
     }
+
+
 
     // 치트 G키=골드 증가, C키= 캐시 증가
     private void CheatInput()

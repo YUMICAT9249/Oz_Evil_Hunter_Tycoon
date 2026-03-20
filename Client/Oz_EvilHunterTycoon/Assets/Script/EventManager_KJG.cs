@@ -30,12 +30,23 @@ public class EventManager_KJG : MonoBehaviour
     public static readonly UnityEvent<int> OnCashChanged = new UnityEvent<int>();       //캐시
 
     // 드랍,몬스터 관련
-    public static readonly UnityEvent<string> OnMonsterDefeated = new UnityEvent<string>(); // 몬스터 ID(string으로 일단함)
+    public static readonly UnityEvent<string> OnMonsterDefeated = new UnityEvent<string>(); // 몬스터 패배 Id(string으로 일단함)
     public static readonly UnityEvent OnDropOccurred = new UnityEvent();                    // 드랍
 
     // 헌터 / 환생 관련
-    public static readonly UnityEvent<string> OnHunterReincarnated = new UnityEvent<string>();  // 헌터 ID
+    public static readonly UnityEvent<string> OnHunterReincarnated = new UnityEvent<string>();  // 헌터 Id(환생을 진행한)
     public static readonly UnityEvent OnDifficultyUpgraded = new UnityEvent();                  // 헌터 환생
 
-    //
+    // 구매 관련
+    public static readonly UnityEvent<string> OnGoldItemPurchased = new UnityEvent<string>(); // 골드 아이템 Id
+    public static readonly UnityEvent<string> OnCashItemPurchased = new UnityEvent<string>(); // 캐시 아이템 Id
+
+    // UI / 시스템 전반
+    public static readonly UnityEvent OnSaveRequested = new UnityEvent();                   //저장 요청
+    public static readonly UnityEvent OnUIRefreshNeeded = new UnityEvent();                 //UI 새로고침
+
+    // 사운드 전용 (AudioManager에서 구독할 예정)
+    public static readonly UnityEvent<string> OnPlaySoundRequested = new UnityEvent<string>(); // 소리Id
+
+
 }
