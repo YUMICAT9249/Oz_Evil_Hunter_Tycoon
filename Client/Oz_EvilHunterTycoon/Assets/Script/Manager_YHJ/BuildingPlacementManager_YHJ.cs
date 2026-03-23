@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildingPlacementManager : MonoBehaviour
+public class BuildingPlacementManager_YHJ : MonoBehaviour
 {
     [SerializeField] private Grid grid;
 
@@ -16,7 +16,7 @@ public class BuildingPlacementManager : MonoBehaviour
         public Vector2Int size;
         public bool canOverlap;
 
-        public List<ResourceCost> costs;
+        public List<ReasourceCost_YHJ> costs;
     }
 
     [Header("Building List")]
@@ -98,7 +98,7 @@ public class BuildingPlacementManager : MonoBehaviour
         {
             GameObject obj = Instantiate(buildingButtonPrefab, content);
 
-            var ui = obj.GetComponent<BuildingButtonUI>();
+            var ui = obj.GetComponent<BuildingButtonUI_YHJ>();
             if (ui == null)
             {
                 Debug.LogError("BuildingButtonUI 없음: " + obj.name);
