@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BuildingButtonUI : MonoBehaviour
+public class BuildingButtonUI_YHJ : MonoBehaviour
 {
     [Header("UI ¿¬°á")]
     public TMP_Text nameText;
@@ -13,7 +13,7 @@ public class BuildingButtonUI : MonoBehaviour
     public Image stateBar;
     public TMP_Text statusText;
 
-    public void Setup(string name, Sprite iconSprite, List<ResourceCost> costs, bool canBuild)
+    public void Setup(string name, Sprite iconSprite, List<ReasourceCost_YHJ> costs, bool canBuild)
     {
         nameText.text = name;
         icon.sprite = iconSprite;

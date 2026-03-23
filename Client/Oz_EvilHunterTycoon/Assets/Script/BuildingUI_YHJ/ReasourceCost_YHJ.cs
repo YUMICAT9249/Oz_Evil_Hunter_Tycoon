@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ResourceCost
+public class ReasourceCost_YHJ
 {
     public Sprite icon;
     public float amount;
