@@ -10,7 +10,7 @@ public enum HunterJop
     Sorcerer
 }
 
-public class HunterData_JS : MonoBehaviour
+public class HunterData_PJS : MonoBehaviour
 {
     [Header("헌터 기본 정보")]
     [SerializeField] private string _hunterName;

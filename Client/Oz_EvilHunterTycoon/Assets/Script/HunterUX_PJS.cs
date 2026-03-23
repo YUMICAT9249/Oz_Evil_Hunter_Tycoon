@@ -1,10 +1,10 @@
 using TMPro;
 using UnityEngine;
 
-public class HunterUX_JS : MonoBehaviour
+public class HunterUX_PJS : MonoBehaviour
 {
     // 참조할 데이터 스크립트
-    [SerializeField] private HunterData_JS _data;
+    [SerializeField] private HunterData_PJS _data;
     // 헌터 머리위에 띄울 UI
     [SerializeField] private TextMeshProUGUI _nameText;
 

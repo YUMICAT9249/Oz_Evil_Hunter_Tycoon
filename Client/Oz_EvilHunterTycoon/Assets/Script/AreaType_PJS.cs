@@ -11,7 +11,7 @@ public enum AreaType
     AreaDevilCastle = 6
 }
 
-public class AreaType_JS : MonoBehaviour
+public class AreaType_PJS : MonoBehaviour
 {
 
 }

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HunterManager_JS : MonoBehaviour
+public class HunterManager_PJS : MonoBehaviour
 {
-    public static HunterManager_JS Instance;
+    public static HunterManager_PJS Instance;
 
     [Header("구역 설정(AreaType 순서대로 배치)")]
     [SerializeField] private BoxCollider2D[] _allArea;
 
     [Header("활성화된 헌터 리스트")]
-    public List<HunterController_JS> _activeHunters = new List<HunterController_JS>();
+    public List<HunterController_PJS> _activeHunters = new List<HunterController_PJS>();
 
     [Header("헌터(공통 변수)")]
     public HunterJop _randomJop;  // 헌터이름을 랜덤으로 생성할 직업타입
@@ -42,7 +42,7 @@ public class HunterManager_JS : MonoBehaviour
             if (_activeHunters[i] != null)
             {
                 // 헌터 데이터의 위치 변경
-                _activeHunters[i].GetComponent<HunterData_JS>()._areaType = _areaType;
+                _activeHunters[i].GetComponent<HunterData_PJS>()._areaType = _areaType;
                 // 헌터 스스로 위치 갱신
                 _activeHunters[i].UpdateLocation();
             }

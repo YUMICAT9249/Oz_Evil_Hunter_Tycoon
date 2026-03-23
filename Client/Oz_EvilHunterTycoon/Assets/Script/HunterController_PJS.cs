@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
-public class HunterController_JS : MonoBehaviour
+public class HunterController_PJS : MonoBehaviour
 {
     private enum HunterState 
     { 
@@ -11,7 +12,7 @@ public class HunterController_JS : MonoBehaviour
     [SerializeField] private HunterState _currentState = HunterState.Idle;
 
     [Header("헌터 데이터 참조")]
-    [SerializeField] private HunterData_JS _data;
+    [SerializeField] private HunterData_PJS _data;
     [SerializeField] private Animator _animator;
 
     [Header("이동 설정")]
@@ -36,9 +37,9 @@ public class HunterController_JS : MonoBehaviour
 
     void Start()
     {
-        if (HunterManager_JS.Instance != null)
-        { 
-            HunterManager_JS.Instance._activeHunters.Add(this);
+        if (HunterManager_PJS.Instance != null)
+        {
+            HunterManager_PJS.Instance._activeHunters.Add(this);
         }
         UpdateLocation();
     }
@@ -48,10 +49,10 @@ public class HunterController_JS : MonoBehaviour
         // 기존 행동 중지
         StopAllCoroutines();
 
-        if (HunterManager_JS.Instance != null)
+        if (HunterManager_PJS.Instance != null)
         {
-            HunterManager_JS.Instance._areaIndex = (int)_data._areaType;
-            _targetBox = HunterManager_JS.Instance.GetAreaCollider();
+            HunterManager_PJS.Instance._areaIndex = (int)_data._areaType;
+            _targetBox = HunterManager_PJS.Instance.GetAreaCollider();
         }
 
         RandomPos();
@@ -71,26 +72,30 @@ public class HunterController_JS : MonoBehaviour
             // 타겟부터 감지
             FindTarget();
 
-            // 타겟이 존재하고 범위내라면 공격
-            if (_targetMonster != null && Vector2.Distance
-                (
-                    transform.position,
-                    _targetMonster.transform.position
-                ) <= _hunterAttackRange)
+            // 타겟이 존재하지 않으면 이동 후 _idleTime만큼 대기
+            if (_targetMonster == null)
             {
-                _currentState = HunterState.Attack;
-                yield return StartCoroutine(HunterAttackLoop());
+                _currentState = HunterState.Move;
+                yield return StartCoroutine(HunterMoveLoop());
+                yield return new WaitForSeconds(_idleTime);
             }
 
-            // 타겟이 존재하지 않으면 이동 후 _idleTime만큼 대기
+            // 몬스터가 있는데 범위 밖일때 / 추격 로직없으면 대기
             else
-            { 
-                _currentState= HunterState.Move;
-                yield return StartCoroutine(HunterMoveLoop());
-
-                _currentState= HunterState.Idle;
-                _animator.SetBool("IsMoving", false);
-                yield return new WaitForSeconds(_idleTime);
+            {
+                float dis = Vector2.Distance(transform.position, _targetMonster.transform.position);
+                // 사거리 안 / 공격함수 호출
+                if (dis <= _hunterAttackRange)
+                {
+                    _currentState = HunterState.Attack;
+                    _animator.SetBool("IsMoving", false);
+                    yield return StartCoroutine(HunterAttackLoop());
+                }
+                // 사거리 밖 / 추격함수 호출
+                else
+                {
+                    yield return StartCoroutine(HunterFollowLoop());
+                }
             }
         }
     }
@@ -130,7 +135,10 @@ public class HunterController_JS : MonoBehaviour
                     _targetMonster.transform.position
                 ) <= _hunterAttackRange)
             {
-                break;
+                // 이동 멈춤 강제
+                _targetPosition = transform.position;
+                _animator.SetBool("IsMoving", false);
+                yield break;
             }
 
             // 현재 위치 -> 목표위치 이동
@@ -145,32 +153,77 @@ public class HunterController_JS : MonoBehaviour
         _animator.SetBool("IsMoving", false);
     }
 
-    // 헌터 공격 코루틴
-    IEnumerator HunterAttackLoop()
+    // 헌터 추격 코루틴
+    IEnumerator HunterFollowLoop()
     {
-        // 타겟 확인 / 몬스터 없으면 중지
-        if (_targetMonster == null)
-        {
-            yield break;
-        }
+        _currentState = HunterState.Move;
+        _animator.SetBool("IsMoving", true);
 
-        // 공격속도 체크
-        if (Time.time >= _lastAttackTime + _hunterAttackSpeed)
-        {
-            // 방향 전환(몬스터의 X좌표 대입 후 실행)
+        // 타겟이 존재하고 범위내라면 공격
+        while (_targetMonster != null && Vector2.Distance
+                    (
+                        transform.position, 
+                        _targetMonster.transform.position
+                    ) > _hunterAttackRange
+              )
+        { 
             _lookTargetX = _targetMonster.transform.position.x;
             LookAt();
 
-            _animator.SetTrigger("Attack");
-            _lastAttackTime = Time.time;
+            transform.position = Vector2.MoveTowards
+                (
+                    transform.position,
+                    _targetMonster.transform.position,
+                    _hunterMoveSpeed * Time.deltaTime
+                );
+
+            yield return null;
+            // 이동중 몬스터 사라졌는지 체크
+            FindTarget();
         }
-        yield return null;
+        _animator.SetBool("IsMoving", false);
+    }
+
+    // 헌터 공격 코루틴
+    IEnumerator HunterAttackLoop()
+    {
+        while (_targetMonster != null && Vector2.Distance(transform.position, _targetMonster.transform.position) <= _hunterAttackRange)
+        {
+            // 공격속도 체크
+            if (Time.time >= _lastAttackTime + _hunterAttackSpeed)
+            {
+                // 방향 전환(몬스터의 X좌표 대입 후 실행)
+                _lookTargetX = _targetMonster.transform.position.x;
+                LookAt();
+
+                _animator.SetTrigger("Attack");
+                _lastAttackTime = Time.time;
+
+                yield return new WaitForSeconds(_hunterAttackSpeed);
+            }
+
+            else
+            { 
+                yield return null;
+            }
+            FindTarget();
+        }
     }
 
     // 태그를 이용한 몬스터 감지 함수
     private void FindTarget()
     {
-        _targetMonster = GameObject.FindWithTag("Monster");
+        GameObject monster = GameObject.FindWithTag("Monster");
+
+        if (monster != null)
+        {
+            _targetMonster = monster;
+        }
+
+        else
+        {
+            _targetMonster = null;
+        }
     }
 
     // 헌터 좌우 반전 함수
