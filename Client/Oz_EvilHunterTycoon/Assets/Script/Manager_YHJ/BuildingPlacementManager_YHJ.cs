@@ -17,6 +17,9 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         public bool canOverlap;
 
         public List<ReasourceCost_YHJ> costs;
+
+        public string buildingID;
+        public bool isRoad;
     }
 
     [Header("Building List")]
@@ -32,12 +35,15 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
     private List<SpriteRenderer> previewRenderers = new List<SpriteRenderer>();
 
     private HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
+    private HashSet<string> builtBuildingIDs = new HashSet<string>();
 
     private bool isPlacing = false;
     private bool canPlace = false;
 
     private Vector2Int currentGridPos;
     private Vector2Int buildingSize;
+
+    private Quaternion currentRotation = Quaternion.identity;
 
     void Start()
     {
@@ -49,7 +55,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     IEnumerator ApplySortingNextFrame(GameObject obj)
     {
-        yield return null; // 한 프레임 기다림
+        yield return null;
 
         var renderers = obj.GetComponentsInChildren<SpriteRenderer>(true);
 
@@ -80,15 +86,10 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         MovePreview();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TryPlace();
-        }
-
         if (Input.GetKeyDown(KeyCode.R))
         {
-            foreach (var r in previewRenderers)
-                r.flipX = !r.flipX;
+            currentRotation *= Quaternion.Euler(0, 0, 90);
+            previewInstance.transform.rotation = currentRotation;
         }
     }
 
@@ -99,40 +100,37 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             GameObject obj = Instantiate(buildingButtonPrefab, content);
 
             var ui = obj.GetComponent<BuildingButtonUI_YHJ>();
-            if (ui == null)
-            {
-                Debug.LogError("BuildingButtonUI 없음: " + obj.name);
-                continue;
-            }
+            if (ui == null) continue;
 
             var sr = data.prefab.GetComponentInChildren<SpriteRenderer>(true);
-            if (sr == null)
-            {
-                Debug.LogError("SpriteRenderer 없음: " + data.name);
-                continue;
-            }
+            if (sr == null) continue;
 
             Sprite icon = sr.sprite;
 
-            ui.Setup(data.name, icon, data.costs, true);
+            bool alreadyBuilt = builtBuildingIDs.Contains(data.buildingID);
+
+            ui.Setup(data.name, icon, data.costs, true, alreadyBuilt);
 
             Button btn = obj.GetComponent<Button>();
-            if (btn == null)
+            if (btn == null) continue;
+
+            if (!data.isRoad && alreadyBuilt)
             {
-                Debug.LogError("Button 없음: " + obj.name);
-                continue;
+                btn.interactable = false;
             }
-
-            int index = System.Array.IndexOf(buildings, data);
-
-            btn.onClick.AddListener(() =>
+            else
             {
-                SelectBuilding(index);
-                StartPlacement();
+                int index = System.Array.IndexOf(buildings, data);
 
-                if (buildPanel != null)
-                    buildPanel.SetActive(false);
-            });
+                btn.onClick.AddListener(() =>
+                {
+                    SelectBuilding(index);
+                    StartPlacement();
+
+                    if (buildPanel != null)
+                        buildPanel.SetActive(false);
+                });
+            }
         }
     }
 
@@ -145,10 +143,16 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     public void StartPlacement()
     {
+        var data = buildings[selectedIndex];
+
+        if (!data.isRoad && builtBuildingIDs.Contains(data.buildingID))
+        {
+            Debug.Log("이미 건설 완료된 건물");
+            return;
+        }
+
         if (previewInstance != null)
             Destroy(previewInstance);
-
-        var data = buildings[selectedIndex];
 
         previewInstance = Instantiate(data.prefab);
         StartCoroutine(ApplySortingNextFrame(previewInstance));
@@ -173,6 +177,10 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         }
 
         buildingSize = data.size;
+
+        currentRotation = Quaternion.identity;
+        previewInstance.transform.rotation = currentRotation;
+
         isPlacing = true;
     }
 
@@ -187,7 +195,6 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         currentGridPos = gridPos;
 
         Vector3 worldPos = GridToWorld(gridPos);
-
         worldPos.z = -1f;
 
         previewInstance.transform.position = worldPos;
@@ -228,19 +235,17 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         if (!canPlace) return;
 
         Vector3 worldPos = GridToWorld(currentGridPos);
-
         worldPos.z = -1f;
 
         var data = buildings[selectedIndex];
 
-        GameObject obj = Instantiate(data.prefab, worldPos, Quaternion.identity);
+        GameObject obj = Instantiate(data.prefab, worldPos, currentRotation);
+        StartCoroutine(ApplySortingNextFrame(obj));
 
         var renderers = obj.GetComponentsInChildren<SpriteRenderer>(true);
-        StartCoroutine(ApplySortingNextFrame(obj));
 
         foreach (var r in renderers)
         {
-            Debug.Log("이름: " + r.name + " / Layer: " + r.sortingLayerName);
             r.sortingLayerID = SortingLayer.NameToID("Building");
             r.sortingOrder = 10;
         }
@@ -253,6 +258,32 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
                 occupied.Add(pos);
             }
         }
+
+        if (!data.isRoad)
+        {
+            builtBuildingIDs.Add(data.buildingID);
+            CancelPlacement();
+        }
+    }
+
+    public void CancelPlacement()
+    {
+        isPlacing = false;
+
+        if (previewInstance != null)
+            Destroy(previewInstance);
+    }
+
+    public void OnClickBuild()
+    {
+        if (!isPlacing || !canPlace) return;
+
+        TryPlace();
+    }
+
+    public void OnClickCancel()
+    {
+        CancelPlacement();
     }
 
     Vector2Int WorldToGrid(Vector3 worldPos)
@@ -264,7 +295,6 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
     Vector3 GridToWorld(Vector2Int gridPos)
     {
         Vector3Int cell = new Vector3Int(gridPos.x, gridPos.y, 0);
-        Vector3 world = grid.GetCellCenterWorld(cell);
-        return world;
+        return grid.GetCellCenterWorld(cell);
     }
 }
