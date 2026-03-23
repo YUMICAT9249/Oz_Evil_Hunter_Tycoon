@@ -22,4 +22,5 @@ public class Tmp_Test_JBJ : MonoBehaviour
             rt.anchoredPosition = new Vector2(i * 200, i * 160 + -940);
         }
     }
+    //
 }
