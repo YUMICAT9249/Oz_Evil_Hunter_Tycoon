@@ -28,15 +28,14 @@ public class MonsterSpawner_JBJ : MonoBehaviour
     {
         Vector3 spawnPos = transform.position + new Vector3
             (
+                Random.Range(-2f, 2f),
                 Random.Range(-2f, 2f), 
-                0, 
-                Random.Range(-2f, 2f)
+                0
             );
 
         GameObject monster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
 
         Monster_JBJ m = monster.GetComponent<Monster_JBJ>();
-        m.data = monsterData;
 
         currentCount++;
     }
