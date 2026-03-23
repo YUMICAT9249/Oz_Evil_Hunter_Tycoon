@@ -3,15 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Building
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Map
   - Water
   - UI
-  - 
+  - Building
   - 
   - 
   - 
@@ -40,4 +41,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 1 floor map
+    uniqueID: 2403141223
+    locked: 0
+  - name: 2 floor map
+    uniqueID: 677339855
+    locked: 0
+  - name: 3 floor map
+    uniqueID: 982376393
+    locked: 0
+  - name: Building
+    uniqueID: 2239284763
+    locked: 0
+  - name: Units
+    uniqueID: 4111741099
     locked: 0
