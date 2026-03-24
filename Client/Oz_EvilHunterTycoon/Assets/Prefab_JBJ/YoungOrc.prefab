@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3517505527710584512}
   - component: {fileID: 2043561701013426955}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 0.18, y: 0.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &297044131599745501
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2863078132478478931}
   - component: {fileID: 1508926607476826987}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc_FrontBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ SpriteRenderer:
   m_Size: {x: 0.17, y: 0.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &514878239395163665
@@ -183,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2229375551067283684}
   - component: {fileID: 3386111970679167885}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc_Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ SpriteRenderer:
   m_Size: {x: 0.13, y: 0.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1727857773408732765
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2641459679399971508}
   - component: {fileID: 1492147575599091381}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc_RightLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ SpriteRenderer:
   m_Size: {x: 0.05, y: 0.11}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4942733871176075158
@@ -351,7 +351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3465983635975543123}
   - component: {fileID: 6867380702057343829}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc_LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ SpriteRenderer:
   m_Size: {x: 0.06, y: 0.15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6698325660374546701
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 7934662134875418770}
   - component: {fileID: 8944274977471034988}
   - component: {fileID: 5572252102593288269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,13 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0939305aa11a6474f833c9364d60c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    maxHp: 100
-    attackDamage: 10
-    moveSpeed: 0.5
-    detectRange: 5
-    attackRange: 1.2
-    attackCooldown: 1.5
+  data: {fileID: 0}
   currentHP: 0
   Hunter: {fileID: 0}
   lastAttackTime: 0
@@ -516,7 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1777244567324737607}
   - component: {fileID: 3551645690903197844}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc_RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +581,7 @@ SpriteRenderer:
   m_Size: {x: 0.06, y: 0.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8530428955840883971
@@ -600,7 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1223506139777539721}
   - component: {fileID: 7938027466288026399}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YoungOrc_LeftLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,6 +665,6 @@ SpriteRenderer:
   m_Size: {x: 0.05, y: 0.1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

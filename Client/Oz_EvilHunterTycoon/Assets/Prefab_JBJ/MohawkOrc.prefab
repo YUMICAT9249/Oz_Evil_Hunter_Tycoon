@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 5572252102593288269}
   m_Layer: 8
   m_Name: MohawkOrc
-  m_TagString: Monster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -470,7 +470,7 @@ Animator:
   m_GameObject: {fileID: 6698325660374546701}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e8eced41f030e2a41bd4a15852381c4b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 67572eb54b9019548b66b88d2d53bbde, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -493,13 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0939305aa11a6474f833c9364d60c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    maxHp: 100
-    attackDamage: 10
-    moveSpeed: 0.5
-    detectRange: 5
-    attackRange: 1.2
-    attackCooldown: 1.5
+  data: {fileID: 0}
   currentHP: 0
   Hunter: {fileID: 0}
   lastAttackTime: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterSpawner_JBJ : MonoBehaviour
 {
     public GameObject monsterPrefab;
-    public MonsterData_JBJ monsterData;
+    public UnitData_JBJ_PJS monsterData;
 
     public float spawnInterval = 5f;
     public int maxMonsterCount = 13;

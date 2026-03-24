@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Monster_JBJ : MonoBehaviour
 {
-    public MonsterData_JBJ data;
+    public UnitData_JBJ_PJS data;
 
     public float currentHP;
     public Transform Hunter;

@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 5572252102593288269}
   m_Layer: 8
   m_Name: Orc
-  m_TagString: Monster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -493,13 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0939305aa11a6474f833c9364d60c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    maxHp: 100
-    attackDamage: 10
-    moveSpeed: 0.5
-    detectRange: 5
-    attackRange: 1.2
-    attackCooldown: 1.5
+  data: {fileID: 0}
   currentHP: 0
   Hunter: {fileID: 0}
   lastAttackTime: 0
