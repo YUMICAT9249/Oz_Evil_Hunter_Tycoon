@@ -18,15 +18,20 @@ public class HunterData_PJS : MonoBehaviour
     [SerializeField] private AreaType _currentArea;
 
     [Header("헌터 상세 스텟")]
-    [SerializeField] private int _currentLevel = 1;             // 현재 레벨
-    [SerializeField] private int _maxLevel = 100;               // 최대 레벨
-    [SerializeField] private float _currentHP = 100.0f;         // 현재 체력
-    [SerializeField] private float _maxHP = 100.0f;             // 최대 체력
-    [SerializeField] private float _baseDamage = 10.0f;         // 기본 공격력
-    [SerializeField] private float _baseDefence = 10.0f;        // 기본 방어력
-    [SerializeField] private float _baseAttackSpeed = 1.0f;     // 기본 공격속도
-    [SerializeField] private float _baseCriticalChance = 1.0f;  // 기본 치명타확률
-    [SerializeField] private float _baseDodgeChance = 1.0f;     // 기본 회피확률
+    [SerializeField] public int _currentLevel = 1;             // 현재 레벨
+    [SerializeField] public int _maxLevel = 100;               // 최대 레벨
+    [SerializeField] public float _currentHP = 100.0f;         // 현재 체력
+    [SerializeField] public float _maxHP = 100.0f;             // 최대 체력
+    [SerializeField] public float _baseDamage = 10.0f;         // 기본 공격력
+    [SerializeField] public float _baseDefence = 10.0f;        // 기본 방어력
+    [SerializeField] public float _baseAttackSpeed = 1.0f;     // 기본 공격속도
+    [SerializeField] public float _baseCriticalChance = 1.0f;  // 기본 치명타확률
+    [SerializeField] public float _baseDodgeChance = 1.0f;     // 기본 회피확률
+
+    [Header("헌터 이동 및 거리 설정")]
+    [SerializeField] private float _baseAttackRange = 1.0f; // 공격 사거리
+    [SerializeField] private float _baseDetectRange = 3.0f; // 감지 거리
+    [SerializeField] private float _moveSpeed = 2.0f;       // 이동 속도
 
     #region 프로퍼티 외부 참조용 (사용이유 => 변수에 보안장치와 자동화)
     // 이름 설정 및 반환
@@ -47,6 +52,7 @@ public class HunterData_PJS : MonoBehaviour
         get { return _currentArea; }
         set { _currentArea = value; }
     }
+
     // 레벨 설정
     public int Level
     {
@@ -81,7 +87,7 @@ public class HunterData_PJS : MonoBehaviour
         }
     }
     // 공격력 설정
-    public float Danage
+    public float Damage
     {
         get { return _baseDamage; }
         set { _baseDamage = value; }
@@ -109,6 +115,25 @@ public class HunterData_PJS : MonoBehaviour
     {
         get { return _baseDodgeChance; }
         set { _baseDodgeChance = value; }
+    }
+
+    // 공격 사거리
+    public float AttackRange
+    {
+        get { return _baseAttackRange; }
+        set { _baseAttackRange = value; }
+    }
+    // 감지 거리
+    public float DetectRange
+    {
+        get { return _baseDetectRange; }
+        set { _baseDetectRange = value; }
+    }
+    // 이동 속도
+    public float MoveSpeed
+    {
+        get { return _moveSpeed; }
+        set { _moveSpeed = value; }
     }
     #endregion
 }

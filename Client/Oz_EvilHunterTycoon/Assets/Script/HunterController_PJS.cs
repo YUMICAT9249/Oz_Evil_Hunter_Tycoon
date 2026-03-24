@@ -1,97 +1,150 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class HunterController_PJS : MonoBehaviour
 {
-    private enum HunterState 
-    { 
+    // 헌터 상태
+    private enum HunterState
+    {
         Idle, Move, Attack
     }
 
     [SerializeField] private HunterState _currentState = HunterState.Idle;
+    [SerializeField] private AreaType _areaCheck; // 이전 지역 저장용
 
     [Header("헌터 데이터 참조")]
     [SerializeField] private HunterData_PJS _data;
     [SerializeField] private Animator _animator;
+    [SerializeField] private BoxCollider2D _targetBox;   // 현재 이동 영역
 
-    [Header("이동 설정")]
-    [SerializeField] private float _hunterMoveSpeed = 3.0f;
-    [SerializeField] private float _idleTime = 1.0f;
+    // 스텟 캐싱
+    private float _hunterAttackSpeed;   // 공격 속도
+    private float _hunterAttackRange;   // 공격 사거리
+    private float _hunterDetectRange;   // 감지 거리
+    private float _hunterMoveSpeed;     // 이동 속도
 
-    [Header("전투 설정")]
-    [SerializeField] private float _hunterAttackSpeed = 1.0f;
-    [SerializeField] private float _hunterAttackRange = 1.5f;
+    // 내부 변수
+    private Coroutine _mainRoutine;
+    private GameObject _targetMonster;  // 현재 타겟
+    private Vector2 _targetPosition;    // 이동 목적지
+    private float _lookTargetX;
+    private float _lastAttackTime;
+    private float _idleTime = 1.0f;
 
-    [SerializeField] private BoxCollider2D _targetBox;   // 이동 영역
-
-    private GameObject _targetMonster;  // 몬스터 감지
-    private Vector2 _targetPosition;    // 이동 목적지 좌표
-    private float _lookTargetX;         // 바라볼 타겟 X좌표
-    private float _lastAttackTime;      // 마지막 공격 시점
+    // 유저 명령 우선 처리용
+    private bool _isForcedMove = false;
 
     void Awake()
     {
         _animator = GetComponent<Animator>();
+
+        // 데이터에서 스텟 가져오기
+        if (_data != null)
+        {
+            _hunterAttackSpeed = _data.AttackSpeed;
+            _hunterAttackRange = _data.AttackRange;
+            _hunterDetectRange = _data.DetectRange;
+            _hunterMoveSpeed = _data.MoveSpeed;
+        }
     }
 
     void Start()
     {
+        // 매니저에 등록
         if (HunterManager_PJS.Instance != null)
         {
             HunterManager_PJS.Instance._activeHunters.Add(this);
         }
+        _areaCheck = _data._areaType;
+
+        // 초기 위치 설정
         UpdateLocation();
+        StartCoroutine(HunterActionCenterLoop());
     }
 
+    void Update()
+    {
+        // 지역 변경 감지
+        AreaCheck(); 
+    }
+
+    // 지역 변경 감지 (변경될 때만 실행)
+    private void AreaCheck()
+    {
+        if (_data == null) return;
+
+        if (_areaCheck != _data._areaType)
+        {
+            _areaCheck = _data._areaType;
+            UpdateLocation();
+        }
+    }
+
+    // 위치 갱신 (유저 명령 들어왔을 때 실행)
     public void UpdateLocation()
     {
-        // 기존 행동 중지
-        StopAllCoroutines();
+        // 강제 이동 ON
+        _isForcedMove = true;
 
         if (HunterManager_PJS.Instance != null)
         {
-            HunterManager_PJS.Instance._areaIndex = (int)_data._areaType;
-            _targetBox = HunterManager_PJS.Instance.GetAreaCollider();
+            // 새로운 지역 설정
+            _targetBox = HunterManager_PJS.Instance.GetAreaCollider(_data._areaType);
         }
 
-        RandomPos();
-        
-        if (gameObject.activeInHierarchy)
-        { 
-            // 새로운 행동 시작
-            StartCoroutine(HunterActionCenterLoop());
+        if (_targetBox != null)
+        {
+            // 새로운 목적지 설정
+            RandomPos();
         }
     }
 
-    // 헌터 행동 중앙관리 코루틴
+    // 행동 중앙 제어
     IEnumerator HunterActionCenterLoop()
     {
+        BoxCollider2D currentBox = _targetBox;
+
         while (true)
         {
-            // 타겟부터 감지
+            // 1. 유저 명령 최우선 처리
+            if (_isForcedMove)
+            {
+                // 기존 타겟 제거
+                _targetMonster = null; 
+
+                _currentState = HunterState.Move;
+                yield return StartCoroutine(HunterMoveLoop());
+
+                // 이동 완료
+                _isForcedMove = false; 
+                continue;
+            }
+            // 2. 타겟 탐색
             FindTarget();
 
-            // 타겟이 존재하지 않으면 이동 후 _idleTime만큼 대기
-            if (_targetMonster == null)
+            // 3. 타겟 없음 → 이동
+            if (_targetMonster == null || Vector2.Distance(transform.position, _targetMonster.transform.position) > _hunterDetectRange)
             {
                 _currentState = HunterState.Move;
                 yield return StartCoroutine(HunterMoveLoop());
+
+                _currentState = HunterState.Idle;
+                _animator.SetBool("IsMoving", false);
                 yield return new WaitForSeconds(_idleTime);
             }
-
-            // 몬스터가 있는데 범위 밖일때 / 추격 로직없으면 대기
+            // 4. 타겟 있음
             else
             {
                 float dis = Vector2.Distance(transform.position, _targetMonster.transform.position);
-                // 사거리 안 / 공격함수 호출
+
+                // 공격 범위 안
                 if (dis <= _hunterAttackRange)
                 {
                     _currentState = HunterState.Attack;
                     _animator.SetBool("IsMoving", false);
                     yield return StartCoroutine(HunterAttackLoop());
                 }
-                // 사거리 밖 / 추격함수 호출
+                // 범위 밖 → 추격
                 else
                 {
                     yield return StartCoroutine(HunterFollowLoop());
@@ -100,99 +153,77 @@ public class HunterController_PJS : MonoBehaviour
         }
     }
 
-    // 헌터 이동 코루틴
+    // 이동
     IEnumerator HunterMoveLoop()
     {
-        // 구역 확인 / 목적지 설정 없으면 중지
-        if (_targetBox == null)
+        if (_targetBox == null) yield break;
+
+        BoxCollider2D currentBox = _targetBox;
+
+        if (!_isForcedMove)
         {
-            yield break;
+            RandomPos();
         }
 
-        // 마름모 좌표 추출 함수 호출
-        RandomPos();
-        // 방향 전환(목적지의 X좌표 대입 후 실행)
         _lookTargetX = _targetPosition.x;
         LookAt();
-
         _animator.SetBool("IsMoving", true);
-        BoxCollider2D currentBox = _targetBox;
-        
-        // 목표 지점 이동(목표 도달까지) / 거리체크
+
         while (Vector2.Distance(transform.position, _targetPosition) > 0.1f)
         {
+            // 강제 이동 아닐 때만 몬스터 감지
+            if (!_isForcedMove)
+            {
+                FindTarget();
+
+                if (_targetMonster != null && Vector2.Distance(transform.position, _targetMonster.transform.position) <= _hunterDetectRange)
+                {
+                    yield break;
+                }
+            }
+
+            // 지역 변경 감지
             if (_targetBox != currentBox)
             {
-                Debug.Log("구역 변경 감지! 이동 중단 후 새 구역으로 전환");
-                break;
-            }
-            // 이동중에도 타겟 감지
-            FindTarget();
-            // 타겟 발견시 이동 중단
-            if (_targetMonster != null && Vector2.Distance
-                (
-                    transform.position,
-                    _targetMonster.transform.position
-                ) <= _hunterAttackRange)
-            {
-                // 이동 멈춤 강제
-                _targetPosition = transform.position;
-                _animator.SetBool("IsMoving", false);
                 yield break;
             }
 
-            // 현재 위치 -> 목표위치 이동
-            transform.position = Vector2.MoveTowards
-                (
-                    transform.position,
-                    _targetPosition,
-                    _hunterMoveSpeed * Time.deltaTime
-                );
+            transform.position = Vector2.MoveTowards(transform.position, _targetPosition, _hunterMoveSpeed * Time.deltaTime);
             yield return null;
         }
+
         _animator.SetBool("IsMoving", false);
     }
 
-    // 헌터 추격 코루틴
+    // 추격
     IEnumerator HunterFollowLoop()
     {
         _currentState = HunterState.Move;
         _animator.SetBool("IsMoving", true);
 
-        // 타겟이 존재하고 범위내라면 공격
-        while (_targetMonster != null && Vector2.Distance
-                    (
-                        transform.position, 
-                        _targetMonster.transform.position
-                    ) > _hunterAttackRange
-              )
-        { 
+        while (_targetMonster != null &&
+               Vector2.Distance(transform.position, _targetMonster.transform.position) > _hunterAttackRange)
+        {
             _lookTargetX = _targetMonster.transform.position.x;
             LookAt();
 
-            transform.position = Vector2.MoveTowards
-                (
-                    transform.position,
-                    _targetMonster.transform.position,
-                    _hunterMoveSpeed * Time.deltaTime
-                );
-
+            transform.position = Vector2.MoveTowards(transform.position, _targetMonster.transform.position, _hunterMoveSpeed * Time.deltaTime);
             yield return null;
-            // 이동중 몬스터 사라졌는지 체크
+
             FindTarget();
         }
+
         _animator.SetBool("IsMoving", false);
     }
 
-    // 헌터 공격 코루틴
+    // 공격
     IEnumerator HunterAttackLoop()
     {
-        while (_targetMonster != null && Vector2.Distance(transform.position, _targetMonster.transform.position) <= _hunterAttackRange)
+        while (_targetMonster != null &&
+               Vector2.Distance(transform.position, _targetMonster.transform.position) <= _hunterAttackRange)
         {
-            // 공격속도 체크
             if (Time.time >= _lastAttackTime + _hunterAttackSpeed)
             {
-                // 방향 전환(몬스터의 X좌표 대입 후 실행)
                 _lookTargetX = _targetMonster.transform.position.x;
                 LookAt();
 
@@ -201,65 +232,86 @@ public class HunterController_PJS : MonoBehaviour
 
                 yield return new WaitForSeconds(_hunterAttackSpeed);
             }
-
             else
-            { 
+            {
                 yield return null;
             }
+
             FindTarget();
         }
     }
 
-    // 태그를 이용한 몬스터 감지 함수
+    // 몬스터 찾기
     private void FindTarget()
     {
         GameObject monster = GameObject.FindWithTag("Monster");
 
-        if (monster != null)
-        {
-            _targetMonster = monster;
-        }
-
-        else
+        if (monster == null)
         {
             _targetMonster = null;
+            return;
         }
+
+        if (!_targetBox.OverlapPoint(monster.transform.position))
+        {
+            _targetMonster = null;
+            return;
+        }
+        _targetMonster = monster;
     }
 
-    // 헌터 좌우 반전 함수
+    // 방향 전환
     private void LookAt()
     {
-        // 오른쪽 이동시 캐릭터가 바라보는 방향
         if (_lookTargetX > transform.position.x)
-        {
             transform.localScale = new Vector3(-1, 1, 1);
-        }
-
-        // 왼쪽 이동시 캐릭터가 바라보는 방향
         else
-        {
             transform.localScale = new Vector3(1, 1, 1);
-        }
     }
 
-    // 아이소매트릭 마름모 좌표 추출 / 내부 지점 계산 함수
+    // 랜덤 위치 생성
     private void RandomPos()
     {
-        // 지역의 경계 정보 가져옴
         Bounds areaBounds = _targetBox.bounds;
 
         while (true)
         {
-            // 영역의 최소 ~ 최대 랜덤 좌표 추출
             float x = Random.Range(areaBounds.min.x, areaBounds.max.x);
             float y = Random.Range(areaBounds.min.y, areaBounds.max.y);
             _targetPosition = new Vector2(x, y);
 
-            // 영역 내부로 들어오면 종료
             if (_targetBox.OverlapPoint(_targetPosition))
-            {
                 break;
-            }
         }
+    }
+
+    public void HunterDie()
+    { 
+        StopAllCoroutines();
+        _animator.SetTrigger("Die");
+        GetComponent<Collider2D>().enabled = false;
+    }
+
+    public void ReturnVillage()
+    {
+        _data._areaType = AreaType.Village;
+        BoxCollider2D villageBox = HunterManager_PJS.Instance.GetAreaCollider(AreaType.Village);
+        if (villageBox != null)
+        {
+            transform.position = villageBox.bounds.center;
+        }
+
+        // 알파 값 복구
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        { 
+            Color color = sr.color;
+            color.a = 1f;
+            sr.color = color;
+        }
+        // HP 최대치 + 부활처리
+        _data.HP = _data._maxHP;
+        GetComponent<Collider2D>().enabled = true;
+        UpdateLocation();
     }
 }

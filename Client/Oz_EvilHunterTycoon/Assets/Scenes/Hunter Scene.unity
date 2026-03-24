@@ -972,7 +972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7934662134875418770, guid: a8d841f03a2d30941ab3e198ee748c2f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.0577621
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 7934662134875418770, guid: a8d841f03a2d30941ab3e198ee748c2f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1382,6 +1382,9 @@ MonoBehaviour:
   _baseAttackSpeed: 1
   _baseCriticalChance: 1
   _baseDodgeChance: 1
+  _baseAttackRange: 0.2
+  _baseDetectRange: 3
+  _moveSpeed: 2
 --- !u!114 &912271458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1397,11 +1400,7 @@ MonoBehaviour:
   _currentState: 0
   _data: {fileID: 912271457}
   _animator: {fileID: 912271454}
-  _hunterMoveSpeed: 3
-  _idleTime: 1
-  _hunterAttackSpeed: 1
-  _hunterAttackRange: 1.5
-  _targetBox: {fileID: 0}
+  _targetBox: {fileID: 802412862}
 --- !u!4 &912271459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4485437708956016719, guid: f98aaac8d5d2997449f99dac4c32cb17, type: 3}

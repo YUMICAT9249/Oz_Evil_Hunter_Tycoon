@@ -17,7 +17,6 @@ public class HunterManager_PJS : MonoBehaviour
 
     [Header("구역(공통 변수)")]
     public AreaType _areaType; // 호출할 구역 타입
-    public int _areaIndex;     // 찾을 구역 배열 번호
 
     // 직업별 헌터 이름
     private List<string> beserkerNames = new List<string> { "브란", "샤론", "세나" };
@@ -36,7 +35,6 @@ public class HunterManager_PJS : MonoBehaviour
     // 보스 / 마왕성 보스 소환시 모든 헌터 강제 이동
     public void CallAllHuntersToArea()
     {
-        _areaIndex = (int)_areaType;
         for (int i = 0; i < _activeHunters.Count; i++)
         {
             if (_activeHunters[i] != null)
@@ -50,26 +48,15 @@ public class HunterManager_PJS : MonoBehaviour
     }
 
     // 구역 전환 / _areaIndex 변수에 담긴 번호 -> 콜라이더를 반환
-    public BoxCollider2D GetAreaCollider()
+    public BoxCollider2D GetAreaCollider(AreaType type)
     {
+        int index = (int)type;
         // 1. 입력된 인덱스가 배열 범위 안에 있는지 확인
-        if (_areaIndex >= 0 && _areaIndex < _allArea.Length)
+        if (index >= 0 && index < _allArea.Length)
         {
-            return _allArea[_areaIndex];
+            return _allArea[index];
         }
-
-        // 2. 인덱스에 문제가 있다면, 배열에 데이터가 있는지 확인
-        if (_allArea.Length > 0)
-        {
-            // 데이터가 있으면 -> 첫번째 사냥터(기본) 설정
-            return _allArea[0];
-        }
-
-        else
-        {
-            // 배열 자체가 비어있으면 반환X / 에러방지
             return null;
-        }
     }
 
     // 헌터 이름생성 함수 / _randomJop를 확인 후 랜덤이름을 _nameList에 할당
