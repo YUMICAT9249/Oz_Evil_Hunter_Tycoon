@@ -39,11 +39,10 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     private bool isPlacing = false;
     private bool canPlace = false;
+    private bool isDragging = false;
 
     private Vector2Int currentGridPos;
     private Vector2Int buildingSize;
-
-    private Quaternion currentRotation = Quaternion.identity;
 
     void Start()
     {
@@ -88,8 +87,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            currentRotation *= Quaternion.Euler(0, 0, 90);
-            previewInstance.transform.rotation = currentRotation;
+            foreach (var r in previewRenderers)
+                r.flipX = !r.flipX;
         }
     }
 
@@ -172,15 +171,12 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             r.sortingLayerID = SortingLayer.NameToID("Building");
             r.sortingOrder = 10;
             r.color = new Color(0, 1, 0, 0.5f);
+            r.flipX = false; // 초기화
 
             previewRenderers.Add(r);
         }
 
         buildingSize = data.size;
-
-        currentRotation = Quaternion.identity;
-        previewInstance.transform.rotation = currentRotation;
-
         isPlacing = true;
     }
 
@@ -239,13 +235,16 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         var data = buildings[selectedIndex];
 
-        GameObject obj = Instantiate(data.prefab, worldPos, currentRotation);
+        GameObject obj = Instantiate(data.prefab, worldPos, Quaternion.identity);
         StartCoroutine(ApplySortingNextFrame(obj));
+
+        bool flip = previewRenderers[0].flipX;
 
         var renderers = obj.GetComponentsInChildren<SpriteRenderer>(true);
 
         foreach (var r in renderers)
         {
+            r.flipX = flip;
             r.sortingLayerID = SortingLayer.NameToID("Building");
             r.sortingOrder = 10;
         }
