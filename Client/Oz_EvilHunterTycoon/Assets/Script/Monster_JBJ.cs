@@ -23,7 +23,7 @@ public class Monster_JBJ : MonoBehaviour
     float moveDuration;
     float idleDuration;
 
-    int facingDir = 1; // 1: 坷弗率, -1: 哭率
+    int facingDir = -1; // 1: 坷弗率, -1: 哭率
 
     Animator animator;
 

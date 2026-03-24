@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 5572252102593288269}
   m_Layer: 8
   m_Name: YoungLycan
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0939305aa11a6474f833c9364d60c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
   Hunter: {fileID: 0}
   lastAttackTime: 0
