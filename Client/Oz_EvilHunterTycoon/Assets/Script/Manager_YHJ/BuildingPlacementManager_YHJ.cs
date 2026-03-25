@@ -20,6 +20,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         public string buildingID;
         public bool isRoad;
+        public bool canRotate = true;
     }
 
     [Header("Building List")]
@@ -36,6 +37,9 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     private HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
     private HashSet<string> builtBuildingIDs = new HashSet<string>();
+    private GameObject previewRoot;
+    private GameObject previewUI;
+    [SerializeField] private GameObject previewUIPrefab;
 
     private bool isPlacing = false;
     private bool canPlace = false;
@@ -43,6 +47,23 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     private Vector2Int currentGridPos;
     private Vector2Int buildingSize;
+
+    Vector3 dragOffset;
+    Vector3 mouseDownPos;
+    float dragThreshold = 0.1f;
+
+    bool IsPointerOnPreview()
+    {
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorld.z = 0;
+
+        Collider2D hit = Physics2D.OverlapPoint(mouseWorld);
+
+        if (hit == null) return false;
+
+        return hit.transform.IsChildOf(previewRoot.transform);
+    }
+
 
     void Start()
     {
@@ -76,19 +97,139 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         buildPanel.SetActive(!buildPanel.activeSelf);
     }
 
+    bool IsPointerOverUI()
+    {
+        return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+    }
+
+    void HandleDragInput()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            mouseDownPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseDownPos.z = 0;
+
+            if (IsPointerOnPreview())
+            {
+                isDragging = false;
+            }
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 currentMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            currentMouse.z = 0;
+
+            float dist = Vector3.Distance(mouseDownPos, currentMouse);
+
+            // 일정 거리 이상 움직여야 드래그 시작
+            if (!isDragging && dist > dragThreshold)
+            {
+                if (IsPointerOnPreview())
+                {
+                    isDragging = true;
+
+                    dragOffset = previewRoot.transform.position - currentMouse;
+                }
+            }
+
+            if (isDragging)
+            {
+                UpdatePreviewPosition();
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+        }
+    }
+
+    void UpdatePreviewPosition()
+    {
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorld.z = 0;
+
+        Vector3 targetPos = mouseWorld + dragOffset;
+
+        Vector2Int gridPos = WorldToGrid(targetPos);
+        currentGridPos = gridPos;
+
+        Vector3 worldPos = GridToWorld(gridPos);
+        worldPos.z = -1f;
+
+        previewRoot.transform.position = worldPos;
+
+        canPlace = CanPlace(gridPos);
+
+        foreach (var r in previewRenderers)
+        {
+            r.color = canPlace
+                ? new Color(0, 1, 0, 0.5f)
+                : new Color(1, 0, 0, 0.5f);
+        }
+    }
+
+    public void RotatePreview()
+    {
+        var data = buildings[selectedIndex];
+
+        if (!data.canRotate)
+            return;
+
+        foreach (var r in previewRenderers)
+        {
+            r.flipX = !r.flipX;
+        }
+    }
+
     void Update()
     {
         if (!isPlacing) return;
 
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
+        // UI 클릭이면 무시
+        if (IsPointerOverUI() && !isDragging) return;
 
-        MovePreview();
-
-        if (Input.GetKeyDown(KeyCode.R))
+        // 클릭 처리 추가
+        if (Input.GetMouseButtonDown(0))
         {
-            foreach (var r in previewRenderers)
-                r.flipX = !r.flipX;
+            HandleClick();
+        }
+
+        // 드래그는 유지
+        HandleDragInput();
+    }
+
+    void HandleClick()
+    {
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorld.z = 0;
+
+        Collider2D hit = Physics2D.OverlapPoint(mouseWorld);
+
+        if (hit == null) return;
+
+        // 버튼인지 확인
+        var btn = hit.GetComponent<ButtonWorld_YHJ>();
+
+        if (btn != null)
+        {
+            switch (btn.buttonType)
+            {
+                case ButtonWorld_YHJ.ButtonType.Build:
+                    OnClickBuild();
+                    break;
+
+                case ButtonWorld_YHJ.ButtonType.Cancel:
+                    OnClickCancel();
+                    break;
+
+                case ButtonWorld_YHJ.ButtonType.Rotate:
+                    RotatePreview();
+                    break;
+            }
+
+            return;
         }
     }
 
@@ -142,6 +283,14 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     public void StartPlacement()
     {
+        isPlacing = false;
+
+        if (previewInstance != null)
+            Destroy(previewInstance);
+
+        if (previewUI != null)
+            Destroy(previewUI);
+
         var data = buildings[selectedIndex];
 
         if (!data.isRoad && builtBuildingIDs.Contains(data.buildingID))
@@ -150,15 +299,37 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             return;
         }
 
-        if (previewInstance != null)
-            Destroy(previewInstance);
-
-        previewInstance = Instantiate(data.prefab);
-        StartCoroutine(ApplySortingNextFrame(previewInstance));
+        if (previewRoot != null)
+            Destroy(previewRoot);
 
         previewRenderers.Clear();
+        previewRoot = new GameObject("PreviewRoot");
+
+        // 고스트 생성
+        previewInstance = Instantiate(data.prefab, previewRoot.transform);
+
+        // UI 생성
+        previewUI = Instantiate(previewUIPrefab, previewRoot.transform);
+
+        var buttons = previewUI.GetComponentsInChildren<ButtonWorld_YHJ>();
+
+        foreach (var btn in buttons)
+        {
+            if (btn.name == "BuildUIButton")
+                btn.buttonType = ButtonWorld_YHJ.ButtonType.Build;
+
+            else if (btn.name == "BuildCancelButton")
+                btn.buttonType = ButtonWorld_YHJ.ButtonType.Cancel;
+
+            else if (btn.name == "RotateBuildingButton")
+                btn.buttonType = ButtonWorld_YHJ.ButtonType.Rotate;
+        }
 
         var renderers = previewInstance.GetComponentsInChildren<SpriteRenderer>(true);
+
+        // 회전 버튼 ON/OFF
+        var ui = previewUI.GetComponent<PreviewUI_YHJ>();
+        ui.Setup(data.canRotate && !data.isRoad, this);
 
         if (renderers.Length == 0)
         {
@@ -176,33 +347,28 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             previewRenderers.Add(r);
         }
 
+        GameObject hitObj = new GameObject("HitArea");
+        hitObj.transform.SetParent(previewRoot.transform);
+        hitObj.transform.localPosition = Vector3.zero;
+
+        BoxCollider2D col = hitObj.AddComponent<BoxCollider2D>();
+        col.isTrigger = true;
+
+        Bounds bounds = renderers[0].bounds;
+
+        foreach (var r in renderers)
+        {
+            bounds.Encapsulate(r.bounds);
+        }
+
+        float offsetY = bounds.min.y - previewRoot.transform.position.y - 0.3f;
+        previewUI.transform.localPosition = new Vector3(0, offsetY, 0);
+
+        col.size = bounds.size;
+        col.offset = bounds.center - previewInstance.transform.position;
+
         buildingSize = data.size;
         isPlacing = true;
-    }
-
-    void MovePreview()
-    {
-        if (previewInstance == null) return;
-
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorld.z = 0;
-
-        Vector2Int gridPos = WorldToGrid(mouseWorld);
-        currentGridPos = gridPos;
-
-        Vector3 worldPos = GridToWorld(gridPos);
-        worldPos.z = -1f;
-
-        previewInstance.transform.position = worldPos;
-
-        canPlace = CanPlace(gridPos);
-
-        foreach (var r in previewRenderers)
-        {
-            r.color = canPlace
-                ? new Color(0, 1, 0, 0.5f)
-                : new Color(1, 0, 0, 0.5f);
-        }
     }
 
     bool CanPlace(Vector2Int startPos)
@@ -228,6 +394,10 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void TryPlace()
     {
+
+        if (EventSystem.current.IsPointerOverGameObject(0))
+            return;
+
         if (!canPlace) return;
 
         Vector3 worldPos = GridToWorld(currentGridPos);
@@ -269,8 +439,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
     {
         isPlacing = false;
 
-        if (previewInstance != null)
-            Destroy(previewInstance);
+        if (previewRoot != null)
+            Destroy(previewRoot);
     }
 
     public void OnClickBuild()

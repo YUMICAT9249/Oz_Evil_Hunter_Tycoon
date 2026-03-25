@@ -1483,60 +1483,94 @@ MonoBehaviour:
     size: {x: 3, y: 3}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: road
     prefab: {fileID: 3933346060894037477, guid: 8af3d6ca2e7ba8b43bb0325ee15049ca, type: 3}
     size: {x: 1, y: 1}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: sanctum
     prefab: {fileID: 1722571834361362139, guid: b85d24f15b033fb45b2886926c6ca47a, type: 3}
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: exchange
     prefab: {fileID: 3779879044023945164, guid: ca0c1355156f26b40947fed310c21ba7, type: 3}
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: potion store
     prefab: {fileID: 1779122359230543743, guid: 58082f69c117c5745a3df08b7e8ef395, type: 3}
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: hospital
     prefab: {fileID: 6077265701076323359, guid: 85cfe3c6e495e4b40b9d2cc07860d77e, type: 3}
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: training ground
     prefab: {fileID: 6156867516594204551, guid: 8749593784b1fd9479b14b59c8cd7fff, type: 3}
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: Dungeon
     prefab: {fileID: 1603719187483758332, guid: 05e3e08d8c206754e8b42f468508e740, type: 3}
     size: {x: 3, y: 3}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: armorrack
     prefab: {fileID: 1909604443383542307, guid: 1e61d9c914827d84b8f3a25350253703, type: 3}
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: horn of boss
     prefab: {fileID: 1010037236400748387, guid: e5eff0c2a58e73e469451467f2fbdc06, type: 3}
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   - name: passive cube
     prefab: {fileID: 8904334815929905400, guid: 81f7fb015b5fb8549a196dc2a1d0257e, type: 3}
     size: {x: 1, y: 1}
     canOverlap: 0
     costs: []
+    buildingID: 
+    isRoad: 0
+    canRotate: 0
   selectedIndex: 0
   content: {fileID: 1271528963}
   buildingButtonPrefab: {fileID: 5864929429538458362, guid: 55573c78909897747942779996f5c52d, type: 3}
   buildPanel: {fileID: 1653619352}
+  previewUIPrefab: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
