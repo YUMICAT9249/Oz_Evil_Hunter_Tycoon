@@ -1,5 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+
+// 헌터 제어 스크립트
+
+public enum AreaType
+{
+    Village = 0,
+    AreaA = 1,
+    AreaB = 2,
+    AreaC = 3,
+    AreaFieldBoss = 4,
+    AreaWorldBoss = 5,
+    AreaDevilCastle = 6
+}
 
 public class HunterManager_PJS : MonoBehaviour
 {
@@ -11,18 +24,8 @@ public class HunterManager_PJS : MonoBehaviour
     [Header("활성화된 헌터 리스트")]
     public List<HunterController_PJS> _activeHunters = new List<HunterController_PJS>();
 
-    [Header("헌터(공통 변수)")]
-    public HunterJop _randomJop;  // 헌터이름을 랜덤으로 생성할 직업타입
-    public string _nameList;      // 랜덤으로 생성된 이름을 담는 변수
-
     [Header("구역(공통 변수)")]
     public AreaType _areaType; // 호출할 구역 타입
-
-    // 직업별 헌터 이름
-    private List<string> beserkerNames = new List<string> { "브란", "샤론", "세나" };
-    private List<string> paladinNames = new List<string> { "카일", "알프", "홉스" };
-    private List<string> rangerNames = new List<string> { "카이즈", "바레인", "크리샤" };
-    private List<string> sorcererNames = new List<string> { "라글라스", "두아트린", "브리디도" };
 
     void Awake()
     {
@@ -56,31 +59,6 @@ public class HunterManager_PJS : MonoBehaviour
         {
             return _allArea[index];
         }
-            return null;
-    }
-
-    // 헌터 이름생성 함수 / _randomJop를 확인 후 랜덤이름을 _nameList에 할당
-    public void HunterRandomName()
-    {
-        // 버서커를 기본값으로 넣음
-        List<string> hunterNameList = beserkerNames;
-
-        if (_randomJop == HunterJop.Paladin)
-        {
-            hunterNameList = paladinNames;
-        }
-
-        else if (_randomJop == HunterJop.Ranger)
-        {
-            hunterNameList = rangerNames;
-        }
-
-        else if (_randomJop == HunterJop.Sorcerer)
-        { 
-            hunterNameList = sorcererNames;
-        }
-
-        int randomIndex = Random.Range(0, hunterNameList.Count);
-        _nameList = hunterNameList[randomIndex];
+        return null;
     }
 }

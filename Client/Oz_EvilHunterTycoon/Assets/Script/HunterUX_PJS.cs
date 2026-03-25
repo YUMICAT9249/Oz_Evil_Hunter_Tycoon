@@ -15,7 +15,7 @@ public class HunterUX_PJS : MonoBehaviour
         if (_data != null && _nameText != null)
         {
             // 프로퍼티를 통해 가져온 이름을 UI 텍스트에 대입
-            _nameText.text = _data.Name;
+            _nameText.text = _data.name;
         }
     }
 }
