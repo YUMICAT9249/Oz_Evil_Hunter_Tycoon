@@ -64,7 +64,6 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         return hit.transform.IsChildOf(previewRoot.transform);
     }
 
-
     void Start()
     {
         GenerateBuildingButtons();
@@ -158,7 +157,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         Vector3 worldPos = GridToWorld(gridPos);
         worldPos.z = -1f;
 
-        previewRoot.transform.position = worldPos;
+        previewRoot.transform.position = worldPos + GetGridOffset();
 
         canPlace = CanPlace(gridPos);
 
@@ -394,7 +393,6 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void TryPlace()
     {
-
         if (EventSystem.current.IsPointerOverGameObject(0))
             return;
 
@@ -405,7 +403,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         var data = buildings[selectedIndex];
 
-        GameObject obj = Instantiate(data.prefab, worldPos, Quaternion.identity);
+        Vector3 finalPos = worldPos + GetGridOffset();
+        GameObject obj = Instantiate(data.prefab, finalPos, Quaternion.identity);
         StartCoroutine(ApplySortingNextFrame(obj));
 
         bool flip = previewRenderers[0].flipX;
@@ -465,5 +464,12 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
     {
         Vector3Int cell = new Vector3Int(gridPos.x, gridPos.y, 0);
         return grid.GetCellCenterWorld(cell);
+    }
+
+    Vector3 GetGridOffset()
+    {
+        var data = buildings[selectedIndex];
+        float yOffset = -0.5f * data.size.y;
+        return new Vector3(0f, yOffset, 0f);
     }
 }
