@@ -233,6 +233,8 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -314,6 +316,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a817d64768d9184db335a58d6f84aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  useBounds: 0
+  minPosition: {x: 0, y: 0}
+  maxPosition: {x: 0, y: 0}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41c81e8d71fb4042b5a6e6203296200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 1
+  dragThreshold: 0.05
+  groundLayer:
+    m_Bits: 8
+  placementManager: {fileID: 2033261424}
+  lastMouseWorld: {x: 0, y: 0, z: 0}
+  mouseDownWorld: {x: 0, y: 0, z: 0}
+  isDragging: 0
 --- !u!1 &756658789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,7 +1642,7 @@ MonoBehaviour:
     size: {x: 3, y: 3}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: townhall
     isRoad: 0
     canRotate: 1
   - name: road
@@ -1612,7 +1650,7 @@ MonoBehaviour:
     size: {x: 1, y: 1}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: road
     isRoad: 1
     canRotate: 0
   - name: sanctum
@@ -1620,7 +1658,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: sanctum
     isRoad: 0
     canRotate: 1
   - name: exchange
@@ -1628,7 +1666,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: exchange
     isRoad: 0
     canRotate: 1
   - name: potion store
@@ -1636,7 +1674,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: potion store
     isRoad: 0
     canRotate: 1
   - name: hospital
@@ -1644,7 +1682,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: hospital
     isRoad: 0
     canRotate: 1
   - name: training ground
@@ -1652,7 +1690,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: training ground
     isRoad: 0
     canRotate: 1
   - name: Dungeon
@@ -1660,7 +1698,7 @@ MonoBehaviour:
     size: {x: 3, y: 3}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: Dungeon
     isRoad: 0
     canRotate: 1
   - name: armorrack
@@ -1668,7 +1706,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: armorrack
     isRoad: 0
     canRotate: 1
   - name: horn of boss
@@ -1676,7 +1714,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: horn of boss
     isRoad: 0
     canRotate: 1
   - name: passive cube
@@ -1684,7 +1722,7 @@ MonoBehaviour:
     size: {x: 1, y: 1}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: passive cube
     isRoad: 0
     canRotate: 0
   selectedIndex: 0
