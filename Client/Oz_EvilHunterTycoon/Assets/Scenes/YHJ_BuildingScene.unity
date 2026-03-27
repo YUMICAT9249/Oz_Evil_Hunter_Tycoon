@@ -1483,7 +1483,7 @@ MonoBehaviour:
     size: {x: 3, y: 3}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: townhall
     isRoad: 0
     canRotate: 1
   - name: road
@@ -1491,7 +1491,7 @@ MonoBehaviour:
     size: {x: 1, y: 1}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: road
     isRoad: 1
     canRotate: 0
   - name: sanctum
@@ -1499,7 +1499,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: sanctum
     isRoad: 0
     canRotate: 1
   - name: exchange
@@ -1507,7 +1507,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: exchange
     isRoad: 0
     canRotate: 1
   - name: potion store
@@ -1515,7 +1515,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: potion store
     isRoad: 0
     canRotate: 1
   - name: hospital
@@ -1523,7 +1523,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: hospital
     isRoad: 0
     canRotate: 1
   - name: training ground
@@ -1531,7 +1531,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: training ground
     isRoad: 0
     canRotate: 1
   - name: Dungeon
@@ -1539,7 +1539,7 @@ MonoBehaviour:
     size: {x: 3, y: 3}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: Dungeon
     isRoad: 0
     canRotate: 1
   - name: armorrack
@@ -1547,7 +1547,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: armorrack
     isRoad: 0
     canRotate: 1
   - name: horn of boss
@@ -1555,7 +1555,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: horn of boss
     isRoad: 0
     canRotate: 1
   - name: passive cube
@@ -1563,7 +1563,7 @@ MonoBehaviour:
     size: {x: 1, y: 1}
     canOverlap: 0
     costs: []
-    buildingID: 
+    buildingID: passive cube
     isRoad: 0
     canRotate: 0
   selectedIndex: 0
