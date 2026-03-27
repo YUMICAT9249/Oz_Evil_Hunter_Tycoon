@@ -204,15 +204,17 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0;
 
-        Collider2D hit = Physics2D.OverlapPoint(mouseWorld);
+        Collider2D[] hits = Physics2D.OverlapPointAll(mouseWorld);
 
-        if (hit == null) return;
+        if (hits == null || hits.Length == 0) return;
 
-        // 버튼인지 확인
-        var btn = hit.GetComponent<ButtonWorld_YHJ>();
-
-        if (btn != null)
+        foreach (var hit in hits)
         {
+            var btn = hit.GetComponent<ButtonWorld_YHJ>();
+
+            if (btn == null)
+                continue;
+
             switch (btn.buttonType)
             {
                 case ButtonWorld_YHJ.ButtonType.Build:
@@ -363,11 +365,12 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         float offsetY = bounds.min.y - previewRoot.transform.position.y - 0.3f;
         previewUI.transform.localPosition = new Vector3(0, offsetY, 0);
 
-        col.size = bounds.size;
-        col.offset = bounds.center - previewInstance.transform.position;
-
         buildingSize = data.size;
+        col.size = new Vector2(grid.cellSize.x * buildingSize.x, grid.cellSize.y * buildingSize.y);
+        col.offset = Vector2.zero;
+
         isPlacing = true;
+        UpdatePreviewPosition();
     }
 
     bool CanPlace(Vector2Int startPos)
@@ -381,7 +384,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         {
             for (int y = 0; y < buildingSize.y; y++)
             {
-                Vector2Int checkPos = new Vector2Int(startPos.x + x, startPos.y + y);
+                Vector2Int checkPos = new Vector2Int(startPos.x + x, startPos.y - y);
 
                 if (occupied.Contains(checkPos))
                     return false;
@@ -422,7 +425,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         {
             for (int y = 0; y < buildingSize.y; y++)
             {
-                Vector2Int pos = new Vector2Int(currentGridPos.x + x, currentGridPos.y + y);
+                Vector2Int pos = new Vector2Int(currentGridPos.x + x, currentGridPos.y - y);
                 occupied.Add(pos);
             }
         }
@@ -469,7 +472,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
     Vector3 GetGridOffset()
     {
         var data = buildings[selectedIndex];
-        float yOffset = -0.5f * data.size.y;
-        return new Vector3(0f, yOffset, 0f);
+        float xOffset = 0.5f * (data.size.x - 1) * grid.cellSize.x;
+        float yOffset = -0.5f * (data.size.y - 1) * grid.cellSize.y;
+        return new Vector3(xOffset, yOffset, 0f);
     }
 }
