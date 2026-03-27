@@ -2,9 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MonsterType
+{
+    Normal,
+    Unique
+}
+
+// 난이도 시스템 (추후 활성화)
+/*
+public enum Difficulty
+{
+    Easy,
+    Normal,
+    Hard
+}
+*/
+
 public class Monster_JBJ : MonoBehaviour
 {
-    public MonsterData_JBJ data;
+    public UnitData_JBJ_PJS data;
 
     public float currentHP;
     public Transform Hunter;
@@ -23,9 +39,18 @@ public class Monster_JBJ : MonoBehaviour
     float moveDuration;
     float idleDuration;
 
-    int facingDir = 1; // 1: 오른쪽, -1: 왼쪽
+    int facingDir = -1; // 1: 오른쪽, -1: 왼쪽
 
     Animator animator;
+
+    MonsterSpawner_JBJ spawner;
+    MonsterType type;
+
+    public void Init(MonsterSpawner_JBJ spawner, MonsterType type)
+    {
+        this.spawner = spawner;
+        this.type = type;
+    }
 
     void Start()
     {
@@ -44,6 +69,11 @@ public class Monster_JBJ : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(9999);
+        }
+
         stateTimer -= Time.deltaTime;
 
         if (stateTimer <= 0)
@@ -249,6 +279,11 @@ public class Monster_JBJ : MonoBehaviour
 
     void Die()
     {
+        if (spawner != null)
+        {
+            spawner.OnMonsterDead(type);
+        }
+
         Destroy(gameObject);
     }
 }

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Building
+  - Hunter
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - Water
   - UI
   - Building
-  - 
-  - 
+  - Hunter
+  - Monster
   - 
   - 
   - 
@@ -56,4 +58,13 @@ TagManager:
     locked: 0
   - name: Units
     uniqueID: 4111741099
+    locked: 0
+  - name: 
+    uniqueID: 3298741795
+    locked: 0
+  - name: Hunter
+    uniqueID: 3290633981
+    locked: 0
+  - name: Monster
+    uniqueID: 3258011291
     locked: 0

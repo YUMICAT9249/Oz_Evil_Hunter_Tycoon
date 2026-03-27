@@ -4,14 +4,43 @@ using UnityEngine;
 
 public class MonsterSpawner_JBJ : MonoBehaviour
 {
-    public GameObject monsterPrefab;
-    public MonsterData_JBJ monsterData;
+    public GameObject[] normalMonsters;
+    public GameObject uniqueMonster;
+    public UnitData_JBJ_PJS monsterData;
+
+    // 난이도 시스템 (추후 활성화)
+    // public Difficulty difficulty;
 
     public float spawnInterval = 5f;
     public int maxMonsterCount = 13;
 
     private float timer;
     private int currentCount;
+    private int killCount;
+
+    private bool uniqueSpawned = false;
+
+    /*
+    void Start()
+    {
+        // 난이도 별 설정 (추후 활성화)
+        switch (difficulty)
+        {
+            case Difficulty.Easy:
+                maxMonsterCount = 7;
+                break;
+
+            case Difficulty.Normal:
+                maxMonsterCount = 9;
+                break;
+
+            case Difficulty.Hard:
+                maxMonsterCount = 13;
+                break;
+        }
+    }
+    */
+
 
     void Update()
     {
@@ -19,12 +48,12 @@ public class MonsterSpawner_JBJ : MonoBehaviour
 
         if (timer >= spawnInterval && currentCount < maxMonsterCount)
         {
-            SpawnMonster();
+            SpawnNormalMonster();
             timer = 0f;
         }
     }
 
-    void SpawnMonster()
+    void SpawnNormalMonster()
     {
         Vector3 spawnPos = transform.position + new Vector3
             (
@@ -33,10 +62,38 @@ public class MonsterSpawner_JBJ : MonoBehaviour
                 0
             );
 
-        GameObject monster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
+        GameObject prefab = normalMonsters[Random.Range(0, normalMonsters.Length)];
+
+        GameObject monster = Instantiate(prefab, spawnPos, Quaternion.identity);
 
         Monster_JBJ m = monster.GetComponent<Monster_JBJ>();
+        m.Init(this, MonsterType.Normal);
 
         currentCount++;
+    }
+
+    void SpawnUniqueMonster()
+    {
+        Vector3 spawnPos = transform.position;
+            
+        GameObject monster = Instantiate(uniqueMonster, spawnPos, Quaternion.identity);
+
+        Monster_JBJ m = monster.GetComponent<Monster_JBJ>();
+        m.Init(this, MonsterType.Unique);
+    }
+
+    public void OnMonsterDead(MonsterType type)
+    {
+        if (type == MonsterType.Normal)
+        {
+            currentCount--;
+            killCount++;
+
+            if (killCount >= 30 && !uniqueSpawned)
+            {
+                SpawnUniqueMonster();
+                uniqueSpawned = true;
+            }
+        }
     }
 }
