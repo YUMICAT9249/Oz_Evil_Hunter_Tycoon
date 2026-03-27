@@ -72,12 +72,11 @@ public class HunterData_PJS : MonoBehaviour
         if (_unitData == null)
         {
             Debug.LogError("UnitData가 연결 안됨", gameObject);
+            return;
         }
-
-        if (_unitData != null)
-        {
-            _currentHP = _unitData.maxHp;
-        }
+        HunterRandomJop();
+        HunterRandomName();
+        RandomStats();
     }
 
     // 헌터 직업 랜덤 생성
@@ -124,6 +123,7 @@ public class HunterData_PJS : MonoBehaviour
     }
 
     // 점수별 스탯 추가 / 매개변수 사용 => 유지보수, 하나의 함수로 해결가능
+    // 공격 쿨다운 제외
     public float AddStatsByScore(float baseValue, int score)
     {
         switch (score)
@@ -131,11 +131,28 @@ public class HunterData_PJS : MonoBehaviour
             case 0: 
                 return baseValue * 1.0f;
             case 1:
-                return baseValue * 1.2f;
+                return baseValue * 1.1f;
             case 2:
-                return baseValue * 1.4f;
+                return baseValue * 1.2f;
             case 3:
-                return baseValue * 1.6f;
+                return baseValue * 1.3f;
+        }
+        return baseValue;
+    }
+
+    // 점수별 공격 쿨다운 줄임
+    public float AddAttackCooldownByScore(float baseValue, int score)
+    {
+        switch (score)
+        {
+            case 0:
+                return baseValue / 1.0f;
+            case 1:
+                return baseValue / 1.1f;
+            case 2:
+                return baseValue / 1.2f;
+            case 3:
+                return baseValue / 1.3f;
         }
         return baseValue;
     }
@@ -194,7 +211,7 @@ public class HunterData_PJS : MonoBehaviour
         _defence = AddStatsByScore(_unitData.defence, _defenceScore);
         _criticalChance = AddStatsByScore(_unitData.criticalChance, _criticalChanceScore);
         _dodgeChance = AddStatsByScore(_unitData.dodgeChance, _dodgeChanceScore);
-        _attackCooldown = AddStatsByScore(_unitData.attackCooldown, _attackCooldownScore);
+        _attackCooldown = AddAttackCooldownByScore(_unitData.attackCooldown, _attackCooldownScore);
         _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore);
 
         // 4. 현재 체력 초기화

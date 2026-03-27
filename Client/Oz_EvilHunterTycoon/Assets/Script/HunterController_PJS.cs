@@ -135,10 +135,10 @@ public class HunterController_PJS : MonoBehaviour
             // 4. 타겟 있음
             else
             {
-                float dis = Vector2.Distance(transform.position, _targetMonster.transform.position);
+                float distance = Vector2.Distance(transform.position, _targetMonster.transform.position);
 
                 // 공격 범위 안
-                if (dis <= _unitData.attackRange)
+                if (distance <= _unitData.attackRange)
                 {
                     _currentState = HunterState.Attack;
                     _animator.SetBool("IsMoving", false);
@@ -171,15 +171,18 @@ public class HunterController_PJS : MonoBehaviour
 
         while (Vector2.Distance(transform.position, _targetPosition) > 0.1f)
         {
-            // 강제 이동 아닐 때만 몬스터 감지
-            if (!_isForcedMove)
-            {
-                FindTarget();
+            // 주변에 몬스터가 있는지 확인
+            FindTarget();
 
-                if (_targetMonster != null)
-                {
-                    yield break;
-                }
+            // 몬스터를 찾았다면
+            if (_targetMonster != null)
+            {
+                // 이동루프 탈출 -> HunterActionCenterLoop()로 복귀
+                _animator.SetBool("IsMoving", false);
+                // 상태를 추격으로 변경
+                _currentState = HunterState.Move;
+                yield return StartCoroutine(HunterFollowLoop());
+                yield break;
             }
 
             // 지역 변경 감지
@@ -203,13 +206,19 @@ public class HunterController_PJS : MonoBehaviour
 
         while (_targetMonster != null)
         {
+            float distance = Vector2.Distance(transform.position, _targetMonster.transform.position);
+            if (distance <= _unitData.attackRange)
+            {
+                _animator.SetBool("IsMoving", false);
+                yield return StartCoroutine(HunterAttackLoop());
+                break;
+            }
+
             _lookTargetX = _targetMonster.transform.position.x;
             LookAt();
 
             transform.position = Vector2.MoveTowards(transform.position, _targetMonster.transform.position, _hunterData.GetMoveSpeed() * Time.deltaTime);
             yield return null;
-
-            FindTarget();
         }
 
         _animator.SetBool("IsMoving", false);
@@ -220,11 +229,16 @@ public class HunterController_PJS : MonoBehaviour
     {
         while (_targetMonster != null)
         {
+            float cooldown = _hunterData.GetAttackCooldown();
+
             if (Time.time >= _lastAttackTime + _hunterData.GetAttackCooldown())
             {
                 _lookTargetX = _targetMonster.transform.position.x;
                 LookAt();
 
+                // 애니메이션 공격 쿨다운 조절(공격속도 조절)
+                float baseCooldown = _unitData.attackCooldown;
+                _animator.speed = baseCooldown / cooldown;
                 _animator.SetTrigger("Attack");
                 
                 // 데미지 처리
@@ -235,6 +249,8 @@ public class HunterController_PJS : MonoBehaviour
                 _lastAttackTime = Time.time;
 
                 yield return new WaitForSeconds(_hunterData.GetAttackCooldown());
+                // 공격 후 애니메이션 속도 복구
+                _animator.speed = 1.0f;
             }
             else
             {
@@ -248,29 +264,26 @@ public class HunterController_PJS : MonoBehaviour
     // [12] 몬스터 찾기
     private void FindTarget()
     {
-        // 기존 타겟이 살아있는지 체크
+        // 1. 기존 타겟이 살아있는지 체크
         if (_targetMonster != null)
         {
-            // 타겟이 사망했으면 타겟 초기화
-            if (_targetMonster == null)
+            // 몬스터 사망시 해제
+            if (!_targetMonster.activeInHierarchy)
             {
                 _targetMonster = null;
             }
+            // 범위 밖이면 타겟 해제
+            else if (!_targetBox.OverlapPoint(_targetMonster.transform.position))
+            {
+                _targetMonster = null;
+            }
+            // 범위 안이면 타겟 유지
             else
             {
-                // 범위 밖이면 타겟 해제
-                if (!_targetBox.OverlapPoint(_targetMonster.transform.position))
-                {
-                    _targetMonster = null;
-                }
-                // 범위 안이면 타겟 유지
-                else
-                {
-                    return;
-                } 
-            }
+                return;
+            } 
         }
-
+        // 2. 새로운 몬스터 탐지
         GameObject monster = GameObject.FindWithTag("Monster");
 
         if (monster == null)
@@ -279,7 +292,16 @@ public class HunterController_PJS : MonoBehaviour
             return;
         }
 
+        // 구역 체크
         if (!_targetBox.OverlapPoint(monster.transform.position))
+        {
+            _targetMonster = null;
+            return;
+        }
+
+        // 거리 체크
+        float distance = Vector2.Distance(transform.position, monster.transform.position);
+        if (distance > _unitData.detectRange)
         {
             _targetMonster = null;
             return;
