@@ -13,7 +13,8 @@ public class BuildingButtonUI_YHJ : MonoBehaviour
     public Image stateBar;
     public TMP_Text statusText;
 
-    public void Setup(string name, Sprite iconSprite, List<ReasourceCost_YHJ> costs, bool canBuild)
+
+    public void Setup(string name, Sprite iconSprite, List<ReasourceCost_YHJ> costs, bool canBuild, bool alreadyBuilt)
     {
         nameText.text = name;
         icon.sprite = iconSprite;
@@ -50,6 +51,13 @@ public class BuildingButtonUI_YHJ : MonoBehaviour
             statusText.text = "건설";
         }
         
+        else if (alreadyBuilt)
+        {
+            stateBar.color = Color.gray;
+            statusText.text = "건설 완료"; 
+
+        }
+
         else
         {
             stateBar.color = Color.red;
