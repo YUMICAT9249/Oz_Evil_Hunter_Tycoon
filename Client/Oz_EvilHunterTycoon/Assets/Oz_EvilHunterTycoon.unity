@@ -195,6 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb89e702727d1944cbb50701c94c3897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveFileName: gameSave.json
+  logSaveLoad: 1
 --- !u!4 &760914361
 Transform:
   m_ObjectHideFlags: 0
@@ -297,7 +299,6 @@ MonoBehaviour:
   cash: 0
   goldMultiplier: 1
   expMultiplier: 1
-  dropRateBouns: 0
 --- !u!4 &1148968745
 Transform:
   m_ObjectHideFlags: 0
@@ -342,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0359c00af23d42b49af58a002616169d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDataLoaded: 0
 --- !u!4 &1455186021
 Transform:
   m_ObjectHideFlags: 0
@@ -478,8 +480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d610251dc56e3f44d9a790494100a87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataManager: {fileID: 1455186020}
   saveLoadManager: {fileID: 760914360}
+  dataManager: {fileID: 1455186020}
   currencyManager: {fileID: 1148968744}
   difficultyManager: {fileID: 961348805}
 --- !u!4 &2133420812

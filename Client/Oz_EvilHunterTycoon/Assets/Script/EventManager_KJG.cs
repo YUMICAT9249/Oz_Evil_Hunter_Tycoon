@@ -1,13 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class EventManager_KJG : MonoBehaviour
 {
-    // ½Ì±ÛÅæ
     public static EventManager_KJG Instance { get; private set; }
+
+    // ==================== Enum ì •ì˜ (EventManager ì•ˆì— í¬í•¨) ====================
+    public enum GameEvent
+    {
+        // ì‹œìŠ¤í…œ
+        GameStart,
+        GameOver,
+        GamePause,
+        GameResume,
+        SceneLoaded,
+
+        // ì €ì¥ & UI
+        RequestSave,
+        RefreshUI,           
+
+        // í”Œë ˆì´ì–´
+        PlayerDied,
+        PlayerLevelUp,
+        PlayerHealthChanged,
+
+        // ì /ì „íˆ¬
+        EnemyDied,
+        BossDefeated,
+
+        // ê¸°íƒ€
+        WaveCleared,
+        ScoreChanged,
+        ItemCollected
+    }
+
+    private Dictionary<GameEvent, UnityEvent> globalEvents = new Dictionary<GameEvent, UnityEvent>();
 
     private void Awake()
     {
@@ -19,34 +47,42 @@ public class EventManager_KJG : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        // ÇÊ¿äÇÏ¸é ¿©±â¼­ ÃÊ±âÈ­ ·ÎÁ÷ Ãß°¡
-        Debug.Log("Event ÃÊ±âÈ­ ¿Ï·á");
+        Debug.Log("âœ… EventManager_KJG ì´ˆê¸°í™” ì™„ë£Œ (Enum í¬í•¨)");
     }
 
-    // È­Æó °ü·Ã
-    public static readonly UnityEvent<double> OnGoldChanged = new UnityEvent<double>(); //°ñµå
-    public static readonly UnityEvent<long> OnExpChanged = new UnityEvent<long>();      //°æÇèÄ¡
-    public static readonly UnityEvent<int> OnCashChanged = new UnityEvent<int>();       //Ä³½Ã
+    // ==================== ê¸€ë¡œë²Œ ì´ë²¤íŠ¸ ë©”ì„œë“œ ====================
+    public void AddListener(GameEvent eventType, UnityAction listener)
+    {
+        if (!globalEvents.ContainsKey(eventType))
+            globalEvents[eventType] = new UnityEvent();
 
-    // µå¶ø,¸ó½ºÅÍ °ü·Ã
-    public static readonly UnityEvent<string> OnMonsterDefeated = new UnityEvent<string>(); // ¸ó½ºÅÍ ÆĞ¹è Id(stringÀ¸·Î ÀÏ´ÜÇÔ)
-    public static readonly UnityEvent OnDropOccurred = new UnityEvent();                    // µå¶ø
+        globalEvents[eventType].AddListener(listener);
+    }
 
-    // ÇåÅÍ / È¯»ı °ü·Ã
-    public static readonly UnityEvent<string> OnHunterReincarnated = new UnityEvent<string>();  // ÇåÅÍ Id(È¯»ıÀ» ÁøÇàÇÑ)
-    public static readonly UnityEvent OnDifficultyUpgraded = new UnityEvent();                  // ÇåÅÍ È¯»ı
+    public void RemoveListener(GameEvent eventType, UnityAction listener)
+    {
+        if (globalEvents.TryGetValue(eventType, out var unityEvent))
+        {
+            unityEvent.RemoveListener(listener);
+        }
+    }
 
-    // ±¸¸Å °ü·Ã
-    public static readonly UnityEvent<string> OnGoldItemPurchased = new UnityEvent<string>(); // °ñµå ¾ÆÀÌÅÛ Id
-    public static readonly UnityEvent<string> OnCashItemPurchased = new UnityEvent<string>(); // Ä³½Ã ¾ÆÀÌÅÛ Id
+    public void Invoke(GameEvent eventType)
+    {
+        if (globalEvents.TryGetValue(eventType, out var unityEvent))
+        {
+            unityEvent?.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning($"[EventManager_KJG] ì´ë²¤íŠ¸ '{eventType}'ì´(ê°€) ë“±ë¡ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+        }
+    }
 
-    // UI / ½Ã½ºÅÛ Àü¹İ
-    public static readonly UnityEvent OnSaveRequested = new UnityEvent();                   //ÀúÀå ¿äÃ»
-    public static readonly UnityEvent OnUIRefreshNeeded = new UnityEvent();                 //UI »õ·Î°íÄ§
-
-    // »ç¿îµå Àü¿ë (AudioManager¿¡¼­ ±¸µ¶ÇÒ ¿¹Á¤)
-    public static readonly UnityEvent<string> OnPlaySoundRequested = new UnityEvent<string>(); // ¼Ò¸®Id
-
-
+    public void ClearAll()
+    {
+        foreach (var evt in globalEvents.Values)
+            evt.RemoveAllListeners();
+        globalEvents.Clear();
+    }
 }

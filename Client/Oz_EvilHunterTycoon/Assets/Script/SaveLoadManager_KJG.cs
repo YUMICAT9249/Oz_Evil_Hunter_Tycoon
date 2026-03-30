@@ -1,53 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.IO;
 
 public class SaveLoadManager_KJG : MonoBehaviour
 {
-    public static SaveLoadManager_KJG instance { get; private set; }
+    public static SaveLoadManager_KJG Instance { get; private set; }
 
-    private string savePath = Path.Combine(Application.persistentDataPath, "gameSave.json");
+    private string savePath;
 
-    private void Awake()
-    {
-        if (instance != null && instance != this) { Destroy(gameObject); return; }
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+    [Header("ì„¸ì´ë¸Œ ì„¤ì •")]
+    [SerializeField] private string saveFileName = "gameSave.json";
+    [SerializeField] private bool logSaveLoad = true;
 
-    //¼¼ÀÌºê ÇÊ¿äÇÑ µ¥ÀÌÅÍµé ¿©±â¿¡ Ãß°¡
     [System.Serializable]
     public class SaveData
     {
+        public int saveVersion = 1;
         public int currentDifficultyLevel = 0;
-
         public double gold = 0;
         public long exp = 0;
         public int cash = 0;
-
         public float goldMultiplier = 1f;
         public float expMultiplier = 1f;
     }
 
-    //°ÔÀÓ ¼¼ÀÌºê µ¥ÀÌÅÍ ¿©±â¿¡ ÀÛ¼º
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        savePath = Path.Combine(Application.persistentDataPath, saveFileName);
+        Debug.Log($"âœ… SaveLoadManager_KJG ì´ˆê¸°í™” ì™„ë£Œ | ì €ì¥ ê²½ë¡œ: {savePath}");
+    }
+
+    // ====================== ì„¸ì´ë¸Œ ======================
     public void GameSave()
     {
         SaveData data = new SaveData();
 
-        //°ÔÀÓ Á¤º¸,¹èÀ² ÀúÀå
+        // CurrencyManagerì—ì„œ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
         if (CurrencyManager_KJG.Instance != null)
         {
             data.gold = CurrencyManager_KJG.Instance.Gold;
             data.exp = CurrencyManager_KJG.Instance.Exp;
             data.cash = CurrencyManager_KJG.Instance.Cash;
-
             data.goldMultiplier = CurrencyManager_KJG.Instance.goldMultiplier;
             data.expMultiplier = CurrencyManager_KJG.Instance.expMultiplier;
-
         }
 
-        //³­ÀÌµµ ÀúÀå
+        // DifficultyManagerì—ì„œ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
         if (DifficultyManager_KJG.Instance != null)
         {
             data.currentDifficultyLevel = DifficultyManager_KJG.Instance.currentDifficultyLevel;
@@ -56,56 +62,93 @@ public class SaveLoadManager_KJG : MonoBehaviour
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
 
-        Debug.Log($"Save Complite ¡æ {savePath}");
+        if (logSaveLoad)
+            Debug.Log($"ğŸ’¾ ê²Œì„ ì €ì¥ ì™„ë£Œ â†’ {savePath}");
+
+        // ì €ì¥ ì™„ë£Œ í›„ ê¸€ë¡œë²Œ ì´ë²¤íŠ¸ ë°œìƒ
+        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RequestSave);
     }
 
-    //°ÔÀÓ ·Îµå µ¥ÀÌÅÍ
+    // ====================== ë¡œë“œ ======================
     public void GameLoad()
     {
         if (!File.Exists(savePath))
         {
+            Debug.Log("ì„¸ì´ë¸Œ íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤. ìƒˆ ê²Œì„ì„ ì‹œì‘í•©ë‹ˆë‹¤.");
             NewGameSetup();
             return;
         }
 
-        string json=File.ReadAllText(savePath);
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-        if (CurrencyManager_KJG.Instance != null)
+        try
         {
-            CurrencyManager_KJG.Instance.Gold = data.gold;
-            CurrencyManager_KJG.Instance.Exp = data.exp;
-            CurrencyManager_KJG.Instance.Cash = data.cash;
+            string json = File.ReadAllText(savePath);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            CurrencyManager_KJG.Instance.goldMultiplier = data.goldMultiplier;
-            CurrencyManager_KJG.Instance.expMultiplier = data.expMultiplier;
+            // CurrencyManagerì— ë°ì´í„° ì ìš©
+            if (CurrencyManager_KJG.Instance != null)
+            {
+                CurrencyManager_KJG.Instance.SetGold(data.gold);
+                CurrencyManager_KJG.Instance.SetExp(data.exp);
+                CurrencyManager_KJG.Instance.SetCash(data.cash);
+                CurrencyManager_KJG.Instance.goldMultiplier = data.goldMultiplier;
+                CurrencyManager_KJG.Instance.expMultiplier = data.expMultiplier;
+            }
 
-            CurrencyManager_KJG.Instance.UpdateMultipliers();
+            // DifficultyManagerì— ë°ì´í„° ì ìš©
+            if (DifficultyManager_KJG.Instance != null)
+            {
+                DifficultyManager_KJG.Instance.LoadFromSave(data.currentDifficultyLevel);
+            }
+
+            // ë¡œë“œ ì™„ë£Œ í›„ ì´ë²¤íŠ¸ ë°œìƒ
+            EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RefreshUI);
+
+            if (logSaveLoad)
+                Debug.Log($"ğŸ“‚ ê²Œì„ ë¡œë“œ ì™„ë£Œ â†’ Gold: {data.gold:N0} | Cash: {data.cash} | Difficulty: {data.currentDifficultyLevel}");
         }
-
-        if (DifficultyManager_KJG.Instance != null)
+        catch (System.Exception e)
         {
-            DifficultyManager_KJG.Instance.currentDifficultyLevel = data.currentDifficultyLevel;
+            Debug.LogError($"ì„¸ì´ë¸Œ íŒŒì¼ ë¡œë“œ ì¤‘ ì˜¤ë¥˜ ë°œìƒ: {e.Message}");
+            NewGameSetup();
         }
-        Debug.Log($"Game Load Complite ¡æ Gold: {data.gold:N0}, DifficultyLevel: {data.currentDifficultyLevel}");
     }
 
-    //°ÔÀÓ Ã³À½ ½ÃÀÛÇÒ¶§ Áö±ŞµÇ´Â ÀÚ¿ø
-    private void NewGameSetup()
+    // ====================== ìƒˆ ê²Œì„ ì´ˆê¸°í™” ======================
+    public void NewGameSetup()
     {
         if (CurrencyManager_KJG.Instance != null)
         {
-            CurrencyManager_KJG.Instance.Gold = 300;  // ½ÃÀÛ °ñµå
-            CurrencyManager_KJG.Instance.Exp = 0;
-            CurrencyManager_KJG.Instance.Cash = 0;
-
+            CurrencyManager_KJG.Instance.SetGold(300);
+            CurrencyManager_KJG.Instance.SetExp(0);
+            CurrencyManager_KJG.Instance.SetCash(0);
             CurrencyManager_KJG.Instance.goldMultiplier = 1f;
             CurrencyManager_KJG.Instance.expMultiplier = 1f;
         }
 
         if (DifficultyManager_KJG.Instance != null)
         {
-            DifficultyManager_KJG.Instance.currentDifficultyLevel = 0;
+            DifficultyManager_KJG.Instance.LoadFromSave(0);
+        }
+
+        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RefreshUI);
+
+        Debug.Log("ğŸ†• ìƒˆ ê²Œì„ ì´ˆê¸°í™” ì™„ë£Œ");
+    }
+
+    // ====================== í¸ì˜ ê¸°ëŠ¥ (ì¹˜íŠ¸) ======================
+    [ContextMenu("ê°•ì œ ì €ì¥í•˜ê¸°")]
+    public void Cheat_Save() => GameSave();
+
+    [ContextMenu("ê°•ì œ ë¡œë“œí•˜ê¸°")]
+    public void Cheat_Load() => GameLoad();
+
+    [ContextMenu("ì„¸ì´ë¸Œ íŒŒì¼ ì‚­ì œí•˜ê¸°")]
+    public void DeleteSaveFile()
+    {
+        if (File.Exists(savePath))
+        {
+            File.Delete(savePath);
+            Debug.Log("ğŸ—‘ ì„¸ì´ë¸Œ íŒŒì¼ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
         }
     }
 }
