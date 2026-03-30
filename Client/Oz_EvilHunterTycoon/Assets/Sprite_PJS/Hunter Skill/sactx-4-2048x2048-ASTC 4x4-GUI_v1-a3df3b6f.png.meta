@@ -1,0 +1,1689 @@
+fileFormatVersion: 2
+guid: 73e0e1dec548fd84d87c3f2fcea45b4f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_20
+      rect:
+        serializedVersion: 2
+        x: 1930
+        y: 2007
+        width: 77
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81242574770d75840bc1b4e0e9a032ef
+      internalID: -2059692407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill Icon A
+      rect:
+        serializedVersion: 2
+        x: 2011
+        y: 1999
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e90ec84bb4382a04ea2ca2d09b021cfa
+      internalID: -1223786718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_73
+      rect:
+        serializedVersion: 2
+        x: 1848
+        y: 1983
+        width: 74
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a182ee6bc32e7ab41bd68bf83df7821b
+      internalID: -1139679576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_104
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 1901
+        width: 62
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c6aea752b05d7248a19786778493126
+      internalID: -1987552862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_105
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 1900
+        width: 62
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24900996d01a3154db6a025c8462fadb
+      internalID: -747524842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone C
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 1884
+        width: 69
+        height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de15eedbb02b5404bbc92c301d1c9668
+      internalID: 42191868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_110
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 1940
+        width: 78
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27a024fb54d1b634fabe5e3d5c911fdd
+      internalID: -760524871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_125
+      rect:
+        serializedVersion: 2
+        x: 1577
+        y: 1850
+        width: 83
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b46e4309d1a1474c9ce1a1b45abca90
+      internalID: 497318454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_130
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 1851
+        width: 83
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 047ad17657f07d34d9917f4d9f935b83
+      internalID: -72830651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_136
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 1811
+        width: 72
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb5721babb6e4d040a25c76b6d60b290
+      internalID: -355201069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone D
+      rect:
+        serializedVersion: 2
+        x: 1938
+        y: 1809
+        width: 68
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bee5f57084365424f8ee7458bfd4820e
+      internalID: 1893042335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_152
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 1844
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76e34f6c4801aba41a5bad5765eee9fa
+      internalID: -1124984644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_165
+      rect:
+        serializedVersion: 2
+        x: 1733
+        y: 1745
+        width: 78
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25557933dbf154c48a95a99ce5f39f82
+      internalID: 85282937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_180
+      rect:
+        serializedVersion: 2
+        x: 1821
+        y: 1746
+        width: 67
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa696198a21fcf40b00c5b60f1be0f0
+      internalID: 910377698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_183
+      rect:
+        serializedVersion: 2
+        x: 1233
+        y: 1702
+        width: 86
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d09e5d597df6514695fce19bbadf064
+      internalID: 928336829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_189
+      rect:
+        serializedVersion: 2
+        x: 1154
+        y: 1725
+        width: 50
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bd58b5a2eaa6644bb01fd512b0cb4aa
+      internalID: -153959673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_193
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 1703
+        width: 40
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e634f06796bd1849b35bff82c4a3be3
+      internalID: 1388744517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone E
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 1660
+        width: 72
+        height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7218aaa0910ce646848a69e8b8f8766
+      internalID: -712900838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone A
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 1624
+        width: 76
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c5de387b8bd9a54f952981533880c19
+      internalID: -788070749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_210
+      rect:
+        serializedVersion: 2
+        x: 1916
+        y: 1673
+        width: 26
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ef451ed62f2d0c4990c33e78bf46cf5
+      internalID: -655632996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone F
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 1565
+        width: 72
+        height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 624c2e478a9a6ed41a5327a15f41c3da
+      internalID: -1267300842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone B
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 1521
+        width: 76
+        height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a0d753e94b3d8d4498d2ff89b66eab9
+      internalID: 820707169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone H
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 1439
+        width: 72
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49025c6a578836942ac3e66cefd08012
+      internalID: -926783507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cyclone G
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 1427
+        width: 76
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a84cd202f07ceb048a4340ce4c2936ae
+      internalID: 1490956233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_296
+      rect:
+        serializedVersion: 2
+        x: 1876
+        y: 1402
+        width: 83
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e684cfb6da241c14dafc912ddb5b1c04
+      internalID: 1955621911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_382
+      rect:
+        serializedVersion: 2
+        x: 1712
+        y: 1142
+        width: 74
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0b844f20c19b164e962b3be7824b1ac
+      internalID: -1208497848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_602
+      rect:
+        serializedVersion: 2
+        x: 1997
+        y: 257
+        width: 28
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d88b224ab69c8bf40a28e2732f77fa8a
+      internalID: -1061329472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_622
+      rect:
+        serializedVersion: 2
+        x: 1997
+        y: 98
+        width: 30
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96f77c9798f89d24495dd831dc0e203f
+      internalID: 1238394645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_640
+      rect:
+        serializedVersion: 2
+        x: 1997
+        y: 2
+        width: 30
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c28465b12dc8ba419df9d29990e1408
+      internalID: 1367126686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0
+      rect:
+        serializedVersion: 2
+        x: 1929
+        y: 1281
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de0b59802fcb2ac4e9401356f0e64387
+      internalID: -404492766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1
+      rect:
+        serializedVersion: 2
+        x: 1733
+        y: 1567
+        width: 77
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 561fe1ae11e88ff4c9eecc174e8f6324
+      internalID: 1206599832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
+      rect:
+        serializedVersion: 2
+        x: 1822
+        y: 1554
+        width: 77
+        height: 81
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae00f0429a2ec64c9172d4dedd193e2
+      internalID: -401468198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill Icon C
+      rect:
+        serializedVersion: 2
+        x: 1661
+        y: 1997
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8af856d3aae6e8140a1309aa15007fd2
+      internalID: -1652146173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill Icon E
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 1765
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c07246ee6a00dbf4eb8f2ef396379132
+      internalID: -2058660683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill Icon G
+      rect:
+        serializedVersion: 2
+        x: 1994
+        y: 737
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f519a6096c2d3df41a6c1a768d278c70
+      internalID: -1506264792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill Icon F
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 1708
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69b37a88708275547a0ac7d9145c96d8
+      internalID: -696833221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_7
+      rect:
+        serializedVersion: 2
+        x: 1927
+        y: 1339
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f9ac8c395edafd4e918a2a9ee44e1ce
+      internalID: 2094757941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill Icon B
+      rect:
+        serializedVersion: 2
+        x: 1338
+        y: 1992
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6fafc599a571764e9d00c13394d8156
+      internalID: -1650256829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill Icon D
+      rect:
+        serializedVersion: 2
+        x: 1701
+        y: 1938
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ec82b57538e36d49916a179091132c7
+      internalID: -276287948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 1733
+        width: 27
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ef3276ef3da5184793a2b7f177c720f
+      internalID: 1915336374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4
+      rect:
+        serializedVersion: 2
+        x: 1990
+        y: 1034
+        width: 25
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4542eb1a4a9610541b5f8e8486e81c3a
+      internalID: -368243339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5
+      rect:
+        serializedVersion: 2
+        x: 1997
+        y: 524
+        width: 47
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2434f914837f5b74cb22d6038719866b
+      internalID: -182613258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 195
+        width: 43
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc4ca98fc9cf4f14dbd92320c922033a
+      internalID: -1419257019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Cyclone A: -788070749
+      Cyclone B: 820707169
+      Cyclone C: 42191868
+      Cyclone D: 1893042335
+      Cyclone E: -712900838
+      Cyclone F: -1267300842
+      Cyclone G: 1490956233
+      Cyclone H: -926783507
+      Skill Icon A: -1223786718
+      Skill Icon B: -1650256829
+      Skill Icon C: -1652146173
+      Skill Icon D: -276287948
+      Skill Icon E: -2058660683
+      Skill Icon F: -696833221
+      Skill Icon G: -1506264792
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: -404492766
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 1206599832
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_10: -1579676941
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_100: -1003132868
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_101: -1426515944
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_102: -1094917128
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_103: -2135775158
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_104: -1987552862
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_105: -747524842
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_107: 1795138434
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_108: 105367307
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_109: -117942172
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_11: 499262659
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_110: -760524871
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_111: -922103165
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_112: 350573863
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_113: -685698968
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_114: 144390513
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_115: 1089137380
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_116: 961811715
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_117: -32665717
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_118: -1147761273
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_119: 1714098620
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_12: -837619235
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_120: -2141947599
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_121: -312262481
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_122: -875952464
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_123: 1575985245
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_124: -227053465
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_125: 497318454
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_126: -86459952
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_127: -1855103779
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_128: -498750556
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_129: -159006108
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_13: 1030618059
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_130: -72830651
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_131: 33794368
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_132: -617940600
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_133: 536982973
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_134: -802793514
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_135: 657485334
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_136: -355201069
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_137: -565263243
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_139: 42613354
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_14: -705728148
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_140: -180990395
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_141: 341294751
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_142: 1275345287
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_143: 1638737992
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_144: 1715219503
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_145: 130181698
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_146: -1570428127
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_147: 1250935046
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_148: 871738497
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_149: -438264134
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_15: 388910033
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_150: 382573324
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_151: 1213268226
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_152: -1124984644
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_153: 1035216934
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_154: 1429279741
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_155: 357977488
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_156: -159904026
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_157: -542770845
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_158: -1268646256
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_159: -35650103
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_16: 1529471866
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_160: 796610308
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_161: -1281865385
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_162: 2124607421
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_163: -1491859134
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_164: 217987374
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_165: 85282937
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_166: 490875843
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_167: 50266316
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_168: -1637834077
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_169: 842869130
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_17: -51633230
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_170: -1471608046
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_171: 1253470157
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_172: 1354615631
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_173: 590710908
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_174: 1325653200
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_175: 510481345
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_176: -718382291
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_177: 1014179936
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_178: -1018484687
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_179: -913363458
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_18: 26103783
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_180: 910377698
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_181: 1518300269
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_182: -836062113
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_183: 928336829
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_184: -584793943
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_185: -1248867480
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_186: -1933159350
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_187: -1975280975
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_188: 494269483
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_189: -153959673
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_19: -1684929697
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_190: 2001424965
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_191: 155227631
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_192: -70898985
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_193: 1388744517
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_194: 580563898
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_196: 1840238569
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_197: 1306298089
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_198: 1166149905
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_199: -1656118842
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2: -401468198
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_20: -2059692407
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_200: -892493748
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_201: 573820313
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_202: 229646915
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_203: -493025057
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_204: -853773281
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_206: -818526134
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_207: 1266386311
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_208: 3596354
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_209: -478414634
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_21: 1629707823
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_210: -655632996
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_211: -257356984
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_212: -410104183
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_213: 1899281625
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_214: 2116439803
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_215: -1219058921
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_216: -23180337
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_217: 1589950159
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_218: -14765508
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_219: 1348307601
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_22: 951726739
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_220: -532335078
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_221: -513643788
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_222: 297476400
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_223: -747458462
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_224: -704288707
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_225: -709013646
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_226: -1395106729
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_227: 689931966
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_228: -524850564
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_229: -1571065713
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_23: -1632218621
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_230: 251233983
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_231: -1314658808
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_232: 1493196422
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_233: -1136534289
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_234: -1732259747
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_235: 1822485704
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_236: 898376476
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_237: -696896225
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_238: -1436783608
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_24: 1450523045
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_240: -1171944539
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_241: -1117649275
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_242: 1166587967
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_244: -1018438315
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_245: -1764483164
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_246: 1720570067
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_247: -1282808168
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_248: 938596834
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_249: -195781843
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_25: -1459350406
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_250: -1160543396
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_251: 624300061
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_252: -165676320
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_253: -1617965786
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_254: -2049048616
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_255: -108636591
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_256: 337887387
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_257: 1642501391
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_258: 1230389306
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_259: -2011703085
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_26: 851065776
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_260: -1637739549
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_261: -1553723542
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_262: 35266939
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_263: -2086502718
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_264: 867044740
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_265: -1622152627
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_266: -69479788
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_267: -881883263
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_268: 170787140
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_269: 1158789984
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_27: -1470614100
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_270: 1525986981
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_271: -1553358121
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_272: -1870359596
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_273: 210531861
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_275: 313658870
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_276: 1753045826
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_277: 772978052
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_278: -57923311
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_279: 1649575486
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_28: 1053028745
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_280: 1609172511
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_281: -1787415362
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_282: -1424321844
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_283: 387218885
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_284: -493129735
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_285: -24097531
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_286: -2111758238
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_287: 2047662842
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_289: 82027448
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_29: 762685862
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_290: 496232361
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_291: -70011178
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_292: 444545842
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_293: -1179833102
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_294: 1560591110
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_295: -444147694
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_296: 1955621911
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_297: -1492690394
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_298: 2085955229
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_299: -1126008291
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3: 1915336374
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_30: -1723705572
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_300: 1177499700
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_301: 2021407489
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_302: 1402742924
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_303: -2040100900
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_304: 883116193
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_305: 1622523831
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_306: 1715298109
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_307: -517755436
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_308: 1138726804
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_309: 979516751
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_31: 1624857427
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_310: -913973557
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_311: -1728487122
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_312: -857395015
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_313: 513795390
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_314: 496547698
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_315: -810036450
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_316: -934932150
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_317: 1922892807
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_318: 41490199
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_319: 743226875
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_32: -1896005619
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_320: 383295490
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_321: 195309172
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_322: -1046496905
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_323: -17718174
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_324: -1548564536
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_325: 1893174928
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_326: 434136762
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_327: -967870205
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_328: -386338768
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_329: -608566173
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_33: 65881186
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_330: 1898326199
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_331: -292478886
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_332: -1638481177
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_333: 1746110238
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_334: 816867197
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_335: -850513219
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_336: 2070207942
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_337: 416691671
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_338: 1424848901
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_339: 595143923
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_34: 446597610
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_340: 468826986
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_341: -1906265213
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_342: 321849313
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_343: 833269506
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_344: 1565497271
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_345: 1204544785
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_346: -1304340608
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_347: -767074718
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_348: 1654556824
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_349: -793497640
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_35: -2093093927
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_350: -1514047728
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_351: -1349228762
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_352: -1631340010
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_353: 947615590
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_354: -1894132700
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_355: -865978454
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_356: -707329669
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_357: 304446538
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_358: -1886023514
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_359: 1827119699
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_36: -159141119
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_360: -210315080
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_361: 1680114574
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_362: -670970816
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_363: -869012567
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_364: -1039908147
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_365: -126663883
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_366: 1336333890
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_367: 2099042565
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_368: 1136684423
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_369: 1681460020
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_37: -1630841340
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_370: 1363906841
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_371: -20904104
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_372: -102591454
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_373: -1871606374
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_374: 2090384156
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_375: -460154649
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_376: 1919774658
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_377: 724551527
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_378: -541574086
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_379: 1439213110
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_38: 732728810
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_380: 1823401468
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_381: -536538183
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_382: -1208497848
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_383: 373054341
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_384: -842625415
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_385: 1961443720
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_386: -832839430
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_387: 1005676412
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_388: -1295936872
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_389: 35176888
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_39: 1943855738
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_390: 297504634
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_391: 856706598
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_392: 1589942393
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_393: 830165190
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_394: -78531505
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_395: 1901617339
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_396: 1208447674
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_397: 545679648
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_398: -1778787783
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_399: 1468477998
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: -368243339
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_40: -703868404
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_400: -1329224736
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_401: -2084675559
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_402: -1156060831
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_403: 1593922843
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_404: 1571714379
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_405: 1145888272
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_406: -1690580982
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_407: -1357516257
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_408: 432981139
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_409: 176292676
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_41: 890254952
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_410: 1202192960
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_411: 1489392629
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_412: -251447744
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_413: -1234232566
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_414: -1858858741
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_415: -1004669714
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_416: -998886262
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_417: -893106493
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_418: 795361266
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_419: 1803318354
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_42: 1588285566
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_420: 1613942080
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_421: -2118331273
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_422: -146178049
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_423: 1399775421
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_424: -471423004
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_425: -2091247184
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_426: 823762709
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_427: -1192277513
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_428: 1570004181
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_429: -1119209247
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_43: 1867024690
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_430: 1731139633
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_431: 933644544
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_432: 369202062
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_433: -1343700643
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_434: 636540956
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_435: 734402843
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_436: 925137785
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_437: -398731267
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_438: -1501287537
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_439: -657801105
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_44: -1150801673
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_440: -784088455
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_441: 251273001
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_442: 201513730
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_443: 822573504
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_444: -521065441
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_445: -1205404572
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_446: -829645284
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_447: -52872793
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_448: 1911672682
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_449: -2041424238
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_45: 681213151
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_450: 696512204
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_451: 580332897
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_452: -1848360614
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_453: 541407932
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_454: 761661273
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_455: -2061919639
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_456: -875178689
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_457: -640241692
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_458: -1252859524
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_459: -1243956585
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_46: -1122794963
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_460: 715043794
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_461: 650214210
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_462: -348533335
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_463: 1053954172
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_464: -159390217
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_465: -856473916
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_466: -1037739138
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_467: -1794302422
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_468: 293210422
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_469: 1283937046
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_47: -2111977519
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_470: -1198893279
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_471: 457210621
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_472: 1372271338
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_473: -1310071335
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_474: -128700753
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_475: 1523051229
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_476: -1332509046
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_477: 2102899683
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_478: 209375653
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_479: 1588066061
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_48: 1543120137
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_480: 1820888995
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_481: 1632607245
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_482: 1496288742
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_483: 1133360306
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_484: 556504955
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_485: 822040772
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_486: -1104798504
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_487: -1499109894
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_488: -801833343
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_489: -1789453620
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_49: -1135934113
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_490: 1118610628
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_491: -1995179977
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_492: 1422654363
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_493: -969738587
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_494: 1174332769
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_495: -1144820460
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_496: 3927867
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_497: -355049770
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_498: -1518853924
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_499: 25902801
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5: -182613258
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_50: -604378764
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_500: 1161140346
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_501: -1730492993
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_502: -377440828
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_503: -354282265
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_504: 1340554389
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_505: 1877573372
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_506: 1218476375
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_507: 816266879
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_508: -1291946621
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_509: 1953601966
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_510: -294351556
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_511: 34258544
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_512: 1890579857
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_513: -348814354
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_514: 1272704250
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_515: 418550426
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_516: 850071845
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_517: 773426589
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_518: 891942383
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_519: -925649670
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_52: -518351775
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_520: 1932088032
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_521: 1486617758
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_522: -491860540
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_523: -1384721702
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_524: 190242121
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_525: 310255838
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_526: 674819041
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_527: -371695588
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_528: -297486364
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_529: -116449726
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_53: 1573325949
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_530: -1036605435
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_531: 907918033
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_532: -235531457
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_533: 1036633078
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_534: -615583779
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_535: 393686908
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_536: -1915662473
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_537: 1112478793
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_538: -1286990671
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_539: 273258859
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_54: 931409833
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_540: 1265987340
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_541: 1128149502
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_542: 630120175
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_543: 47302002
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_544: -434496624
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_545: -1445555054
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_546: -1679199760
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_547: 261423109
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_548: -1490205315
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_549: -1987446227
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_55: -1061221309
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_550: -549851984
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_551: -1001738978
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_552: 220182312
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_553: 127371758
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_554: -681007209
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_555: -1801038730
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_556: 1819460205
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_557: 1124189704
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_558: 260093384
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_559: -941509449
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_56: 516603757
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_560: -1689249439
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_561: 1300088513
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_562: 2040205363
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_563: 928059653
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_564: -735951939
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_565: 908203107
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_566: 2078812656
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_567: -147198039
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_568: -859237881
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_569: 863250637
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_57: 206853
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_570: -369199882
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_571: 2137427139
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_572: -513250834
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_573: -2015211804
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_574: 1746637011
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_575: -327644470
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_576: 2016528853
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_577: 1065074632
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_578: -1315248515
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_579: 1109113536
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_58: 1203554301
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_580: 1566595963
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_581: 621503575
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_582: -1197242590
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_583: -1771399633
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_584: -1299487418
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_585: -1390524723
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_586: -328085732
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_587: -1530285075
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_588: -227559626
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_589: 1517036955
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_59: 937151921
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_590: 1579168908
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_591: 600492060
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_592: 754290174
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_593: -1212944279
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_594: 1546710171
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_595: 1770651008
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_596: 1534661689
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_597: 572800093
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_598: -333058045
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_599: 1234549038
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6: -1419257019
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_60: -1734600625
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_600: -1825211516
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_601: 1427585964
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_602: -1061329472
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_603: 1693856655
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_604: -475017404
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_605: 163380338
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_606: 1880240416
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_607: 13070313
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_608: -945643386
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_609: -909445885
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_61: 1896875847
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_610: 1945431287
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_611: 1268054453
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_612: 416006365
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_613: -1514441161
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_614: 2092331496
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_615: 487767539
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_616: -1897813640
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_617: 1520772281
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_618: -269256253
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_619: 567561145
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_62: -328052135
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_620: 560646072
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_621: 1747259600
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_622: 1238394645
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_623: 1496673784
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_624: 1244317265
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_625: -1571691583
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_626: -243675175
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_627: -1289010240
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_628: 713584212
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_629: 978330051
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_63: 839979895
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_630: -1450465351
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_631: 869141214
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_632: 1171729803
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_633: 2029727816
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_634: 1225616206
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_635: -2023538826
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_636: -1135116418
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_637: -1466749420
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_638: 2071455505
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_639: -1528495040
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_64: 330916294
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_640: 1367126686
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_641: 1900237320
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_65: -199417885
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_66: 94173125
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_67: 668488561
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_68: 1066863548
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_69: -880762757
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_7: 2094757941
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_70: 273402124
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_71: -1964480466
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_72: 1395471271
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_73: -1139679576
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_74: -1450939994
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_75: 311189932
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_76: -1648031920
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_77: 186974658
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_78: 424820095
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_79: 2088914089
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_80: -1592546920
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_81: -964828841
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_82: 1944687197
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_83: 384447317
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_84: 1512872155
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_85: 341294264
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_86: 187034945
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_87: -782079815
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_88: -881816080
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_89: 552572277
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_90: 861198106
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_91: -377587691
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_92: 144267015
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_93: -39437812
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_94: -1651417108
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_95: -1134395974
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_96: 1103873131
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_97: 405668259
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_98: 473444212
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_99: -1218898219
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

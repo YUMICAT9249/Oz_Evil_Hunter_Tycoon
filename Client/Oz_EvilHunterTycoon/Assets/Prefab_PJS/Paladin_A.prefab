@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 1937194379421797426}
   m_Layer: 0
   m_Name: Paladin_A
-  m_TagString: Untagged
+  m_TagString: Hunter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
