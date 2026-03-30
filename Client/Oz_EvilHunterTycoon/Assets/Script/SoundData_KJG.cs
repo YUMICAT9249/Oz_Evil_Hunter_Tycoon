@@ -1,21 +1,61 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-[CreateAssetMenu(fileName = "SoundData", menuName = "Audio/SoundData")]
-public class SoundData : ScriptableObject
+[CreateAssetMenu(fileName = "SoundData_KJG", menuName = "Audio/Sound Data_KJG")]
+public class SoundData_KJG : ScriptableObject
 {
-    public string soundId;          // 고유 키(string으로 간단하게 호출하기위함)
-    public AudioClip clip;          //오디오 클립 끌어다 놓기
-    public AudioMixerGroup mixerGroup;  // BGM(배경음악) / SFX(효과음) / UI(버튼,알림) 중 하나 끌어다 놓기
+    [Header("기본 정보")]
+    [Tooltip("사운드를 호출할 때 사용할 고유 ID (예: button_click, enemy_hit)")]
+    public string soundId;
 
-    [Range(0f, 1f)] public float volume = 1f;
-    [Range(0.5f, 2f)] public float pitch = 1f;  //재생속도,음높이 1=정상,0.5=느리고 낮음,2=빠르고 높음
-    public bool loop = false;                   //반복 재생할지 여부
+    [Tooltip("재생할 오디오 클립")]
+    public AudioClip clip;
 
-    // 같은 사운드가 여러개날때 단조로움을 방지하기위한 스크립트(효과음용)
-    [Header("Random Pitch Variation (SFX용)")]
-    public bool randomizePitch = false;                         //randomizePitch = true → pitch ± pitchRandomRange 범위에서 랜덤
-    [Range(0f, 0.5f)] public float pitchRandomRange = 0.1f;     //필요하면 사용
+    [Header("오디오 설정")]
+    [Tooltip("이 사운드가 속할 Mixer Group (BGM / SFX / UI 등)")]
+    public AudioMixerGroup mixerGroup;
+
+    [Range(0f, 1f)]
+    [Tooltip("기본 볼륨")]
+    public float volume = 1f;
+
+    [Range(0.5f, 2f)]
+    [Tooltip("기본 피치 (1 = 정상 속도)")]
+    public float pitch = 1f;
+
+    [Tooltip("루프 재생 여부 (BGM은 true, 대부분 SFX는 false)")]
+    public bool loop = false;
+
+    [Header("랜덤 변동 (단조로움 방지 - SFX 추천)")]
+    [Tooltip("피치 랜덤화 여부")]
+    public bool randomizePitch = false;
+
+    [Range(0f, 0.5f)]
+    [Tooltip("피치 변동 범위 (± 값)")]
+    public float pitchRandomRange = 0.1f;
+
+    [Tooltip("볼륨도 약간 랜덤하게 하고 싶을 때")]
+    public bool randomizeVolume = false;
+
+    [Range(0f, 0.2f)]
+    public float volumeRandomRange = 0.05f;
+
+    // ==================== 유틸리티 메서드 ====================
+    public AudioClip GetClip() => clip;
+
+    public float GetVolume()
+    {
+        float finalVolume = volume;
+        if (randomizeVolume)
+            finalVolume += Random.Range(-volumeRandomRange, volumeRandomRange);
+        return Mathf.Clamp01(finalVolume);
+    }
+
+    public float GetPitch()
+    {
+        float finalPitch = pitch;
+        if (randomizePitch)
+            finalPitch += Random.Range(-pitchRandomRange, pitchRandomRange);
+        return Mathf.Clamp(finalPitch, 0.5f, 2f);
+    }
 }
