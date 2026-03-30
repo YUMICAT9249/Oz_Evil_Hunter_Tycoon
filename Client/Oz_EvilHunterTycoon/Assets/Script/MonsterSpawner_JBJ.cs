@@ -14,6 +14,9 @@ public class MonsterSpawner_JBJ : MonoBehaviour
     public float spawnInterval = 5f;
     public int maxMonsterCount = 13;
 
+    public Vector3 spawnAreaMin = new Vector3(-2, -2, 0);
+    public Vector3 spawnAreaMax = new Vector3(2, 2, 0);
+
     private float timer;
     private int currentCount;
     private int killCount;
@@ -69,6 +72,9 @@ public class MonsterSpawner_JBJ : MonoBehaviour
         Monster_JBJ m = monster.GetComponent<Monster_JBJ>();
         m.Init(this, MonsterType.Normal);
 
+        m.minBounds = transform.position + spawnAreaMin;
+        m.maxBounds = transform.position + spawnAreaMax;
+
         currentCount++;
     }
 
@@ -80,6 +86,9 @@ public class MonsterSpawner_JBJ : MonoBehaviour
 
         Monster_JBJ m = monster.GetComponent<Monster_JBJ>();
         m.Init(this, MonsterType.Unique);
+
+        m.minBounds = transform.position + spawnAreaMin;
+        m.maxBounds = transform.position + spawnAreaMax;
     }
 
     public void OnMonsterDead(MonsterType type)

@@ -7,7 +7,7 @@ public class Battle_JBJ_PJS : MonoBehaviour
 {
     private HunterData_PJS _hunterData;
     private HunterController_PJS _hunterController;
-    // 몬스터 ~~ 
+    private Monster_JBJ _monsterController;
 
     // 누가, 누굴, float 만큼의 데미지로 때렸나
     public static Action<GameObject, GameObject, float> UnitAttack;
@@ -16,18 +16,22 @@ public class Battle_JBJ_PJS : MonoBehaviour
     {
         _hunterData = GetComponent<HunterData_PJS>();
         _hunterController = GetComponent<HunterController_PJS>();
-        // 몬스터 ~~
+        _monsterController = GetComponent<Monster_JBJ>();
 
         if (_hunterData == null)
         {
             Debug.LogError("HunterData 연결 안됨", gameObject);
         }
+
         if (_hunterController == null)
         {
             Debug.LogError("HunterController 연결 안됨", gameObject);
         }
 
-        // 몬스터 ~~
+        if (_monsterController == null)
+        {
+            Debug.LogError("MonsterController 연결 안됨", gameObject);
+        }
     }
     
     public void TakeDamage()
