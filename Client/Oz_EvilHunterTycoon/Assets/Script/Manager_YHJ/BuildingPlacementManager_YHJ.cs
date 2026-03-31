@@ -306,10 +306,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         previewRenderers.Clear();
         previewRoot = new GameObject("PreviewRoot");
 
-        // 고스트 생성
         previewInstance = Instantiate(data.prefab, previewRoot.transform);
-
-        // UI 생성
         previewUI = Instantiate(previewUIPrefab, previewRoot.transform);
 
         var buttons = previewUI.GetComponentsInChildren<ButtonWorld_YHJ>();
@@ -318,17 +315,14 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         {
             if (btn.name == "BuildUIButton")
                 btn.buttonType = ButtonWorld_YHJ.ButtonType.Build;
-
             else if (btn.name == "BuildCancelButton")
                 btn.buttonType = ButtonWorld_YHJ.ButtonType.Cancel;
-
             else if (btn.name == "RotateBuildingButton")
                 btn.buttonType = ButtonWorld_YHJ.ButtonType.Rotate;
         }
 
         var renderers = previewInstance.GetComponentsInChildren<SpriteRenderer>(true);
 
-        // 회전 버튼 ON/OFF
         var ui = previewUI.GetComponent<PreviewUI_YHJ>();
         ui.Setup(data.canRotate && !data.isRoad, this);
 
@@ -343,31 +337,54 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             r.sortingLayerID = SortingLayer.NameToID("Building");
             r.sortingOrder = 10;
             r.color = new Color(0, 1, 0, 0.5f);
-            r.flipX = false; // 초기화
-
+            r.flipX = false;
             previewRenderers.Add(r);
         }
 
         GameObject hitObj = new GameObject("HitArea");
-        hitObj.transform.SetParent(previewRoot.transform);
+        hitObj.transform.SetParent(previewInstance.transform);
         hitObj.transform.localPosition = Vector3.zero;
 
         BoxCollider2D col = hitObj.AddComponent<BoxCollider2D>();
         col.isTrigger = true;
 
-        Bounds bounds = renderers[0].bounds;
+        buildingSize = data.size;
 
+        float width = grid.cellSize.x * buildingSize.x;
+        float baseHeight = grid.cellSize.y * buildingSize.y;
+        float baseYOffset = (buildingSize.y - 1) * grid.cellSize.y * 0.5f;
+
+        float extraYOffset = 0f;
+        float heightMultiplier = 1f;
+
+        if (buildingSize.y == 1)
+        {
+            extraYOffset = 0.2f;
+            heightMultiplier = 1.6f;
+        }
+        else if (buildingSize.y == 2)
+        {
+            extraYOffset = 0.4f;
+            heightMultiplier = 2.0f;
+        }
+        else if (buildingSize.y >= 3)
+        {
+            extraYOffset = 0.4f;
+            heightMultiplier = 1.7f;
+        }
+
+        col.size = new Vector2(width, baseHeight * heightMultiplier);
+        col.offset = new Vector2(0f, baseYOffset + extraYOffset);
+
+        Bounds bounds = renderers[0].bounds;
         foreach (var r in renderers)
         {
             bounds.Encapsulate(r.bounds);
         }
 
-        float offsetY = bounds.min.y - previewRoot.transform.position.y - 0.3f;
-        previewUI.transform.localPosition = new Vector3(0, offsetY, 0);
-
-        buildingSize = data.size;
-        col.size = new Vector2(grid.cellSize.x * buildingSize.x, grid.cellSize.y * buildingSize.y);
-        col.offset = Vector2.zero;
+        float uiPadding = 0.3f;
+        float colliderBottom = col.offset.y - (col.size.y * 0.5f);
+        previewUI.transform.localPosition = new Vector3(0, colliderBottom - uiPadding, 0);
 
         isPlacing = true;
         UpdatePreviewPosition();
