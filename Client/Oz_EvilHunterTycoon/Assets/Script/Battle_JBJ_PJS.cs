@@ -8,7 +8,7 @@ public class Battle_JBJ_PJS : MonoBehaviour
 {
     // 누가, 누굴, float 만큼의 데미지로 때렸나
     public static Action<GameObject, GameObject, float> UnitAttack;
-    
+
     // [1] 타격 실행
     public void GiveDamage(GameObject target)
     {
@@ -18,7 +18,7 @@ public class Battle_JBJ_PJS : MonoBehaviour
 
         // 헌터 공격
         if (TryGetComponent(out HunterData_PJS hunterData))
-        { 
+        {
             damage = hunterData.GetAttackDamage();
         }
 
@@ -69,7 +69,7 @@ public class Battle_JBJ_PJS : MonoBehaviour
             Debug.Log($"{gameObject.name}이 {attacker.name}에게 {finalDamage}만큼 피해 입음. 남은 HP {hunterData._currentHP}");
             // 사망 체크
             if (hunterData._currentHP <= 0)
-            { 
+            {
                 hunterData._currentHP = 0;
                 Die();
             }
