@@ -680,9 +680,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalMonsters:
-  - {fileID: 6698325660374546701, guid: a8d841f03a2d30941ab3e198ee748c2f, type: 3}
-  - {fileID: 6698325660374546701, guid: 2aa03a32f91e2a64a90d8e9ef70a966d, type: 3}
-  uniqueMonster: {fileID: 6698325660374546701, guid: 9a4a1e65171a64f47880d437b57068f8, type: 3}
+  - {fileID: 6698325660374546701, guid: b1c409bf10c62c04fbd1ee047999e6d9, type: 3}
+  - {fileID: 6698325660374546701, guid: 6fd48acc18311e04f98182228fb9ee79, type: 3}
+  uniqueMonster: {fileID: 6698325660374546701, guid: a78633d4631d78b4db0902051379889a, type: 3}
   monsterData: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   spawnInterval: 5
   maxMonsterCount: 7
