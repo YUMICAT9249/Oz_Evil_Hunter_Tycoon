@@ -103,6 +103,19 @@ public class HunterData_PJS : MonoBehaviour
         }
     }
 
+    // 공격속도 최대치 제한
+    public void MaxAttackCooldown(float newCooldown)
+    {
+        if (newCooldown < 0.25f)
+        {
+            _attackCooldown = 0.25f;
+        }
+        else
+        { 
+            _attackCooldown = newCooldown;
+        }
+    }
+
     // 헌터가 스폰된 후 헌터 데이터 세팅
     public void SettingHunterData(HunterJop jop)
     {
