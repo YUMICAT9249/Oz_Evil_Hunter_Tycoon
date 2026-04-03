@@ -197,9 +197,9 @@ TextureImporter:
       name: sactx-0-2048x2048-ASTC 4x4-BUILDING_v1-e978436b_4
       rect:
         serializedVersion: 2
-        x: 565
+        x: 574
         y: 1879
-        width: 182
+        width: 173
         height: 94
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -2025,9 +2025,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1792
-        y: 995
+        y: 1007
         width: 168
-        height: 117
+        height: 105
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
