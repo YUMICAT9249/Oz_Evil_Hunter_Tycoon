@@ -955,11 +955,11 @@ TextureImporter:
         serializedVersion: 2
         x: 555
         y: 1195
-        width: 369
+        width: 367
         height: 277
       alignment: 7
       pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 3, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1103,7 +1103,7 @@ TextureImporter:
         x: 1761
         y: 930
         width: 219
-        height: 206
+        height: 203
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
