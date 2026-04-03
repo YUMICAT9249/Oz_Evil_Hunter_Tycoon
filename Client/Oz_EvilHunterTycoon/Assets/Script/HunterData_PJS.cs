@@ -29,8 +29,15 @@ public enum HunterRank
 
 public class HunterData_PJS : MonoBehaviour
 {
-    public static Action<GameObject, GameObject, float> OnHunterAttack;
-    public static Action OnHunterDie;
+    public float CurrentHp
+    {
+        get => _currentHP;
+        set
+        { 
+            _currentHP = value;
+            OnHpChanged?.Invoke(_currentHP, _maxHP);
+        }
+    }
 
     [Header("기본 데이터 참조")]
     public UnitData_JBJ_PJS _unitData;
@@ -76,6 +83,9 @@ public class HunterData_PJS : MonoBehaviour
     private List<string> rangerNames = new List<string> { "카이즈", "바레인", "크리샤" };
     private List<string> sorcererNames = new List<string> { "라글라스", "두아트린", "브리디도" };
 
+    public Action<float, float> OnHpChanged;
+    public static Action OnHunterDie;
+
     private void Awake()
     {
         if (_unitData == null)
@@ -103,17 +113,15 @@ public class HunterData_PJS : MonoBehaviour
         }
     }
 
-    // 공격속도 최대치 제한
-    public void MaxAttackCooldown(float newCooldown)
+    // 스탯 뽑기 확률 함수
+    private int GetRandomScore()
     {
-        if (newCooldown < 0.25f)
-        {
-            _attackCooldown = 0.25f;
-        }
-        else
-        { 
-            _attackCooldown = newCooldown;
-        }
+        int randomScore = UnityEngine.Random.Range(0, 100);
+
+        if (randomScore < 40) return 0;      // 40% 흰색
+        else if (randomScore < 70) return 1; // 30% 파란색
+        else if (randomScore < 90) return 2; // 20% 주황색
+        else return 3;                       // 10% 보라색
     }
 
     // 헌터가 스폰된 후 헌터 데이터 세팅
@@ -130,33 +138,10 @@ public class HunterData_PJS : MonoBehaviour
         // 버서커를 기본값으로 넣음
         List<string> hunterNameList = beserkerNames;
 
-        if (_hunterJop == HunterJop.Paladin)
-        {
-            hunterNameList = paladinNames;
-        }
-
-        else if (_hunterJop == HunterJop.Ranger)
-        {
-            hunterNameList = rangerNames;
-        }
-
-        else if (_hunterJop == HunterJop.Sorcerer)
-        {
-            hunterNameList = sorcererNames;
-        }
-
+        if (_hunterJop == HunterJop.Paladin) { hunterNameList = paladinNames; }
+        else if (_hunterJop == HunterJop.Ranger) { hunterNameList = rangerNames; }
+        else if (_hunterJop == HunterJop.Sorcerer) { hunterNameList = sorcererNames; }
         _hunterNameList = hunterNameList[UnityEngine.Random.Range(0, hunterNameList.Count)];
-    }
-
-    // 스탯 뽑기 확률 함수
-    private int GetRandomScore()
-    {
-        int randomScore = UnityEngine.Random.Range(0, 100);
-
-        if (randomScore < 40) return 0;      // 40% 흰색
-        else if (randomScore < 70) return 1; // 30% 파란색
-        else if (randomScore < 90) return 2; // 20% 주황색
-        else return 3;                       // 10% 보라색
     }
 
     // 점수별 스탯 추가 / 매개변수 사용 => 유지보수, 하나의 함수로 해결가능
@@ -186,37 +171,17 @@ public class HunterData_PJS : MonoBehaviour
         return baseValue;
     }
 
-
     // 스탯 점수 합산 / 등급 결정
     public void RankScore()
     {
         _totalScore = _hpScore + _damageScore + _defenceScore + _criticalChanceScore + _dodgeChanceScore + _attackCooldownScore + _moveSpeedScore;
 
-        if (_totalScore <= 1)
-        {
-            _hunterRank = HunterRank.Normal;
-        }
-        else if (_totalScore <= 5)
-        {
-            _hunterRank = HunterRank.Rare;
-        }
-        else if (_totalScore <= 9)
-        {
-            _hunterRank = HunterRank.Superior;
-        }
-        else if (_totalScore <= 13)
-        {
-            _hunterRank = HunterRank.Heroic;
-        }
-        else if (_totalScore <= 17)
-        {
-            _hunterRank = HunterRank.Legendary;
-        }
-        else
-        {
-            // 확장 개념으로 넣어둠(현시점에서 사용x)
-            _hunterRank = HunterRank.Ultimate;
-        }
+        if (_totalScore <= 1) { _hunterRank = HunterRank.Normal; }
+        else if (_totalScore <= 5) { _hunterRank = HunterRank.Rare; }
+        else if (_totalScore <= 9) { _hunterRank = HunterRank.Superior; }
+        else if (_totalScore <= 13) { _hunterRank = HunterRank.Heroic; }
+        else if (_totalScore <= 17) { _hunterRank = HunterRank.Legendary; }
+        else { _hunterRank = HunterRank.Ultimate; }
     }
 
     // 랜덤 스탯 생성 + 최종 스탯 계산
@@ -230,7 +195,6 @@ public class HunterData_PJS : MonoBehaviour
         _dodgeChanceScore = GetRandomScore();
         _attackCooldownScore = GetRandomScore();
         _moveSpeedScore = GetRandomScore();
-
         // 2. 등급 계산
         RankScore();
         // 3. 최종 스탯 계산
@@ -279,7 +243,7 @@ public class HunterData_PJS : MonoBehaviour
     public float GetDefence() => _defence;
     public float GetCriticalChance() => _criticalChance;
     public float GetDodgeChance() => _dodgeChance;
-    public float GetAttackCooldown() => _attackCooldown;
+    public float GetAttackCooldown() => Mathf.Max(0.25f, _attackCooldown);
     public float GetMoveSpeed() => _moveSpeed;
     #endregion
 }
