@@ -123,57 +123,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0
-      rect:
-        serializedVersion: 2
-        x: 1997
-        y: 1809
-        width: 38
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8edc03f4ec912804ab33b9c463017096
-      internalID: 12956498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1
-      rect:
-        serializedVersion: 2
-        x: 2000
-        y: 1565
-        width: 40
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 35a0ae0390c8dbd41b52246613f9ae31
-      internalID: -425764966
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
+      name: Effect-Thunderbolt1
       rect:
         serializedVersion: 2
         x: 1998
         y: 1303
         width: 26
         height: 76
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,69 +139,6 @@ TextureImporter:
       bones: []
       spriteID: e46edec49bc931942964da66cf3dd43f
       internalID: 1988521889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3
-      rect:
-        serializedVersion: 2
-        x: 1931
-        y: 1238
-        width: 32
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3f2b9c754f7ee744fa204f81f0b9dd9b
-      internalID: 707929031
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4
-      rect:
-        serializedVersion: 2
-        x: 2009
-        y: 530
-        width: 24
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e58aad3ee251e234a82711eb403fc181
-      internalID: 1894469726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5
-      rect:
-        serializedVersion: 2
-        x: 2008
-        y: 438
-        width: 27
-        height: 81
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b97bdd7d4335e14da87164b55af0849
-      internalID: 1090232678
       vertices: []
       indices: 
       edges: []
@@ -257,7 +152,7 @@ TextureImporter:
         width: 48
         height: 41
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -280,12 +175,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Effect-Thunderbolt1: 1988521889
+      Effect-Thunderbolt2: 707929031
+      Effect-Thunderbolt3: 1894469726
+      Effect-Thunderbolt4: 1090232678
       sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: 12956498
       sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: -425764966
-      sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2: 1988521889
-      sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3: 707929031
-      sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: 1894469726
-      sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5: 1090232678
       sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6: -1324023432
       sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_7: -1348011245
       sactx-3-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_8: -69818642

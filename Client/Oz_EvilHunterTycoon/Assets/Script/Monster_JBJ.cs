@@ -46,6 +46,8 @@ public class Monster_JBJ : MonoBehaviour
     MonsterSpawner_JBJ spawner;
     MonsterType type;
 
+    Battle_JBJ_PJS battle;
+
     public void Init(MonsterSpawner_JBJ spawner, MonsterType type)
     {
         this.spawner = spawner;
@@ -59,6 +61,8 @@ public class Monster_JBJ : MonoBehaviour
         renderers = GetComponentsInChildren<SpriteRenderer>();
 
         animator = GetComponent<Animator>();
+
+        battle = GetComponent<Battle_JBJ_PJS>();
 
         FindHunter();
 
@@ -257,14 +261,9 @@ public class Monster_JBJ : MonoBehaviour
 
         Debug.Log("Monster attacks (Hunter)");
 
-        // 헌터 스크립트 만들어지면 활성화
-        /*
-        var hunterComponent = Hunter.GetComponent<Hunter>(); 
-        if (hunterComponent != null)
-        {
-            hunterComponent.TakeDamage(data.attackDamage);
-        }
-        */
+        if (Hunter == null || battle == null) return;
+
+        battle.GiveDamage(Hunter.gameObject);
     }
 
     public void TakeDamage(float damage)
@@ -277,7 +276,7 @@ public class Monster_JBJ : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         if (spawner != null)
         {
