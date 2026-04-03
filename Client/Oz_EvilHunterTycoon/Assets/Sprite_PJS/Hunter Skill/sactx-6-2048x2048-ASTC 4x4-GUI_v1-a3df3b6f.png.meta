@@ -165,7 +165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
+      name: Icon-Sorcerer1-Thunderbolt
       rect:
         serializedVersion: 2
         x: 1438
@@ -186,7 +186,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3
+      name: Icon-Sorcerer3-SummonFamiliar
       rect:
         serializedVersion: 2
         x: 1679
@@ -207,28 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4
-      rect:
-        serializedVersion: 2
-        x: 1459
-        y: 1588
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ccf655638e19dda49a2749a0abd625d0
-      internalID: 1825644563
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5
+      name: Icon-Ranger2-RainPall
       rect:
         serializedVersion: 2
         x: 1088
@@ -249,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_7
+      name: Icon-Ranger3-MisticArrow
       rect:
         serializedVersion: 2
         x: 1719
@@ -270,7 +249,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_8
+      name: Icon-Paladin2-DarkWeapon
       rect:
         serializedVersion: 2
         x: 1331
@@ -291,7 +270,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6
+      name: Icon-Paladin2-SilverWeapon
       rect:
         serializedVersion: 2
         x: 1748
@@ -417,13 +396,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_14
+      name: Effect-IceAmor1
       rect:
         serializedVersion: 2
         x: 530
-        y: 196
+        y: 195
         width: 26
-        height: 13
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -480,7 +459,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_17
+      name: Icon-Berserker2-DeathCoil
       rect:
         serializedVersion: 2
         x: 1477
@@ -501,7 +480,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_18
+      name: Icon-Sorcerer2-Meteor
       rect:
         serializedVersion: 2
         x: 1591
@@ -522,7 +501,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_19
+      name: Icon-Berserker2-
       rect:
         serializedVersion: 2
         x: 1565
@@ -543,7 +522,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_20
+      name: Icon-Sorcerer1-IceAmor
       rect:
         serializedVersion: 2
         x: 1460
@@ -606,28 +585,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_23
-      rect:
-        serializedVersion: 2
-        x: 1964
-        y: 596
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 521025177ee46bf4a9ae66fbf7eeb512
-      internalID: 82400571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_24
+      name: Icon-Paladin1-Barrier
       rect:
         serializedVersion: 2
         x: 1950
@@ -648,7 +606,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_25
+      name: Icon-Paladin3-Execution
       rect:
         serializedVersion: 2
         x: 1424
@@ -656,7 +614,7 @@ TextureImporter:
         width: 22
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -664,6 +622,363 @@ TextureImporter:
       bones: []
       spriteID: 2f84f50859805684a8ae0dc77e1eee67
       internalID: 1852129762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Sorcerer2-Blizzard
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 1668
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2b8708a274da5c49bac41c9e00ecc7d
+      internalID: 1764877338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Berserker3-AurorBlade
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1398
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce6bec779b2998648ba08135044789eb
+      internalID: -207403867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Sorcerer2-StoneCuz
+      rect:
+        serializedVersion: 2
+        x: 1949
+        y: 2008
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63a589e3388c1a4439abc251d3952079
+      internalID: 351130047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Sorcerer3-Nightmare
+      rect:
+        serializedVersion: 2
+        x: 1856
+        y: 1890
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec2d3b47e0c4b464d850bc762f0834f0
+      internalID: 1636134371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Ranger1-Dodge
+      rect:
+        serializedVersion: 2
+        x: 1867
+        y: 1093
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0df86ebbe39ac554e8837331e24130cd
+      internalID: 1116361046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 751
+        width: 22
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56afd9faedc752540aea024420e8453a
+      internalID: -606245195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 91
+        width: 22
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 858fa44b78ecbad478fe05f5a3ed2a4f
+      internalID: 830385758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Ranger2-SummonPhoenix
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 1807
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff1c984fab45e14b907aa4968c167b6
+      internalID: -434699131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Ranger3-PoisonBoom
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 1491
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfacb624972806b4da9db851c31c65b9
+      internalID: -1380592363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Berserker3-Cyclone
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 1671
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbab85550f050a74a92a98a24a419a1c
+      internalID: -87283971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Berserker1-WarCry
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 915
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990c10d7307295c40b9fab93e57c6752
+      internalID: 1111379064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Berserker1-Fury
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 699
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd4e13d18380394bb0925568348cfd9
+      internalID: -1456373922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Paladin1-HolyLight
+      rect:
+        serializedVersion: 2
+        x: 1620
+        y: 1830
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd6a7250a7b432f4a9ae478a0c40c523
+      internalID: 1466949695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Ranger3-SongOffice
+      rect:
+        serializedVersion: 2
+        x: 1793
+        y: 1190
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 086008988b9c87e479091375325072fe
+      internalID: 1767901344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon-Ranger1-MultiShot
+      rect:
+        serializedVersion: 2
+        x: 1724
+        y: 491
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e81b9cce504f28342a8e43cf46463f63
+      internalID: -1466716971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect-IceAmor2
+      rect:
+        serializedVersion: 2
+        x: 1693
+        y: 50
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 738b498f0df159e498e943896237b5be
+      internalID: 904080632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4
+      rect:
+        serializedVersion: 2
+        x: 1562
+        y: 234
+        width: 10
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b30e652ffaf0824e8a80982c812dabd
+      internalID: 1338830827
       vertices: []
       indices: 
       edges: []
@@ -679,31 +994,47 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Effect-IceAmor1: 2000046396
+      Effect-IceAmor2: -513940560
+      Icon-Berserker1-Fury: -1456373922
+      Icon-Berserker1-WarCry: 1111379064
+      Icon-Berserker2-: 504645218
+      Icon-Berserker2-DeathCoil: 1945922542
+      Icon-Berserker3-AurorBlade: -207403867
+      Icon-Berserker3-Cyclone: -87283971
+      Icon-Paladin1-Barrier: -1864622002
+      Icon-Paladin1-HolyLight: 1466949695
+      Icon-Paladin2-DarkWeapon: 955541828
+      Icon-Paladin2-SilverWeapon: 1263126194
+      Icon-Paladin3-Execution: 1852129762
+      Icon-Ranger1-Dodge: 1116361046
+      Icon-Ranger1-MultiShot: -1466716971
+      Icon-Ranger2-RainPall: -241997072
+      Icon-Ranger2-SummonPhoenix: -434699131
+      Icon-Ranger3-MisticArrow: 1961239065
+      Icon-Ranger3-PoisonBoom: -1380592363
+      Icon-Ranger3-SongOffice: 1767901344
+      Icon-Sorcerer1-IceAmor: -819813605
+      Icon-Sorcerer1-Thunderbolt: -402336001
+      Icon-Sorcerer2-Blizzard: 1764877338
+      Icon-Sorcerer2-Meteor: 1081002334
+      Icon-Sorcerer2-StoneCuz: 351130047
+      Icon-Sorcerer3-Nightmare: 1636134371
+      Icon-Sorcerer3-SummonFamiliar: -787249063
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: -1276641688
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 477638310
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_10: -1211964178
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_11: 128855383
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_12: 1197675673
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_13: 375629940
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_14: 2000046396
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_15: -1257078768
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_16: 328485218
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_17: 1945922542
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_18: 1081002334
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_19: 504645218
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2: -402336001
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_20: -819813605
+      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2: -606245195
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_21: -1146098789
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_22: 1161176124
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_23: 82400571
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_24: -1864622002
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_25: 1852129762
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3: -787249063
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: 1825644563
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5: -241997072
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6: 1263126194
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_7: 1961239065
-      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_8: 955541828
+      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3: 830385758
+      sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: 1338830827
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_9: -531942887
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: a41bc2dd370059c47a35f5edff5a63cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 761331698, guid: c8435c3c47cb70a499d7af565c65aa0d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -240,7 +240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: df2b98d9310122e4c8686588dc8c2c0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -278,7 +278,7 @@ Transform:
   m_GameObject: {fileID: 5059100650158237962}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1367, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -329,7 +329,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 2bd7e5d13b9d08b42a0c4f43d0116ce9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 8485508700691559548}
   - component: {fileID: 4979263557358587242}
   - component: {fileID: 1937194379421797426}
+  - component: {fileID: 2531228296965979456}
   m_Layer: 0
   m_Name: Paladin_A
   m_TagString: Hunter
@@ -371,7 +372,7 @@ Transform:
   m_GameObject: {fileID: 6520320193489459350}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.38991493, y: -0.255, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -425,9 +426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 0
   _areaCheck: 0
-  _unitData: {fileID: 11400000, guid: cc6ce1bc5153fd547a702a5caedde20c, type: 2}
-  _hunterData: {fileID: 4979263557358587242}
-  _animator: {fileID: 0}
   _targetBox: {fileID: 0}
 --- !u!114 &4979263557358587242
 MonoBehaviour:
@@ -463,6 +461,8 @@ MonoBehaviour:
   _moveSpeedScore: 0
   _totalScore: 0
   _hunterRank: 0
+  _rebirthCount: 0
+  _rebirthBonus: 1
 --- !u!61 &1937194379421797426
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -508,6 +508,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!210 &2531228296965979456
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520320193489459350}
+  m_Enabled: 1
+  m_SortingLayerID: -1004333315
+  m_SortingLayer: 7
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &7981559439157783515
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +592,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e96afede84b1dbc48ba1b25ddfed7728, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 14e8b2ae16e222045a93e5b52eaf5c56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 3c67d3a0fca697a42ad84c52c44a9e9b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 2196238591550337631}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1272, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -245,7 +245,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 6034d14817a47764c91c1ae97fb6b439, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -329,7 +329,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 321567518, guid: 807062fbac69d6746a910966f90ed185, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -413,7 +413,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: efcf3cabfb4e7b044855c568e35bfb82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -439,9 +439,10 @@ GameObject:
   - component: {fileID: 5168907467193149580}
   - component: {fileID: 2374512425817186513}
   - component: {fileID: 7861947748708227061}
+  - component: {fileID: 3301890875124891855}
   m_Layer: 0
   m_Name: Sorcerer_B
-  m_TagString: Untagged
+  m_TagString: Hunter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,7 +456,7 @@ Transform:
   m_GameObject: {fileID: 7176472485364163952}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -1.215, z: 0}
+  m_LocalPosition: {x: 0.3, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -509,9 +510,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 0
   _areaCheck: 0
-  _unitData: {fileID: 11400000, guid: cc6ce1bc5153fd547a702a5caedde20c, type: 2}
-  _hunterData: {fileID: 2374512425817186513}
-  _animator: {fileID: 0}
   _targetBox: {fileID: 0}
 --- !u!114 &2374512425817186513
 MonoBehaviour:
@@ -547,6 +545,8 @@ MonoBehaviour:
   _moveSpeedScore: 0
   _totalScore: 0
   _hunterRank: 0
+  _rebirthCount: 0
+  _rebirthBonus: 1
 --- !u!61 &7861947748708227061
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -592,6 +592,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!210 &3301890875124891855
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7176472485364163952}
+  m_Enabled: 1
+  m_SortingLayerID: -1004333315
+  m_SortingLayer: 7
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &8480916594561497049
 GameObject:
   m_ObjectHideFlags: 0

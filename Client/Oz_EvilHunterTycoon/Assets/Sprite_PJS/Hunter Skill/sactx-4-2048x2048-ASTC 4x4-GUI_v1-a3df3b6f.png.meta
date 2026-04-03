@@ -123,204 +123,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_20
-      rect:
-        serializedVersion: 2
-        x: 1930
-        y: 2007
-        width: 77
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81242574770d75840bc1b4e0e9a032ef
-      internalID: -2059692407
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skill Icon A
-      rect:
-        serializedVersion: 2
-        x: 2011
-        y: 1999
-        width: 32
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e90ec84bb4382a04ea2ca2d09b021cfa
-      internalID: -1223786718
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_73
-      rect:
-        serializedVersion: 2
-        x: 1848
-        y: 1983
-        width: 74
-        height: 37
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a182ee6bc32e7ab41bd68bf83df7821b
-      internalID: -1139679576
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_104
-      rect:
-        serializedVersion: 2
-        x: 1079
-        y: 1901
-        width: 62
-        height: 83
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c6aea752b05d7248a19786778493126
-      internalID: -1987552862
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_105
-      rect:
-        serializedVersion: 2
-        x: 1164
-        y: 1900
-        width: 62
-        height: 82
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24900996d01a3154db6a025c8462fadb
-      internalID: -747524842
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone C
-      rect:
-        serializedVersion: 2
-        x: 1240
-        y: 1884
-        width: 69
-        height: 102
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de15eedbb02b5404bbc92c301d1c9668
-      internalID: 42191868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_110
-      rect:
-        serializedVersion: 2
-        x: 1849
-        y: 1940
-        width: 78
-        height: 35
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27a024fb54d1b634fabe5e3d5c911fdd
-      internalID: -760524871
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_125
-      rect:
-        serializedVersion: 2
-        x: 1577
-        y: 1850
-        width: 83
-        height: 86
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b46e4309d1a1474c9ce1a1b45abca90
-      internalID: 497318454
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_130
-      rect:
-        serializedVersion: 2
-        x: 1667
-        y: 1851
-        width: 83
-        height: 83
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 047ad17657f07d34d9917f4d9f935b83
-      internalID: -72830651
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_136
+      name: Effect-Thunderbolt4
       rect:
         serializedVersion: 2
         x: 379
         y: 1811
         width: 72
         height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -328,27 +139,6 @@ TextureImporter:
       bones: []
       spriteID: eb5721babb6e4d040a25c76b6d60b290
       internalID: -355201069
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone D
-      rect:
-        serializedVersion: 2
-        x: 1938
-        y: 1809
-        width: 68
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bee5f57084365424f8ee7458bfd4820e
-      internalID: 1893042335
       vertices: []
       indices: 
       edges: []
@@ -375,36 +165,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_165
-      rect:
-        serializedVersion: 2
-        x: 1733
-        y: 1745
-        width: 78
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25557933dbf154c48a95a99ce5f39f82
-      internalID: 85282937
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_180
+      name: Effect-Thunderbolt6
       rect:
         serializedVersion: 2
         x: 1821
         y: 1746
         width: 67
         height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -438,225 +207,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_189
-      rect:
-        serializedVersion: 2
-        x: 1154
-        y: 1725
-        width: 50
-        height: 56
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8bd58b5a2eaa6644bb01fd512b0cb4aa
-      internalID: -153959673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_193
-      rect:
-        serializedVersion: 2
-        x: 1416
-        y: 1703
-        width: 40
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e634f06796bd1849b35bff82c4a3be3
-      internalID: 1388744517
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone E
-      rect:
-        serializedVersion: 2
-        x: 1560
-        y: 1660
-        width: 72
-        height: 102
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7218aaa0910ce646848a69e8b8f8766
-      internalID: -712900838
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone A
-      rect:
-        serializedVersion: 2
-        x: 763
-        y: 1624
-        width: 76
-        height: 101
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c5de387b8bd9a54f952981533880c19
-      internalID: -788070749
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_210
-      rect:
-        serializedVersion: 2
-        x: 1916
-        y: 1673
-        width: 26
-        height: 51
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ef451ed62f2d0c4990c33e78bf46cf5
-      internalID: -655632996
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone F
-      rect:
-        serializedVersion: 2
-        x: 1652
-        y: 1565
-        width: 72
-        height: 102
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 624c2e478a9a6ed41a5327a15f41c3da
-      internalID: -1267300842
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone B
-      rect:
-        serializedVersion: 2
-        x: 850
-        y: 1521
-        width: 76
-        height: 102
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a0d753e94b3d8d4498d2ff89b66eab9
-      internalID: 820707169
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone H
-      rect:
-        serializedVersion: 2
-        x: 1421
-        y: 1439
-        width: 72
-        height: 103
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49025c6a578836942ac3e66cefd08012
-      internalID: -926783507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cyclone G
-      rect:
-        serializedVersion: 2
-        x: 1337
-        y: 1427
-        width: 76
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a84cd202f07ceb048a4340ce4c2936ae
-      internalID: 1490956233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_296
-      rect:
-        serializedVersion: 2
-        x: 1876
-        y: 1402
-        width: 83
-        height: 82
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e684cfb6da241c14dafc912ddb5b1c04
-      internalID: 1955621911
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_382
+      name: Effect-Thunderbolt5
       rect:
         serializedVersion: 2
         x: 1712
         y: 1142
         width: 74
         height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -669,36 +228,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_602
-      rect:
-        serializedVersion: 2
-        x: 1997
-        y: 257
-        width: 28
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d88b224ab69c8bf40a28e2732f77fa8a
-      internalID: -1061329472
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_622
+      name: Effect-Thunderbolt3
       rect:
         serializedVersion: 2
         x: 1997
         y: 98
         width: 30
         height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -711,15 +249,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_640
+      name: Effect-Thunderbolt2
       rect:
         serializedVersion: 2
         x: 1997
         y: 2
         width: 30
         height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -732,246 +270,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0
-      rect:
-        serializedVersion: 2
-        x: 1929
-        y: 1281
-        width: 24
-        height: 26
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de0b59802fcb2ac4e9401356f0e64387
-      internalID: -404492766
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1
-      rect:
-        serializedVersion: 2
-        x: 1733
-        y: 1567
-        width: 77
-        height: 84
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 561fe1ae11e88ff4c9eecc174e8f6324
-      internalID: 1206599832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
-      rect:
-        serializedVersion: 2
-        x: 1822
-        y: 1554
-        width: 77
-        height: 81
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2ae00f0429a2ec64c9172d4dedd193e2
-      internalID: -401468198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skill Icon C
-      rect:
-        serializedVersion: 2
-        x: 1661
-        y: 1997
-        width: 27
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8af856d3aae6e8140a1309aa15007fd2
-      internalID: -1652146173
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skill Icon E
-      rect:
-        serializedVersion: 2
-        x: 1574
-        y: 1765
-        width: 27
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c07246ee6a00dbf4eb8f2ef396379132
-      internalID: -2058660683
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skill Icon G
-      rect:
-        serializedVersion: 2
-        x: 1994
-        y: 737
-        width: 27
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f519a6096c2d3df41a6c1a768d278c70
-      internalID: -1506264792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skill Icon F
-      rect:
-        serializedVersion: 2
-        x: 935
-        y: 1708
-        width: 27
-        height: 26
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69b37a88708275547a0ac7d9145c96d8
-      internalID: -696833221
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_7
-      rect:
-        serializedVersion: 2
-        x: 1927
-        y: 1339
-        width: 25
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4f9ac8c395edafd4e918a2a9ee44e1ce
-      internalID: 2094757941
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skill Icon B
-      rect:
-        serializedVersion: 2
-        x: 1338
-        y: 1992
-        width: 26
-        height: 26
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6fafc599a571764e9d00c13394d8156
-      internalID: -1650256829
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skill Icon D
-      rect:
-        serializedVersion: 2
-        x: 1701
-        y: 1938
-        width: 27
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ec82b57538e36d49916a179091132c7
-      internalID: -276287948
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3
-      rect:
-        serializedVersion: 2
-        x: 2012
-        y: 1733
-        width: 27
-        height: 83
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ef3276ef3da5184793a2b7f177c720f
-      internalID: 1915336374
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4
+      name: Effect-Thunderbolt7
       rect:
         serializedVersion: 2
         x: 1990
         y: 1034
         width: 25
         height: 72
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1004,27 +311,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6
-      rect:
-        serializedVersion: 2
-        x: 2000
-        y: 195
-        width: 43
-        height: 52
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc4ca98fc9cf4f14dbd92320c922033a
-      internalID: -1419257019
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1044,6 +330,13 @@ TextureImporter:
       Cyclone F: -1267300842
       Cyclone G: 1490956233
       Cyclone H: -926783507
+      Effect-Thunderbolt2: 1367126686
+      Effect-Thunderbolt3: 1238394645
+      Effect-Thunderbolt4: -355201069
+      Effect-Thunderbolt5: -1208497848
+      Effect-Thunderbolt6: 910377698
+      Effect-Thunderbolt7: -368243339
+      Effect-Thunderbolt9: -1061329472
       Skill Icon A: -1223786718
       Skill Icon B: -1650256829
       Skill Icon C: -1652146173
@@ -1092,7 +385,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_133: 536982973
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_134: -802793514
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_135: 657485334
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_136: -355201069
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_137: -565263243
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_139: 42613354
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_14: -705728148
@@ -1140,7 +432,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_178: -1018484687
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_179: -913363458
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_18: 26103783
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_180: 910377698
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_181: 1518300269
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_182: -836062113
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_183: 928336829
@@ -1266,7 +557,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_297: -1492690394
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_298: 2085955229
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_299: -1126008291
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3: 1915336374
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_30: -1723705572
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_300: 1177499700
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_301: 2021407489
@@ -1358,7 +648,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_38: 732728810
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_380: 1823401468
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_381: -536538183
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_382: -1208497848
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_383: 373054341
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_384: -842625415
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_385: 1961443720
@@ -1377,7 +666,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_397: 545679648
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_398: -1778787783
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_399: 1468477998
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: -368243339
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_40: -703868404
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_400: -1329224736
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_401: -2084675559
@@ -1602,7 +890,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_60: -1734600625
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_600: -1825211516
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_601: 1427585964
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_602: -1061329472
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_603: 1693856655
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_604: -475017404
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_605: 163380338
@@ -1624,7 +911,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_62: -328052135
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_620: 560646072
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_621: 1747259600
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_622: 1238394645
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_623: 1496673784
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_624: 1244317265
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_625: -1571691583
@@ -1644,7 +930,6 @@ TextureImporter:
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_638: 2071455505
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_639: -1528495040
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_64: 330916294
-      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_640: 1367126686
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_641: 1900237320
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_65: -199417885
       sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_66: 94173125
