@@ -118,7 +118,7 @@ TextureImporter:
         width: 62
         height: 56
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,7 +139,7 @@ TextureImporter:
         width: 54
         height: 56
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,6 +147,132 @@ TextureImporter:
       bones: []
       spriteID: 68324e6e81e0b8f448b1168c6f0b716b
       internalID: 1288762212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Bg
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 707
+        width: 56
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f6e227ef22283a42b87aa41bb821007
+      internalID: 49053643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Bg01
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 775
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f4df516890bb7441a673b590aacf923
+      internalID: 401005365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Bg02
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 775
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f7925bfa9a520a479251dba9a5d3e85
+      internalID: -87545998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Bg03
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 681
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7a831ae660427a4a84263e9ab2497ee
+      internalID: 137835826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Bg04
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 681
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2f1fc42c3dbe17468e8db40bdbaf46a
+      internalID: -227454198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Bg05
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 685
+        width: 2
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 311bda2efd7368547b956f7689acb374
+      internalID: -273371349
       vertices: []
       indices: 
       edges: []
@@ -162,6 +288,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Setting_Bg: 49053643
+      Setting_Bg01: 401005365
+      Setting_Bg02: -87545998
+      Setting_Bg03: 137835826
+      Setting_Bg04: -227454198
+      Setting_Bg05: -273371349
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: 1374364888
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 1288762212
   mipmapLimitGroupName: 
