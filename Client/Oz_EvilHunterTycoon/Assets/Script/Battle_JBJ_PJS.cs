@@ -20,9 +20,9 @@ public class Battle_JBJ_PJS : MonoBehaviour
     }
 
     // 타격 실행
-    public void GiveDamage(GameObject attacker)
+    public void GiveDamage(Battle_JBJ_PJS target)
     {
-        if (attacker == null) return;
+        if (target == null) return;
 
         float damage = 0;
 
@@ -33,17 +33,14 @@ public class Battle_JBJ_PJS : MonoBehaviour
         
         // 데미지 음수처리 방지 및 최소 데미지 적용
         if (damage <= 0) { damage = 1; }
-        FinalDamage(damage, gameObject);
+
+        target.TakeDamage(damage, gameObject);
     }
 
-    // 타겟 지목
-    private void AttackEvent(GameObject attacker, GameObject target, float damage)
+    // 피격 실행
+    public void TakeDamage(float damage, GameObject attacker)
     {
-        if (target == gameObject)
-        {
-            // 맞았으면 최종 데미지 계산으로 넘김
-            FinalDamage(damage, attacker);
-        }
+        FinalDamage(damage, attacker);
     }
 
     // 최종 데미지 계산 / HP 실제 차감
@@ -102,6 +99,23 @@ public class Battle_JBJ_PJS : MonoBehaviour
         else if (_monsterData != null)
         {
             _monsterData.Die();
+        }
+    }
+
+    // <summary>
+    /// 공격 콜라이더 감지
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Attack"))
+        {
+            Battle_JBJ_PJS attackerBattle = collision.GetComponent<Battle_JBJ_PJS>();
+
+            if (attackerBattle != null)
+            {
+                attackerBattle.GiveDamage(this);
+            }
         }
     }
 }
