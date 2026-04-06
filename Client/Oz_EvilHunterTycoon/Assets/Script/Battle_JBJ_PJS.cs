@@ -6,110 +6,116 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Battle_JBJ_PJS : MonoBehaviour
 {
-    // 누가, 누굴, float 만큼의 데미지로 때렸나
-    public static Action<GameObject, GameObject, float> UnitAttack;
+    // 최적화를 위한 변수처리
+    private HunterController_PJS _hunterController;
+    private HunterData_PJS _hunterData;
+    private Monster_JBJ _monsterData;
 
-    // [1] 타격 실행
-    public void GiveDamage(GameObject target)
+    void Awake()
+    {
+        // 캐싱 - 최적화
+        _hunterController = GetComponent<HunterController_PJS>();
+        _hunterData = GetComponent<HunterData_PJS>();
+        _monsterData = GetComponent<Monster_JBJ>();
+    }
+
+    // 타격 실행
+    public void GiveDamage(Battle_JBJ_PJS target)
     {
         if (target == null) return;
 
         float damage = 0;
 
-        // 헌터 공격
-        if (TryGetComponent(out HunterData_PJS hunterData))
-        {
-            damage = hunterData.GetAttackDamage();
-        }
-
+        // 헌터 공격 가져오기
+        if (_hunterData != null) { damage = _hunterData.GetAttackDamage(); }
+        // 몬스터 공격 가져오기
+        else if (_monsterData != null) { damage = _monsterData.data.attackDamage; }
         
-        // 몬스터 공격
-        else if (TryGetComponent(out Monster_JBJ monster))
-        {
-            damage = monster.data.attackDamage;
-        }
-        
-        UnitAttack?.Invoke(gameObject, target, damage);
+        // 데미지 음수처리 방지 및 최소 데미지 적용
+        if (damage <= 0) { damage = 1; }
+
+        target.TakeDamage(damage, gameObject);
     }
 
-    // [2] 구독
-    void OnEnable()
+    // 피격 실행
+    public void TakeDamage(float damage, GameObject attacker)
     {
-        UnitAttack += AttackEvent;
+        FinalDamage(damage, attacker);
     }
 
-    // [3] 구독 해제
-    void OnDisable()
-    {
-        UnitAttack -= AttackEvent;
-    }
-
-    // [4] 타겟 지목
-    private void AttackEvent(GameObject attacker, GameObject target, float damage)
-    {
-        if (target == gameObject)
-        {
-            // 맞았으면 최종 데미지 계산으로 넘김
-            FinalDamage(damage, attacker);
-        }
-    }
-
-    // [5] 최종 데미지 계산 / HP 실제 차감
+    // 최종 데미지 계산 / HP 실제 차감
     private void FinalDamage(float damage, GameObject attacker)
     {
-        // 헌터 데미지 계산
-        if (TryGetComponent(out HunterData_PJS hunterData))
+        // 헌터 맞을 때 데미지 계산
+        if (_hunterData != null)
         {
-            if (hunterData._currentHP <= 0) return;
+            if (_hunterData._currentHP <= 0) return;
             // 방어력 적용
-            float defence = hunterData.GetDefence();
+            float defence = _hunterData.GetDefence();
             float finalDamage = Mathf.Max(0, damage - defence);
-            // 실제 HP 차감
-            hunterData._currentHP -= finalDamage;
-            Debug.Log($"{gameObject.name}이 {attacker.name}에게 {finalDamage}만큼 피해 입음. 남은 HP {hunterData._currentHP}");
+            // 실제 HP 차감 / UI에서 빼내어 갈 것
+            _hunterData.CurrentHp -= finalDamage;
+            Debug.Log($"{gameObject.name}이 {attacker.name}에게 {finalDamage}만큼 피해 입음.");
+
             // 사망 체크
-            if (hunterData._currentHP <= 0)
+            if (_hunterData._currentHP <= 0)
             {
-                hunterData._currentHP = 0;
+                _hunterData._currentHP = 0;
                 Die();
             }
         }
 
-        // 몬스터 데미지 계산
-        else if (TryGetComponent(out Monster_JBJ monster))
+        // 몬스터 맞을 때 데미지 계산
+        else if (_monsterData != null)
         {
-            if (monster.currentHP <= 0) return;
+            if (_monsterData.currentHP <= 0) return;
 
             // 방어력 적용
             float finalDamage = Mathf.Max(0, damage);
-
             // 실제 HP 차감
-            monster.currentHP -= finalDamage;
-            Debug.Log($"{gameObject.name}이 {attacker.name}에게 {finalDamage}만큼 피해 입음. 남은 HP {monster.currentHP}");
+            _monsterData.currentHP -= finalDamage;
+            Debug.Log($"{gameObject.name}이 {attacker.name}에게 {finalDamage}만큼 피해 입음.");
 
             // 사망 체크
-            if (monster.currentHP <= 0)
+            if (_monsterData.currentHP <= 0)
             {
-                monster.currentHP = 0;
+                _monsterData.currentHP = 0;
                 Die();
             }
         }
     }
 
-    // [6] 사망 처리
+    // 사망 처리
     private void Die()
     {
         // 헌터사망 -> 연출
-        if (TryGetComponent(out HunterController_PJS hunterController))
+        if (_hunterController != null)
         {
             HunterData_PJS.OnHunterDie?.Invoke();
-            hunterController.HunterDie();
+            _hunterController.HunterDie();
         }
         
         // 몬스터사망 -> 연출 / 프리팹 파괴
-        else if (TryGetComponent(out Monster_JBJ monster))
-        { 
-            monster.Die();
+        else if (_monsterData != null)
+        {
+            _monsterData.Die();
+        }
+    }
+
+    // <summary>
+    /// 공격 콜라이더 감지
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Attack"))
+        {
+            Battle_JBJ_PJS attackerBattle = collision.GetComponent<Battle_JBJ_PJS>();
+
+            if (attackerBattle != null)
+            {
+                attackerBattle.GiveDamage(this);
+            }
         }
     }
 }
