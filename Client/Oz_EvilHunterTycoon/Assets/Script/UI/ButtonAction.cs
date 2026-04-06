@@ -9,6 +9,7 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
     {
         None = 0,
         TouchToStart,
+        Setting,
     }
 
     public buttionActionType actionType;
@@ -20,6 +21,10 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
             case buttionActionType.TouchToStart:
                 LoadingManager.LoadScene("Ingame_Scene");
                 break;
+            case buttionActionType.Setting:
+                UiManager.Instance.SettingBG();
+                break;
+
         }
     }
 }

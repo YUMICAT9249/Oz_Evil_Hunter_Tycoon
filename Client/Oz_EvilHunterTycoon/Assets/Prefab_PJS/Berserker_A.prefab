@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: -5126931200409274301}
   - component: {fileID: -409296001399880336}
   - component: {fileID: 7977253807172300011}
+  - component: {fileID: 5396521322599827017}
   m_Layer: 0
   m_Name: Berserker_A
   m_TagString: Hunter
@@ -114,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 737653316405715771}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.377, y: 0.191, z: 0}
+  m_LocalPosition: {x: -1, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -168,9 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 0
   _areaCheck: 0
-  _unitData: {fileID: 11400000, guid: cc6ce1bc5153fd547a702a5caedde20c, type: 2}
-  _hunterData: {fileID: -409296001399880336}
-  _animator: {fileID: 0}
   _targetBox: {fileID: 0}
 --- !u!114 &-409296001399880336
 MonoBehaviour:
@@ -206,6 +204,8 @@ MonoBehaviour:
   _moveSpeedScore: 0
   _totalScore: 0
   _hunterRank: 0
+  _rebirthCount: 0
+  _rebirthBonus: 1
 --- !u!61 &7977253807172300011
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -251,6 +251,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!210 &5396521322599827017
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737653316405715771}
+  m_Enabled: 1
+  m_SortingLayerID: -1004333315
+  m_SortingLayer: 7
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &927232154085303521
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +419,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3483bb862b518c847bf5aaa151e0bd10, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -575,7 +587,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1004333315
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -963674058, guid: 8eea5f107310a1b4486660ec0ad09d6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -613,7 +625,7 @@ Transform:
   m_GameObject: {fileID: 6423596400891734538}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1167, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

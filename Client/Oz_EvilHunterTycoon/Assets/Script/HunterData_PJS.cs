@@ -1,5 +1,7 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
+
 
 // 헌터 데이터 + 수치 계산식 스크립트
 
@@ -27,6 +29,9 @@ public enum HunterRank
 
 public class HunterData_PJS : MonoBehaviour
 {
+    public static Action<GameObject, GameObject, float> OnHunterAttack;
+    public static Action OnHunterDie;
+
     [Header("기본 데이터 참조")]
     public UnitData_JBJ_PJS _unitData;
 
@@ -61,6 +66,10 @@ public class HunterData_PJS : MonoBehaviour
     [SerializeField] public int _totalScore;
     [SerializeField] public HunterRank _hunterRank;
 
+    [Header("헌터 환생")]
+    [SerializeField] public int _rebirthCount = 0;      // 환생 횟수
+    [SerializeField] public float _rebirthBonus = 1.0f; // 환생 보너스 배율
+
     // 직업별 헌터 이름
     private List<string> beserkerNames = new List<string> { "브란", "샤론", "세나" };
     private List<string> paladinNames = new List<string> { "카일", "알프", "홉스" };
@@ -74,16 +83,45 @@ public class HunterData_PJS : MonoBehaviour
             Debug.LogError("UnitData가 연결 안됨", gameObject);
             return;
         }
-        HunterRandomJop();
         HunterRandomName();
         RandomStats();
     }
 
-    // 헌터 직업 랜덤 생성
-    public void HunterRandomJop()
+    private void OnEnable()
     {
-        int random = Random.Range(1, 5);
-        _hunterJop = (HunterJop)random;
+        if (EventManager_KJG.Instance != null)
+        {
+            EventManager_KJG.Instance.AddListener(EventManager_KJG.GameEvent.RequestSave, TryRebirth);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (EventManager_KJG.Instance != null)
+        {
+            EventManager_KJG.Instance.RemoveListener(EventManager_KJG.GameEvent.RequestSave, TryRebirth);
+        }
+    }
+
+    // 공격속도 최대치 제한
+    public void MaxAttackCooldown(float newCooldown)
+    {
+        if (newCooldown < 0.25f)
+        {
+            _attackCooldown = 0.25f;
+        }
+        else
+        { 
+            _attackCooldown = newCooldown;
+        }
+    }
+
+    // 헌터가 스폰된 후 헌터 데이터 세팅
+    public void SettingHunterData(HunterJop jop)
+    {
+        _hunterJop = jop;
+        HunterRandomName();
+        RandomStats();
     }
 
     // 헌터 이름생성 함수 / _hunterJop을 확인 후 랜덤이름을 _nameList에 할당
@@ -107,19 +145,18 @@ public class HunterData_PJS : MonoBehaviour
             hunterNameList = sorcererNames;
         }
 
-        int randomIndex = Random.Range(0, hunterNameList.Count);
-        _hunterNameList = hunterNameList[randomIndex];
+        _hunterNameList = hunterNameList[UnityEngine.Random.Range(0, hunterNameList.Count)];
     }
 
     // 스탯 뽑기 확률 함수
     private int GetRandomScore()
     {
-        int randomScore = Random.Range(0, 100);
+        int randomScore = UnityEngine.Random.Range(0, 100);
 
-        if (randomScore < 40) { return 0; }      // 40% 흰색
-        else if (randomScore < 70) { return 1; } // 30% 파란색
-        else if (randomScore < 90) { return 2; } // 20% 주황색
-        else { return 3; }                       // 10% 보라색
+        if (randomScore < 40) return 0;      // 40% 흰색
+        else if (randomScore < 70) return 1; // 30% 파란색
+        else if (randomScore < 90) return 2; // 20% 주황색
+        else return 3;                       // 10% 보라색
     }
 
     // 점수별 스탯 추가 / 매개변수 사용 => 유지보수, 하나의 함수로 해결가능
@@ -128,14 +165,10 @@ public class HunterData_PJS : MonoBehaviour
     {
         switch (score)
         { 
-            case 0: 
-                return baseValue * 1.0f;
-            case 1:
-                return baseValue * 1.1f;
-            case 2:
-                return baseValue * 1.2f;
-            case 3:
-                return baseValue * 1.3f;
+            case 0: return baseValue * 1.0f;
+            case 1: return baseValue * 1.1f;
+            case 2: return baseValue * 1.2f;
+            case 3: return baseValue * 1.3f;
         }
         return baseValue;
     }
@@ -145,14 +178,10 @@ public class HunterData_PJS : MonoBehaviour
     {
         switch (score)
         {
-            case 0:
-                return baseValue / 1.0f;
-            case 1:
-                return baseValue / 1.1f;
-            case 2:
-                return baseValue / 1.2f;
-            case 3:
-                return baseValue / 1.3f;
+            case 0: return baseValue / 1.0f;
+            case 1: return baseValue / 1.1f;
+            case 2: return baseValue / 1.2f;
+            case 3: return baseValue / 1.3f;
         }
         return baseValue;
     }
@@ -204,54 +233,53 @@ public class HunterData_PJS : MonoBehaviour
 
         // 2. 등급 계산
         RankScore();
-
         // 3. 최종 스탯 계산
-        _maxHP = AddStatsByScore(_unitData.maxHp, _hpScore);
-        _damage = AddStatsByScore(_unitData.attackDamage, _damageScore);
-        _defence = AddStatsByScore(_unitData.defence, _defenceScore);
-        _criticalChance = AddStatsByScore(_unitData.criticalChance, _criticalChanceScore);
-        _dodgeChance = AddStatsByScore(_unitData.dodgeChance, _dodgeChanceScore);
-        _attackCooldown = AddAttackCooldownByScore(_unitData.attackCooldown, _attackCooldownScore);
-        _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore);
-
+        FinalStats();
         // 4. 현재 체력 초기화
         _currentHP = _maxHP;
     }
 
+    // 환생 조건 체크 후 실행 함수
+    public void TryRebirth()
+    {
+        if (_currentLevel >= 100)
+        {
+            Rebirth();
+        }
+    }
+
+    // 환생 로직
+    public void Rebirth()
+    {
+        _rebirthCount++;
+        _currentLevel = 1;
+        _rebirthBonus = 1.0f + (_rebirthCount * 0.1f); // 1환생당 10% 추가 보너스 스탯 (복리x)
+        FinalStats(); // 기존 등급에 환생 보너스만 계산
+        _currentHP = _maxHP;
+        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RefreshUI);
+
+        Debug.Log($"{_hunterNameList} 환생. {_rebirthCount}회. {_rebirthBonus}배");
+    }
+
+    // 최종 스탯 계산 함수
+    public void FinalStats()
+    {
+        _maxHP = AddStatsByScore(_unitData.maxHp, _hpScore) * _rebirthBonus;
+        _damage = AddStatsByScore(_unitData.attackDamage, _damageScore) * _rebirthBonus;
+        _defence = AddStatsByScore(_unitData.defence, _defenceScore) * _rebirthBonus;
+        _criticalChance = AddStatsByScore(_unitData.criticalChance, _criticalChanceScore) * _rebirthBonus;
+        _dodgeChance = AddStatsByScore(_unitData.dodgeChance, _dodgeChanceScore) * _rebirthBonus;
+        _attackCooldown = AddAttackCooldownByScore(_unitData.attackCooldown, _attackCooldownScore) / _rebirthBonus;
+        _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore) * _rebirthBonus;
+    }
+
     #region Get 함수 => 최종 값만 반환
-    public float GetMaxHP()
-    {
-        return _maxHP;
-    }
-
-    public float GetAttackDamage()
-    {
-        return _damage;
-    }
-
-    public float GetDefence()
-    {
-        return _defence;
-    }
-
-    public float GetCriticalChance()
-    {
-        return _criticalChance;
-    }
-
-    public float GetDodgeChance()
-    {
-        return _dodgeChance;
-    }
-
-    public float GetAttackCooldown()
-    {
-        return _attackCooldown;
-    }
-
-    public float GetMoveSpeed()
-    {
-        return _moveSpeed;
-    }
+    public float GetMaxHP() => _maxHP;
+    public float GetAttackDamage() => _damage;
+    public float GetDefence() => _defence;
+    public float GetCriticalChance() => _criticalChance;
+    public float GetDodgeChance() => _dodgeChance;
+    public float GetAttackCooldown() => _attackCooldown;
+    public float GetMoveSpeed() => _moveSpeed;
     #endregion
 }
