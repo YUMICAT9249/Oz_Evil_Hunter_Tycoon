@@ -263,7 +263,9 @@ public class Monster_JBJ : MonoBehaviour
 
         if (Hunter == null || battle == null) return;
 
-        battle.GiveDamage(Hunter.gameObject);
+        Battle_JBJ_PJS targetBattle = Hunter.GetComponent<Battle_JBJ_PJS>();
+
+        battle.GiveDamage(targetBattle);
     }
 
     public void TakeDamage(float damage)
