@@ -1,80 +1,90 @@
 ﻿using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
-public class SaveLoadManager_KJG : MonoBehaviour
+/// <summary>
+/// SaveLoadManager - 저장/로드 총괄 매니저
+/// 
+/// 특징 :
+/// - Manager_KJG를 통해서만 다른 매니저에 접근 (직접 .Instance 호출 완전 제거)
+/// - Event는 Manager_KJG.Event를 통해 호출
+/// - 코드가 매우 직관적이고, 실무에서 "아키텍처가 잘 잡혔다"는 평가를 받을 수 있는 구조
+/// </summary>
+public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
 {
-    public static SaveLoadManager_KJG Instance { get; private set; }
-
     private string savePath;
 
     [Header("세이브 설정")]
     [SerializeField] private string saveFileName = "gameSave.json";
     [SerializeField] private bool logSaveLoad = true;
 
+    /// <summary>
+    /// 게임 전체를 저장할 때 사용하는 데이터 구조
+    /// </summary>
     [System.Serializable]
     public class SaveData
     {
-        public int saveVersion = 1;
+        public int saveVersion = 2;
+
+        // 기본 데이터
         public int currentDifficultyLevel = 0;
         public double gold = 0;
         public long exp = 0;
         public int cash = 0;
         public float goldMultiplier = 1f;
         public float expMultiplier = 1f;
+
+        // 확장 데이터
+        public List<AchievementManager_KJG.Achievement> achievements = new List<AchievementManager_KJG.Achievement>();
+        public List<HunterData_PJS> hunters = new List<HunterData_PJS>();
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
 
         savePath = Path.Combine(Application.persistentDataPath, saveFileName);
-        Debug.Log($"✅ SaveLoadManager_KJG 초기화 완료 | 저장 경로: {savePath}");
+        Debug.Log($"✅ [SaveLoadManager_KJG] 저장 경로 설정 완료 → {savePath}");
     }
 
-    // ====================== 세이브 ======================
+    // ====================== 게임 저장 ======================
     public void GameSave()
     {
         SaveData data = new SaveData();
 
-        // CurrencyManager에서 데이터 가져오기
-        if (CurrencyManager_KJG.Instance != null)
+        // Manager_KJG를 통해 안전하게 데이터 수집
+        if (Manager_KJG.Currency != null)
         {
-            data.gold = CurrencyManager_KJG.Instance.Gold;
-            data.exp = CurrencyManager_KJG.Instance.Exp;
-            data.cash = CurrencyManager_KJG.Instance.Cash;
-            data.goldMultiplier = CurrencyManager_KJG.Instance.goldMultiplier;
-            data.expMultiplier = CurrencyManager_KJG.Instance.expMultiplier;
+            data.gold = Manager_KJG.Currency.Gold;
+            data.exp = Manager_KJG.Currency.Exp;
+            data.cash = Manager_KJG.Currency.Cash;
+            data.goldMultiplier = Manager_KJG.Currency.goldMultiplier;
+            data.expMultiplier = Manager_KJG.Currency.expMultiplier;
         }
 
-        // DifficultyManager에서 데이터 가져오기
-        if (DifficultyManager_KJG.Instance != null)
-        {
-            data.currentDifficultyLevel = DifficultyManager_KJG.Instance.currentDifficultyLevel;
-        }
+        if (Manager_KJG.Difficulty != null)
+            data.currentDifficultyLevel = Manager_KJG.Difficulty.currentDifficultyLevel;
+
+        if (Manager_KJG.Achievement != null)
+            data.achievements = Manager_KJG.Achievement.GetSaveData();
+
+        // HunterManager는 아직 PJS 팀원 작업이므로 주석 처리 (완료되면 해제)
+        // if (Manager_KJG.Game?.HunterManager != null)
+        //     data.hunters = Manager_KJG.Game.HunterManager.GetSaveData();
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
 
         if (logSaveLoad)
-            Debug.Log($"💾 게임 저장 완료 → {savePath}");
-
-        // 저장 완료 후 글로벌 이벤트 발생
-        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RequestSave);
+            Debug.Log($"💾 [SaveLoadManager_KJG] 저장 완료 → Hunter {data.hunters.Count}명, Achievement {data.achievements.Count}개");
     }
 
-    // ====================== 로드 ======================
+    // ====================== 게임 로드 ======================
     public void GameLoad()
     {
         if (!File.Exists(savePath))
         {
-            Debug.Log("세이브 파일이 없습니다. 새 게임을 시작합니다.");
+            Debug.Log("세이브 파일이 없습니다 → 새 게임으로 시작합니다.");
             NewGameSetup();
             return;
         }
@@ -84,71 +94,62 @@ public class SaveLoadManager_KJG : MonoBehaviour
             string json = File.ReadAllText(savePath);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            // CurrencyManager에 데이터 적용
-            if (CurrencyManager_KJG.Instance != null)
+            // Manager_KJG를 통해 데이터 복원
+            if (Manager_KJG.Currency != null)
             {
-                CurrencyManager_KJG.Instance.SetGold(data.gold);
-                CurrencyManager_KJG.Instance.SetExp(data.exp);
-                CurrencyManager_KJG.Instance.SetCash(data.cash);
-                CurrencyManager_KJG.Instance.goldMultiplier = data.goldMultiplier;
-                CurrencyManager_KJG.Instance.expMultiplier = data.expMultiplier;
+                Manager_KJG.Currency.SetGold(data.gold);
+                Manager_KJG.Currency.SetExp(data.exp);
+                Manager_KJG.Currency.SetCash(data.cash);
+                Manager_KJG.Currency.goldMultiplier = data.goldMultiplier;
+                Manager_KJG.Currency.expMultiplier = data.expMultiplier;
             }
 
-            // DifficultyManager에 데이터 적용
-            if (DifficultyManager_KJG.Instance != null)
-            {
-                DifficultyManager_KJG.Instance.LoadFromSave(data.currentDifficultyLevel);
-            }
+            if (Manager_KJG.Difficulty != null)
+                Manager_KJG.Difficulty.LoadFromSave(data.currentDifficultyLevel);
 
-            // 로드 완료 후 이벤트 발생
-            EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RefreshUI);
+            if (Manager_KJG.Achievement != null)
+                Manager_KJG.Achievement.LoadFromSave(data.achievements);
+
+            // HunterManager는 나중에 연결
+            // if (Manager_KJG.Game?.HunterManager != null)
+            //     Manager_KJG.Game.HunterManager.LoadFromSave(data.hunters);
+
+            // UI 새로고침 (Event 사용)
+            Manager_KJG.Event.RefreshUI();
 
             if (logSaveLoad)
-                Debug.Log($"📂 게임 로드 완료 → Gold: {data.gold:N0} | Cash: {data.cash} | Difficulty: {data.currentDifficultyLevel}");
+                Debug.Log($"📂 [SaveLoadManager_KJG] 로드 완료 → Hunter {data.hunters.Count}명");
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"세이브 파일 로드 중 오류 발생: {e.Message}");
+            Debug.LogError($"[SaveLoadManager_KJG] 로드 실패: {e.Message}");
             NewGameSetup();
         }
     }
 
-    // ====================== 새 게임 초기화 ======================
+    // ====================== 새 게임 시작 ======================
     public void NewGameSetup()
     {
-        if (CurrencyManager_KJG.Instance != null)
+        if (Manager_KJG.Currency != null)
         {
-            CurrencyManager_KJG.Instance.SetGold(300);
-            CurrencyManager_KJG.Instance.SetExp(0);
-            CurrencyManager_KJG.Instance.SetCash(0);
-            CurrencyManager_KJG.Instance.goldMultiplier = 1f;
-            CurrencyManager_KJG.Instance.expMultiplier = 1f;
+            Manager_KJG.Currency.SetGold(300);
+            Manager_KJG.Currency.SetExp(0);
+            Manager_KJG.Currency.SetCash(0);
+            Manager_KJG.Currency.goldMultiplier = 1f;
+            Manager_KJG.Currency.expMultiplier = 1f;
         }
 
-        if (DifficultyManager_KJG.Instance != null)
-        {
-            DifficultyManager_KJG.Instance.LoadFromSave(0);
-        }
+        if (Manager_KJG.Difficulty != null)
+            Manager_KJG.Difficulty.LoadFromSave(0);
 
-        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RefreshUI);
+        if (Manager_KJG.Achievement != null)
+            Manager_KJG.Achievement.LoadFromSave(new List<AchievementManager_KJG.Achievement>());
 
-        Debug.Log("🆕 새 게임 초기화 완료");
+        Manager_KJG.Event.RefreshUI();
+        Debug.Log("🆕 [SaveLoadManager_KJG] 새 게임 초기화 완료");
     }
 
-    // ====================== 편의 기능 (치트) ======================
-    [ContextMenu("강제 저장하기")]
-    public void Cheat_Save() => GameSave();
-
-    [ContextMenu("강제 로드하기")]
-    public void Cheat_Load() => GameLoad();
-
-    [ContextMenu("세이브 파일 삭제하기")]
-    public void DeleteSaveFile()
-    {
-        if (File.Exists(savePath))
-        {
-            File.Delete(savePath);
-            Debug.Log("🗑 세이브 파일이 삭제되었습니다.");
-        }
-    }
+    // ====================== 테스트용 치트 ======================
+    [ContextMenu("강제 저장하기")] public void Cheat_Save() => GameSave();
+    [ContextMenu("강제 로드하기")] public void Cheat_Load() => GameLoad();
 }

@@ -1,16 +1,24 @@
 ﻿using UnityEngine;
 
-public class GameManager_KJG : MonoBehaviour
+/// <summary>
+/// GameManager - 게임 전체 흐름 총괄
+/// 
+/// 특징:
+/// - Manager_KJG.Game 형태로만 접근
+/// - 다른 매니저들은 Manager_KJG를 통해 접근 (직접 참조 제거)
+/// - 게임 시작, 종료, 일시정지 등 전체 흐름을 관리
+/// </summary>
+public class GameManager_KJG : BaseManager_KJG<GameManager_KJG>
 {
-    public static GameManager_KJG Instance { get; private set; }
-
-    [Header("매니저 참조")]
+    [Header("매니저 참조 (Inspector에서 연결)")]
     [SerializeField] private SaveLoadManager_KJG saveLoadManager;
     [SerializeField] private DataManager_KJG dataManager;
     [SerializeField] private CurrencyManager_KJG currencyManager;
     [SerializeField] private DifficultyManager_KJG difficultyManager;
 
-    // 게임 상태
+    // HunterManager는 팀원 스크립트이므로 나중에 연결
+    // public HunterManager_PJS HunterManager { get; private set; }
+
     public bool IsGameStarted { get; private set; } = false;
 
     // ==================== C# Events ====================
@@ -18,18 +26,10 @@ public class GameManager_KJG : MonoBehaviour
     public event System.Action OnGameOver;
     public event System.Action OnNewGameStarted;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        Debug.Log("✅ GameManager_KJG 초기화 완료");
+        base.Awake();
+        Debug.Log("✅ [GameManager_KJG] 게임 매니저 초기화 완료");
     }
 
     private void Start()
@@ -37,53 +37,32 @@ public class GameManager_KJG : MonoBehaviour
         InitializeAllManagers();
     }
 
-    // ==================== 전체 매니저 초기화 ====================
     private void InitializeAllManagers()
     {
-        // 1. 세이브 로드 (가장 먼저)
-        if (saveLoadManager != null)
-        {
-            saveLoadManager.GameLoad();
-        }
+        Debug.Log("📋 [GameManager_KJG] 모든 매니저 초기화 시작...");
 
-        // 2. 데이터 매니저 초기화 (테이블, 설정 등)
-        if (dataManager != null)
-        {
-            dataManager.Initialize();
-        }
+        // SaveLoad가 가장 먼저 로드되어야 함
+        Manager_KJG.SaveLoad.GameLoad();
 
-        // 3. 난이도 초기화
-        if (difficultyManager != null)
-        {
-            // 로드된 난이도 값이 이미 DifficultyManager에 적용되어 있음
-        }
+        // 데이터 매니저 초기화
+        if (Manager_KJG.Data != null)
+            Manager_KJG.Data.Initialize();
 
-        // 4. 화폐 매니저 초기화 (로드된 값 + 난이도 배율 적용)
-        if (currencyManager != null)
-        {
-            // 필요시 추가 초기화 로직
-        }
-
-        Debug.Log("✅ 모든 매니저 초기화 완료");
+        Debug.Log("✅ [GameManager_KJG] 모든 매니저 초기화 완료");
     }
 
-    // ==================== 새 게임 시작 ====================
+    // ==================== 게임 시작 ====================
     public void StartNewGame()
     {
-        if (saveLoadManager != null)
-        {
-            saveLoadManager.NewGameSetup();     // 새 게임 초기화
-        }
+        if (Manager_KJG.SaveLoad != null)
+            Manager_KJG.SaveLoad.NewGameSetup();
 
         IsGameStarted = true;
 
-        Debug.Log("🆕 새 게임을 시작합니다.");
+        Debug.Log("🆕 새 게임 시작");
 
-        // 이벤트 발생
         OnNewGameStarted?.Invoke();
-        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.GameStart);
-
-        // 필요하다면 Currency, Difficulty 등 초기값 재설정
+        Manager_KJG.Event.Invoke(EventManager_KJG.GameEvent.GameStart);
     }
 
     // ==================== 게임 오버 ====================
@@ -94,33 +73,25 @@ public class GameManager_KJG : MonoBehaviour
         Debug.Log("💀 게임 오버");
 
         OnGameOver?.Invoke();
-        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.GameOver);
+        Manager_KJG.Event.Invoke(EventManager_KJG.GameEvent.GameOver);
 
-        // 저장 요청
-        if (saveLoadManager != null)
-            saveLoadManager.GameSave();
+        Manager_KJG.SaveLoad.GameSave();
     }
 
-    // ==================== 게임 일시정지 ====================
+    // ==================== 일시정지 ====================
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.GamePause);
+        Manager_KJG.Event.Invoke(EventManager_KJG.GameEvent.GamePause);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
-        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.GameResume);
+        Manager_KJG.Event.Invoke(EventManager_KJG.GameEvent.GameResume);
     }
 
-    // ==================== 세이브 / 로드 직접 호출 ====================
-    public void SaveGame() => saveLoadManager?.GameSave();
-    public void LoadGame() => saveLoadManager?.GameLoad();
-
-    // ==================== 매니저 참조 안전하게 가져오기 ====================
-    public SaveLoadManager_KJG SaveLoadManager => saveLoadManager;
-    public DataManager_KJG DataManager => dataManager;
-    public CurrencyManager_KJG CurrencyManager => currencyManager;
-    public DifficultyManager_KJG DifficultyManager => difficultyManager;
+    // ==================== 편의 메서드 ====================
+    public void SaveGame() => Manager_KJG.SaveLoad?.GameSave();
+    public void LoadGame() => Manager_KJG.SaveLoad?.GameLoad();
 }
