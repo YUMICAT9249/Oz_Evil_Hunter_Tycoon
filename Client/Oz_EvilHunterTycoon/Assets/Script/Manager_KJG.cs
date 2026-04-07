@@ -24,6 +24,7 @@ public static class Manager_KJG
     private static DataManager_KJG _data;
     private static AudioManager_KJG _audio;
     private static GameManager_KJG _game;
+    private static MapManager_KJG _map;
 
     // 외부에서 접근하는 속성들 (Manager_KJG.Currency 형태)
     public static CurrencyManager_KJG Currency => _currency ??= ServiceLocator_KJG.Instance.Get<CurrencyManager_KJG>();
@@ -34,6 +35,7 @@ public static class Manager_KJG
     public static DataManager_KJG Data => _data ??= ServiceLocator_KJG.Instance.Get<DataManager_KJG>();
     public static AudioManager_KJG Audio => _audio ??= ServiceLocator_KJG.Instance.Get<AudioManager_KJG>();
     public static GameManager_KJG Game => _game ??= ServiceLocator_KJG.Instance.Get<GameManager_KJG>();
+    public static MapManager_KJG Map => _map ??= ServiceLocator_KJG.Instance.Get<MapManager_KJG>();
 
     // 팀원 스크립트 (HunterManager_PJS 완성되면 여기에 추가)
     // public static HunterManager_PJS     Hunter      => _hunter ??= ServiceLocator_KJG.Instance.Get<HunterManager_PJS>();
