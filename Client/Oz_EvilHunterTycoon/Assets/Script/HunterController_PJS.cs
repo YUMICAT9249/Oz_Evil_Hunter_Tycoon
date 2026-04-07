@@ -8,7 +8,7 @@ public class HunterController_PJS : MonoBehaviour
     // [1] 헌터 상태
     private enum HunterState
     {
-        Idle, Move, Attack
+        Idle, Move, Attack, Die
     }
 
     [SerializeField] private HunterState _currentState = HunterState.Idle;
@@ -20,13 +20,14 @@ public class HunterController_PJS : MonoBehaviour
 
     // 최적화를 위한 변수처리 (TryGetComponent, FindWithTag 제거)
     private HunterData_PJS _hunterData;
+    private HunterSkill_PJS _hunterSkill;
     private Battle_JBJ_PJS _battle;
-    private Battle_JBJ_PJS _targetbattle;
     private Animator _animator;
     private Collider2D _hunterCollider;
     private SpriteRenderer _spriteRenderer;
 
     // [3] 이동 타겟 관련
+    private Battle_JBJ_PJS _targetBattle;
     private GameObject _targetMonster;  // 현재 타겟
     private Vector2 _targetPosition;    // 이동 목적지
     private float _lookTargetX;
@@ -43,12 +44,12 @@ public class HunterController_PJS : MonoBehaviour
     {
         // 캐싱 - 최적화
         _hunterData = GetComponent<HunterData_PJS>();
+        _hunterSkill = GetComponent<HunterSkill_PJS>();
         _battle = GetComponent<Battle_JBJ_PJS>();
         _animator = GetComponent<Animator>();
         _hunterCollider = GetComponent<Collider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
 
     // [5] 초기화
     void Start()
@@ -85,7 +86,12 @@ public class HunterController_PJS : MonoBehaviour
     public void HunterDie()
     {
         StopAllCoroutines();
+        _currentState = HunterState.Die;
+
         _animator.SetTrigger("Die");
+        _animator.SetBool("IsMoving", false);
+        _animator.speed = 1.0f;
+
         _hunterCollider.enabled = false;
         // 사망 이벤트
         HunterData_PJS.OnHunterDie?.Invoke();
@@ -113,36 +119,40 @@ public class HunterController_PJS : MonoBehaviour
             if (!_targetMonster.activeInHierarchy || !_targetBox.OverlapPoint(_targetMonster.transform.position))
             {
                 _targetMonster = null;
-                _targetbattle = null;
+                _targetBattle = null;
             }      
             // 범위 안이면 타겟 유지
             else return;
         }
         // 2. 새로운 몬스터 탐지 (특정 태그(Monster)만 탐지)
-        int findMonster = Physics2D.OverlapCircleNonAlloc
+        int count = Physics2D.OverlapCircleNonAlloc
             (
                 transform.position, 
-                _hunterData._unitData.detectRange, 
+                _hunterData._unitData.detectRange,
                 _detectMonster
             );
+        float closestDistance = float.MaxValue;
+        GameObject closestMonster = null;
+        Battle_JBJ_PJS closestBattle = null;
 
-        for (int i = 0; i < _detectMonster.Length; i++)
+        for (int i = 0; i < count; i++)
         {
-            _detectMonster[i] = null;
-        }
+            if (_detectMonster[i] == null) continue;
 
-        for (int i = 0; i < findMonster; i++)
-        {
             if (_detectMonster[i].CompareTag("Monster"))
             {
                 if (_targetBox.OverlapPoint(_detectMonster[i].transform.position))
                 {
-                    _targetMonster = _detectMonster[i].gameObject;
-                    _targetbattle = _targetMonster.GetComponent<Battle_JBJ_PJS>();
+                    float distance = Vector2.Distance(transform.position, _detectMonster[i].transform.position);
+                    closestDistance = distance;
+                    closestMonster = _detectMonster[i].gameObject;
+                    closestBattle = _detectMonster[i].GetComponent<Battle_JBJ_PJS>();
                     break;
                 }
             }
         }
+        _targetMonster = closestMonster;
+        _targetBattle = closestBattle;
     }
 
     // [13] 방향 전환
@@ -196,9 +206,13 @@ public class HunterController_PJS : MonoBehaviour
         }
 
         // HP 최대치 + 부활처리
-        _hunterData._currentHP = _hunterData.GetMaxHP();
+        _hunterData.CurrentHp = _hunterData.GetMaxHP();
         _hunterCollider.enabled = true;
+        _currentState = HunterState.Idle;
+
         SetArea(_targetBox); // 위치갱신 로직 실행
+        StopAllCoroutines();
+        StartCoroutine(HunterActionCenterLoop());
     }
 
     // [8] 행동 중앙 제어(메인)
@@ -210,7 +224,7 @@ public class HunterController_PJS : MonoBehaviour
             if (_isForcedMove)
             {
                 _targetMonster = null; // 기존 타겟 제거
-                _targetbattle = null;
+                _targetBattle = null;
 
                 _currentState = HunterState.Move;
                 yield return StartCoroutine(HunterMoveLoop());
@@ -328,7 +342,15 @@ public class HunterController_PJS : MonoBehaviour
     {
         while (_targetMonster != null)
         {
-            if (_targetMonster == null) yield break;
+            // 타겟 죽었으면 즉시 종료
+            if (!_targetMonster.activeInHierarchy) yield break;
+
+            float currentDistance = Vector2.Distance(transform.position, _targetMonster.transform.position);
+            if (currentDistance > _hunterData._unitData.attackRange)
+            {
+                _animator.speed = 1.0f;
+                yield break;
+            }
 
             float cooldown = _hunterData.GetAttackCooldown();
 
@@ -336,14 +358,22 @@ public class HunterController_PJS : MonoBehaviour
             {
                 _lookTargetX = _targetMonster.transform.position.x;
                 LookAt();
+
                 // 애니메이션 공격 쿨다운 조절(공격속도 조절)
                 _animator.speed = _hunterData._unitData.attackCooldown / cooldown;
+
+                // 헌터 스킬 사용 시도
+                if (_hunterSkill != null && _targetBattle != null)
+                {
+                    _hunterSkill.UseSkill(_targetBattle);
+                }
+
                 _animator.SetTrigger("Attack");
 
                 // 데미지 처리 (전투 스크립트 호출)
-                if (_battle != null && _targetbattle != null)
+                if (_battle != null && _targetBattle != null)
                 {
-                    _battle.GiveDamage(_targetbattle);
+                    _battle.GiveDamage(_targetBattle);
                 }
                 _lastAttackTime = Time.time;
 
@@ -357,5 +387,6 @@ public class HunterController_PJS : MonoBehaviour
             }
             FindTarget();
         }
+        _animator.speed = 1.0f;
     }
 }

@@ -196,13 +196,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514878239395163665}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.37652963, w: 0.9264046}
-  m_LocalPosition: {x: -0.139, y: -0.097, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -0.114, y: -0.101, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1777244567324737607}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 44.238}
+  m_Father: {fileID: 3465983635975543123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &3386111970679167885
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -243,7 +243,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 2089982083, guid: 789a3a08937f53f48bf8a3d66006997b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -284,7 +284,8 @@ Transform:
   m_LocalPosition: {x: -0.134, y: -0.0142, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2229375551067283684}
   m_Father: {fileID: 2863078132478478931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6867380702057343829
@@ -350,6 +351,7 @@ GameObject:
   - component: {fileID: 7934662134875418770}
   - component: {fileID: 8944274977471034988}
   - component: {fileID: 5572252102593288269}
+  - component: {fileID: 7147984579055572911}
   m_Layer: 8
   m_Name: GuriReaper
   m_TagString: Monster
@@ -406,6 +408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0939305aa11a6474f833c9364d60c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: "\uAD6C\uB9AC\uB85C \uB9CC\uB4E0 \uB9AC\uD37C"
+  maxHp: 100
+  monsterName: 
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
   Hunter: {fileID: 0}
@@ -413,6 +418,18 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -2, y: -2, z: -2}
   maxBounds: {x: 2, y: 2, z: 2}
+--- !u!114 &7147984579055572911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698325660374546701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47661414a22e9d6478c0e346b344270e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7983399175861886667
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,8 +459,7 @@ Transform:
   m_LocalPosition: {x: 0.0629, y: -0.0333, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2229375551067283684}
+  m_Children: []
   m_Father: {fileID: 2863078132478478931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
 --- !u!212 &3551645690903197844

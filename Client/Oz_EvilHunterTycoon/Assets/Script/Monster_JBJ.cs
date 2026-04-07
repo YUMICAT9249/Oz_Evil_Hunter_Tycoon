@@ -18,8 +18,11 @@ public enum Difficulty
 }
 */
 
-public class Monster_JBJ : MonoBehaviour
+public class Monster_JBJ : BaseWorldObject_KJG
 {
+    [Header("몬스터 이름")]
+    public string monsterName;
+
     public UnitData_JBJ_PJS data;
 
     public float currentHP;
@@ -31,9 +34,12 @@ public class Monster_JBJ : MonoBehaviour
     public Vector3 minBounds;
     public Vector3 maxBounds;
 
+    Vector3 lastMoveDir;
+
     SpriteRenderer[] renderers;
 
     bool isIdle = false;
+    bool isDead = false;
 
     float stateTimer;
     float moveDuration;
@@ -48,13 +54,19 @@ public class Monster_JBJ : MonoBehaviour
 
     Battle_JBJ_PJS battle;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        displayName = monsterName;
+    }
+
     public void Init(MonsterSpawner_JBJ spawner, MonsterType type)
     {
         this.spawner = spawner;
         this.type = type;
     }
 
-    void Start()
+    protected override void Start()
     {
         currentHP = data.maxHp;
 
@@ -73,12 +85,19 @@ public class Monster_JBJ : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(9999);
         }
 
         stateTimer -= Time.deltaTime;
+
+        if (moveDirection != Vector3.zero)
+        {
+            lastMoveDir = moveDirection;
+        }
 
         if (stateTimer <= 0)
         {
@@ -280,10 +299,40 @@ public class Monster_JBJ : MonoBehaviour
 
     public void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         if (spawner != null)
         {
             spawner.OnMonsterDead(type);
         }
+
+        StartCoroutine(DieRoutine());
+    }
+
+    IEnumerator DieRoutine()
+    {
+        // 콜라이더 끄기
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+
+        // 방향 보정
+        if (lastMoveDir == Vector3.zero)
+        {
+            lastMoveDir = new Vector3(facingDir, 0, 0);
+        }
+
+        Vector3 hitDir = -lastMoveDir;
+
+        // 뒤로 밀림
+        transform.position += new Vector3(hitDir.x * 0.1f, -0.05f, 0);
+
+        // 랜덤으로 기울이기
+        float angle = Random.Range(-35f, 35f);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // 살짝 멈춤
+        yield return new WaitForSeconds(0.2f);
 
         Destroy(gameObject);
     }
