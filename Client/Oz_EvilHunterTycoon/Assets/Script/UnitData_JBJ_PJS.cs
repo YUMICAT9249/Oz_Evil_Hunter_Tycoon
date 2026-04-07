@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum Unit
@@ -22,11 +23,13 @@ public class UnitData_JBJ_PJS : ScriptableObject
     // 몬스터 상세 스텟
 
     [Header("헌터 상세 스텟")]
-    public string hunterName;              // 헌터 이름
-    public HunterJop hunterJop;            // 헌터 직업
-    public int maxLevel = 100;              // 최대 레벨
+    public string hunterName;            // 헌터 이름
+    public HunterJop hunterJop;          // 헌터 직업
+    public int maxLevel = 100;           // 최대 레벨
 
     public float defence = 10;           // 기본 방어력
     public float criticalChance = 10.0f; // 기본 치명타확률
     public float dodgeChance = 10.0f;    // 기본 회피확률
+
+    public Action<float, float> OnHpChanged;
 }

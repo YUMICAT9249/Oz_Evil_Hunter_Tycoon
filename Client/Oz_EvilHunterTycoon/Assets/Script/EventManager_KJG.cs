@@ -2,55 +2,51 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class EventManager_KJG : MonoBehaviour
+/// <summary>
+/// 글로벌 이벤트 매니저
+/// 
+/// 역할:
+/// - 게임 전체에서 발생하는 "시스템 레벨" 이벤트만 관리
+/// - Save/Load, UI 새로고침, 게임 시작/종료 같은 공통 이벤트만 담당
+/// - 각 매니저의 세부 이벤트(예: OnGoldChanged, OnAchievementUnlocked)는 
+///   해당 매니저에서 C# event로 직접 관리 (진구님 의도대로)
+/// 
+/// 사용 방법:
+/// EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RequestSave);
+/// EventManager_KJG.Instance.AddListener(EventManager_KJG.GameEvent.RefreshUI, RefreshUIHandler);
+/// </summary>
+public class EventManager_KJG : BaseManager_KJG<EventManager_KJG>
 {
-    public static EventManager_KJG Instance { get; private set; }
-
-    // ==================== Enum 정의 (EventManager 안에 포함) ====================
+    /// <summary>
+    /// 글로벌 시스템 이벤트 목록 (필요한 것만 최소화)
+    /// </summary>
     public enum GameEvent
     {
-        // 시스템
         GameStart,
         GameOver,
         GamePause,
         GameResume,
         SceneLoaded,
 
-        // 저장 & UI
-        RequestSave,
-        RefreshUI,           
+        // 저장/로드 관련 (글로벌)
+        RequestSave,        // 누군가 "지금 저장해!" 요청
+        RefreshUI,          // UI 전체 새로고침 요청
 
-        // 플레이어
-        PlayerDied,
-        PlayerLevelUp,
-        PlayerHealthChanged,
-
-        // 적/전투
+        // 전투/진행 관련 글로벌 이벤트
         EnemyDied,
         BossDefeated,
-
-        // 기타
         WaveCleared,
-        ScoreChanged,
-        ItemCollected
     }
 
     private Dictionary<GameEvent, UnityEvent> globalEvents = new Dictionary<GameEvent, UnityEvent>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        Debug.Log("✅ EventManager_KJG 초기화 완료 (Enum 포함)");
+        base.Awake();
+        Debug.Log("✅ [EventManager_KJG] 글로벌 이벤트 시스템 초기화 완료");
     }
 
-    // ==================== 글로벌 이벤트 메서드 ====================
+    // ==================== 이벤트 등록 ====================
     public void AddListener(GameEvent eventType, UnityAction listener)
     {
         if (!globalEvents.ContainsKey(eventType))
@@ -62,11 +58,10 @@ public class EventManager_KJG : MonoBehaviour
     public void RemoveListener(GameEvent eventType, UnityAction listener)
     {
         if (globalEvents.TryGetValue(eventType, out var unityEvent))
-        {
             unityEvent.RemoveListener(listener);
-        }
     }
 
+    // ==================== 이벤트 발생 ====================
     public void Invoke(GameEvent eventType)
     {
         if (globalEvents.TryGetValue(eventType, out var unityEvent))
@@ -75,14 +70,11 @@ public class EventManager_KJG : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"[EventManager_KJG] 이벤트 '{eventType}'이(가) 등록되지 않았습니다.");
+            Debug.LogWarning($"[EventManager_KJG] 이벤트 '{eventType}'이 등록되지 않았습니다.");
         }
     }
 
-    public void ClearAll()
-    {
-        foreach (var evt in globalEvents.Values)
-            evt.RemoveAllListeners();
-        globalEvents.Clear();
-    }
+    // ==================== 자주 사용하는 편의 메서드 ====================
+    public void RequestSave() => Invoke(GameEvent.RequestSave);
+    public void RefreshUI() => Invoke(GameEvent.RefreshUI);
 }
