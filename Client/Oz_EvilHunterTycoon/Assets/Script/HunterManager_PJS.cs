@@ -36,16 +36,8 @@ public class HunterManager_PJS : MonoBehaviour
 
     void Start()
     {
-        if (EventManager_KJG.Instance != null)
-        {
-            // 헌터 방문 구독
-            EventManager_KJG.Instance.AddListener(EventManager_KJG.GameEvent.RefreshUI, HunterRandomSpawn);
-            // 보스 출현시 강제이동 구독
-            EventManager_KJG.Instance.AddListener(EventManager_KJG.GameEvent.BossDefeated, CallAllHuntersToArea);
-        }
-
         HunterController_PJS[] findingHunters = FindObjectsOfType<HunterController_PJS>();
-        BoxCollider2D villageBox = GetAreaCollider(AreaType.Village);
+        BoxCollider2D villageBox = AreaCollider(AreaType.Village);
 
         for (int i = 0; i < findingHunters.Length; i++)
         { 
@@ -58,7 +50,7 @@ public class HunterManager_PJS : MonoBehaviour
     public void HunterRandomSpawn()
     {
         HunterJop jop = (HunterJop)Random.Range(1, 5);
-        GameObject[] jopSelect = GetJopSelect(jop);
+        GameObject[] jopSelect = JopSelect(jop);
 
         if (jopSelect == null || jopSelect.Length == 0) return;
 
@@ -81,7 +73,7 @@ public class HunterManager_PJS : MonoBehaviour
         }
     }
 
-    private GameObject[] GetJopSelect(HunterJop jop)
+    private GameObject[] JopSelect(HunterJop jop)
     {
         if (jop == HunterJop.Berserker) return berserkerPrefabs;
         if (jop == HunterJop.Paladin) return paladinPrefabs;
@@ -104,7 +96,7 @@ public class HunterManager_PJS : MonoBehaviour
                     // 보스 구역으로 변경
                     hunterData._areaType = AreaType.AreaFieldBoss;
                     // 실제 이동할 콜라이더 찾아서 SetArea에 넣음
-                    BoxCollider2D bossArea = GetAreaCollider(AreaType.AreaFieldBoss);
+                    BoxCollider2D bossArea = AreaCollider(AreaType.AreaFieldBoss);
                     hunterController.SetArea(bossArea);
                 }
             }
@@ -112,7 +104,7 @@ public class HunterManager_PJS : MonoBehaviour
     }
 
     // 구역 전환 / _areaIndex 변수에 담긴 번호 -> 콜라이더를 반환
-    public BoxCollider2D GetAreaCollider(AreaType type)
+    public BoxCollider2D AreaCollider(AreaType type)
     {
         int index = (int)type;
         // 입력된 인덱스가 배열 범위 안에 있는지 확인

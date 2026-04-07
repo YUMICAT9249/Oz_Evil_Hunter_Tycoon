@@ -49,18 +49,20 @@ public class Battle_JBJ_PJS : MonoBehaviour
         // 헌터 맞을 때 데미지 계산
         if (_hunterData != null)
         {
-            if (_hunterData._currentHP <= 0) return;
+            if (_hunterData.CurrentHp <= 0) return;
+
             // 방어력 적용
             float defence = _hunterData.GetDefence();
             float finalDamage = Mathf.Max(0, damage - defence);
+
             // 실제 HP 차감 / UI에서 빼내어 갈 것
             _hunterData.CurrentHp -= finalDamage;
             Debug.Log($"{gameObject.name}이 {attacker.name}에게 {finalDamage}만큼 피해 입음.");
 
             // 사망 체크
-            if (_hunterData._currentHP <= 0)
+            if (_hunterData.CurrentHp <= 0)
             {
-                _hunterData._currentHP = 0;
+                _hunterData.CurrentHp = 0;
                 Die();
             }
         }
@@ -91,7 +93,6 @@ public class Battle_JBJ_PJS : MonoBehaviour
         // 헌터사망 -> 연출
         if (_hunterController != null)
         {
-            HunterData_PJS.OnHunterDie?.Invoke();
             _hunterController.HunterDie();
         }
         
@@ -101,7 +102,7 @@ public class Battle_JBJ_PJS : MonoBehaviour
             _monsterData.Die();
         }
     }
-
+    /*
     // <summary>
     /// 공격 콜라이더 감지
     /// </summary>
@@ -118,4 +119,5 @@ public class Battle_JBJ_PJS : MonoBehaviour
             }
         }
     }
+    */
 }
