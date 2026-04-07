@@ -4,13 +4,8 @@ using UnityEngine;
 /// BaseWorldObject_KJG
 /// 
 /// 역할:
-/// - Monster, Hunter, Building 등 맵 오브젝트의 공통 베이스 클래스
-/// - HP Bar는 **항상** 떠있게 관리
-/// - 클릭하면 **추가 선택 UI 버튼**이 나타나도록 이벤트 발생
-/// 
-/// 사용 방법:
-/// Monster_JBJ.cs, HunterController_PJS.cs, Building 스크립트에서 
-/// "public class Monster_JBJ : BaseWorldObject_KJG"처럼 상속받기만 하면 됩니다.
+/// - 모든 맵 오브젝트의 공통 베이스
+/// - 건설 모드 등에서 Manager_KJG.Map이 null일 수 있는 상황도 안전하게 처리
 /// </summary>
 public abstract class BaseWorldObject_KJG : MonoBehaviour
 {
@@ -39,14 +34,24 @@ public abstract class BaseWorldObject_KJG : MonoBehaviour
         UnregisterFromMapManager();
     }
 
-    // ==================== MapManager 등록 / 제거 ====================
+    // ==================== 안전한 등록 / 제거 ====================
     protected virtual void RegisterToMapManager()
     {
+        if (Manager_KJG.Map == null)
+        {
+            Debug.LogWarning($"[BaseWorldObject_KJG] MapManager가 아직 초기화되지 않았습니다. ({displayName})");
+            return;
+        }
         Manager_KJG.Map.RegisterObject(this);
     }
 
     protected virtual void UnregisterFromMapManager()
     {
+        if (Manager_KJG.Map == null)
+        {
+            // 이미 Manager가 없으면 무시 (건설 모드 취소/파괴 시 자주 발생)
+            return;
+        }
         Manager_KJG.Map.UnregisterObject(this);
     }
 
@@ -54,18 +59,17 @@ public abstract class BaseWorldObject_KJG : MonoBehaviour
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
 
-    // HP Bar는 항상 떠있게 하기 위해 HP 변경 시 이벤트 발생
+    public virtual void OnClicked()
+    {
+        if (Manager_KJG.Map == null) return;
+        Manager_KJG.Map.TriggerObjectClicked(this);
+    }
+
     public virtual void OnHealthChanged(float current, float max)
     {
         currentHp = current;
-        Manager_KJG.Map.OnHealthChanged(this, currentHp, maxHp);
-    }
-
-    // 클릭하면 추가 선택 UI 버튼이 나타나도록 이벤트 발생
-    public virtual void OnClicked()
-    {
-        Debug.Log($"[BaseWorldObject_KJG] {displayName}이(가) 클릭되었습니다.");
-        Manager_KJG.Map.OnObjectClicked(this);
+        if (Manager_KJG.Map == null) return;
+        Manager_KJG.Map.TriggerHealthChanged(this, currentHp, maxHp);
     }
 
     public virtual void TakeDamage(float damage)
