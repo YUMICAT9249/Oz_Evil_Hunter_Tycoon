@@ -1,15 +1,16 @@
 using UnityEngine;
 
 /// <summary>
-/// [KJG 실무 아키텍처] BaseWorldObject_KJG
+/// BaseWorldObject_KJG
 /// 
 /// 역할:
 /// - Monster, Hunter, Building 등 맵 오브젝트의 공통 베이스 클래스
-/// - MapManager_KJG에 자동 등록/제거
-/// - HP 관리, 클릭 처리, TakeDamage 등 공통 기능을 한 곳에 모음
+/// - HP Bar는 **항상** 떠있게 관리
+/// - 클릭하면 **추가 선택 UI 버튼**이 나타나도록 이벤트 발생
 /// 
 /// 사용 방법:
-/// Monster_JBJ.cs에서 "public class Monster_JBJ : BaseWorldObject_KJG"처럼 상속받기만 하면 됩니다.
+/// Monster_JBJ.cs, HunterController_PJS.cs, Building 스크립트에서 
+/// "public class Monster_JBJ : BaseWorldObject_KJG"처럼 상속받기만 하면 됩니다.
 /// </summary>
 public abstract class BaseWorldObject_KJG : MonoBehaviour
 {
@@ -18,9 +19,9 @@ public abstract class BaseWorldObject_KJG : MonoBehaviour
     public string displayName = "Unknown Object";
 
     [Tooltip("최대 체력")]
-    public float maxHp = 100f;          // ← maxHp 선언 (오류 원인)
+    public float maxHp = 100f;
 
-    protected float currentHp;          // 현재 체력
+    protected float currentHp;
 
     protected virtual void Awake()
     {
@@ -53,15 +54,18 @@ public abstract class BaseWorldObject_KJG : MonoBehaviour
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
 
-    public virtual void OnClicked()
-    {
-        Manager_KJG.Map.OnObjectClicked(this);
-    }
-
+    // HP Bar는 항상 떠있게 하기 위해 HP 변경 시 이벤트 발생
     public virtual void OnHealthChanged(float current, float max)
     {
         currentHp = current;
         Manager_KJG.Map.OnHealthChanged(this, currentHp, maxHp);
+    }
+
+    // 클릭하면 추가 선택 UI 버튼이 나타나도록 이벤트 발생
+    public virtual void OnClicked()
+    {
+        Debug.Log($"[BaseWorldObject_KJG] {displayName}이(가) 클릭되었습니다.");
+        Manager_KJG.Map.OnObjectClicked(this);
     }
 
     public virtual void TakeDamage(float damage)

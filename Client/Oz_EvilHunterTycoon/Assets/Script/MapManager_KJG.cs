@@ -2,10 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// MapManager_KJG
+/// [KJG 실무 아키텍처] MapManager_KJG
 /// 
-/// 현재 BuildingModel 클래스가 없어서 임시로 주석 처리했습니다.
-/// BuildingModel이 만들어지면 주석을 풀어주세요.
+/// 역할:
+/// - BaseWorldObject_KJG를 상속받은 모든 오브젝트를 중앙에서 관리
+/// - HP Bar는 항상 표시 (OnHealthChanged 이벤트로 UIManager가 처리)
+/// - 클릭하면 추가 선택 UI 버튼이 나타나도록 이벤트 발생
 /// </summary>
 public class MapManager_KJG : BaseManager_KJG<MapManager_KJG>
 {
@@ -29,31 +31,17 @@ public class MapManager_KJG : BaseManager_KJG<MapManager_KJG>
     // ==================== 조회 ====================
     public List<BaseWorldObject_KJG> GetAllWorldObjects() => new List<BaseWorldObject_KJG>(worldObjects);
 
-    public List<BaseWorldObject_KJG> GetAllMonsters()
-    {
-        return worldObjects.FindAll(obj => obj is Monster_JBJ);
-    }
-
-    public List<BaseWorldObject_KJG> GetAllHunters()
-    {
-        return worldObjects.FindAll(obj => obj is HunterController_PJS); // Hunter 스크립트 이름에 맞게 조정
-    }
-
-    // ==================== Building 관련은 아직 클래스 없으므로 주석 처리 ====================
-    // public List<BaseWorldObject_KJG> GetAllBuildings()
-    // {
-    //     return worldObjects.FindAll(obj => obj is BuildingModel);
-    // }
-
     // ==================== 이벤트 ====================
     public void OnObjectClicked(BaseWorldObject_KJG clickedObject)
     {
         if (clickedObject == null) return;
         Debug.Log($"[MapManager_KJG] 클릭됨 → {clickedObject.displayName}");
+        // UIManager_KJG가 이 이벤트를 받아 추가 선택 UI 버튼을 띄웁니다.
     }
 
     public void OnHealthChanged(BaseWorldObject_KJG obj, float currentHp, float maxHp)
     {
         Debug.Log($"[MapManager_KJG] HP 변경 → {obj.displayName} : {currentHp}/{maxHp}");
+        // UIManager_KJG가 HP Bar를 실시간으로 업데이트합니다.
     }
 }
