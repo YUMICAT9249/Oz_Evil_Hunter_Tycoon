@@ -4,6 +4,9 @@ using UnityEngine;
 public class BuildingInstance_YHJ
 {
     public string buildingID;
+
+    public BuildingType_YHJ buildingType;
+
     public Vector2Int origin;
     public Vector2Int size;
     public GameObject instance;
@@ -12,6 +15,7 @@ public class BuildingInstance_YHJ
     public int currentLevel = 1;
     public BuildingLevelData_YHJ levelData;
 
+    // 현재 스탯
     public LevelStat CurrentStat
     {
         get
@@ -28,8 +32,12 @@ public class BuildingInstance_YHJ
         }
     }
 
+    // 레벨 업
     public bool TryUpgrade(ref int gold)
     {
+        if (levelData == null || levelData.levelStats == null)
+            return false;
+
         if (currentLevel >= levelData.levelStats.Count)
             return false;
 
@@ -39,25 +47,21 @@ public class BuildingInstance_YHJ
             return false;
 
         gold -= nextStat.upgradeCost;
-
         currentLevel++;
 
         return true;
     }
-}
 
-[System.Serializable]
-public class LevelStat
-{
-    public int level;
-    public int capacity;
-    public float workSpeed;
-    public int upgradeCost;
-}
+    // 매니저 등록
+    public void Register()
+    {
+        if (BuildingManager_YHJ.Instance != null)
+            BuildingManager_YHJ.Instance.RegisterBuilding(this);
+    }
 
-[System.Serializable]
-public class BuildingLevelData_YHJ
-{
-    public int MaxLevel => levelStats.Count;
-    public List<LevelStat> levelStats;
+    public void Unregister()
+    {
+        if (BuildingManager_YHJ.Instance != null)
+            BuildingManager_YHJ.Instance.UnregisterBuilding(this);
+    }
 }
