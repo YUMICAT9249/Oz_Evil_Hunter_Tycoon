@@ -7,7 +7,7 @@ public class BuildingQueue_YHJ : MonoBehaviour
     private Queue<IUnit_YHJ> queue =
         new Queue<IUnit_YHJ>();
 
-    // ★ 대기열 추가
+    // 대기열 추가
     public void Enqueue(IUnit_YHJ unit)
     {
         queue.Enqueue(unit);
@@ -15,7 +15,7 @@ public class BuildingQueue_YHJ : MonoBehaviour
         Debug.Log($"[Queue] 추가됨 / 현재 인원: {queue.Count}");
     }
 
-    // ★ 대기열 처리
+    // 대기열 처리
     public IUnit_YHJ Dequeue()
     {
         if (queue.Count == 0)
@@ -28,10 +28,10 @@ public class BuildingQueue_YHJ : MonoBehaviour
         return unit;
     }
 
-    // ★ 대기 인원 수
+    // 대기 인원 수
     public int Count => queue.Count;
 
-    // ★ 비어있는지
+    // 비어있는지
     public bool IsEmpty()
     {
         return queue.Count == 0;

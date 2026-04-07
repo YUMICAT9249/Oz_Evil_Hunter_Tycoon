@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5565436730308217528}
   - component: {fileID: -5449324067123005584}
+  - component: {fileID: 1891291263243270880}
   m_Layer: 0
   m_Name: horn of boss
   m_TagString: Untagged
@@ -77,6 +78,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c71e6f2c92c3248aec1cd3995aba2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1891291263243270880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355346269967466306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Unknown Object
+  maxHp: 100
 --- !u!1 &4131330690452351965
 GameObject:
   m_ObjectHideFlags: 0

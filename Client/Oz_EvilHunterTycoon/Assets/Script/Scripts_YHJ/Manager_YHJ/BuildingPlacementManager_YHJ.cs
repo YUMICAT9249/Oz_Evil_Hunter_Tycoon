@@ -21,11 +21,14 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         public string buildingID;
         public bool isRoad;
         public bool canRotate = true;
+
+        public BuildingType_YHJ buildingType;
+        public BuildingLevelData_YHJ levelData;
     }
 
     [Header("Building List")]
     public BuildingData[] buildings;
-    public int selectedIndex = 0;
+    public int selectedIndex = -1; // ★ 자동으로 0번(마을회관) 선택되지 않게 수정
 
     [Header("UI")]
     [SerializeField] private Transform content;
@@ -55,6 +58,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     bool IsPointerOnPreview()
     {
+        if (previewRoot == null) return false;
+
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0;
 
@@ -86,6 +91,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         }
     }
 
+    // ★ 좌하단 건설 버튼은 이 함수를 연결해서 사용
     public void ToggleBuildPanel()
     {
         if (buildPanel == null)
@@ -122,13 +128,11 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
             float dist = Vector3.Distance(mouseDownPos, currentMouse);
 
-            // 일정 거리 이상 움직여야 드래그 시작
             if (!isDragging && dist > dragThreshold)
             {
                 if (IsPointerOnPreview())
                 {
                     isDragging = true;
-
                     dragOffset = previewRoot.transform.position - currentMouse;
                 }
             }
@@ -147,6 +151,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void UpdatePreviewPosition()
     {
+        if (previewRoot == null) return;
+
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0;
 
@@ -172,6 +178,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     public void RotatePreview()
     {
+        if (selectedIndex < 0 || selectedIndex >= buildings.Length) return;
+
         var data = buildings[selectedIndex];
 
         if (!data.canRotate)
@@ -185,21 +193,17 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void Update()
     {
-        // DEBUG ONLY - 건물 클릭 테스트
         DebugCheckBuildingClick();
 
         if (!isPlacing) return;
 
-        // UI 클릭이면 무시
         if (IsPointerOverUI() && !isDragging) return;
 
-        // 클릭 처리 추가
         if (Input.GetMouseButtonDown(0))
         {
             HandleClick();
         }
 
-        // 드래그는 유지
         HandleDragInput();
     }
 
@@ -218,15 +222,12 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         return cells;
     }
 
-    // DEBUG ONLY - 건물 클릭 테스트
-
     void DebugCheckBuildingClick()
     {
         if (isPlacing) return;
 
         if (!Input.GetMouseButtonDown(0)) return;
 
-        // UI 클릭이면 무시
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
@@ -253,9 +254,6 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             Debug.Log("빈 공간 클릭");
         }
     }
-
-
-
 
     void HandleClick()
     {
@@ -342,6 +340,13 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     public void StartPlacement()
     {
+        // ★ 선택 안 했으면 시작 금지
+        if (selectedIndex < 0 || selectedIndex >= buildings.Length)
+        {
+            Debug.LogWarning("건물 선택 안됨");
+            return;
+        }
+
         isPlacing = false;
 
         if (previewInstance != null)
@@ -450,6 +455,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     bool CanPlace(Vector2Int startPos)
     {
+        if (selectedIndex < 0 || selectedIndex >= buildings.Length) return false;
+
         var data = buildings[selectedIndex];
 
         if (data.canOverlap)
@@ -471,10 +478,11 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void TryPlace()
     {
-        if (EventSystem.current.IsPointerOverGameObject(0))
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(0))
             return;
 
         if (!canPlace) return;
+        if (selectedIndex < 0 || selectedIndex >= buildings.Length) return;
 
         Vector3 worldPos = GridToWorld(currentGridPos);
         worldPos.z = -1f;
@@ -485,27 +493,25 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         GameObject obj = Instantiate(data.prefab, finalPos, Quaternion.identity);
         StartCoroutine(ApplySortingNextFrame(obj));
 
-        // 1. 점유 셀 계산
         var cells = CalculateCells(currentGridPos, buildingSize);
 
-        // 2. 데이터 생성
         BuildingInstance_YHJ instanceData = new BuildingInstance_YHJ
         {
             buildingID = data.buildingID,
+            buildingType = data.buildingType, // ★ 오늘 작업 반영
             origin = currentGridPos,
             size = buildingSize,
             instance = obj,
-            occupiedCells = cells
+            occupiedCells = cells,
+            levelData = data.levelData         // ★ 오늘 작업 반영
         };
 
-        // 3. gridMap 등록
         foreach (var cell in cells)
         {
             gridMap[cell] = instanceData;
         }
 
-
-        bool flip = previewRenderers[0].flipX;
+        bool flip = previewRenderers.Count > 0 && previewRenderers[0].flipX;
 
         var renderers = obj.GetComponentsInChildren<SpriteRenderer>(true);
 
@@ -525,13 +531,26 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             }
         }
 
+        // ★ 오늘 작업 반영
+        if (!data.isRoad && data.buildingType != BuildingType_YHJ.None)
+        {
+            instanceData.Register();
+        }
+
+        // ★ 오늘 작업 반영
+        var worldObj = obj.GetComponent<BuildingWorldObject_YHJ>();
+        if (worldObj != null)
+        {
+            worldObj.displayName = data.name;
+        }
+
         if (!data.isRoad)
         {
             builtBuildingIDs.Add(data.buildingID);
             CancelPlacement();
         }
 
-        Debug.Log("현재 gridMap 개수: " + gridMap.Count);//테스트
+        Debug.Log("현재 gridMap 개수: " + gridMap.Count);
     }
 
     public void CancelPlacement()
@@ -568,6 +587,9 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     Vector3 GetGridOffset()
     {
+        if (selectedIndex < 0 || selectedIndex >= buildings.Length)
+            return Vector3.zero;
+
         var data = buildings[selectedIndex];
         float xOffset = 0.5f * (data.size.x - 1) * grid.cellSize.x;
         float yOffset = -0.5f * (data.size.y - 1) * grid.cellSize.y;

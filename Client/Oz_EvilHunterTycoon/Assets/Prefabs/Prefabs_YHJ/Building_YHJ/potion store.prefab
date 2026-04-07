@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: -2725183148961592178}
   - component: {fileID: -7531564483036146988}
   - component: {fileID: 8922029145306410760}
+  - component: {fileID: -4358814954417916662}
   m_Layer: 0
   m_Name: potion store
   m_TagString: Untagged
@@ -105,6 +106,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: Potion
   price: 10
+--- !u!114 &-4358814954417916662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4942847635725805708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Unknown Object
+  maxHp: 100
 --- !u!1 &5678299587159193186
 GameObject:
   m_ObjectHideFlags: 0
