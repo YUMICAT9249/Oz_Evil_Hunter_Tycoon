@@ -3,7 +3,7 @@ using System.Collections;
 
 // 헌터 행동(어디로 이동/어떻게 공격) 스크립트
 
-public class HunterController_PJS : MonoBehaviour
+public class HunterController_PJS : BaseWorldObject_KJG
 {
     // [1] 헌터 상태
     private enum HunterState
@@ -40,7 +40,7 @@ public class HunterController_PJS : MonoBehaviour
     // 몬스터 탐색 (FindWithTag 제거)
     private Collider2D[] _detectMonster = new Collider2D[20];
 
-    void Awake()
+    protected override void Awake()
     {
         // 캐싱 - 최적화
         _hunterData = GetComponent<HunterData_PJS>();
@@ -52,7 +52,7 @@ public class HunterController_PJS : MonoBehaviour
     }
 
     // [5] 초기화
-    void Start()
+    protected override void Start()
     {
         // 시작 시 현재 구역을 가져옴
         if (_hunterData != null) 
