@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 2474332185468612133}
   - component: {fileID: -200184282982468080}
   - component: {fileID: -286045743311577842}
+  - component: {fileID: 869587540330657481}
   m_Layer: 0
   m_Name: armorrack
   m_TagString: Untagged
@@ -157,6 +158,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7edd421f915a84d85a4f21edb56e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &869587540330657481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4143389764929945007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Unknown Object
+  maxHp: 100
 --- !u!1 &6697337033885963953
 GameObject:
   m_ObjectHideFlags: 0

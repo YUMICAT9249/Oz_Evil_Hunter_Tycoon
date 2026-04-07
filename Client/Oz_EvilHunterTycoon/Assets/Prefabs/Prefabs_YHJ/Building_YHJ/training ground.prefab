@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1555116859856022492}
   - component: {fileID: 331827591307267331}
   - component: {fileID: 2269053496676850192}
+  - component: {fileID: -1373494500053706243}
   m_Layer: 0
   m_Name: training ground
   m_TagString: Untagged
@@ -58,6 +59,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7edd421f915a84d85a4f21edb56e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1373494500053706243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2303638240229769192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Unknown Object
+  maxHp: 100
 --- !u!1 &3567082896254247641
 GameObject:
   m_ObjectHideFlags: 0

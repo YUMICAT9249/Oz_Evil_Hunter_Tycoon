@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: -5012061405095862258}
   - component: {fileID: 2536735483440181179}
   - component: {fileID: 4573137291830301555}
+  - component: {fileID: -1379239971141529657}
   m_Layer: 0
   m_Name: sanctum
   m_TagString: Untagged
@@ -200,3 +201,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7edd421f915a84d85a4f21edb56e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1379239971141529657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252334655521503675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Unknown Object
+  maxHp: 100
