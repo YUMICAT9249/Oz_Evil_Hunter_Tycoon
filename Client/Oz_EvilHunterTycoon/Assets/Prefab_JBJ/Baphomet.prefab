@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3517505527710584512}
   - component: {fileID: 2043561701013426955}
   m_Layer: 8
-  m_Name: Titan_Head
+  m_Name: Baphomet_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2863078132478478931}
   - component: {fileID: 1508926607476826987}
   m_Layer: 8
-  m_Name: Titan_FrontBody
+  m_Name: Baphomet_FrontBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 2229375551067283684}
   - component: {fileID: 3386111970679167885}
   m_Layer: 8
-  m_Name: Titan_Sickle
+  m_Name: Baphomet_Sickle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,13 +198,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514878239395163665}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.33380687, w: 0.94264156}
-  m_LocalPosition: {x: -0.178, y: -0.216, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.4505037, w: 0.8927746}
+  m_LocalPosition: {x: -0.152, y: -0.285, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1777244567324737607}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 39}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 53.552}
 --- !u!212 &3386111970679167885
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 2641459679399971508}
   - component: {fileID: 1492147575599091381}
   m_Layer: 8
-  m_Name: Titan_RightLeg
+  m_Name: Baphomet_RightLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 3465983635975543123}
   - component: {fileID: 6867380702057343829}
   m_Layer: 8
-  m_Name: Titan_LeftArm
+  m_Name: Baphomet_LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,6 +436,7 @@ GameObject:
   - component: {fileID: 7934662134875418770}
   - component: {fileID: 8944274977471034988}
   - component: {fileID: 5572252102593288269}
+  - component: {fileID: 7845977040651272217}
   m_Layer: 8
   m_Name: Baphomet
   m_TagString: Monster
@@ -492,6 +493,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0939305aa11a6474f833c9364d60c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: "\uBC14\uD3EC\uBA54\uD2B8"
+  maxHp: 100
+  monsterName: 
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
   Hunter: {fileID: 0}
@@ -499,6 +503,18 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -2, y: -2, z: -2}
   maxBounds: {x: 2, y: 2, z: 2}
+--- !u!114 &7845977040651272217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698325660374546701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47661414a22e9d6478c0e346b344270e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7983399175861886667
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +526,7 @@ GameObject:
   - component: {fileID: 1777244567324737607}
   - component: {fileID: 3551645690903197844}
   m_Layer: 8
-  m_Name: Titan_RightArm
+  m_Name: Baphomet_RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,7 +611,7 @@ GameObject:
   - component: {fileID: 1223506139777539721}
   - component: {fileID: 7938027466288026399}
   m_Layer: 8
-  m_Name: Titan_LeftLeg
+  m_Name: Baphomet_LeftLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
