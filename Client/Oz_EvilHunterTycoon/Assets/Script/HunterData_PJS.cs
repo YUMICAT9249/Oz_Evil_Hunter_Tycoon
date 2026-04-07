@@ -99,18 +99,12 @@ public class HunterData_PJS : MonoBehaviour
 
     private void OnEnable()
     {
-        if (EventManager_KJG.Instance != null)
-        {
-            EventManager_KJG.Instance.AddListener(EventManager_KJG.GameEvent.RequestSave, TryRebirth);
-        }
+
     }
 
     private void OnDisable()
     {
-        if (EventManager_KJG.Instance != null)
-        {
-            EventManager_KJG.Instance.RemoveListener(EventManager_KJG.GameEvent.RequestSave, TryRebirth);
-        }
+
     }
 
     // 스탯 뽑기 확률 함수
@@ -220,7 +214,6 @@ public class HunterData_PJS : MonoBehaviour
         _rebirthBonus = 1.0f + (_rebirthCount * 0.1f); // 1환생당 10% 추가 보너스 스탯 (복리x)
         FinalStats(); // 기존 등급에 환생 보너스만 계산
         _currentHP = _maxHP;
-        EventManager_KJG.Instance.Invoke(EventManager_KJG.GameEvent.RefreshUI);
 
         Debug.Log($"{_hunterNameList} 환생. {_rebirthCount}회. {_rebirthBonus}배");
     }
