@@ -128,7 +128,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
         int count = Physics2D.OverlapCircleNonAlloc
             (
                 transform.position, 
-                _hunterData._unitData.detectRange,
+                _hunterData._detectRange,
                 _detectMonster
             );
         float closestDistance = float.MaxValue;
@@ -137,19 +137,20 @@ public class HunterController_PJS : BaseWorldObject_KJG
 
         for (int i = 0; i < count; i++)
         {
-            Collider2D collider = _detectMonster[i];
-            if (collider == null) continue;
+            if (_detectMonster[i] == null) continue;
 
-            if (collider.CompareTag("Monster")) continue;
-
-            if (_targetBox.OverlapPoint(collider.transform.position)) continue;
-            
-            float distance = Vector2.Distance(transform.position, _detectMonster[i].transform.position);
-            if (distance < closestDistance)
+            if (_detectMonster[i].CompareTag("Monster"))
             {
-                closestDistance = distance;
-                closestMonster = _detectMonster[i].gameObject;
-                closestBattle = _detectMonster[i].GetComponent<Battle_JBJ_PJS>();
+                if (_targetBox.OverlapPoint(_detectMonster[i].transform.position))
+                {
+                    float distance = Vector2.Distance(transform.position, _detectMonster[i].transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestMonster = _detectMonster[i].gameObject;
+                        closestBattle = _detectMonster[i].GetComponent<Battle_JBJ_PJS>();
+                    }
+                }
             }
         }
         _targetMonster = closestMonster;
@@ -253,7 +254,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
                 {
                     float distance = Vector2.Distance(transform.position, _targetMonster.transform.position);
                     // 공격 범위 안
-                    if (distance <= _hunterData._unitData.attackRange)
+                    if (distance <= _hunterData._attackRange)
                     {
                         _currentState = HunterState.Attack;
                         _animator.SetBool("IsMoving", false);
@@ -318,7 +319,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
         {
             float distance = Vector2.Distance(transform.position, _targetMonster.transform.position);
 
-            if (distance <= _hunterData._unitData.attackRange)
+            if (distance <= _hunterData._attackRange)
             {
                 _animator.SetBool("IsMoving", false);
                 yield break;
