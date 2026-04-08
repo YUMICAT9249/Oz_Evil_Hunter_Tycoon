@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: -8168863986120048066}
   - component: {fileID: -1246489510583480308}
   - component: {fileID: -581620877132804423}
+  - component: {fileID: 2239447976001139473}
+  - component: {fileID: 5255005403707131987}
+  - component: {fileID: -8751765460321087125}
   m_Layer: 0
   m_Name: exchange
   m_TagString: Untagged
@@ -73,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: Loot
+  price: 5
 --- !u!114 &-581620877132804423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +91,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Unknown Object
   maxHp: 100
+--- !u!114 &2239447976001139473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351315981259905032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654b4dc75bcc7c94fa056271a135a975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5255005403707131987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351315981259905032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78ea9abeda084a4c98d9c1faf90b833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  processInterval: 2
+--- !u!114 &-8751765460321087125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351315981259905032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236f58776f344f3488f0aff4e18cc649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3802788461685811221
 GameObject:
   m_ObjectHideFlags: 0

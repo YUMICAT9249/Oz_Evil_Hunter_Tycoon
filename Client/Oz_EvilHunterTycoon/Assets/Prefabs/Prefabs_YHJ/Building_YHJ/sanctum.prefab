@@ -130,6 +130,9 @@ GameObject:
   - component: {fileID: 2536735483440181179}
   - component: {fileID: 4573137291830301555}
   - component: {fileID: -1379239971141529657}
+  - component: {fileID: -8100223985567207785}
+  - component: {fileID: -769702979880981071}
+  - component: {fileID: 8655002330339505277}
   m_Layer: 0
   m_Name: sanctum
   m_TagString: Untagged
@@ -215,3 +218,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Unknown Object
   maxHp: 100
+--- !u!114 &-8100223985567207785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252334655521503675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654b4dc75bcc7c94fa056271a135a975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-769702979880981071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252334655521503675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78ea9abeda084a4c98d9c1faf90b833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  processInterval: 2
+--- !u!114 &8655002330339505277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252334655521503675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236f58776f344f3488f0aff4e18cc649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

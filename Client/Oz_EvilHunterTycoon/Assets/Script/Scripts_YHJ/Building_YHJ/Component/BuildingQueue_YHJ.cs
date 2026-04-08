@@ -10,6 +10,18 @@ public class BuildingQueue_YHJ : MonoBehaviour
     // 대기열 추가
     public void Enqueue(IUnit_YHJ unit)
     {
+        if (unit == null)
+        {
+            Debug.LogWarning("[Queue] null 유닛 들어옴");
+            return;
+        }
+
+        if (queue.Contains(unit))
+        {
+            Debug.Log("[Queue] 이미 존재하는 유닛");
+            return;
+        }
+
         queue.Enqueue(unit);
 
         Debug.Log($"[Queue] 추가됨 / 현재 인원: {queue.Count}");
@@ -18,14 +30,10 @@ public class BuildingQueue_YHJ : MonoBehaviour
     // 대기열 처리
     public IUnit_YHJ Dequeue()
     {
-        if (queue.Count == 0)
-            return null;
+        if (TryDequeue(out var unit))
+            return unit;
 
-        var unit = queue.Dequeue();
-
-        Debug.Log($"[Queue] 처리됨 / 남은 인원: {queue.Count}");
-
-        return unit;
+        return null;
     }
 
     // 대기 인원 수
@@ -35,5 +43,32 @@ public class BuildingQueue_YHJ : MonoBehaviour
     public bool IsEmpty()
     {
         return queue.Count == 0;
+    }
+    public bool Contains(IUnit_YHJ unit)
+    {
+        return queue.Contains(unit);
+    }
+
+    public bool TryDequeue(out IUnit_YHJ unit)
+    {
+        if (queue.Count == 0)
+        {
+            unit = null;
+            return false;
+        }
+
+        unit = queue.Dequeue();
+
+        Debug.Log($"[Queue] 처리됨 / 남은 인원: {queue.Count}");
+
+        return true;
+    }
+
+    public IUnit_YHJ Peek()
+    {
+        if (queue.Count == 0)
+            return null;
+
+        return queue.Peek();
     }
 }

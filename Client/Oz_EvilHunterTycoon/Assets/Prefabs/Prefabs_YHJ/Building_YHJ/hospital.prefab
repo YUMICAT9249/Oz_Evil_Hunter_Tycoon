@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: -2426510699098535541}
   - component: {fileID: -1241164066934801429}
   - component: {fileID: 4432133211535268781}
+  - component: {fileID: -6693990445589076235}
+  - component: {fileID: 8806101367650288540}
+  - component: {fileID: 4505197779741404295}
   m_Layer: 0
   m_Name: hospital
   m_TagString: Untagged
@@ -88,6 +91,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Unknown Object
   maxHp: 100
+--- !u!114 &-6693990445589076235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146539352484460820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654b4dc75bcc7c94fa056271a135a975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8806101367650288540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146539352484460820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78ea9abeda084a4c98d9c1faf90b833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  processInterval: 2
+--- !u!114 &4505197779741404295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146539352484460820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236f58776f344f3488f0aff4e18cc649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4698489921186005403
 GameObject:
   m_ObjectHideFlags: 0

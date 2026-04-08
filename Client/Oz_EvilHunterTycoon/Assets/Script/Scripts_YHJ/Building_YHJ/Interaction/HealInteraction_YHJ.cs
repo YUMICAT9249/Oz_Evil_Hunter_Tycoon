@@ -1,6 +1,6 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// Ä¡·á¼Ò ±â´É
+// ì¹˜ë£Œì†Œ ê¸°ëŠ¥
 public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
     public string itemID = "Bandage";
@@ -15,6 +15,16 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         queue = GetComponent<BuildingQueue_YHJ>();
     }
 
+    void OnEnable()
+    {
+        EventBus_YHJ.RequestProcessUnit += OnProcessUnit;
+    }
+
+    void OnDisable()
+    {
+        EventBus_YHJ.RequestProcessUnit -= OnProcessUnit;
+    }
+
     public bool CanInteract(IUnit_YHJ unit)
     {
         return unit.CurrentHP < unit.MaxHP;
@@ -22,17 +32,53 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     public void Interact(IUnit_YHJ unit)
     {
-        // Àç°í ÀÖÀ¸¸é ¹Ù·Î Ã³¸®
         if (inventory.TryConsume(itemID, 1))
         {
-            Debug.Log("Ä¡·á ½ÇÇà");
+            Debug.Log("[Heal] ì¦‰ì‹œ ì¹˜ë£Œ");
             unit.Heal(healAmount);
+
+            EventBus_YHJ.OnInteractionResult?.Invoke
+            (
+                unit,
+                InteractionResult_YHJ.Success
+            );
         }
         else
         {
-            Debug.Log("Àç°í ¾øÀ½ ¡æ ´ë±â¿­");
+            Debug.Log("[Heal] ìž¬ê³  ì—†ìŒ â†’ í");
 
             queue.Enqueue(unit);
+
+            EventBus_YHJ.OnInteractionResult?.Invoke
+            (
+                unit,
+                InteractionResult_YHJ.Queued
+            );
         }
+    }
+
+    // â­ í•µì‹¬ ì²˜ë¦¬ í•¨ìˆ˜
+    private void OnProcessUnit(IUnit_YHJ unit, GameObject building)
+    {
+        if (building != gameObject)
+            return;
+
+        Debug.Log("[Heal] í ì²˜ë¦¬");
+
+        // â— ì—¬ê¸° í•µì‹¬: ì‹¤íŒ¨í•´ë„ ë‹¤ì‹œ í ì•ˆ ë„£ìŒ
+        if (!inventory.TryConsume(itemID, 1))
+        {
+            Debug.Log("[Heal] ìž¬ê³  ì—†ìŒ â†’ ëŒ€ê¸° ìœ ì§€");
+            return;
+        }
+
+        Debug.Log("[Heal] ì¹˜ë£Œ ì„±ê³µ");
+        unit.Heal(healAmount);
+
+        EventBus_YHJ.OnInteractionResult?.Invoke
+        (
+            unit,
+            InteractionResult_YHJ.Success
+        );
     }
 }
