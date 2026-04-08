@@ -8,11 +8,13 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     private BuildingInventory_YHJ inventory;
     private BuildingQueue_YHJ queue;
+    private BuildingLevelComponent_YHJ levelComponent;
 
     void Awake()
     {
         inventory = GetComponent<BuildingInventory_YHJ>();
         queue = GetComponent<BuildingQueue_YHJ>();
+        levelComponent = GetComponent<BuildingLevelComponent_YHJ>();
     }
 
     void OnEnable()
@@ -35,7 +37,7 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         if (inventory.TryConsume(itemID, 1))
         {
             Debug.Log("[Heal] 즉시 치료");
-            unit.Heal(healAmount);
+            unit.Heal(GetHealAmount());
 
             EventBus_YHJ.OnInteractionResult?.Invoke
             (
@@ -73,12 +75,22 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         }
 
         Debug.Log("[Heal] 치료 성공");
-        unit.Heal(healAmount);
+        unit.Heal(GetHealAmount());
 
         EventBus_YHJ.OnInteractionResult?.Invoke
         (
             unit,
             InteractionResult_YHJ.Success
         );
+    }
+    private float GetHealAmount()
+    {
+        if (levelComponent == null)
+            return healAmount;
+
+        if (levelComponent.CurrentStat == null)
+            return healAmount;
+
+        return levelComponent.CurrentStat.healAmount;
     }
 }

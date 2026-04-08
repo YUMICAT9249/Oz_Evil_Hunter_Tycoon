@@ -7,6 +7,8 @@ public class BuildingQueue_YHJ : MonoBehaviour
     private Queue<IUnit_YHJ> queue =
         new Queue<IUnit_YHJ>();
 
+    private BuildingLevelComponent_YHJ levelComponent;
+
     // 대기열 추가
     public void Enqueue(IUnit_YHJ unit)
     {
@@ -19,6 +21,12 @@ public class BuildingQueue_YHJ : MonoBehaviour
         if (queue.Contains(unit))
         {
             Debug.Log("[Queue] 이미 존재하는 유닛");
+            return;
+        }
+
+        if (IsQueueFull())
+        {
+            Debug.Log("[Queue] 수용량 초과");
             return;
         }
 
@@ -63,6 +71,10 @@ public class BuildingQueue_YHJ : MonoBehaviour
 
         return true;
     }
+    void Awake()
+    {
+        levelComponent = GetComponent<BuildingLevelComponent_YHJ>();
+    }
 
     public IUnit_YHJ Peek()
     {
@@ -89,5 +101,15 @@ public class BuildingQueue_YHJ : MonoBehaviour
         queue = tempQueue;
 
         Debug.Log("[Queue] 특정 유닛 제거 완료");
+    }
+    private bool IsQueueFull()
+    {
+        if (levelComponent == null)
+            return false;
+
+        if (levelComponent.CurrentStat == null)
+            return false;
+
+        return queue.Count >= levelComponent.CurrentStat.capacity;
     }
 }

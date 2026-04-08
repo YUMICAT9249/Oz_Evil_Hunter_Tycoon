@@ -7,6 +7,7 @@ public class LevelStat
     public int capacity;
     public float workSpeed;
     public int upgradeCost;
+    public float healAmount;
 }
 
 [System.Serializable]
