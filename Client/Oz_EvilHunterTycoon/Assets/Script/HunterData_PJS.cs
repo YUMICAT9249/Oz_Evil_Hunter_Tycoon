@@ -27,7 +27,7 @@ public enum HunterRank
     Ultimate
 }
 
-public class HunterData_PJS : MonoBehaviour
+public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 {
     public float CurrentHp
     {
@@ -59,6 +59,10 @@ public class HunterData_PJS : MonoBehaviour
     [SerializeField] public float _dodgeChance;     // 합산 회피확률
     [SerializeField] public float _attackCooldown;  // 합산 공격 속도
     [SerializeField] public float _moveSpeed;       // 합산 이동 속도
+
+    [Header("탐지 / 공격 범위")]
+    [SerializeField] public float _detectRange;     // 탐지 범위
+    [SerializeField] public float _attackRange;     // 공격 사거리
 
     [Header("스탯 점수 (0:하급(흰색) 1:중급(파란색) 2:상급(주황색) 3:최상급(보라색))")]
     [SerializeField] public int _hpScore;             // HP 등급
@@ -93,8 +97,13 @@ public class HunterData_PJS : MonoBehaviour
             Debug.LogError("UnitData가 연결 안됨", gameObject);
             return;
         }
-        HunterRandomName();
-        RandomStats();
+
+        // 직업이 NONE이면 기본값 버서커로 강제 설정
+        if (_hunterJop == HunterJop.NONE)
+        {
+            _hunterJop = HunterJop.Berserker;
+        }
+        SettingHunterData(_hunterJop);
     }
 
     private void OnEnable()
@@ -122,6 +131,26 @@ public class HunterData_PJS : MonoBehaviour
     public void SettingHunterData(HunterJop jop)
     {
         _hunterJop = jop;
+
+        switch (_hunterJop)
+        {
+            case HunterJop.Berserker:
+                _detectRange = 1.5f;
+                _attackRange = 0.3f;
+                break;
+            case HunterJop.Paladin:
+                _detectRange = 1.5f;
+                _attackRange = 0.3f;
+                break;
+            case HunterJop.Ranger:
+                _detectRange = 1.5f;
+                _attackRange = 1.0f;
+                break;
+            case HunterJop.Sorcerer:
+                _detectRange = 1.5f;
+                _attackRange = 1.0f;
+                break;
+        }
         HunterRandomName();
         RandomStats();
     }
@@ -238,5 +267,38 @@ public class HunterData_PJS : MonoBehaviour
     public float GetDodgeChance() => _dodgeChance;
     public float GetAttackCooldown() => Mathf.Max(0.25f, _attackCooldown);
     public float GetMoveSpeed() => _moveSpeed;
+    #endregion
+
+    #region 건물 인터페이스 상속
+    public float CurrentHP => _currentHP;
+    public float MaxHP => _maxHP;
+    public bool IsDead => _currentHP <= 0;
+
+    // 치료소 회복 함수
+    public void Heal(float amount)
+    {
+        if (IsDead) return;
+        _currentHP += amount;
+        if (_currentHP > MaxHP) { _currentHP = _maxHP; }
+        // HP변경 이벤트 -> UI 연결 및 갱신 
+        OnHpChanged?.Invoke(_currentHP, _maxHP);
+        Debug.Log($"{_hunterNameList}가 {amount}만큼 회복. 현재HP: {_currentHP}");
+    }
+
+    // 부활의 성소 부활 함수
+    public void Revive()
+    { 
+        if (!IsDead) return;
+
+        _currentHP = _maxHP * 0.3f;
+
+        if (TryGetComponent(out HunterController_PJS hunterController))
+        {
+            //
+        }
+        // 부활 시 HP변경 이벤트 -> UI 연결 및 갱신 
+        OnHpChanged?.Invoke(_currentHP, _maxHP);
+        Debug.Log($"{_hunterNameList}가 부활");
+    }
     #endregion
 }
