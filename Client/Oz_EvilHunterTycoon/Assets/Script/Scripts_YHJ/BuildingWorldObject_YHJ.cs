@@ -13,6 +13,15 @@ public class BuildingWorldObject_YHJ : BaseWorldObject_KJG
         displayName = gameObject.name;
     }
 
+    public override void OnClicked()
+    {
+        base.OnClicked();
+
+        Debug.Log("건물 클릭됨: " + displayName);
+
+        // ★ 여기서 UI 띄우거나 이벤트 보내기
+    }
+
     // ★ HP 이벤트 막기
     public override void OnHealthChanged(float current, float max)
     {
