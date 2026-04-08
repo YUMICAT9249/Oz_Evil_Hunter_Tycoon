@@ -14,7 +14,7 @@ public enum AreaType
     AreaDevilCastle = 6
 }
 
-public class HunterManager_PJS : MonoBehaviour
+public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 {
     [Header("구역 설정(AreaType 순서대로 배치)")]
     [SerializeField] private BoxCollider2D[] _allArea;
@@ -34,13 +34,14 @@ public class HunterManager_PJS : MonoBehaviour
     [Header("구역(공통 변수)")]
     public AreaType _areaType; // 호출할 구역 타입
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         HunterController_PJS[] findingHunters = FindObjectsOfType<HunterController_PJS>();
         BoxCollider2D villageBox = AreaCollider(AreaType.Village);
 
         for (int i = 0; i < findingHunters.Length; i++)
-        { 
+        {
             _activeHunters.Add(findingHunters[i]);
             findingHunters[i].SetArea(villageBox);
         }
@@ -56,8 +57,8 @@ public class HunterManager_PJS : MonoBehaviour
 
         GameObject newHunter = Instantiate
             (
-                jopSelect[Random.Range(0, jopSelect.Length)], 
-                spawnPoint.position, 
+                jopSelect[Random.Range(0, jopSelect.Length)],
+                spawnPoint.position,
                 Quaternion.identity
             );
         HunterData_PJS hunterData = newHunter.GetComponent<HunterData_PJS>();
@@ -89,7 +90,7 @@ public class HunterManager_PJS : MonoBehaviour
         {
             HunterController_PJS hunterController = _activeHunters[i];
             if (hunterController != null)
-            { 
+            {
                 HunterData_PJS hunterData = hunterController.GetComponent<HunterData_PJS>();
                 if (hunterData != null)
                 {
@@ -113,5 +114,20 @@ public class HunterManager_PJS : MonoBehaviour
             return _allArea[index];
         }
         return null;
+    }
+
+    public void AddExpToHuntersInArea(int expAmount, AreaType areaType)
+    {
+        foreach (var hunter in _activeHunters)
+        {
+            if (hunter != null)
+            {
+                HunterData_PJS data = hunter.GetComponent<HunterData_PJS>();
+                if (data != null && data._areaType == areaType)
+                {
+                    data.AddExp(expAmount); // HunterData_PJS에 AddExp 메서드가 필요합니다
+                }
+            }
+        }
     }
 }
