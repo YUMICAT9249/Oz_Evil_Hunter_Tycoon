@@ -391,4 +391,12 @@ public class HunterController_PJS : BaseWorldObject_KJG
         }
         _animator.speed = 1.0f;
     }
+
+    #region UI
+    void OnMouseDown()
+    {
+        if (_hunterData == null) return;
+        HunterData_PJS.InfoHunter = _hunterData;
+    }
+    #endregion
 }

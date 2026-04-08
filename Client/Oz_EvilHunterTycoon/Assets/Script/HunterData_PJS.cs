@@ -1,6 +1,7 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 
 // 헌터 데이터 + 수치 계산식 스크립트
@@ -89,6 +90,8 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
     public Action<float, float> OnHpChanged;
     public static Action OnHunterDie;
+
+    public static HunterData_PJS InfoHunter;
 
     private void Awake()
     {
@@ -292,10 +295,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
         _currentHP = _maxHP * 0.3f;
 
-        if (TryGetComponent(out HunterController_PJS hunterController))
-        {
-            //
-        }
         // 부활 시 HP변경 이벤트 -> UI 연결 및 갱신 
         OnHpChanged?.Invoke(_currentHP, _maxHP);
         Debug.Log($"{_hunterNameList}가 부활");
