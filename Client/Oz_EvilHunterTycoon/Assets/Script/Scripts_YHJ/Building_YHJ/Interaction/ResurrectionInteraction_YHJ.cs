@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 // ★ 부활 기능
 public class ResurrectionInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
@@ -67,8 +68,15 @@ public class ResurrectionInteraction_YHJ : MonoBehaviour, IBuildingInteraction_Y
     ? revivePoint.position
     : transform.position;
 
-        unit.Revive();
+        StartCoroutine(ProcessRevive(unit));
+    }
+    private IEnumerator ProcessRevive(IUnit_YHJ unit)
+    {
+        Vector3 revivePosition = revivePoint != null
+            ? revivePoint.position
+            : transform.position;
 
+        // 1. 텔레포트 먼저
         if (unit is Component unitComponent)
         {
             if (unitComponent.TryGetComponent(out HunterController_PJS hunterController))
@@ -80,6 +88,14 @@ public class ResurrectionInteraction_YHJ : MonoBehaviour, IBuildingInteraction_Y
                 unitComponent.transform.position = revivePosition;
             }
         }
+
+        Debug.Log("[Resurrection] 텔레포트 완료");
+
+        // 2. 대기 (나중에 변수화 가능)
+        yield return new WaitForSeconds(3f);
+
+        // 3. 부활
+        unit.Revive();
 
         Debug.Log("[Resurrection] 부활 완료");
 
