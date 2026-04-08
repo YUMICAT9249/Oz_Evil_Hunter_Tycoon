@@ -181,7 +181,7 @@ TextureImporter:
         width: 26
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,7 +202,7 @@ TextureImporter:
         width: 26
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,7 +223,7 @@ TextureImporter:
         width: 26
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,7 +244,7 @@ TextureImporter:
         width: 26
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,7 +265,7 @@ TextureImporter:
         width: 2
         height: 112
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -273,6 +273,300 @@ TextureImporter:
       bones: []
       spriteID: 311bda2efd7368547b956f7689acb374
       internalID: -273371349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: difficulty_selectedAnim02
+      rect:
+        serializedVersion: 2
+        x: 1573
+        y: 1126
+        width: 64
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69005fe4781963f47975508f152b80f9
+      internalID: -677258885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: difficulty_selectedAnim03
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 1126
+        width: 64
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f2dee5462234cb48884f0a911e2062c
+      internalID: 222582048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 1375
+        width: 60
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc702629d04872e4c903caa040610515
+      internalID: 1006406694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Hunter_Select_BackGround
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1125
+        width: 152
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93d4f3e76332f6648aa3da302cf2e28c
+      internalID: -312614959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_BackGround01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 680
+        width: 1
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b38ade4ac6cf524c927d72f9d5d9326
+      internalID: 1060126939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_BackGround02
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 680
+        width: 58
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a2d2c9e73a221c49bedb8a911bc5806
+      internalID: 580452708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_BackGround03
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 680
+        width: 1
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2312a4e18f531b648a06a24dd6a7ea00
+      internalID: -777243497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Selected_BackGround
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1534
+        width: 61
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7f18a3cac7fdd4893d8146da18080e
+      internalID: -1038168250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Difficulty08
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 1970
+        width: 54
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34a20a0706d8b664889803e5b01c0f3c
+      internalID: 491758140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Difficulty04
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 1906
+        width: 54
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba0575542fd774b42a72b4c1aaaa6d44
+      internalID: 1238186101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Difficulty01
+      rect:
+        serializedVersion: 2
+        x: 1912
+        y: 1166
+        width: 54
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e21ffbcacf66ff4aad91935ff928621
+      internalID: -599644392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Difficulty02
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 1731
+        width: 54
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc8889b328f7024a97f34ec5db93240
+      internalID: -313498625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Difficulty03
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 1860
+        width: 54
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f2108892309bb94cb38bac4555f74cb
+      internalID: 537509542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: difficulty_selectedAnim01
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 1573
+        width: 64
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5822230954e7fdc4cb59117ec6d536a7
+      internalID: -1013681532
       vertices: []
       indices: 
       edges: []
@@ -288,14 +582,28 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Difficulty01: -599644392
+      Difficulty02: -313498625
+      Difficulty03: 537509542
+      Difficulty04: 1238186101
+      Difficulty08: 491758140
       Setting_Bg: 49053643
       Setting_Bg01: 401005365
       Setting_Bg02: -87545998
       Setting_Bg03: 137835826
       Setting_Bg04: -227454198
       Setting_Bg05: -273371349
+      UI_BackGround01: 1060126939
+      UI_BackGround02: 580452708
+      UI_BackGround03: -777243497
+      UI_Hunter_Select_BackGround: -312614959
+      UI_Selected_BackGround: -1038168250
+      difficulty_selectedAnim01: -1013681532
+      difficulty_selectedAnim02: -677258885
+      difficulty_selectedAnim03: 222582048
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: 1374364888
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 1288762212
+      sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: 1006406694
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

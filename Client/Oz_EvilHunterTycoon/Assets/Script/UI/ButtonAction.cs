@@ -10,6 +10,8 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
         None = 0,
         TouchToStart,
         Setting,
+        CameraNoTarget,
+        DifficultySet,
     }
 
     public buttionActionType actionType;
@@ -23,6 +25,12 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
                 break;
             case buttionActionType.Setting:
                 UiManager.Instance.SettingBG();
+                break;
+            case buttionActionType.CameraNoTarget:
+                UiManager.Instance.TargetHunter(false);
+                break;
+            case buttionActionType.DifficultySet:
+                UiManager.Instance.UI_Difficulty();
                 break;
 
         }
