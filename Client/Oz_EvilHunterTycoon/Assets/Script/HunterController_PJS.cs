@@ -137,18 +137,19 @@ public class HunterController_PJS : BaseWorldObject_KJG
 
         for (int i = 0; i < count; i++)
         {
-            if (_detectMonster[i] == null) continue;
+            Collider2D collider = _detectMonster[i];
+            if (collider == null) continue;
 
-            if (_detectMonster[i].CompareTag("Monster"))
+            if (collider.CompareTag("Monster")) continue;
+
+            if (_targetBox.OverlapPoint(collider.transform.position)) continue;
+            
+            float distance = Vector2.Distance(transform.position, _detectMonster[i].transform.position);
+            if (distance < closestDistance)
             {
-                if (_targetBox.OverlapPoint(_detectMonster[i].transform.position))
-                {
-                    float distance = Vector2.Distance(transform.position, _detectMonster[i].transform.position);
-                    closestDistance = distance;
-                    closestMonster = _detectMonster[i].gameObject;
-                    closestBattle = _detectMonster[i].GetComponent<Battle_JBJ_PJS>();
-                    break;
-                }
+                closestDistance = distance;
+                closestMonster = _detectMonster[i].gameObject;
+                closestBattle = _detectMonster[i].GetComponent<Battle_JBJ_PJS>();
             }
         }
         _targetMonster = closestMonster;
