@@ -295,10 +295,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
         _currentHP = _maxHP * 0.3f;
 
-        if (TryGetComponent(out HunterController_PJS hunterController))
-        {
-            //
-        }
         // 부활 시 HP변경 이벤트 -> UI 연결 및 갱신 
         OnHpChanged?.Invoke(_currentHP, _maxHP);
         Debug.Log($"{_hunterNameList}가 부활");
