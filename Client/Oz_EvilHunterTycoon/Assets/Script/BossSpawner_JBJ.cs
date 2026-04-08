@@ -36,7 +36,7 @@ public class BossSpawner_JBJ : MonoBehaviour
         GameObject boss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
 
         Boss_JBJ bossScript = boss.GetComponent<Boss_JBJ>();
-        bossScript.Init(this);
+        bossScript.InitBoss(this);
 
         bossAlive = true;
 
