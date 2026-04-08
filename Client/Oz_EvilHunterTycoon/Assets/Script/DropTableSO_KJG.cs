@@ -1,53 +1,65 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
-/// [KJG 실무 아키텍처] DropManager_KJG - 원작 스타일 드랍 매니저
+/// DropTableSO_KJG
 /// 
-/// 몬스터 사망 시 바닥에 드랍 아이템 생성
-/// EXP는 HunterManager_PJS 쪽에서 별도로 처리
+/// 역할:
+/// - 몬스터가 죽을 때 바닥에 떨어질 드랍 아이템을 정의하는 ScriptableObject
+/// - 원작처럼 "단순 확률 + 고정 수량" 방식으로 제작
+/// - EXP는 헌터 쪽에서 별도로 처리 (드랍과 분리)
+/// 
+/// 사용 방법:
+/// 1. Project 창에서 오른쪽 클릭 → Create → KJG → Drop Table
+/// 2. Inspector에서 drops 리스트에 아이템 추가
+/// 3. DropManager_KJG.cs의 dropTables 리스트에 연결
 /// </summary>
-public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
+[CreateAssetMenu(menuName = "KJG/Drop Table", fileName = "New DropTable")]
+public class DropTableSO_KJG : ScriptableObject
 {
-    [Header("드랍 테이블")]
-    [SerializeField] private List<DropTableSO_KJG> dropTables;
+    [System.Serializable]
+    public class DropEntry
+    {
+        [Header("드랍될 아이템 종류")]
+        public DropItemType itemType;
 
-    [Header("드랍 프리팹")]
-    [SerializeField] private GameObject dropItemPrefab;   // 바닥에 떨어질 드랍 아이템 Prefab
+        [Header("드랍 수량")]
+        public int amount = 10;
+
+        [Header("드랍 확률 (%)")]
+        [Range(0f, 100f)]
+        public float chance = 80f;
+    }
+
+    [Header("이 몬스터가 드랍할 아이템 목록")]
+    public List<DropEntry> drops = new List<DropEntry>();
 
     /// <summary>
-    /// 몬스터가 죽을 때 호출 (Monster_JBJ.cs에서 호출)
+    /// 몬스터 사망 시 호출 → 드랍할 아이템 리스트 반환
     /// </summary>
-    public void DropFromMonster(BaseWorldObject_KJG deadMonster)
+    public List<DropEntry> GetDrops()
     {
-        if (dropTables == null || dropTables.Count == 0) return;
+        List<DropEntry> result = new List<DropEntry>();
 
-        Debug.Log($"[DropManager_KJG] {deadMonster.displayName} 사망 → 드랍 시작");
-
-        foreach (var table in dropTables)
+        foreach (var entry in drops)
         {
-            var drops = table.GetDrops();
-
-            foreach (var drop in drops)
+            if (Random.value * 100f <= entry.chance)
             {
-                CreateDropItem(drop, deadMonster.transform.position);
+                result.Add(entry);
             }
         }
+
+        return result;
     }
+}
 
-    private void CreateDropItem(DropTableSO_KJG.DropEntry drop, Vector3 position)
-    {
-        if (dropItemPrefab == null) return;
-
-        Vector3 spawnPos = position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, Random.Range(-0.5f, 0.5f));
-
-        var itemGO = Instantiate(dropItemPrefab, spawnPos, Quaternion.identity);
-
-        // 드랍 아이템에 정보 전달 (나중에 DropItemPickup_KJG 스크립트에서 사용)
-        var pickup = itemGO.GetComponent<DropItemPickup_KJG>();
-        if (pickup != null)
-        {
-            pickup.SetDropData(drop.itemType, drop.amount);
-        }
-    }
+/// <summary>
+/// 드랍 아이템 종류 (원작에서 나오는 주요 아이템들)
+/// </summary>
+public enum DropItemType
+{
+    Gold,           // 골드
+    Material,       // 일반 재료
+    RareMaterial,   // 희귀 재료
+    Essence         // 에센스 (고급 재료)
 }
