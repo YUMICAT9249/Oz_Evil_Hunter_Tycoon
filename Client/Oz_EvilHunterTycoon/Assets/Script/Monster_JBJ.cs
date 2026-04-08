@@ -5,7 +5,8 @@ using UnityEngine;
 public enum MonsterType
 {
     Normal,
-    Unique
+    Unique,
+    Minion
 }
 
 // 난이도 시스템 (추후 활성화)
@@ -39,7 +40,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
     SpriteRenderer[] renderers;
 
     bool isIdle = false;
-    bool isDead = false;
+    protected bool isDead = false;
 
     float stateTimer;
     float moveDuration;
@@ -54,6 +55,8 @@ public class Monster_JBJ : BaseWorldObject_KJG
 
     Battle_JBJ_PJS battle;
 
+    Boss_JBJ boss;
+
     protected override void Awake()
     {
         base.Awake();
@@ -66,7 +69,14 @@ public class Monster_JBJ : BaseWorldObject_KJG
         this.type = type;
     }
 
-    protected override void Start()
+    public void InitMinion(Boss_JBJ boss)
+    {
+        this.boss = boss;
+        this.spawner = null;
+        this.type = MonsterType.Minion;
+    }
+
+    protected virtual void Start()
     {
         currentHP = data.maxHp;
 
@@ -83,7 +93,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         SetMoveState();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (isDead) return;
 
@@ -287,7 +297,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         battle.GiveDamage(targetBattle);
     }
 
-    public void TakeDamage(float damage)
+    public void MonsterTakeDamage(float damage)
     {
         currentHP -= damage;
 
@@ -297,7 +307,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         }
     }
 
-    public void Die()
+    protected virtual void Die()
     {
         if (isDead) return;
         isDead = true;
@@ -305,6 +315,11 @@ public class Monster_JBJ : BaseWorldObject_KJG
         if (spawner != null)
         {
             spawner.OnMonsterDead(type);
+        }
+
+        if (boss != null)
+        {
+            boss.OnMinionDead();
         }
 
         StartCoroutine(DieRoutine());
