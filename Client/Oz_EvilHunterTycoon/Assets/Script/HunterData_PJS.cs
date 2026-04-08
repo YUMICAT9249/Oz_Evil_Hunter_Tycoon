@@ -1,6 +1,7 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 
 // 헌터 데이터 + 수치 계산식 스크립트
@@ -89,6 +90,8 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
     public Action<float, float> OnHpChanged;
     public static Action OnHunterDie;
+
+    public static HunterData_PJS InfoHunter;
 
     private void Awake()
     {
