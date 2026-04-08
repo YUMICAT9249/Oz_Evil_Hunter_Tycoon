@@ -71,4 +71,23 @@ public class BuildingQueue_YHJ : MonoBehaviour
 
         return queue.Peek();
     }
+    public void Remove(IUnit_YHJ unit)
+    {
+        if (!queue.Contains(unit))
+            return;
+
+        var tempQueue = new Queue<IUnit_YHJ>();
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+
+            if (current != unit)
+                tempQueue.Enqueue(current);
+        }
+
+        queue = tempQueue;
+
+        Debug.Log("[Queue] 특정 유닛 제거 완료");
+    }
 }
