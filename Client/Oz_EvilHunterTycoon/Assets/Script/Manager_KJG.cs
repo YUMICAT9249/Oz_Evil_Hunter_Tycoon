@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 /// <summary>
 ///  Manager Facade (정적 접근 클래스)
@@ -39,11 +38,5 @@ public static class Manager_KJG
     public static MapManager_KJG Map => _map ??= ServiceLocator_KJG.Instance.Get<MapManager_KJG>();
 
     // 팀원 스크립트 (HunterManager_PJS 완성되면 여기에 추가)
-    // ==================== Hunter 관련 ====================
-    private static HunterManager_PJS _hunter;
-    public static HunterManager_PJS Hunter => _hunter ??= ServiceLocator_KJG.Instance.Get<HunterManager_PJS>();
-
-    // ==================== Exp 관련 (EXP 시스템) ====================
-    private static ExpManager_KJG _exp;
-    public static ExpManager_KJG Exp => _exp ??= ServiceLocator_KJG.Instance.Get<ExpManager_KJG>();
+    // public static HunterManager_PJS     Hunter      => _hunter ??= ServiceLocator_KJG.Instance.Get<HunterManager_PJS>();
 }
