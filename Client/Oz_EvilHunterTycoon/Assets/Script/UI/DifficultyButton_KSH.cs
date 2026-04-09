@@ -20,7 +20,7 @@ public class DifficultyButton_KSH : MonoBehaviour, IPointerUpHandler
 
     public void SetActive()
     {
-        if(UiManager.Instance.Difficulty == (int)buttonDifficulty)
+        if (UiManager.Instance.Difficulty == (int)buttonDifficulty)
         {
             SelectImage.SetActive(true);
         }
