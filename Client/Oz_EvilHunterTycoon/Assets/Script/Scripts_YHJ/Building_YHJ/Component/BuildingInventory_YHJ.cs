@@ -1,21 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// ★ 건물 재고 시스템
-public class BuildingInventory_YHJ : MonoBehaviour
+// ★ 건물 완제품 재고 시스템
+public class BuildingInventory_YHJ : MonoBehaviour, IStringInventoryReader_YHJ, IStringInventoryWriter_YHJ
 {
-    // ★ 아이템 데이터
     private Dictionary<string, int> items =
         new Dictionary<string, int>();
 
-    // ★ 아이템 존재 여부
     public bool HasItem(string itemID)
     {
         return items.ContainsKey(itemID)
                && items[itemID] > 0;
     }
 
-    // ★ 아이템 추가
     public void AddItem(string itemID, int amount)
     {
         if (!items.ContainsKey(itemID))
@@ -26,9 +23,11 @@ public class BuildingInventory_YHJ : MonoBehaviour
         items[itemID] += amount;
 
         Debug.Log($"[Inventory] {itemID} 추가됨: {items[itemID]}");
+
+        // ★ UI팀이 건물 재고 UI 붙일 때 여기 연결
+        // EventBus_YHJ.OnBuildingItemChanged?.Invoke(gameObject, itemID, items[itemID]);
     }
 
-    // ★ 아이템 소비
     public bool TryConsume(string itemID, int amount)
     {
         if (!HasItem(itemID))
@@ -41,15 +40,32 @@ public class BuildingInventory_YHJ : MonoBehaviour
 
         Debug.Log($"[Inventory] {itemID} 소비됨: {items[itemID]}");
 
+        // ★ UI팀이 건물 재고 UI 붙일 때 여기 연결
+        // EventBus_YHJ.OnBuildingItemChanged?.Invoke(gameObject, itemID, items[itemID]);
+
         return true;
     }
 
-    // ★ 현재 수량 확인 (디버그용)
     public int GetAmount(string itemID)
     {
         if (!items.ContainsKey(itemID))
             return 0;
 
         return items[itemID];
+    }
+
+    public int GetItemCount(string itemID)
+    {
+        return GetAmount(itemID);
+    }
+
+    public bool HasItem(string itemID, int amount)
+    {
+        return GetAmount(itemID) >= amount;
+    }
+
+    public bool RemoveItem(string itemID, int amount)
+    {
+        return TryConsume(itemID, amount);
     }
 }

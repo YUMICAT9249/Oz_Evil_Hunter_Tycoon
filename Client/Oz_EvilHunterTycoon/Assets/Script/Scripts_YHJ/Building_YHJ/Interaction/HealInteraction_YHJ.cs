@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
-// 치료소 기능
+// ★ 치료소 기능
 public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
-    public string itemID = "Bandage";
-    public float healAmount = 20f;
-
     private BuildingInventory_YHJ inventory;
     private BuildingQueue_YHJ queue;
     private BuildingLevelComponent_YHJ levelComponent;
+
+    public string bandageID = "Bandage";
 
     void Awake()
     {
@@ -29,53 +28,74 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     public bool CanInteract(IUnit_YHJ unit)
     {
-        return unit.CurrentHP < unit.MaxHP;
+        if (unit == null || unit.IsDead)
+            return false;
+
+        float triggerHpPercent = 0.5f;
+
+        if (levelComponent != null && levelComponent.CurrentStat != null)
+        {
+            if (levelComponent.CurrentStat.autoHealHpPercent > 0f)
+                triggerHpPercent = levelComponent.CurrentStat.autoHealHpPercent;
+        }
+
+        return unit.CurrentHP <= unit.MaxHP * triggerHpPercent;
     }
 
     public void Interact(IUnit_YHJ unit)
     {
-        if (inventory.TryConsume(itemID, 1))
-        {
-            Debug.Log("[Heal] 즉시 치료");
-            unit.Heal(GetHealAmount());
+        if (unit == null)
+            return;
 
-            EventBus_YHJ.OnInteractionResult?.Invoke
-            (
-                unit,
-                InteractionResult_YHJ.Success
-            );
-        }
-        else
-        {
-            Debug.Log("[Heal] 재고 없음 → 큐");
+        // ★ 헌터 자동 이동 후 치료소 도착 시 대기열 등록
+        queue.Enqueue(unit);
 
-            queue.Enqueue(unit);
-
-            EventBus_YHJ.OnInteractionResult?.Invoke
-            (
-                unit,
-                InteractionResult_YHJ.Queued
-            );
-        }
+        EventBus_YHJ.OnInteractionResult?.Invoke
+        (
+            unit,
+            InteractionResult_YHJ.Queued
+        );
     }
 
-    // ⭐ 핵심 처리 함수
     private void OnProcessUnit(IUnit_YHJ unit, GameObject building)
     {
         if (building != gameObject)
             return;
 
-        Debug.Log("[Heal] 큐 처리");
+        if (unit == null || unit.IsDead)
+            return;
 
-        // ❗ 여기 핵심: 실패해도 다시 큐 안 넣음
-        if (!inventory.TryConsume(itemID, 1))
+        if (!inventory.HasItem(bandageID, 1))
         {
-            Debug.Log("[Heal] 재고 없음 → 대기 유지");
+            TryMakeBandage();
+        }
+
+        if (!inventory.HasItem(bandageID, 1))
+        {
+            Debug.Log("[Heal] 붕대 없음");
+            EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Fail);
             return;
         }
 
-        Debug.Log("[Heal] 치료 성공");
-        unit.Heal(GetHealAmount());
+        // ★ 헌터 골드 차감 처리 (헌터팀 / 경제팀 연결)
+        // if (!unit.TrySpendGold(...)) return;
+
+        inventory.RemoveItem(bandageID, 1);
+
+        float heal = 30f;
+
+        if (levelComponent != null && levelComponent.CurrentStat != null)
+        {
+            heal = levelComponent.CurrentStat.healAmount;
+        }
+
+        unit.Heal(heal);
+
+        // ★ 아직 체력이 부족하면 다시 대기열
+        if (unit.CurrentHP < unit.MaxHP)
+        {
+            queue.Enqueue(unit);
+        }
 
         EventBus_YHJ.OnInteractionResult?.Invoke
         (
@@ -83,14 +103,22 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
             InteractionResult_YHJ.Success
         );
     }
-    private float GetHealAmount()
+
+    private bool TryMakeBandage()
     {
-        if (levelComponent == null)
-            return healAmount;
+        if (levelComponent != null && !levelComponent.CanUseItem(bandageID))
+            return false;
 
-        if (levelComponent.CurrentStat == null)
-            return healAmount;
+        if (!MaterialInventory_YHJ.Instance.HasItem("Cloth", 2))
+            return false;
 
-        return levelComponent.CurrentStat.healAmount;
+        MaterialInventory_YHJ.Instance.RemoveItem("Cloth", 2);
+
+        inventory.AddItem(bandageID, 1);
+
+        // ★ UI 제작 완료 연결
+        // EventBus_YHJ.OnCraftCompleted?.Invoke(bandageID, 1);
+
+        return true;
     }
 }

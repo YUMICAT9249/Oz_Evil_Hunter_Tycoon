@@ -1,22 +1,22 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// [KJG ½Ç¹« ¾ÆÅ°ÅØÃ³] UIManager_KJG
-///
-/// ¿ªÇÒ:
-/// - HP Bar¸¦ ÇåÅÍ/¸ó½ºÅÍ ¾Æ·¡¿¡ Ç×»ó Ç¥½Ã (¿øÀÛÃ³·³)
-/// - ¿ÀºêÁ§Æ® Å¬¸¯ ½Ã ¼±ÅÃ UI Prefab¸¸ ¶ç¿ò
-/// - ½ÇÁ¦ HunterClickUI³ª Building UI¸¦ ¶ç¿ì´Â °ÍÀº UI ÆÀ¿¡°Ô ¿äÃ»
+/// UIManager_KJG
+/// 
+/// ì—­í• :
+/// - HP Bar í‘œì‹œ
+/// - ì˜¤ë¸Œì íŠ¸ í´ë¦­ ì‹œ ê¸°ë³¸ UI í‘œì‹œ
+/// - (ì¶”ê°€) ê±´ë¬¼ í´ë¦­ ì‹œ ê±´ë¬¼ UI ì²˜ë¦¬
 /// </summary>
 public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
 {
-    [Header("HP Bar ¼³Á¤")]
+    [Header("HP Bar ì„¤ì •")]
     [SerializeField] private GameObject hpBarPrefab;
-    [SerializeField] private float hpBarYOffset = -1.8f;       // HP Bar¸¦ ¿ÀºêÁ§Æ® ¾Æ·¡·Î ¶ç¿ì´Â °ª
+    [SerializeField] private float hpBarYOffset = -1.8f;
 
-    [Header("¼±ÅÃ UI ¼³Á¤")]
-    [SerializeField] private GameObject selectionUIPrefab;     // Å¬¸¯ÇÏ¸é ¶ß´Â ±âº» ¼±ÅÃ UI
+    [Header("ì„ íƒ UI ì„¤ì •")]
+    [SerializeField] private GameObject selectionUIPrefab;
 
     private readonly Dictionary<BaseWorldObject_KJG, HPBar_KJG> _hpBars
         = new Dictionary<BaseWorldObject_KJG, HPBar_KJG>();
@@ -25,7 +25,7 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
     {
         base.Start();
         SubscribeToMapManager();
-        Debug.Log("[UIManager_KJG] ÃÊ±âÈ­ ¿Ï·á");
+        Debug.Log("[UIManager_KJG] ì´ˆê¸°í™” ì™„ë£Œ");
     }
 
     private void SubscribeToMapManager()
@@ -50,7 +50,7 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
     // ====================== HP Bar ======================
     private void HandleHealthChanged(BaseWorldObject_KJG obj, float currentHp, float maxHp)
     {
-        if (obj == null || obj is BuildingWorldObject_YHJ) return; // ºôµùÀº HP Bar ¾È ¶ç¿ò
+        if (obj == null || obj is BuildingWorldObject_YHJ) return;
 
         if (!_hpBars.TryGetValue(obj, out var hpBar))
             CreateHPBar(obj);
@@ -72,21 +72,27 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
             _hpBars[obj] = hpBar;
     }
 
-    // ====================== Å¬¸¯ Ã³¸® ======================
+    // ====================== í´ë¦­ ì²˜ë¦¬ ======================
     private void HandleObjectClicked(BaseWorldObject_KJG clickedObject)
     {
         if (clickedObject == null) return;
 
-        Debug.Log($"[UIManager_KJG] {clickedObject.displayName} Å¬¸¯µÊ");
+        Debug.Log($"[UIManager_KJG] {clickedObject.displayName} í´ë¦­");
 
-        // ±âº» ¼±ÅÃ UI Prefab¸¸ ¶ç¿ò
+        // ğŸ”¥ ê±´ë¬¼ ë¨¼ì € ì²˜ë¦¬ (ë„ˆ íŒŒíŠ¸)
+        BuildingWorldObject_YHJ building = clickedObject as BuildingWorldObject_YHJ;
+        if (building != null)
+        {
+            HandleBuildingUI(building);
+            return;
+        }
+
+        // ğŸ”¹ ê¸°ë³¸ UI
         if (selectionUIPrefab != null)
         {
             Vector3 uiPos = clickedObject.transform.position + Vector3.up * 3f;
             Instantiate(selectionUIPrefab, uiPos, Quaternion.identity);
         }
-
-        // ½ÇÁ¦ HunterClickUI³ª Building UI´Â UI ÆÀÀÌ Ã³¸®ÇÏµµ·Ï ¿äÃ»ÇÒ ¿¹Á¤
     }
 
     public void RemoveHPBar(BaseWorldObject_KJG obj)
@@ -95,6 +101,30 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
         {
             Destroy(hpBar.gameObject);
             _hpBars.Remove(obj);
+        }
+    }
+
+    // ====================== ê±´ë¬¼ UI ======================
+    private void HandleBuildingUI(BuildingWorldObject_YHJ building)
+    {
+        var interactions = building.GetComponents<IBuildingInteraction_YHJ>();
+
+        if (interactions == null || interactions.Length == 0)
+        {
+            Debug.Log("ì¸í„°ë ‰ì…˜ ì—†ìŒ");
+            return;
+        }
+
+        GameObject ui = Instantiate(selectionUIPrefab,
+            building.transform.position + Vector3.up * 3f,
+            Quaternion.identity);
+
+        Debug.Log($"ì¸í„°ë ‰ì…˜ ê°œìˆ˜: {interactions.Length}");
+
+        foreach (var interaction in interactions)
+        {
+            string name = interaction.GetType().Name;
+            Debug.Log($"UI ìƒì„± ëŒ€ìƒ: {name}");
         }
     }
 }
