@@ -1,106 +1,71 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
-/// 업적 관리 매니저
-/// 
-/// 특징:
-/// - Manager_KJG.Achievement 형태로만 접근 가능
-/// - 직접 .Instance 호출 완전 제거
-/// - 이벤트는 Manager_KJG.Event를 사용
-/// - 코드가 매우 읽기 쉽고 실무 수준으로 정리됨
+/// [KJG 실무 아키텍처] AchievementManager_KJG
+///
+/// 역할:
+/// - 업적 조건 체크 및 해제 관리
+/// - SaveLoadManager_KJG와 연동 (UnlockedAchievements 저장/로드)
+/// - 몬스터 처치, 건물 업그레이드, 헌터 레벨 등 원작 스타일 업적 지원
+/// - 팀원이 쉽게 업적을 추가할 수 있게 설계
 /// </summary>
 public class AchievementManager_KJG : BaseManager_KJG<AchievementManager_KJG>
 {
-    [Header("업적 목록")]
-    [SerializeField] private List<Achievement> achievements = new List<Achievement>();
+    // 해제된 업적 목록 (Save/Load에서 사용)
+    private HashSet<string> unlockedAchievements = new HashSet<string>();
 
-    // ==================== 업적 데이터 구조 ====================
+    [Header("업적 목록 (팀원이 쉽게 추가/수정 가능)")]
+    public List<AchievementData> achievementList = new List<AchievementData>();
+
     [System.Serializable]
-    public class Achievement
+    public class AchievementData
     {
-        public string id;                    // 고유 키 (예: "kill_100_enemies")
-        public string title;                 // 업적 이름
-        public string description;           // 설명
-        public int current;                  // 현재 진행도
-        public int target;                   // 목표치
-        public bool isUnlocked;              // 달성 여부
-        public bool isSecret;                // 비밀 업적 여부
-        public DateTime? unlockTime;         // 달성 시간
-        public Sprite icon;                  // 아이콘
-        public string unlockMessage;         // 달성 메시지
-
-        public float Progress => target > 0 ? (float)current / target : 0f;
-        public bool IsCompleted => current >= target && !isUnlocked;
+        public string id;               // 업적 고유 ID (예: "Kill100Monsters")
+        public string title;            // 업적 이름 (예: "초보 사냥꾼")
+        public string description;      // 업적 설명
+        public bool isUnlocked;         // 현재 해제 여부
     }
 
-    // ==================== 이벤트 ====================
-    public event Action<Achievement> OnAchievementUnlocked;
-    public event Action<Achievement> OnAchievementProgress;
-
-    protected override void Awake()
+    /// <summary>
+    /// 업적 해제 체크
+    /// </summary>
+    public void CheckAndUnlock(string achievementId)
     {
-        base.Awake();
-        InitializeDefaultAchievements();
-        Debug.Log("✅ [AchievementManager_KJG] 업적 시스템 초기화 완료");
-    }
+        if (unlockedAchievements.Contains(achievementId)) return;
 
-    private void InitializeDefaultAchievements()
-    {
-        // 필요하면 여기서 기본 업적을 코드로 추가 (Inspector에서 추가하는 것을 추천)
-    }
-
-    // ==================== 업적 진행 & 달성 ====================
-    public void AddProgress(string achievementId, int amount = 1)
-    {
-        Achievement ach = GetAchievementById(achievementId);
-        if (ach == null || ach.isUnlocked) return;
-
-        ach.current += amount;
-        ach.current = Mathf.Min(ach.current, ach.target);
-
-        OnAchievementProgress?.Invoke(ach);
-
-        if (ach.current >= ach.target && !ach.isUnlocked)
-            UnlockAchievement(ach);
-    }
-
-    private void UnlockAchievement(Achievement ach)
-    {
-        ach.isUnlocked = true;
-        ach.unlockTime = DateTime.Now;
-
-        Debug.Log($"🏆 업적 달성! [{ach.title}] - {ach.description}");
-
-        OnAchievementUnlocked?.Invoke(ach);
-
-        // 글로벌 이벤트 발생
-        Manager_KJG.Event.RefreshUI();
-        Manager_KJG.SaveLoad.GameSave();   // 저장 요청
-    }
-
-    // ==================== 조회 메서드 ====================
-    public Achievement GetAchievementById(string id)
-        => achievements.Find(a => a.id == id);
-
-    public List<Achievement> GetAllAchievements()
-        => new List<Achievement>(achievements);
-
-    public List<Achievement> GetSaveData()
-        => achievements;
-
-    // ==================== 세이브/로드 ====================
-    public void LoadFromSave(List<Achievement> savedAchievements)
-    {
-        if (savedAchievements == null) return;
-
-        achievements = savedAchievements;
-
-        foreach (var ach in achievements)
+        var achievement = achievementList.Find(a => a.id == achievementId);
+        if (achievement != null)
         {
-            if (ach.isUnlocked)
-                OnAchievementUnlocked?.Invoke(ach);
+            achievement.isUnlocked = true;
+            unlockedAchievements.Add(achievementId);
+            Debug.Log($"[Achievement] 업적 해제! → {achievement.title}");
+        }
+    }
+
+    // ==================== 업적 조건 예시 메서드 ====================
+    public void OnMonsterKilled() => CheckAndUnlock("Kill100Monsters");
+    public void OnBuildingUpgraded(string buildingID) => CheckAndUnlock("UpgradeBuilding");
+    public void OnHunterLevelUp(int level)
+    {
+        if (level >= 10) CheckAndUnlock("HunterLevel10");
+    }
+
+    // ==================== Save/Load 연동 ====================
+    public void SaveAchievements(SaveLoadManager_KJG.SaveData saveData)
+    {
+        saveData.UnlockedAchievements.Clear();
+        saveData.UnlockedAchievements.AddRange(unlockedAchievements);
+    }
+
+    public void LoadAchievements(SaveLoadManager_KJG.SaveData saveData)
+    {
+        unlockedAchievements.Clear();
+        foreach (var id in saveData.UnlockedAchievements)
+        {
+            unlockedAchievements.Add(id);
+            var achievement = achievementList.Find(a => a.id == id);
+            if (achievement != null) achievement.isUnlocked = true;
         }
     }
 }
