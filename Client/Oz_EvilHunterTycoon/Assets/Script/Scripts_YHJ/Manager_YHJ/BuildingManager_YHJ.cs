@@ -2,20 +2,16 @@
 using UnityEngine;
 using System.Linq;
 
-public class BuildingManager_YHJ : MonoBehaviour
+public class BuildingManager_YHJ : BaseManager_KJG<BuildingManager_YHJ>
 {
-    public static BuildingManager_YHJ Instance;
-
     private List<BuildingInstance_YHJ> buildings = new List<BuildingInstance_YHJ>();
 
-    void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
     }
 
-
     // 등록
-
     public void RegisterBuilding(BuildingInstance_YHJ building)
     {
         if (!buildings.Contains(building))
