@@ -288,8 +288,13 @@ public class Monster_JBJ : BaseWorldObject_KJG
         
         lastAttackTime = Time.time;
 
-        Debug.Log("Monster attacks (Hunter)");
+        animator.SetTrigger("Attack");
 
+        Debug.Log("Monster attacks (Hunter)");
+    }
+
+    public void DealDamage()
+    {
         if (Hunter == null || battle == null) return;
 
         Battle_JBJ_PJS targetBattle = Hunter.GetComponent<Battle_JBJ_PJS>();
