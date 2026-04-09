@@ -1,12 +1,22 @@
 using UnityEngine;
 
-// ★ 마을회관 기반 헌터 생성 요청 시스템
+// ★ 마을회관 기반 헌터 생성 시스템 (레벨 연동)
 public class TownHallSpawnController_YHJ : MonoBehaviour
 {
     public float spawnInterval = 5f;
     private float timer;
 
     private bool canSpawn = false;
+
+    private int currentPopulation = 0;
+    private int maxPopulation = 0;
+
+    private BuildingLevelComponent_YHJ levelComponent;
+
+    void Awake()
+    {
+        levelComponent = GetComponent<BuildingLevelComponent_YHJ>();
+    }
 
     void OnEnable()
     {
@@ -20,10 +30,16 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
 
     void Update()
     {
-        // ★ 인구 상태 요청
+        // ★ 현재 인구 요청 (헌터팀)
         EventBus_YHJ.RequestPopulation?.Invoke();
 
-        if (!canSpawn) return;
+        // ★ 레벨 기반 최대 인구 계산
+        maxPopulation = GetMaxPopulation();
+
+        canSpawn = currentPopulation < maxPopulation;
+
+        if (!canSpawn)
+            return;
 
         timer += Time.deltaTime;
 
@@ -31,7 +47,7 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
         {
             timer = 0f;
 
-            Debug.Log("헌터 생성 요청");
+            Debug.Log($"헌터 생성 요청 ({currentPopulation}/{maxPopulation})");
 
             EventBus_YHJ.RequestSpawnHunter?.Invoke();
         }
@@ -39,6 +55,15 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
 
     void OnPopulationResult(int current, int max)
     {
-        canSpawn = current < max;
+        // ★ current만 사용
+        currentPopulation = current;
+    }
+
+    private int GetMaxPopulation()
+    {
+        if (levelComponent == null || levelComponent.CurrentStat == null)
+            return 0;
+
+        return levelComponent.CurrentStat.capacity;
     }
 }

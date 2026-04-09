@@ -1,13 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PotionShopInteraction_YHJ : MonoBehaviour
+// ★ 포션상점 (제작 + 판매)
+public class PotionShopInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
-    public string itemID = "Potion";
-    public List<string> unlockPotionIDs;
+    private BuildingInventory_YHJ inventory;
     private BuildingLevelComponent_YHJ levelComponent;
 
-    private BuildingInventory_YHJ inventory;
+    public string potionID = "Potion";
 
     void Awake()
     {
@@ -15,76 +14,52 @@ public class PotionShopInteraction_YHJ : MonoBehaviour
         levelComponent = GetComponent<BuildingLevelComponent_YHJ>();
     }
 
-    void OnEnable()
+    public bool CanInteract(IUnit_YHJ unit)
     {
-        EventBus_YHJ.RequestBuyItem += OnRequestBuyItem;
+        return true;
     }
 
-    void OnDisable()
+    public void Interact(IUnit_YHJ unit)
     {
-        EventBus_YHJ.RequestBuyItem -= OnRequestBuyItem;
-    }
-
-    private void OnRequestBuyItem(IUnit_YHJ unit, string id)
-    {
-        if (id != itemID)
-            return;
-
-        if (!CanSellPotion(id))
+        if (!inventory.HasItem(potionID, 1))
         {
-            Debug.Log("[PotionShop] 레벨 부족");
+            TryMakePotion();
+        }
 
-            EventBus_YHJ.OnInteractionResult?.Invoke
-            (
-                unit,
-                InteractionResult_YHJ.Fail
-            );
-
+        if (!inventory.HasItem(potionID, 1))
+        {
+            Debug.Log("[Potion] 재고 없음");
+            EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Fail);
             return;
         }
 
-        if (!inventory.TryConsume(itemID, 1))
-        {
-            Debug.Log("[PotionShop] 재고 없음");
+        // ★ 헌터 골드 차감 / 포션 지급은 헌터팀, UI팀과 연결
+        // inventory.RemoveItem(potionID, 1);
+        // unit.AddItem(...);
 
-            EventBus_YHJ.OnInteractionResult?.Invoke
-            (
-                unit,
-                InteractionResult_YHJ.Fail
-            );
-
-            return;
-        }
-
-        EventBus_YHJ.OnInteractionResult?.Invoke
-        (
-            unit,
-            InteractionResult_YHJ.Success
-        );
-
-        Debug.Log("[PotionShop] 포션 지급");
-
-        // unit.AddItem(itemID);
+        EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Success);
     }
 
-    private bool CanSellPotion(string id)
+    private bool TryMakePotion()
     {
-        if (levelComponent == null || levelComponent.CurrentStat == null)
-            return true;
-
-        int level = levelComponent.CurrentLevel;
-
-        if (unlockPotionIDs == null || unlockPotionIDs.Count == 0)
-            return true;
-
-        int maxIndex = Mathf.Min(level, unlockPotionIDs.Count);
-
-        for (int i = 0; i < maxIndex; i++)
+        if (levelComponent != null && !levelComponent.CanUseItem(potionID))
         {
-            if (unlockPotionIDs[i] == id)
-                return true;
+            Debug.Log("[Potion] 현재 레벨에서 제작 불가");
+            return false;
         }
 
-        return false;
+        if (!MaterialInventory_YHJ.Instance.HasItem("Herb", 2))
+            return false;
+
+        MaterialInventory_YHJ.Instance.RemoveItem("Herb", 2);
+
+        inventory.AddItem(potionID, 1);
+
+        Debug.Log("[Potion] 제작 완료");
+
+        // ★ UI 제작 완료 연결
+        // EventBus_YHJ.OnCraftCompleted?.Invoke(potionID, 1);
+
+        return true;
     }
 }

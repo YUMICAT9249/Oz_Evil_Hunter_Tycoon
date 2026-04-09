@@ -1,28 +1,28 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
 /// UIManager_KJG
 /// 
-/// ¿ªÇÒ:
-/// - HP Bar¸¦ **ÇåÅÍ/¸ó½ºÅÍ ¾Æ·¡**¿¡ Ç×»ó Ç¥½Ã
-/// - ¿ÀºêÁ§Æ® Å¬¸¯ ½Ã ¼±ÅÃ UI ¹öÆ° Ç¥½Ã
+/// ì—­í• :
+/// - HP Barë¥¼ **í—Œí„°/ëª¬ìŠ¤í„° ì•„ë˜**ì— í•­ìƒ í‘œì‹œ
+/// - ì˜¤ë¸Œì íŠ¸ í´ë¦­ ì‹œ ì„ íƒ UI ë²„íŠ¼ í‘œì‹œ
 /// </summary>
 public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
 {
-    [Header("=== HP Bar ¼³Á¤ ===")]
-    [Tooltip("HP Bar Prefab (World Space Canvas »ç¿ë)")]
+    [Header("=== HP Bar ì„¤ì • ===")]
+    [Tooltip("HP Bar Prefab (World Space Canvas ì‚¬ìš©)")]
     [SerializeField] private GameObject hpBarPrefab;
 
-    [Header("=== ¼±ÅÃ UI ¼³Á¤ ===")]
-    [Tooltip("Å¬¸¯ ½Ã ¶ß´Â ¼±ÅÃ UI Prefab")]
+    [Header("=== ì„ íƒ UI ì„¤ì • ===")]
+    [Tooltip("í´ë¦­ ì‹œ ëœ¨ëŠ” ì„ íƒ UI Prefab")]
     [SerializeField] private GameObject selectionUIPrefab;
 
-    [Header("=== À§Ä¡ Á¶Á¤ ===")]
-    [Tooltip("HP Bar¸¦ ¿ÀºêÁ§Æ® ¾Æ·¡·Î ¾ó¸¶³ª ¶ç¿ïÁö (YÃà À½¼ö °ª)")]
-    [SerializeField] private float hpBarYOffset = -1.8f;   // ¡ç ¾Æ·¡·Î ¶ç¿ì´Â °ª (Á¶Á¤ °¡´É)
+    [Header("=== ìœ„ì¹˜ ì¡°ì • ===")]
+    [Tooltip("HP Barë¥¼ ì˜¤ë¸Œì íŠ¸ ì•„ë˜ë¡œ ì–¼ë§ˆë‚˜ ë„ìš¸ì§€ (Yì¶• ìŒìˆ˜ ê°’)")]
+    [SerializeField] private float hpBarYOffset = -1.8f;   // â† ì•„ë˜ë¡œ ë„ìš°ëŠ” ê°’ (ì¡°ì • ê°€ëŠ¥)
 
-    // ¿ÀºêÁ§Æ®º° HP Bar Ä³½Ì
+    // ì˜¤ë¸Œì íŠ¸ë³„ HP Bar ìºì‹±
     private readonly Dictionary<BaseWorldObject_KJG, HPBar_KJG> _hpBars
         = new Dictionary<BaseWorldObject_KJG, HPBar_KJG>();
 
@@ -60,7 +60,16 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
     {
         if (clickedObject == null || selectionUIPrefab == null) return;
 
-        Debug.Log($"[UIManager_KJG] {clickedObject.displayName} Å¬¸¯ ¡æ ¼±ÅÃ UI Ç¥½Ã");
+        BuildingWorldObject_YHJ building = clickedObject as BuildingWorldObject_YHJ;
+        if (building != null)
+        {
+            Debug.Log("ê±´ë¬¼ í´ë¦­");
+
+            HandleBuildingUI(building);
+            return;
+        }
+
+        Debug.Log($"[UIManager_KJG] {clickedObject.displayName} í´ë¦­ â†’ ì„ íƒ UI í‘œì‹œ");
 
         Instantiate(selectionUIPrefab,
                     clickedObject.transform.position + Vector3.up * 3f,
@@ -71,11 +80,11 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
     {
         if (hpBarPrefab == null) return;
 
-        // HP Bar¸¦ ¿ÀºêÁ§Æ® **¾Æ·¡**¿¡ »ı¼º
+        // HP Barë¥¼ ì˜¤ë¸Œì íŠ¸ **ì•„ë˜**ì— ìƒì„±
         Vector3 position = obj.transform.position + Vector3.up * hpBarYOffset;
 
         var hpBarGO = Instantiate(hpBarPrefab, position, Quaternion.identity);
-        hpBarGO.transform.SetParent(obj.transform);   // ¿ÀºêÁ§Æ® µû¶ó ¿òÁ÷ÀÓ
+        hpBarGO.transform.SetParent(obj.transform);   // ì˜¤ë¸Œì íŠ¸ ë”°ë¼ ì›€ì§ì„
 
         var hpBar = hpBarGO.GetComponent<HPBar_KJG>();
         if (hpBar != null)
@@ -88,6 +97,29 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
         {
             Destroy(hpBar.gameObject);
             _hpBars.Remove(obj);
+        }
+    }
+    private void HandleBuildingUI(BuildingWorldObject_YHJ building)
+    {
+        var interactions = building.GetComponents<IBuildingInteraction_YHJ>();
+
+        if (interactions == null || interactions.Length == 0)
+        {
+            Debug.Log("ì¸í„°ë ‰ì…˜ ì—†ìŒ");
+            return;
+        }
+
+        // ğŸ”¥ UI ìƒì„±
+        GameObject ui = Instantiate(selectionUIPrefab,
+            building.transform.position + Vector3.up * 3f,
+            Quaternion.identity);
+
+        Debug.Log($"ì¸í„°ë ‰ì…˜ ê°œìˆ˜: {interactions.Length}");
+
+        foreach (var interaction in interactions)
+        {
+            string name = interaction.GetType().Name;
+            Debug.Log($"UI ìƒì„± ëŒ€ìƒ: {name}");
         }
     }
 }

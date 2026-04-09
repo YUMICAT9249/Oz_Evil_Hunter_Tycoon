@@ -1,10 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// ¡Ú °Å·¡¼Ò ±â´É (¾ÆÀÌÅÛ ¡æ °ñµå)
+// â˜… ê±°ë˜ì†Œ ê¸°ëŠ¥ (ì¬ë£Œ ìˆ˜ê¸‰ ì „ìš©)
 public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
     public string itemID = "Loot";
-    public int price = 5;
+
+    private BuildingLevelComponent_YHJ levelComponent;
+
+    void Awake()
+    {
+        levelComponent = GetComponent<BuildingLevelComponent_YHJ>();
+    }
 
     public bool CanInteract(IUnit_YHJ unit)
     {
@@ -13,9 +19,7 @@ public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     public void Interact(IUnit_YHJ unit)
     {
-        Debug.Log("[Trade] °Å·¡ ¿äÃ»");
-
-        // ¾ÆÀÌÅÛ ¿äÃ»
+        // â˜… ìœ ë‹› â†’ ì•„ì´í…œ ì œì¶œ ìš”ì²­ (í—Œí„°íŒ€ ì—°ê²°)
         EventBus_YHJ.RequestItemFromUnit?.Invoke(unit, itemID);
     }
 
@@ -36,26 +40,22 @@ public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
         if (amount <= 0)
         {
-            Debug.Log("[Trade] ¾ÆÀÌÅÛ ¾øÀ½ ¡æ °Å·¡ ½ÇÆĞ");
-
-            EventBus_YHJ.OnInteractionResult?.Invoke
-            (
-                unit,
-                InteractionResult_YHJ.Fail
-            );
-
+            EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Fail);
             return;
         }
 
-        Debug.Log("[Trade] ¾ÆÀÌÅÛ ¼ö·É ¡æ °ñµå Áö±Ş");
+        // â˜… ë ˆë²¨ë³„ ë§¤ì… ê°€ëŠ¥ ì†Œì¬ ì²´í¬
+        if (levelComponent != null && !levelComponent.CanUseItem(id))
+        {
+            Debug.Log("[Trade] í˜„ì¬ ë ˆë²¨ì—ì„œ ë§¤ì… ë¶ˆê°€");
+            EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Fail);
+            return;
+        }
 
-        // TODO: °ñµå Áö±Ş
-        // unit.AddGold(price * amount);
+        MaterialInventory_YHJ.Instance.AddItem(id, amount);
 
-        EventBus_YHJ.OnInteractionResult?.Invoke
-        (
-            unit,
-            InteractionResult_YHJ.Success
-        );
+        Debug.Log($"[Trade] {id} +{amount}");
+
+        EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Success);
     }
 }

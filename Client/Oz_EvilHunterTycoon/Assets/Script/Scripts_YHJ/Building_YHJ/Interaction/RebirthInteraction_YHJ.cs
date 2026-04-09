@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// 환생 기능
+// ★ 성소 - 환생 기능 (대기)
 public class RebirthInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
     private BuildingQueue_YHJ queue;
@@ -22,20 +22,14 @@ public class RebirthInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     public bool CanInteract(IUnit_YHJ unit)
     {
-        return unit.IsDead;
+        return unit != null && unit.IsDead;
     }
 
     public void Interact(IUnit_YHJ unit)
     {
-        Debug.Log("[Rebirth] 환생 요청");
-
-        if (!unit.IsDead)
+        if (unit == null || !unit.IsDead)
         {
-            EventBus_YHJ.OnInteractionResult?.Invoke
-            (
-                unit,
-                InteractionResult_YHJ.Fail
-            );
+            EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Fail);
             return;
         }
 
@@ -53,17 +47,12 @@ public class RebirthInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         if (building != gameObject)
             return;
 
-        Debug.Log("[Rebirth] 큐 처리");
-
-        if (!unit.IsDead)
-        {
-            Debug.Log("[Rebirth] 이미 상태 변경됨 → 취소");
+        if (unit == null || !unit.IsDead)
             return;
-        }
 
-        // TODO: 실제 환생 처리
-        // 예: unit.Rebirth();
-        Debug.Log("[Rebirth] 실제 환생 처리 필요");
+        // ★ 실제 환생 처리 (헌터팀 협업)
+        // unit.Rebirth();
+        // 환생 후 필드 접근 제한, 레벨 연동 등 연결 예정
 
         EventBus_YHJ.OnInteractionResult?.Invoke
         (
