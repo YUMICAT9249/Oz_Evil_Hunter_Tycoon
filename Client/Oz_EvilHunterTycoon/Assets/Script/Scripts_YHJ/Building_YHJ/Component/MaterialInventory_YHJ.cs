@@ -51,4 +51,35 @@ public class MaterialInventory_YHJ : MonoBehaviour
 
         return items[id];
     }
+
+    /// <summary>
+    /// Save/Load를 위해 모든 재료 데이터를 반환합니다.
+    /// </summary>
+    public List<SaveLoadManager_KJG.MaterialSaveData> GetAllMaterials()
+    {
+        List<SaveLoadManager_KJG.MaterialSaveData> list = new List<SaveLoadManager_KJG.MaterialSaveData>();
+        foreach (var item in items)
+        {
+            list.Add(new SaveLoadManager_KJG.MaterialSaveData
+            {
+                itemType = (DropItemType)System.Enum.Parse(typeof(DropItemType), item.Key),
+                amount = item.Value
+            });
+        }
+        return list;
+    }
+
+    /// <summary>
+    /// SaveData에서 재료를 로드합니다.
+    /// </summary>
+    public void LoadMaterials(List<SaveLoadManager_KJG.MaterialSaveData> materials)
+    {
+        items.Clear();
+        foreach (var m in materials)
+        {
+            string key = m.itemType.ToString();
+            items[key] = m.amount;
+        }
+        Debug.Log("[BuildingInventory_YHJ] 재료 로드 완료");
+    }
 }
