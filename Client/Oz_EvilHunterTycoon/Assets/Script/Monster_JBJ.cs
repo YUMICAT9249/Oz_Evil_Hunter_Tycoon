@@ -76,7 +76,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         this.type = MonsterType.Minion;
     }
 
-    protected virtual void Start()
+    protected virtual void MonsterStart()
     {
         currentHP = data.maxHp;
 
@@ -310,6 +310,8 @@ public class Monster_JBJ : BaseWorldObject_KJG
         {
             Die();
         }
+
+        OnHealthChanged(currentHp, maxHp);
     }
 
     protected virtual void Die()
