@@ -57,7 +57,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
     {
         base.Start();
         // 시작 시 현재 구역을 가져옴
-        if (_hunterData != null) 
+        if (_hunterData != null)
         {
             // 기본 지역 저장
             _areaCheck = _hunterData._areaType;
@@ -69,7 +69,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
     void Update()
     {
         // 지역 변경 감지
-        AreaCheck(); 
+        AreaCheck();
     }
 
     // [7] 위치 갱신 (매니저가 소환/이동 시 직접 호출)
@@ -126,14 +126,14 @@ public class HunterController_PJS : BaseWorldObject_KJG
             {
                 _targetMonster = null;
                 _targetBattle = null;
-            }      
+            }
             // 범위 안이면 타겟 유지
             else return;
         }
         // 2. 새로운 몬스터 탐지 (특정 태그(Monster)만 탐지)
         int count = Physics2D.OverlapCircleNonAlloc
             (
-                transform.position, 
+                transform.position,
                 _hunterData._detectRange,
                 _detectMonster
             );
@@ -171,7 +171,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
             transform.localScale = new Vector3(-1, 1, 1);
         }
         else
-        { 
+        {
             transform.localScale = new Vector3(1, 1, 1);
         }
     }

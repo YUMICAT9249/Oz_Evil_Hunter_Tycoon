@@ -99,7 +99,7 @@ public class Battle_JBJ_PJS : MonoBehaviour
         // ¸ó½ºÅÍ»ç¸Á -> ¿¬Ãâ / ÇÁ¸®ÆÕ ÆÄ±«
         else if (_monsterData != null)
         {
-            _monsterData.Die();
+            _monsterData.Kill();
         }
     }
     /*

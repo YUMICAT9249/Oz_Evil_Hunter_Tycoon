@@ -18,9 +18,13 @@ public class UnitData_JBJ_PJS : ScriptableObject
     public float moveSpeed = 0.5f;          // 이동 속도
     public float detectRange = 5f;          // 감지 범위
     public float attackRange = 1.2f;        // 공격 범위
-    
-    [Header("몬스터 상세 스텟")]
-    // 몬스터 상세 스텟
+
+    [Header("일반/유니크 몬스터 체력")]
+    public float monsterHp = 200f;
+    public float uniqueMonsterHp = 350f;
+
+    [Header("보스 몬스터 체력")]
+    public float bossHp = 1000f;
 
     [Header("헌터 상세 스텟")]
     public string hunterName;            // 헌터 이름
