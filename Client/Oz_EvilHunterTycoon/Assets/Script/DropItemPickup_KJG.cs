@@ -11,16 +11,13 @@ public class DropItemPickup_KJG : MonoBehaviour
 
     private bool _isCollected = false;
 
-    /// <summary>
-    /// DropManager가 드랍 생성할 때 호출
-    /// </summary>
     public void SetDropData(DropItemType type, int amt)
     {
         itemType = type;
         amount = amt;
     }
 
-    private void OnMouseDown()   // 마우스 클릭으로 수집 (원작처럼 클릭 수집)
+    private void OnMouseDown()
     {
         if (_isCollected) return;
         Collect();
@@ -31,18 +28,20 @@ public class DropItemPickup_KJG : MonoBehaviour
         if (_isCollected) return;
         _isCollected = true;
 
-        // 실제 수집 처리
-        if (itemType == DropItemType.Gold)
+        // Gold은 제외 (원작 고증)
+        if (itemType == DropItemType.Material || itemType == DropItemType.RareMaterial || itemType == DropItemType.Essence)
         {
-            Manager_KJG.Currency.AddGold(amount);
-            Debug.Log($"[DropItemPickup_KJG] 골드 {amount} 수집");
-        }
-        else
-        {
-            Debug.Log($"[DropItemPickup_KJG] {itemType} {amount}개 수집");
-            // 나중에 InventoryManager_KJG.AddItem(itemType, amount) 등으로 확장 가능
+            // BuildingManager에 재료 소비 요청
+            if (Manager_KJG.Building != null)
+            {
+                bool success = Manager_KJG.Building.ConsumeMaterial(itemType, amount);
+                if (success)
+                {
+                    Debug.Log($"[DropItemPickup_KJG] {itemType} {amount}개 → Building 업그레이드 비용으로 소비");
+                }
+            }
         }
 
-        Destroy(gameObject);   // 드랍 아이템 제거
+        Destroy(gameObject);
     }
 }
