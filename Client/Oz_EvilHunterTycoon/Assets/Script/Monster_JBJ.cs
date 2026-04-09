@@ -35,6 +35,8 @@ public class Monster_JBJ : BaseWorldObject_KJG
     public Vector3 minBounds;
     public Vector3 maxBounds;
 
+    private HunterData_PJS _hunterData;
+
     Vector3 lastMoveDir;
 
     SpriteRenderer[] renderers;
@@ -318,6 +320,20 @@ public class Monster_JBJ : BaseWorldObject_KJG
     {
         if (isDead) return;
         isDead = true;
+
+        if (Manager_KJG.Exp != null)
+        {
+            Manager_KJG.Exp.AddExpToHuntersInArea(50, _hunterData._areaType);
+        }
+
+        if (Manager_KJG.Drop != null)
+        {
+            Manager_KJG.Drop.DropFromMonster(this);
+        }
+
+        Manager_KJG.Audio.PlaySFX("monster_death");
+
+        Manager_KJG.Achievement.OnMonsterKilled();
 
         if (spawner != null)
         {
