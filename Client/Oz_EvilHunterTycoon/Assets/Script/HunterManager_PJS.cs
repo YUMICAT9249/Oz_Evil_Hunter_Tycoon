@@ -33,10 +33,10 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 
     [Header("구역(공통 변수)")]
     public AreaType _areaType; // 호출할 구역 타입
-
-    protected override void Start()
+    
+    void Start() // BaseManager에 Start 추가되면 protected override void Start() 로 수정
     {
-        base.Start();
+        // 위의 내용 수정되면 주석 해제 base.Start();
         HunterController_PJS[] findingHunters = FindObjectsOfType<HunterController_PJS>();
         BoxCollider2D villageBox = AreaCollider(AreaType.Village);
 

@@ -14,8 +14,9 @@ public class HunterSkill_PJS : MonoBehaviour
     public HunterSkillData_PJS _mainSkill;
     public HunterSkillData_PJS _subSkill;
 
+    // 아래 쿨타임 제거 -> SO 빼올거 캐싱
     private float _mainSkillCooldown; // 1차 메인 스킬 쿨타임
-    private float _subSkillCooldown;  // 1차 서브 스킬 쿨타임
+    private float _subSkillCooldown;  // 1차 서브 스킬 쿨타임 
     private Battle_JBJ_PJS _battleTarget;
 
     void Awake()
@@ -51,6 +52,7 @@ public class HunterSkill_PJS : MonoBehaviour
     public void SkillActive()
     {
         if (_mainSkill == null) return;
+        StopAllCoroutines();
 
         float ratio = (float)_mainSkill.currentLevel / _mainSkill.mainSkillMaxLevel;
         switch (_mainSkill.skillName)
