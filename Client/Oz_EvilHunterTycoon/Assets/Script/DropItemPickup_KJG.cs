@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// DropItemPickup_KJG - 바닥에 떨어진 드랍 아이템에 붙이는 스크립트
-/// 플레이어가 클릭하면 자동으로 수집됩니다.
+/// 플레이어가 클릭하면 자동으로 수집됩니다. (원작 스타일)
 /// </summary>
 public class DropItemPickup_KJG : MonoBehaviour
 {
@@ -11,19 +11,15 @@ public class DropItemPickup_KJG : MonoBehaviour
 
     private bool _isCollected = false;
 
-    /// <summary>
-    /// DropManager가 드랍 생성할 때 호출
-    /// </summary>
     public void SetDropData(DropItemType type, int amt)
     {
         itemType = type;
         amount = amt;
     }
 
-    private void OnMouseDown()   // 마우스 클릭으로 수집
+    private void OnMouseDown()
     {
         if (_isCollected) return;
-
         Collect();
     }
 
@@ -32,17 +28,20 @@ public class DropItemPickup_KJG : MonoBehaviour
         if (_isCollected) return;
         _isCollected = true;
 
-        // 실제 수집 처리
-        if (itemType == DropItemType.Gold)
+        // Gold은 제외 (원작 고증)
+        if (itemType == DropItemType.Material || itemType == DropItemType.RareMaterial || itemType == DropItemType.Essence)
         {
-            Manager_KJG.Currency.AddGold(amount);
-        }
-        else
-        {
-            Debug.Log($"[DropItemPickup] {itemType} {amount}개 수집");
-            // 나중에 InventoryManager_KJG.AddItem(itemType, amount) 등으로 확장
+            // BuildingManager에 재료 소비 요청
+            if (Manager_KJG.Building != null)
+            {
+                bool success = Manager_KJG.Building.ConsumeMaterial(itemType, amount);
+                if (success)
+                {
+                    Debug.Log($"[DropItemPickup_KJG] {itemType} {amount}개 → Building 업그레이드 비용으로 소비");
+                }
+            }
         }
 
-        Destroy(gameObject);   // 드랍 아이템 제거
+        Destroy(gameObject);
     }
 }
