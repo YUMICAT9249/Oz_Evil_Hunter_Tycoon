@@ -21,7 +21,7 @@ public enum SkillName
 public class HunterSkillData_PJS : ScriptableObject
 {
     [Header("스킬 기본 정보")]
-    public SkillName skillName; // 열거형 스킬 이름
+    public SkillName skillName; // 열거형 스킬 이름 // String으로 / Id로
     public SkillType skillType; // 열거형 중 선택
     public HunterJop hunterJop; // 직업마다 갖게 될 스킬
 
