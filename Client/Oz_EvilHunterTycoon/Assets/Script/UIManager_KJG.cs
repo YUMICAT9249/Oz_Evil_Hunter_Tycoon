@@ -2,38 +2,44 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// UIManager_KJG
-/// 
+/// [KJG 실무 아키텍처] UIManager_KJG
+///
 /// 역할:
-/// - HP Bar를 **헌터/몬스터 아래**에 항상 표시
-/// - 오브젝트 클릭 시 선택 UI 버튼 표시
+/// - HP Bar를 헌터/몬스터 아래에 항상 표시 (원작처럼)
+/// - 오브젝트 클릭 시 선택 UI Prefab만 띄움
+/// - 실제 HunterClickUI나 Building UI를 띄우는 것은 UI 팀에게 요청
 /// </summary>
 public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
 {
-    [Header("=== HP Bar 설정 ===")]
-    [Tooltip("HP Bar Prefab (World Space Canvas 사용)")]
+    [Header("HP Bar 설정")]
     [SerializeField] private GameObject hpBarPrefab;
+    [SerializeField] private float hpBarYOffset = -1.8f;       // HP Bar를 오브젝트 아래로 띄우는 값
 
-    [Header("=== 선택 UI 설정 ===")]
-    [Tooltip("클릭 시 뜨는 선택 UI Prefab")]
-    [SerializeField] private GameObject selectionUIPrefab;
+    [Header("선택 UI 설정")]
+    [SerializeField] private GameObject selectionUIPrefab;     // 클릭하면 뜨는 기본 선택 UI
 
-    [Header("=== 위치 조정 ===")]
-    [Tooltip("HP Bar를 오브젝트 아래로 얼마나 띄울지 (Y축 음수 값)")]
-    [SerializeField] private float hpBarYOffset = -1.8f;   // ← 아래로 띄우는 값 (조정 가능)
-
-    // 오브젝트별 HP Bar 캐싱
     private readonly Dictionary<BaseWorldObject_KJG, HPBar_KJG> _hpBars
         = new Dictionary<BaseWorldObject_KJG, HPBar_KJG>();
 
-    private void OnEnable()
+    protected override void Start()
     {
+        base.Start();
+        SubscribeToMapManager();
+        Debug.Log("[UIManager_KJG] 초기화 완료");
+    }
+
+    private void SubscribeToMapManager()
+    {
+        if (Manager_KJG.Map == null) return;
+
         Manager_KJG.Map.AddHealthChangedListener(HandleHealthChanged);
         Manager_KJG.Map.AddObjectClickedListener(HandleObjectClicked);
     }
 
-    private void OnDisable()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
+
         if (Manager_KJG.Map != null)
         {
             Manager_KJG.Map.RemoveHealthChangedListener(HandleHealthChanged);
@@ -41,50 +47,51 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
         }
     }
 
+    // ====================== HP Bar ======================
     private void HandleHealthChanged(BaseWorldObject_KJG obj, float currentHp, float maxHp)
     {
-        if (obj == null) return;
+        if (obj == null || obj is BuildingWorldObject_YHJ) return; // 빌딩은 HP Bar 안 띄움
 
-        if (!_hpBars.ContainsKey(obj))
-        {
+        if (!_hpBars.TryGetValue(obj, out var hpBar))
             CreateHPBar(obj);
-        }
 
-        if (_hpBars.TryGetValue(obj, out HPBar_KJG hpBar))
-        {
+        if (_hpBars.TryGetValue(obj, out hpBar))
             hpBar.UpdateHP(currentHp, maxHp);
-        }
-    }
-
-    private void HandleObjectClicked(BaseWorldObject_KJG clickedObject)
-    {
-        if (clickedObject == null || selectionUIPrefab == null) return;
-
-        Debug.Log($"[UIManager_KJG] {clickedObject.displayName} 클릭 → 선택 UI 표시");
-
-        Instantiate(selectionUIPrefab,
-                    clickedObject.transform.position + Vector3.up * 3f,
-                    Quaternion.identity);
     }
 
     private void CreateHPBar(BaseWorldObject_KJG obj)
     {
         if (hpBarPrefab == null) return;
 
-        // HP Bar를 오브젝트 **아래**에 생성
-        Vector3 position = obj.transform.position + Vector3.up * hpBarYOffset;
-
-        var hpBarGO = Instantiate(hpBarPrefab, position, Quaternion.identity);
-        hpBarGO.transform.SetParent(obj.transform);   // 오브젝트 따라 움직임
+        Vector3 pos = obj.transform.position + Vector3.up * hpBarYOffset;
+        var hpBarGO = Instantiate(hpBarPrefab, pos, Quaternion.identity);
+        hpBarGO.transform.SetParent(obj.transform);
 
         var hpBar = hpBarGO.GetComponent<HPBar_KJG>();
         if (hpBar != null)
             _hpBars[obj] = hpBar;
     }
 
+    // ====================== 클릭 처리 ======================
+    private void HandleObjectClicked(BaseWorldObject_KJG clickedObject)
+    {
+        if (clickedObject == null) return;
+
+        Debug.Log($"[UIManager_KJG] {clickedObject.displayName} 클릭됨");
+
+        // 기본 선택 UI Prefab만 띄움
+        if (selectionUIPrefab != null)
+        {
+            Vector3 uiPos = clickedObject.transform.position + Vector3.up * 3f;
+            Instantiate(selectionUIPrefab, uiPos, Quaternion.identity);
+        }
+
+        // 실제 HunterClickUI나 Building UI는 UI 팀이 처리하도록 요청할 예정
+    }
+
     public void RemoveHPBar(BaseWorldObject_KJG obj)
     {
-        if (_hpBars.TryGetValue(obj, out HPBar_KJG hpBar))
+        if (_hpBars.TryGetValue(obj, out var hpBar))
         {
             Destroy(hpBar.gameObject);
             _hpBars.Remove(obj);
