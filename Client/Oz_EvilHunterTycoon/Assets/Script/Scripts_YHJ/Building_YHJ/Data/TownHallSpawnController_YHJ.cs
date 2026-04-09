@@ -55,8 +55,14 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
 
     void OnPopulationResult(int current, int max)
     {
-        // ¡Ú current¸¸ »ç¿ë
-        currentPopulation = current;
+        int levelMax = max;
+
+        if (levelComponent != null && levelComponent.CurrentStat != null)
+        {
+            levelMax = levelComponent.CurrentStat.capacity;
+        }
+
+        canSpawn = current < levelMax;
     }
 
     private int GetMaxPopulation()
