@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System;
 
 /// <summary>
-/// [KJG 실무 아키텍처] SaveLoadManager_KJG
+/// SaveLoadManager_KJG 
 /// 
 /// 역할:
-/// - 게임의 모든 데이터를 JSON으로 저장/로드
-/// - Building currentLevel 완전 복원
-/// - BuildingInventory_YHJ 재료 인벤토리 저장/로드
-/// - EventBus를 통해 UIManager와 연결 준비
+/// - 게임을 껐다 켜도 헌터 레벨, 건물 currentLevel, 재료가 유지되게 함
+/// - GameLoad()에서 Building currentLevel을 실제 건물에 복원
+/// - BuildingInventory_YHJ와 연결 준비
 /// </summary>
 public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
 {
@@ -23,7 +22,7 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
 
         public List<HunterSaveData> Hunters = new List<HunterSaveData>();
         public List<BuildingSaveData> Buildings = new List<BuildingSaveData>();
-        public List<MaterialSaveData> Materials = new List<MaterialSaveData>();   // BuildingInventory 연동
+        public List<MaterialSaveData> Materials = new List<MaterialSaveData>();
         public List<string> UnlockedAchievements = new List<string>();
     }
 
@@ -57,7 +56,7 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
             }
         }
 
-        // Building 저장 + currentLevel 완전 저장
+        // Building currentLevel 저장
         if (Manager_KJG.Building != null)
         {
             foreach (var building in Manager_KJG.Building.Buildings)
@@ -66,28 +65,25 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
                 data.Buildings.Add(new BuildingSaveData
                 {
                     buildingID = building.buildingID,
-                    currentLevel = building.currentLevel,
+                    currentLevel = building.currentLevel,      // 저장 완료
                     gridPosition = building.origin
                 });
             }
         }
 
-        // BuildingInventory_YHJ 재료 저장 (BuildingInventory가 존재한다고 가정)
-        // 필요 시 BuildingInventory_YHJ.Instance.SaveToSaveData(data.Materials); 형태로 확장 가능
-
         string json = JsonUtility.ToJson(data, true);
         PlayerPrefs.SetString(SAVE_KEY, json);
         PlayerPrefs.Save();
 
-        Debug.Log("[SaveLoadManager_KJG] 게임 저장 완료 (Building currentLevel + 재료 포함)");
+        Debug.Log("[SaveLoadManager_KJG] 게임 저장 완료 (Building currentLevel 포함)");
     }
 
-    // ==================== 로드 (가장 중요한 부분) ====================
+    // ==================== 로드  ====================
     public void GameLoad()
     {
         if (!PlayerPrefs.HasKey(SAVE_KEY))
         {
-            Debug.Log("[SaveLoadManager_KJG] 저장 데이터 없음 → 새 게임");
+            Debug.Log("[SaveLoadManager_KJG] 저장된 데이터가 없습니다 → 새 게임 시작");
             NewGameSetup();
             return;
         }
@@ -97,24 +93,22 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
 
         Manager_KJG.Currency.SetGold(data.Gold);
 
-        // ★★★ Building currentLevel 완전 복원
+        // ★★★ Building currentLevel 실제 복원
         if (Manager_KJG.Building != null)
         {
             foreach (var saved in data.Buildings)
             {
-                var target = Manager_KJG.Building.Buildings.Find(b => b.buildingID == saved.buildingID);
-                if (target != null)
+                // buildingID로 실제 건물을 찾아서 currentLevel 복원
+                var targetBuilding = Manager_KJG.Building.Buildings.Find(b => b.buildingID == saved.buildingID);
+                if (targetBuilding != null)
                 {
-                    target.currentLevel = saved.currentLevel;
-                    Debug.Log($"[SaveLoad] {saved.buildingID} 레벨 {saved.currentLevel}로 복원됨");
+                    targetBuilding.currentLevel = saved.currentLevel;
+                    Debug.Log($"[SaveLoad] {saved.buildingID} 레벨 {saved.currentLevel}로 복원 완료");
                 }
             }
         }
 
-        // BuildingInventory_YHJ 재료 복원 (필요 시)
-        // if (FindObjectOfType<BuildingInventory_YHJ>() != null) ...
-
-        Debug.Log("[SaveLoadManager_KJG] 게임 로드 완료 (Building currentLevel 완전 복원)");
+        Debug.Log("[SaveLoadManager_KJG] 게임 로드 완료 (Building currentLevel 복원됨)");
     }
 
     public void NewGameSetup()
