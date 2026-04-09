@@ -193,7 +193,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void Update()
     {
-        DebugCheckBuildingClick();
+        
 
         if (!isPlacing) return;
 
@@ -220,39 +220,6 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         }
 
         return cells;
-    }
-
-    void DebugCheckBuildingClick()
-    {
-        if (isPlacing) return;
-
-        if (!Input.GetMouseButtonDown(0)) return;
-
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        Vector3 mouseWorld =
-            Camera.main.ScreenToWorldPoint
-            (
-                Input.mousePosition
-            );
-
-        mouseWorld.z = 0;
-
-        Vector2Int gridPos =
-            WorldToGrid
-            (
-                mouseWorld
-            );
-
-        if (gridMap.TryGetValue(gridPos, out var building))
-        {
-            Debug.Log("건물 클릭됨: " + building.buildingID);
-        }
-        else
-        {
-            Debug.Log("빈 공간 클릭");
-        }
     }
 
     void HandleClick()

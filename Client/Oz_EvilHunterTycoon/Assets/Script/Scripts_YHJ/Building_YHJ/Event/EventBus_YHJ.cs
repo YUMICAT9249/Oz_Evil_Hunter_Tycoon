@@ -32,4 +32,12 @@ public static class EventBus_YHJ
 
     // ★ 기능: 보스 UI 열기 요청
     public static Action RequestOpenBossUI;
+
+    public static System.Action<IUnit_YHJ, GameObject> RequestProcessUnit;
+
+    public static Action<IUnit_YHJ, string, int> OnItemReceived;
+
+    public static Action<IUnit_YHJ, string> RequestBuyItem;
+
+    public static Action<IUnit_YHJ, string, bool> OnBuyItemResult;
 }

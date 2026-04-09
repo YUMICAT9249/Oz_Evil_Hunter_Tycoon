@@ -11,4 +11,5 @@ public interface IUnit_YHJ
 
     void Heal(float amount);
     void Revive();
+
 }

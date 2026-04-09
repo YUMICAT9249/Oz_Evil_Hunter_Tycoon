@@ -93,10 +93,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2984366533004108077}
-  - component: {fileID: 2474332185468612133}
   - component: {fileID: -200184282982468080}
   - component: {fileID: -286045743311577842}
   - component: {fileID: 869587540330657481}
+  - component: {fileID: -44504429274075285}
+  - component: {fileID: -5146071121192435259}
   m_Layer: 0
   m_Name: armorrack
   m_TagString: Untagged
@@ -120,20 +121,6 @@ Transform:
   - {fileID: 8803276587149728843}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2474332185468612133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4143389764929945007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ba6e99e0047d445890834ea03113ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemID: Potion
-  price: 10
 --- !u!114 &-200184282982468080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +159,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Unknown Object
   maxHp: 100
+--- !u!114 &-44504429274075285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4143389764929945007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654b4dc75bcc7c94fa056271a135a975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5146071121192435259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4143389764929945007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236f58776f344f3488f0aff4e18cc649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6697337033885963953
 GameObject:
   m_ObjectHideFlags: 0

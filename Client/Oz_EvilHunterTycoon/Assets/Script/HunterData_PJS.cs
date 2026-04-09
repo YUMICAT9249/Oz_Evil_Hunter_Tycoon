@@ -1,7 +1,6 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
-
+using UnityEngine;
 
 // 헌터 데이터 + 수치 계산식 스크립트
 
@@ -29,15 +28,22 @@ public enum HunterRank
 
 public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 {
-    public float CurrentHp
+    public Action<float, float> OnHpChanged;
+    public static Action OnHunterDie;
+
+    #region 프로퍼티 외부용
+    public float CurrentHP 
     {
         get => _currentHP;
         set
-        { 
+        {
             _currentHP = value;
             OnHpChanged?.Invoke(_currentHP, _maxHP);
         }
     }
+    public float MaxHP => _maxHP;
+    public bool IsDead => _currentHP <= 0;
+    #endregion
 
     [Header("기본 데이터 참조")]
     public UnitData_JBJ_PJS _unitData;
@@ -45,10 +51,14 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     [Header("헌터 기본 정보")]
     [SerializeField] public AreaType _areaType;     // 위치 확인용
     [SerializeField] public HunterJop _hunterJop;   // 헌터이름을 랜덤으로 생성할 직업타입
-    [SerializeField] public string _hunterNameList;       // 랜덤으로 생성된 이름을 담는 변수
+    [SerializeField] public string _hunterNameList; // 랜덤으로 생성된 이름을 담는 변수
 
-    [Header("헌터 상세 스탯")]
+    [Header("레벨 / 경험치")]
     [SerializeField] public int _currentLevel = 1;      // 현재 레벨
+    [SerializeField] public float _currentExp;          // 현재 경험치
+    [SerializeField] public float _maxExp = 100;        // 최대 경험치 초기값
+
+    [Header("현재 체력")]
     [SerializeField] public float _currentHP = 100.0f;  // 현재 체력
 
     [Header("헌터 최종 스탯")]
@@ -87,8 +97,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     private List<string> rangerNames = new List<string> { "카이즈", "바레인", "크리샤" };
     private List<string> sorcererNames = new List<string> { "라글라스", "두아트린", "브리디도" };
 
-    public Action<float, float> OnHpChanged;
-    public static Action OnHunterDie;
+    public static HunterData_PJS InfoHunter;
 
     private void Awake()
     {
@@ -106,25 +115,44 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         SettingHunterData(_hunterJop);
     }
 
-    private void OnEnable()
+    public void AddExp(int expAmount)
     {
-
+        // EXP 증가 로직 (팀원이 필요에 따라 확장 가능)
+        _currentExp += expAmount;
+        while (_currentExp >= _maxExp) { LevelUp(); }
+        Debug.Log($"[HunterData_PJS] {_hunterNameList}이(가) {expAmount} EXP 획득");
     }
 
-    private void OnDisable()
-    {
+    public void LevelUp()
+    { 
+        _currentExp -= _maxExp; // 남은 경험치 유지
+        _maxExp *= 2f;          // 필요경험치 복리 2배
+        _currentLevel++;        // 레벨 증가
 
+        FinalStats();   // 스탯 재계산
+        Debug.Log($"{_hunterNameList} 레벨업! LV {_currentLevel}");
     }
 
-    // 스탯 뽑기 확률 함수
-    private int GetRandomScore()
+    // 치료소 회복 함수
+    public void Heal(float amount)
     {
-        int randomScore = UnityEngine.Random.Range(0, 100);
+        if (IsDead) return;
+        _currentHP += amount;
+        if (_currentHP > MaxHP) { _currentHP = _maxHP; }
+        // HP변경 이벤트 -> UI 연결 및 갱신 
+        OnHpChanged?.Invoke(_currentHP, _maxHP);
+        Debug.Log($"{_hunterNameList}가 {amount}만큼 회복. 현재HP: {_currentHP}");
+    }
 
-        if (randomScore < 40) return 0;      // 40% 흰색
-        else if (randomScore < 70) return 1; // 30% 파란색
-        else if (randomScore < 90) return 2; // 20% 주황색
-        else return 3;                       // 10% 보라색
+    // 부활의 성소 부활 함수
+    public void Revive()
+    {
+        if (!IsDead) return;
+
+        _currentHP = _maxHP * 0.3f;
+        // 부활 시 HP변경 이벤트 -> UI 연결 및 갱신 
+        OnHpChanged?.Invoke(_currentHP, _maxHP);
+        Debug.Log($"{_hunterNameList}가 부활");
     }
 
     // 헌터가 스폰된 후 헌터 데이터 세팅
@@ -167,48 +195,19 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _hunterNameList = hunterNameList[UnityEngine.Random.Range(0, hunterNameList.Count)];
     }
 
-    // 점수별 스탯 추가 / 매개변수 사용 => 유지보수, 하나의 함수로 해결가능
-    // 공격 쿨다운 제외
-    public float AddStatsByScore(float baseValue, int score)
+    // 스탯 뽑기 확률 함수
+    private int GetRandomScore()
     {
-        switch (score)
-        { 
-            case 0: return baseValue * 1.0f;
-            case 1: return baseValue * 1.1f;
-            case 2: return baseValue * 1.2f;
-            case 3: return baseValue * 1.3f;
-        }
-        return baseValue;
-    }
+        int randomScore = UnityEngine.Random.Range(0, 100);
 
-    // 점수별 공격 쿨다운 줄임
-    public float AddAttackCooldownByScore(float baseValue, int score)
-    {
-        switch (score)
-        {
-            case 0: return baseValue / 1.0f;
-            case 1: return baseValue / 1.1f;
-            case 2: return baseValue / 1.2f;
-            case 3: return baseValue / 1.3f;
-        }
-        return baseValue;
-    }
-
-    // 스탯 점수 합산 / 등급 결정
-    public void RankScore()
-    {
-        _totalScore = _hpScore + _damageScore + _defenceScore + _criticalChanceScore + _dodgeChanceScore + _attackCooldownScore + _moveSpeedScore;
-
-        if (_totalScore <= 1) { _hunterRank = HunterRank.Normal; }
-        else if (_totalScore <= 5) { _hunterRank = HunterRank.Rare; }
-        else if (_totalScore <= 9) { _hunterRank = HunterRank.Superior; }
-        else if (_totalScore <= 13) { _hunterRank = HunterRank.Heroic; }
-        else if (_totalScore <= 17) { _hunterRank = HunterRank.Legendary; }
-        else { _hunterRank = HunterRank.Ultimate; }
+        if (randomScore < 40) return 0;      // 40% 흰색
+        else if (randomScore < 70) return 1; // 30% 파란색
+        else if (randomScore < 90) return 2; // 20% 주황색
+        else return 3;                       // 10% 보라색
     }
 
     // 랜덤 스탯 생성 + 최종 스탯 계산
-    public void RandomStats()
+    private void RandomStats()
     {
         // 1. 점수 생성
         _hpScore = GetRandomScore();
@@ -224,6 +223,19 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         FinalStats();
         // 4. 현재 체력 초기화
         _currentHP = _maxHP;
+    }
+
+    // 스탯 점수 합산 / 등급 결정
+    public void RankScore()
+    {
+        _totalScore = _hpScore + _damageScore + _defenceScore + _criticalChanceScore + _dodgeChanceScore + _attackCooldownScore + _moveSpeedScore;
+
+        if (_totalScore <= 1) { _hunterRank = HunterRank.Normal; }
+        else if (_totalScore <= 5) { _hunterRank = HunterRank.Rare; }
+        else if (_totalScore <= 9) { _hunterRank = HunterRank.Superior; }
+        else if (_totalScore <= 13) { _hunterRank = HunterRank.Heroic; }
+        else if (_totalScore <= 17) { _hunterRank = HunterRank.Legendary; }
+        else { _hunterRank = HunterRank.Ultimate; }
     }
 
     // 환생 조건 체크 후 실행 함수
@@ -259,6 +271,33 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore) * _rebirthBonus;
     }
 
+    // 점수별 스탯 추가 / 매개변수 사용 => 유지보수, 하나의 함수로 해결가능
+    // 공격 쿨다운 제외
+    private float AddStatsByScore(float baseValue, int score)
+    {
+        switch (score)
+        { 
+            case 0: return baseValue * 1.0f;
+            case 1: return baseValue * 1.1f;
+            case 2: return baseValue * 1.2f;
+            case 3: return baseValue * 1.3f;
+        }
+        return baseValue;
+    }
+
+    // 점수별 공격 쿨다운 줄임
+    private float AddAttackCooldownByScore(float baseValue, int score)
+    {
+        switch (score)
+        {
+            case 0: return baseValue / 1.0f;
+            case 1: return baseValue / 1.1f;
+            case 2: return baseValue / 1.2f;
+            case 3: return baseValue / 1.3f;
+        }
+        return baseValue;
+    }
+
     #region Get 함수 => 최종 값만 반환
     public float GetMaxHP() => _maxHP;
     public float GetAttackDamage() => _damage;
@@ -267,38 +306,5 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public float GetDodgeChance() => _dodgeChance;
     public float GetAttackCooldown() => Mathf.Max(0.25f, _attackCooldown);
     public float GetMoveSpeed() => _moveSpeed;
-    #endregion
-
-    #region 건물 인터페이스 상속
-    public float CurrentHP => _currentHP;
-    public float MaxHP => _maxHP;
-    public bool IsDead => _currentHP <= 0;
-
-    // 치료소 회복 함수
-    public void Heal(float amount)
-    {
-        if (IsDead) return;
-        _currentHP += amount;
-        if (_currentHP > MaxHP) { _currentHP = _maxHP; }
-        // HP변경 이벤트 -> UI 연결 및 갱신 
-        OnHpChanged?.Invoke(_currentHP, _maxHP);
-        Debug.Log($"{_hunterNameList}가 {amount}만큼 회복. 현재HP: {_currentHP}");
-    }
-
-    // 부활의 성소 부활 함수
-    public void Revive()
-    { 
-        if (!IsDead) return;
-
-        _currentHP = _maxHP * 0.3f;
-
-        if (TryGetComponent(out HunterController_PJS hunterController))
-        {
-            //
-        }
-        // 부활 시 HP변경 이벤트 -> UI 연결 및 갱신 
-        OnHpChanged?.Invoke(_currentHP, _maxHP);
-        Debug.Log($"{_hunterNameList}가 부활");
-    }
     #endregion
 }

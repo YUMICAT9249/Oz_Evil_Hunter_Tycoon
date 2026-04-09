@@ -4,10 +4,10 @@ public class BuildingLevelComponent_YHJ : MonoBehaviour
 {
     public BuildingInstance_YHJ instance;
 
-    public int CurrentLevel => instance.currentLevel;
-    public int MaxLevel => instance.levelData.MaxLevel;
+    public int CurrentLevel => IsValid() ? instance.currentLevel : 0;
+    public int MaxLevel => IsValid() ? instance.levelData.MaxLevel : 0;
 
-    public LevelStat CurrentStat => instance.CurrentStat;
+    public LevelStat CurrentStat => IsValid() ? instance.CurrentStat : null;
 
     public bool CanUpgrade(int gold)
     {
@@ -28,5 +28,9 @@ public class BuildingLevelComponent_YHJ : MonoBehaviour
             return false;
 
         return instance.TryUpgrade(ref gold);
+    }
+    private bool IsValid()
+    {
+        return instance != null && instance.levelData != null;
     }
 }

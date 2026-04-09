@@ -1,12 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// 헌터 스킬 계산식 / 스킬마다 개별 함수 / 스킬 추가 시 함수 추가 switch문에 추가
+// 배율 값은 인스펙터에서 설정한다.
+// 연타발생 스킬은 코루틴으로 관리한다.
 
 public class HunterSkill_PJS : MonoBehaviour
 {
     private HunterData_PJS _hunterData;
     private Animator _animator;
-    private SpriteRenderer _spriteRenderer;
 
     [Header("보유 스킬 2개 등록")]
     public HunterSkillData_PJS _mainSkill;
@@ -20,7 +22,6 @@ public class HunterSkill_PJS : MonoBehaviour
     {
         _hunterData = GetComponent<HunterData_PJS>();
         _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void UseSkill(Battle_JBJ_PJS target)
@@ -29,24 +30,20 @@ public class HunterSkill_PJS : MonoBehaviour
         if (target == null) return;
         _battleTarget = target;
 
-        if (_mainSkill != null)
+        // 메인 스킬 1순위
+        if (_mainSkill != null && Time.time >= _mainSkillCooldown)
         {
-            if (Time.time >= _mainSkillCooldown)
-            {
-                _animator.SetTrigger(_mainSkill.skillName.ToString());
-                _mainSkillCooldown = Time.time + _mainSkill.cooldownTime;
-                return;
-            }
+            _animator.SetTrigger(_mainSkill.skillName.ToString());
+            _mainSkillCooldown = Time.time + _mainSkill.cooldownTime;
+            return;
         }
 
-        if (_subSkill != null)
+        // 서브 스킬 2순위
+        if (_subSkill != null && Time.time >= _subSkillCooldown)
         {
-            if (Time.time >= _subSkillCooldown)
-            {
-                _animator.SetTrigger(_subSkill.skillName.ToString());
-                _subSkillCooldown = Time.time + _subSkill.cooldownTime;
-                return;
-            }
+            _animator.SetTrigger(_subSkill.skillName.ToString());
+            _subSkillCooldown = Time.time + _subSkill.cooldownTime;
+            return;
         }
     }
 
@@ -59,31 +56,21 @@ public class HunterSkill_PJS : MonoBehaviour
         switch (_mainSkill.skillName)
         {
             case SkillName.Fury:
-                _hunterData._attackCooldown *= 0.25f;
-                _hunterData._damage += _hunterData._damage * 1.0f * ratio;
-                _spriteRenderer.color = Color.red;
+                Fury(ratio);
                 break;
         
             case SkillName.HolyLight:
-                Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _mainSkill.splashRange);
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    if (hits[i].CompareTag("Monster") && hits[i].TryGetComponent(out Battle_JBJ_PJS battle))
-                    {
-                        Damage(battle, 12.0f * ratio);
-                    }
-                }
+                HolyLight(ratio);
                 break;
             
             case SkillName.MultiShot:
-                Damage(_battleTarget, _mainSkill.damageMultiplier * ratio);
+                StartCoroutine(MultiShotRoutine(ratio));
                 break;
       
             case SkillName.ThunderBolt:
-                Damage(_battleTarget, _mainSkill.damageMultiplier * ratio);
+                StartCoroutine(ThunderBoltRoutine(ratio));
                 break;
         }
-        _hunterData.FinalStats();
     }
 
     // 1차 2번 스킬
@@ -95,20 +82,19 @@ public class HunterSkill_PJS : MonoBehaviour
         switch (_subSkill.skillName)
         {
             case SkillName.WarCry:
-                _hunterData._damage += (_hunterData._damage * 1.0f * ratio);
-                Invoke(nameof(EndWarCry), _subSkill.durationTime);
+                WarCry(ratio);
                 break;
 
             case SkillName.Barrier:
-                _hunterData._defence += (_hunterData._defence * 0.6f * ratio);
+                Barrier(ratio);
                 break;
 
             case SkillName.Dodge:
-                _hunterData._dodgeChance += (0.3f * ratio);
+                Dodge(ratio);
                 break;
 
             case SkillName.IceArmor:
-                _hunterData._defence += (_hunterData._defence * 0.5f * ratio);
+                IceArmor(ratio);
                 break;
         }
     }
@@ -116,18 +102,86 @@ public class HunterSkill_PJS : MonoBehaviour
     // 버프 종료
     public void SkillEnd()
     {
-        // 퓨리 
-        _spriteRenderer.color = Color.white;
+        // 중복 방지
+        CancelInvoke();
         // 버프 이전으로 초기화
         _hunterData.FinalStats();
     }
 
+    private void Fury(float ratio) // 버서커 1차 메인 퓨리
+    {
+        _hunterData._attackCooldown *= 0.25f;
+        _hunterData._damage += _hunterData._damage * 1.0f * ratio;
+        Invoke(nameof(SkillEnd), _mainSkill.durationTime);
+    }
+
+    private void HolyLight(float ratio) // 팔라딘 1차 메인 홀리라이트
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _mainSkill.splashRange);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].CompareTag("Monster") && hits[i].TryGetComponent(out Battle_JBJ_PJS battle))
+            {
+                Damage(battle, _mainSkill.damageMultiplier * ratio);
+            }
+        }
+    }
+
+    IEnumerator MultiShotRoutine(float ratio) // 레인저 1차 메인 멀티샷
+    {
+        int count = _mainSkill.hitCount;
+        for (int i = 0; i < count; i++)
+        {
+            if (_battleTarget != null)
+            {
+                Damage(_battleTarget, _mainSkill.damageMultiplier * ratio);
+            }
+            yield return new WaitForSeconds(_mainSkill.hitInterval);
+        }
+    }
+
+    IEnumerator ThunderBoltRoutine(float ratio) // 소서러 1차 메인 썬더볼트
+    {
+        int count = _mainSkill.hitCount;
+        for (int i = 0; i < count; i++)
+        {
+            if (_battleTarget != null)
+            {
+                Damage(_battleTarget, _mainSkill.damageMultiplier * ratio);
+            }
+            yield return new WaitForSeconds(_mainSkill.hitInterval);
+        }
+    }
+
+    private void WarCry(float ratio)
+    {
+        _hunterData._damage += (_hunterData._damage * 1.0f * ratio);
+        Invoke(nameof(EndWarCry), _subSkill.durationTime);
+    }
+
+    private void Barrier(float ratio)
+    {
+        _hunterData._defence += (_hunterData._defence * 0.6f * ratio);
+        Invoke(nameof(EndBarrier), _subSkill.durationTime);
+    }
+
+    private void Dodge(float ratio)
+    {
+        _hunterData._dodgeChance += (0.3f * ratio);
+        Invoke(nameof(EndDodge), _subSkill.durationTime);
+    }
+
+    private void IceArmor(float ratio)
+    {
+        _hunterData._defence += (_hunterData._defence * 0.5f * ratio);
+        Invoke(nameof(EndIceArmor), _subSkill.durationTime);
+    }
+
     #region 버프 종료 함수 / 수치 복구
-    private void EndFury() { }
-    private void EndWarCry() { }
-    private void EndBarrier() { }
-    private void EndDodge() { }
-    private void EndIceArmor() { }
+    private void EndWarCry() { SkillEnd(); }
+    private void EndBarrier() { SkillEnd(); }
+    private void EndDodge() { SkillEnd(); }
+    private void EndIceArmor() { SkillEnd(); }
     #endregion
 
     private void Damage(Battle_JBJ_PJS battleTarget, float ratio)

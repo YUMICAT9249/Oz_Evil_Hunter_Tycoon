@@ -42,6 +42,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
 
     protected override void Awake()
     {
+        base.Awake();
         // 캐싱 - 최적화
         _hunterData = GetComponent<HunterData_PJS>();
         _hunterSkill = GetComponent<HunterSkill_PJS>();
@@ -54,6 +55,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
     // [5] 초기화
     protected override void Start()
     {
+        base.Start();
         // 시작 시 현재 구역을 가져옴
         if (_hunterData != null) 
         {
@@ -95,6 +97,10 @@ public class HunterController_PJS : BaseWorldObject_KJG
         _hunterCollider.enabled = false;
         // 사망 이벤트
         HunterData_PJS.OnHunterDie?.Invoke();
+        if (TryGetComponent(out IUnit_YHJ unit))
+        {
+            EventBus_YHJ.RequestInteract?.Invoke(gameObject, unit);
+        }
     }
 
     // [6] 지역 변경 감지 (변경될 때만 실행)
@@ -208,7 +214,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
         }
 
         // HP 최대치 + 부활처리
-        _hunterData.CurrentHp = _hunterData.GetMaxHP();
+        _hunterData.CurrentHP = _hunterData.GetMaxHP();
         _hunterCollider.enabled = true;
         _currentState = HunterState.Idle;
 
@@ -391,4 +397,12 @@ public class HunterController_PJS : BaseWorldObject_KJG
         }
         _animator.speed = 1.0f;
     }
+
+    #region UI
+    void OnMouseDown()
+    {
+        if (_hunterData == null) return;
+        HunterData_PJS.InfoHunter = _hunterData;
+    }
+    #endregion
 }

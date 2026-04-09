@@ -1,6 +1,6 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// Ä¡·á¼Ò ±â´É
+// ì¹˜ë£Œì†Œ ê¸°ëŠ¥
 public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
     public string itemID = "Bandage";
@@ -8,11 +8,23 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     private BuildingInventory_YHJ inventory;
     private BuildingQueue_YHJ queue;
+    private BuildingLevelComponent_YHJ levelComponent;
 
     void Awake()
     {
         inventory = GetComponent<BuildingInventory_YHJ>();
         queue = GetComponent<BuildingQueue_YHJ>();
+        levelComponent = GetComponent<BuildingLevelComponent_YHJ>();
+    }
+
+    void OnEnable()
+    {
+        EventBus_YHJ.RequestProcessUnit += OnProcessUnit;
+    }
+
+    void OnDisable()
+    {
+        EventBus_YHJ.RequestProcessUnit -= OnProcessUnit;
     }
 
     public bool CanInteract(IUnit_YHJ unit)
@@ -22,17 +34,63 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     public void Interact(IUnit_YHJ unit)
     {
-        // Àç°í ÀÖÀ¸¸é ¹Ù·Î Ã³¸®
         if (inventory.TryConsume(itemID, 1))
         {
-            Debug.Log("Ä¡·á ½ÇÇà");
-            unit.Heal(healAmount);
+            Debug.Log("[Heal] ì¦‰ì‹œ ì¹˜ë£Œ");
+            unit.Heal(GetHealAmount());
+
+            EventBus_YHJ.OnInteractionResult?.Invoke
+            (
+                unit,
+                InteractionResult_YHJ.Success
+            );
         }
         else
         {
-            Debug.Log("Àç°í ¾øÀ½ ¡æ ´ë±â¿­");
+            Debug.Log("[Heal] ì¬ê³  ì—†ìŒ â†’ í");
 
             queue.Enqueue(unit);
+
+            EventBus_YHJ.OnInteractionResult?.Invoke
+            (
+                unit,
+                InteractionResult_YHJ.Queued
+            );
         }
+    }
+
+    // â­ í•µì‹¬ ì²˜ë¦¬ í•¨ìˆ˜
+    private void OnProcessUnit(IUnit_YHJ unit, GameObject building)
+    {
+        if (building != gameObject)
+            return;
+
+        Debug.Log("[Heal] í ì²˜ë¦¬");
+
+        // â— ì—¬ê¸° í•µì‹¬: ì‹¤íŒ¨í•´ë„ ë‹¤ì‹œ í ì•ˆ ë„£ìŒ
+        if (!inventory.TryConsume(itemID, 1))
+        {
+            Debug.Log("[Heal] ì¬ê³  ì—†ìŒ â†’ ëŒ€ê¸° ìœ ì§€");
+            return;
+        }
+
+        Debug.Log("[Heal] ì¹˜ë£Œ ì„±ê³µ");
+        unit.Heal(GetHealAmount());
+
+        EventBus_YHJ.OnInteractionResult?.Invoke
+        (
+            unit,
+            InteractionResult_YHJ.Success
+        );
+    }
+    private float GetHealAmount()
+    {
+        if (levelComponent == null)
+            return healAmount;
+
+        if (levelComponent.CurrentStat == null)
+            return healAmount;
+
+        return levelComponent.CurrentStat.healAmount;
     }
 }

@@ -43,8 +43,10 @@ GameObject:
   - component: {fileID: 3241004406745453890}
   - component: {fileID: -2725183148961592178}
   - component: {fileID: -7531564483036146988}
-  - component: {fileID: 8922029145306410760}
   - component: {fileID: -4358814954417916662}
+  - component: {fileID: 8343848722917174371}
+  - component: {fileID: 1378332994429487457}
+  - component: {fileID: -7009524299831802183}
   m_Layer: 0
   m_Name: potion store
   m_TagString: Untagged
@@ -92,20 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beaf94c2b92d3784db47fecadd666ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8922029145306410760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4942847635725805708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ba6e99e0047d445890834ea03113ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemID: Potion
-  price: 10
 --- !u!114 &-4358814954417916662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +108,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Unknown Object
   maxHp: 100
+--- !u!114 &8343848722917174371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4942847635725805708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654b4dc75bcc7c94fa056271a135a975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1378332994429487457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4942847635725805708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78ea9abeda084a4c98d9c1faf90b833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  processInterval: 2
+--- !u!114 &-7009524299831802183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4942847635725805708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236f58776f344f3488f0aff4e18cc649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5678299587159193186
 GameObject:
   m_ObjectHideFlags: 0
