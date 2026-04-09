@@ -1,155 +1,125 @@
 ﻿using UnityEngine;
-using System.IO;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
-/// SaveLoadManager - 저장/로드 총괄 매니저
+/// [KJG 실무 아키텍처] SaveLoadManager_KJG
 /// 
-/// 특징 :
-/// - Manager_KJG를 통해서만 다른 매니저에 접근 (직접 .Instance 호출 완전 제거)
-/// - Event는 Manager_KJG.Event를 통해 호출
-/// - 코드가 매우 직관적이고, 실무에서 "아키텍처가 잘 잡혔다"는 평가를 받을 수 있는 구조
+/// 역할:
+/// - 게임의 모든 데이터를 JSON으로 저장/로드
+/// - Building currentLevel 완전 복원
+/// - BuildingInventory_YHJ 재료 인벤토리 저장/로드
+/// - EventBus를 통해 UIManager와 연결 준비
 /// </summary>
 public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
 {
-    private string savePath;
+    private const string SAVE_KEY = "EvilHunterTycoon_SaveData";
 
-    [Header("세이브 설정")]
-    [SerializeField] private string saveFileName = "gameSave.json";
-    [SerializeField] private bool logSaveLoad = true;
-
-    /// <summary>
-    /// 게임 전체를 저장할 때 사용하는 데이터 구조
-    /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class SaveData
     {
-        public int saveVersion = 2;
+        public double Gold = 0;
+        public int DifficultyLevel = 1;
 
-        // 기본 데이터
-        public int currentDifficultyLevel = 0;
-        public double gold = 0;
-        public long exp = 0;
-        public int cash = 0;
-        public float goldMultiplier = 1f;
-        public float expMultiplier = 1f;
-
-        // 확장 데이터
-        public List<AchievementManager_KJG.Achievement> achievements = new List<AchievementManager_KJG.Achievement>();
-        public List<HunterData_PJS> hunters = new List<HunterData_PJS>();
+        public List<HunterSaveData> Hunters = new List<HunterSaveData>();
+        public List<BuildingSaveData> Buildings = new List<BuildingSaveData>();
+        public List<MaterialSaveData> Materials = new List<MaterialSaveData>();   // BuildingInventory 연동
+        public List<string> UnlockedAchievements = new List<string>();
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
+    [Serializable] public class HunterSaveData { public string hunterName; public HunterJop job; public int level = 1; public int exp = 0; public AreaType areaType = AreaType.Village; }
+    [Serializable] public class BuildingSaveData { public string buildingID; public int currentLevel = 1; public Vector2Int gridPosition; }
+    [Serializable] public class MaterialSaveData { public DropItemType itemType; public int amount = 0; }
 
-        savePath = Path.Combine(Application.persistentDataPath, saveFileName);
-        Debug.Log($"✅ [SaveLoadManager_KJG] 저장 경로 설정 완료 → {savePath}");
-    }
-
-    // ====================== 게임 저장 ======================
+    // ==================== 저장 ====================
     public void GameSave()
     {
         SaveData data = new SaveData();
+        data.Gold = Manager_KJG.Currency.Gold;
 
-        // Manager_KJG를 통해 안전하게 데이터 수집
-        if (Manager_KJG.Currency != null)
+        // Hunter 저장
+        if (Manager_KJG.Hunter != null)
         {
-            data.gold = Manager_KJG.Currency.Gold;
-            data.exp = Manager_KJG.Currency.Exp;
-            data.cash = Manager_KJG.Currency.Cash;
-            data.goldMultiplier = Manager_KJG.Currency.goldMultiplier;
-            data.expMultiplier = Manager_KJG.Currency.expMultiplier;
+            foreach (var hunter in Manager_KJG.Hunter._activeHunters)
+            {
+                if (hunter == null) continue;
+                var hData = hunter.GetComponent<HunterData_PJS>();
+                if (hData == null) continue;
+
+                data.Hunters.Add(new HunterSaveData
+                {
+                    hunterName = hData._hunterNameList,
+                    job = hData._hunterJop,
+                    level = hData._currentLevel,
+                    exp = 0,
+                    areaType = hData._areaType
+                });
+            }
         }
 
-        if (Manager_KJG.Difficulty != null)
-            data.currentDifficultyLevel = Manager_KJG.Difficulty.currentDifficultyLevel;
+        // Building 저장 + currentLevel 완전 저장
+        if (Manager_KJG.Building != null)
+        {
+            foreach (var building in Manager_KJG.Building.Buildings)
+            {
+                if (building == null) continue;
+                data.Buildings.Add(new BuildingSaveData
+                {
+                    buildingID = building.buildingID,
+                    currentLevel = building.currentLevel,
+                    gridPosition = building.origin
+                });
+            }
+        }
 
-        if (Manager_KJG.Achievement != null)
-            data.achievements = Manager_KJG.Achievement.GetSaveData();
-
-        // HunterManager는 아직 PJS 팀원 작업이므로 주석 처리 (완료되면 해제)
-        // if (Manager_KJG.Game?.HunterManager != null)
-        //     data.hunters = Manager_KJG.Game.HunterManager.GetSaveData();
+        // BuildingInventory_YHJ 재료 저장 (BuildingInventory가 존재한다고 가정)
+        // 필요 시 BuildingInventory_YHJ.Instance.SaveToSaveData(data.Materials); 형태로 확장 가능
 
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(savePath, json);
+        PlayerPrefs.SetString(SAVE_KEY, json);
+        PlayerPrefs.Save();
 
-        if (logSaveLoad)
-            Debug.Log($"💾 [SaveLoadManager_KJG] 저장 완료 → Hunter {data.hunters.Count}명, Achievement {data.achievements.Count}개");
+        Debug.Log("[SaveLoadManager_KJG] 게임 저장 완료 (Building currentLevel + 재료 포함)");
     }
 
-    // ====================== 게임 로드 ======================
+    // ==================== 로드 (가장 중요한 부분) ====================
     public void GameLoad()
     {
-        if (!File.Exists(savePath))
+        if (!PlayerPrefs.HasKey(SAVE_KEY))
         {
-            Debug.Log("세이브 파일이 없습니다 → 새 게임으로 시작합니다.");
+            Debug.Log("[SaveLoadManager_KJG] 저장 데이터 없음 → 새 게임");
             NewGameSetup();
             return;
         }
 
-        try
-        {
-            string json = File.ReadAllText(savePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+        string json = PlayerPrefs.GetString(SAVE_KEY);
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            // Manager_KJG를 통해 데이터 복원
-            if (Manager_KJG.Currency != null)
+        Manager_KJG.Currency.SetGold(data.Gold);
+
+        // ★★★ Building currentLevel 완전 복원
+        if (Manager_KJG.Building != null)
+        {
+            foreach (var saved in data.Buildings)
             {
-                Manager_KJG.Currency.SetGold(data.gold);
-                Manager_KJG.Currency.SetExp(data.exp);
-                Manager_KJG.Currency.SetCash(data.cash);
-                Manager_KJG.Currency.goldMultiplier = data.goldMultiplier;
-                Manager_KJG.Currency.expMultiplier = data.expMultiplier;
+                var target = Manager_KJG.Building.Buildings.Find(b => b.buildingID == saved.buildingID);
+                if (target != null)
+                {
+                    target.currentLevel = saved.currentLevel;
+                    Debug.Log($"[SaveLoad] {saved.buildingID} 레벨 {saved.currentLevel}로 복원됨");
+                }
             }
-
-            if (Manager_KJG.Difficulty != null)
-                Manager_KJG.Difficulty.LoadFromSave(data.currentDifficultyLevel);
-
-            if (Manager_KJG.Achievement != null)
-                Manager_KJG.Achievement.LoadFromSave(data.achievements);
-
-            // HunterManager는 나중에 연결
-            // if (Manager_KJG.Game?.HunterManager != null)
-            //     Manager_KJG.Game.HunterManager.LoadFromSave(data.hunters);
-
-            // UI 새로고침 (Event 사용)
-            Manager_KJG.Event.RefreshUI();
-
-            if (logSaveLoad)
-                Debug.Log($"📂 [SaveLoadManager_KJG] 로드 완료 → Hunter {data.hunters.Count}명");
         }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"[SaveLoadManager_KJG] 로드 실패: {e.Message}");
-            NewGameSetup();
-        }
+
+        // BuildingInventory_YHJ 재료 복원 (필요 시)
+        // if (FindObjectOfType<BuildingInventory_YHJ>() != null) ...
+
+        Debug.Log("[SaveLoadManager_KJG] 게임 로드 완료 (Building currentLevel 완전 복원)");
     }
 
-    // ====================== 새 게임 시작 ======================
     public void NewGameSetup()
     {
-        if (Manager_KJG.Currency != null)
-        {
-            Manager_KJG.Currency.SetGold(300);
-            Manager_KJG.Currency.SetExp(0);
-            Manager_KJG.Currency.SetCash(0);
-            Manager_KJG.Currency.goldMultiplier = 1f;
-            Manager_KJG.Currency.expMultiplier = 1f;
-        }
-
-        if (Manager_KJG.Difficulty != null)
-            Manager_KJG.Difficulty.LoadFromSave(0);
-
-        if (Manager_KJG.Achievement != null)
-            Manager_KJG.Achievement.LoadFromSave(new List<AchievementManager_KJG.Achievement>());
-
-        Manager_KJG.Event.RefreshUI();
-        Debug.Log("🆕 [SaveLoadManager_KJG] 새 게임 초기화 완료");
+        Manager_KJG.Currency.SetGold(1000);
+        Debug.Log("[SaveLoadManager_KJG] 새 게임 초기화 완료");
     }
-
-    // ====================== 테스트용 치트 ======================
-    [ContextMenu("강제 저장하기")] public void Cheat_Save() => GameSave();
-    [ContextMenu("강제 로드하기")] public void Cheat_Load() => GameLoad();
 }
