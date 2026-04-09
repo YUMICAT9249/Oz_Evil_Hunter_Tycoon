@@ -4,12 +4,15 @@ using System.Linq;
 
 /// <summary>
 /// [KJG 아키텍처] BuildingManager_YHJ
-/// 
+///
 /// BuildingInstance_YHJ와 연동되어 건물을 중앙에서 관리합니다.
 /// </summary>
 public class BuildingManager_YHJ : BaseManager_KJG<BuildingManager_YHJ>
 {
     private List<BuildingInstance_YHJ> buildings = new List<BuildingInstance_YHJ>();
+
+    // public getter 추가 (실무에서 가장 추천하는 방식)
+    public List<BuildingInstance_YHJ> Buildings => buildings;
 
     protected override void Awake()
     {
@@ -61,6 +64,6 @@ public class BuildingManager_YHJ : BaseManager_KJG<BuildingManager_YHJ>
         // TODO: 실제 재료 인벤토리나 저장 시스템과 연결
         // 예: inventory.RemoveMaterial(itemType, amount);
 
-        return true;   // 소비 성공
+        return true; // 소비 성공
     }
 }
