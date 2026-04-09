@@ -325,6 +325,12 @@ public class Monster_JBJ : BaseWorldObject_KJG
         StartCoroutine(DieRoutine());
     }
 
+    public void Kill()
+    {
+        if (isDead) return;
+        Die();
+    }
+
     IEnumerator DieRoutine()
     {
         // 콜라이더 끄기
