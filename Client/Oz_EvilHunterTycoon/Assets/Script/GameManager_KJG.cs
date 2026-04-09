@@ -32,8 +32,9 @@ public class GameManager_KJG : BaseManager_KJG<GameManager_KJG>
         Debug.Log("✅ [GameManager_KJG] 게임 매니저 초기화 완료");
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         InitializeAllManagers();
     }
 
