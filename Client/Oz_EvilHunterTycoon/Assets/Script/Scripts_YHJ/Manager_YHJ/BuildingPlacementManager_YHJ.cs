@@ -464,14 +464,23 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         BuildingInstance_YHJ instanceData = new BuildingInstance_YHJ
         {
-            buildingID = data.buildingID,
-            buildingType = data.buildingType, // ★ 오늘 작업 반영
+            buildingID = System.Guid.NewGuid().ToString(), // ★ 고유 ID 생성 (필수)
+            buildingType = data.buildingType,
             origin = currentGridPos,
             size = buildingSize,
             instance = obj,
             occupiedCells = cells,
-            levelData = data.levelData         // ★ 오늘 작업 반영
+            levelData = data.levelData
         };
+        var inventory = obj.GetComponent<BuildingInventory_YHJ>();
+        if (inventory != null)
+        {
+            inventory.buildingInstance = instanceData;
+        }
+        else
+        {
+            Debug.LogWarning($"[Inventory] {data.name}에 BuildingInventory 없음");
+        }
 
         foreach (var cell in cells)
         {

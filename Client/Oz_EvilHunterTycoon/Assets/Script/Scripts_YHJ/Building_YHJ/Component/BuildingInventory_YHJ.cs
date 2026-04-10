@@ -4,8 +4,21 @@ using UnityEngine;
 // ★ 건물 완제품 재고 시스템
 public class BuildingInventory_YHJ : MonoBehaviour, IStringInventoryReader_YHJ, IStringInventoryWriter_YHJ
 {
+    public BuildingInstance_YHJ buildingInstance;
     private Dictionary<string, int> items =
         new Dictionary<string, int>();
+
+
+    public Dictionary<string, int> GetAllItems()
+    {
+        return new Dictionary<string, int>(items);
+    }
+
+    // ★ 아이템 불러오기 (Load용)
+    public void LoadItems(Dictionary<string, int> data)
+    {
+        items = new Dictionary<string, int>(data);
+    }
 
     public bool HasItem(string itemID)
     {
