@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: "\uBAA8\uD788\uCE78 \uC624\uD06C"
-  maxHp: 100
+  maxHp: 200
   monsterName: 
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0

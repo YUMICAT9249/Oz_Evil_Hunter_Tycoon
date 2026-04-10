@@ -12,40 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5871601b7f92aee4c993fc169fede18c, type: 3}
   m_Name: DropTable
   m_EditorClassIdentifier: 
-  dropGroups:
-  - groupId: Normal Monster
-    drops:
-    - itemId: Essence
-      probability: 100
-      minAmount: 1
-      maxAmount: 1
-      isGuaranteed: 0
-    - itemId: Material
-      probability: 80
-      minAmount: 1
-      maxAmount: 3
-      isGuaranteed: 0
-  - groupId: Unique Monster
-    drops:
-    - itemId: Essence
-      probability: 100
-      minAmount: 1
-      maxAmount: 1
-      isGuaranteed: 1
-    - itemId: Material
-      probability: 80
-      minAmount: 1
-      maxAmount: 3
-      isGuaranteed: 0
-  - groupId: Boss Monster
-    drops:
-    - itemId: Essence
-      probability: 100
-      minAmount: 1
-      maxAmount: 1
-      isGuaranteed: 1
-    - itemId: Material
-      probability: 80
-      minAmount: 1
-      maxAmount: 3
-      isGuaranteed: 0
+  drops: []

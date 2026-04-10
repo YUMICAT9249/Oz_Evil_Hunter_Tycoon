@@ -436,9 +436,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7934662134875418770}
   - component: {fileID: 8944274977471034988}
-  - component: {fileID: 5572252102593288269}
   - component: {fileID: 5950443751747915549}
   - component: {fileID: -1257965454532964141}
+  - component: {fileID: 4523789948963780165}
   m_Layer: 8
   m_Name: Titan
   m_TagString: Monster
@@ -483,28 +483,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5572252102593288269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6698325660374546701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0939305aa11a6474f833c9364d60c1e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayName: "\uD0C0\uC774\uD0C4"
-  maxHp: 100
-  monsterName: 
-  data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
-  currentHP: 0
-  Hunter: {fileID: 0}
-  lastAttackTime: 0
-  moveDirection: {x: 0, y: 0, z: 0}
-  minBounds: {x: -2, y: -2, z: -2}
-  maxBounds: {x: 2, y: 2, z: 2}
 --- !u!114 &5950443751747915549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +540,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4523789948963780165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698325660374546701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde3ede0fbe5363468747757341d7dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: "\uD0C0\uC774\uD0C4"
+  maxHp: 1000
+  monsterName: 
+  data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
+  currentHP: 0
+  Hunter: {fileID: 0}
+  lastAttackTime: 0
+  moveDirection: {x: 0, y: 0, z: 0}
+  minBounds: {x: -1.5, y: -1.5, z: -1.5}
+  maxBounds: {x: 1.5, y: 1.5, z: 1.5}
+  minionPrefab: {fileID: 6698325660374546701, guid: 2b71c57168cb5d14f9cb5ef599772b8c, type: 3}
+  summonInterval: 30
+  summonCount: 3
+  maxMinions: 6
 --- !u!1 &7983399175861886667
 GameObject:
   m_ObjectHideFlags: 0
