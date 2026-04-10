@@ -353,7 +353,8 @@ GameObject:
   - component: {fileID: 8944274977471034988}
   - component: {fileID: 5572252102593288269}
   - component: {fileID: 8367712934886760742}
-  - component: {fileID: 7760297867423043836}
+  - component: {fileID: 6891533749599204051}
+  - component: {fileID: -1139122571901407541}
   m_Layer: 8
   m_Name: Lycan
   m_TagString: Monster
@@ -418,8 +419,8 @@ MonoBehaviour:
   Hunter: {fileID: 0}
   lastAttackTime: 0
   moveDirection: {x: 0, y: 0, z: 0}
-  minBounds: {x: -2, y: -2, z: -2}
-  maxBounds: {x: 2, y: 2, z: 2}
+  minBounds: {x: -1.5, y: -1.5, z: -1.5}
+  maxBounds: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!114 &8367712934886760742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47661414a22e9d6478c0e346b344270e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &7760297867423043836
+--- !u!61 &6891533749599204051
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -461,7 +462,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -477,6 +478,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &-1139122571901407541
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698325660374546701}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7983399175861886667
 GameObject:
   m_ObjectHideFlags: 0
