@@ -54,6 +54,9 @@ public class HunterSkill_PJS : MonoBehaviour
         if (_mainSkill == null) return;
         StopAllCoroutines();
 
+        // ÀÌÆåÆ® Àç»ý
+        PlaySkillEffect(_mainSkill);
+
         float ratio = (float)_mainSkill.currentLevel / _mainSkill.mainSkillMaxLevel;
         switch (_mainSkill.skillName)
         {
@@ -79,6 +82,9 @@ public class HunterSkill_PJS : MonoBehaviour
     public void SkillBuff()
     {
         if (_subSkill == null) return;
+
+        // ÀÌÆåÆ® Àç»ý
+        PlaySkillEffect(_subSkill);
 
         float ratio = (float)_subSkill.currentLevel / _subSkill.subSkillMaxLevel;
         switch (_subSkill.skillName)
@@ -190,5 +196,15 @@ public class HunterSkill_PJS : MonoBehaviour
     {
         float finalDamage = _hunterData.GetAttackDamage() * ratio;
         battleTarget.TakeDamage(finalDamage, gameObject);
+    }
+
+    private void PlaySkillEffect(HunterSkillData_PJS hunterSkillData)
+    { 
+        if (hunterSkillData == null || hunterSkillData.effectPrefabs == null) return;
+
+        if (Manager_KJG.Effect != null)
+        {
+            Manager_KJG.Effect.PlayEffect(hunterSkillData.effectPrefabs.name, transform.position);
+        }
     }
 }
