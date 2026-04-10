@@ -76,7 +76,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: Loot
-  price: 5
 --- !u!114 &-581620877132804423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,8 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Unknown Object
-  maxHp: 100
+  displayName: "\uAC70\uB798\uC18C"
+  maxHp: 0
+  buildingType: 3
 --- !u!114 &2239447976001139473
 MonoBehaviour:
   m_ObjectHideFlags: 0

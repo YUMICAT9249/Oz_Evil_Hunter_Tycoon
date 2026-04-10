@@ -74,8 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Unknown Object
-  maxHp: 100
+  displayName: "\uC218\uB828\uC7A5"
+  maxHp: 0
+  buildingType: 8
 --- !u!114 &7079489888179782932
 MonoBehaviour:
   m_ObjectHideFlags: 0

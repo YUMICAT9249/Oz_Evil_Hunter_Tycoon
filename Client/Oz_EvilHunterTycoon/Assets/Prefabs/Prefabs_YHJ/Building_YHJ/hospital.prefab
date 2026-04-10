@@ -51,8 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ccbc2bf6699f0d48bd8dad9f9e767ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemID: Bandage
-  healAmount: 20
+  bandageID: Bandage
 --- !u!114 &-2426510699098535541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,8 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Unknown Object
-  maxHp: 100
+  displayName: "\uCE58\uB8CC\uC18C"
+  maxHp: 0
+  buildingType: 6
 --- !u!114 &-6693990445589076235
 MonoBehaviour:
   m_ObjectHideFlags: 0

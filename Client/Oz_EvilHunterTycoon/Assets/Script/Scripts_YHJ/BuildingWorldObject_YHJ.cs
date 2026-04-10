@@ -1,36 +1,49 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class BuildingWorldObject_YHJ : BaseWorldObject_KJG
 {
+    private BuildingInstance_YHJ instance;
+
+    [Header("ê±´ë¬¼ ì„¤ì •")]
+    public BuildingType_YHJ buildingType;
+
     protected override void Awake()
     {
         base.Awake();
 
-        // ¡Ú °Ç¹°Àº HP ¾øÀ½
         maxHp = 0;
         OnHealthChanged(0, 0);
 
         displayName = gameObject.name;
     }
 
+    public void Initialize(string buildingID, BuildingLevelData_YHJ levelData)
+    {
+        if (levelData == null)
+        {
+            Debug.LogError($"[BuildingWorldObject] LevelData ì—†ìŒ: {buildingID}");
+        }
+
+        instance = new BuildingInstance_YHJ();
+
+        instance.buildingID = buildingID;
+        instance.Initialize(buildingID, levelData, gameObject);
+        instance.buildingType = buildingType;
+
+        instance.Register();
+    }
+
+    public BuildingInstance_YHJ GetInstance()
+    {
+        return instance;
+    }
+
     public override void OnClicked()
     {
         base.OnClicked();
-
-        Debug.Log("°Ç¹° Å¬¸¯µÊ: " + displayName);
-
-        // ¡Ú ¿©±â¼­ UI ¶ç¿ì°Å³ª ÀÌº¥Æ® º¸³»±â
+        Debug.Log("ê±´ë¬¼ í´ë¦­ë¨: " + displayName);
     }
 
-    // ¡Ú HP ÀÌº¥Æ® ¸·±â
-    public override void OnHealthChanged(float current, float max)
-    {
-        // ¾Æ¹«°Íµµ ¾ÈÇÔ (HP¹Ù ¾È¶ç¿ò)
-    }
-
-    // ¡Ú µ¥¹ÌÁö ¹«½Ã
-    public override void TakeDamage(float damage)
-    {
-        // °Ç¹°Àº µ¥¹ÌÁö ¾øÀ½
-    }
+    public override void OnHealthChanged(float current, float max) { }
+    public override void TakeDamage(float damage) { }
 }
