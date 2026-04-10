@@ -35,7 +35,16 @@ public class GameManager_KJG : BaseManager_KJG<GameManager_KJG>
     protected override void Start()
     {
         base.Start();
-        InitializeAllManagers();
+
+        // Bootstrapper가 모두 끝난 후에 초기화
+        if (Manager_KJG.SaveLoad != null)
+        {
+            InitializeAllManagers();
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager_KJG] SaveLoad가 아직 준비되지 않았습니다.");
+        }
     }
 
     private void InitializeAllManagers()
