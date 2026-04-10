@@ -292,7 +292,14 @@ public class Monster_JBJ : BaseWorldObject_KJG
 
         animator.SetTrigger("Attack");
 
+        PlayAttackSound();
+
         Debug.Log("Monster attacks (Hunter)");
+    }
+
+    public void PlayAttackSound()
+    {
+        Manager_KJG.Audio.PlaySFX("Monster Attack");
     }
 
     public void DealDamage()
@@ -331,7 +338,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
             Manager_KJG.Drop.DropFromMonster(this);
         }
 
-        Manager_KJG.Audio.PlaySFX("monster_death");
+        Manager_KJG.Audio.PlaySFX("Monster Die");
 
         Manager_KJG.Achievement.OnMonsterKilled();
 
