@@ -78,7 +78,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         this.type = MonsterType.Minion;
     }
 
-    protected virtual void Start()
+    protected override void Start()
     {
         currentHP = data.maxHp;
 
@@ -98,11 +98,6 @@ public class Monster_JBJ : BaseWorldObject_KJG
     protected virtual void Update()
     {
         if (isDead) return;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(9999);
-        }
 
         stateTimer -= Time.deltaTime;
 
@@ -252,7 +247,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         facingDir = dir;
 
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * facingDir;
+        scale.x = Mathf.Abs(scale.x) * -facingDir;
         transform.localScale = scale;
     }
 
