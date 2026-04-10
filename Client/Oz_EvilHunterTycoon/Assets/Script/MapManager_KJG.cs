@@ -1,18 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// MapManager_KJG
-/// 
+///
 /// 역할:
-/// - 모든 오브젝트 중앙 관리
-/// - HP 변경, 클릭 이벤트를 안전하게 외부에 제공
+/// - 모든 오브젝트 (Monster, Hunter, Building)를 중앙에서 관리
+/// - HP 변경, 클릭 이벤트를 Listener 방식으로 안전하게 외부에 제공
+/// - BaseWorldObject_KJG와 연결
 /// </summary>
 public class MapManager_KJG : BaseManager_KJG<MapManager_KJG>
 {
     private readonly List<BaseWorldObject_KJG> worldObjects = new List<BaseWorldObject_KJG>();
 
-    // ==================== 내부 이벤트 ====================
+    // ==================== 내부 이벤트 (팀원이 직접 접근하지 못하게 private) ====================
     private event System.Action<BaseWorldObject_KJG, float, float> _onHealthChanged;
     private event System.Action<BaseWorldObject_KJG> _onObjectClicked;
 

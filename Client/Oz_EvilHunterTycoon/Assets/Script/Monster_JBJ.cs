@@ -78,7 +78,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         this.type = MonsterType.Minion;
     }
 
-    protected virtual void MonsterStart()
+    protected virtual void Start()
     {
         currentHP = data.maxHp;
 

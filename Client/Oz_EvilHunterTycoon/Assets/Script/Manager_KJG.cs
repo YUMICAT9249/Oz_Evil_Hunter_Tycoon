@@ -5,8 +5,8 @@ using UnityEngine;
 ///
 /// 사용법:
 /// Manager_KJG.Audio.PlaySFX("monster_death");
+/// Manager_KJG.Effect.PlayEffect("monster_death", position);
 /// Manager_KJG.Drop.DropFromMonster(...);
-/// Manager_KJG.Loading.LoadScene("Ingame_Scene");
 ///
 /// 특징:
 /// - 모든 매니저를 Manager_KJG.XXX 형태로만 접근 (일관성)
@@ -29,9 +29,8 @@ public static class Manager_KJG
     private static ExpManager_KJG _exp;
     private static BuildingManager_YHJ _building;
     private static DropManager_KJG _drop;
-
-    
     private static LoadingManager _loading;
+    private static EffectManager_KJG _effect;
 
     // ==================== 속성들 ====================
     public static CurrencyManager_KJG Currency => _currency ??= ServiceLocator_KJG.Instance.Get<CurrencyManager_KJG>();
@@ -47,6 +46,6 @@ public static class Manager_KJG
     public static ExpManager_KJG Exp => _exp ??= ServiceLocator_KJG.Instance.Get<ExpManager_KJG>();
     public static BuildingManager_YHJ Building => _building ??= ServiceLocator_KJG.Instance.Get<BuildingManager_YHJ>();
     public static DropManager_KJG Drop => _drop ??= ServiceLocator_KJG.Instance.Get<DropManager_KJG>();
-
     public static LoadingManager Loading => _loading ??= ServiceLocator_KJG.Instance.Get<LoadingManager>();
+    public static EffectManager_KJG Effect => _effect ??= ServiceLocator_KJG.Instance.Get<EffectManager_KJG>();
 }
