@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4485437708956016719}
   - component: {fileID: 1883001381265013617}
+  - component: {fileID: 6581138710137978656}
   - component: {fileID: 5481046814120020770}
   - component: {fileID: -5126931200409274301}
   - component: {fileID: -409296001399880336}
@@ -143,6 +144,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6581138710137978656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737653316405715771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd29dc15da600774fb54a5f3bf555bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainSkill: {fileID: 11400000, guid: 825f40dc866df0f409e08c06c0a4683e, type: 2}
+  _subSkill: {fileID: 11400000, guid: 3a6e55517c401434e965e0380986b07b, type: 2}
 --- !u!114 &5481046814120020770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f18e2b98db20a4a80797d0786c571e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: Unknown Object
+  maxHp: 100
   _currentState: 0
   _areaCheck: 0
   _targetBox: {fileID: 0}
@@ -187,6 +204,8 @@ MonoBehaviour:
   _hunterJop: 0
   _hunterNameList: 
   _currentLevel: 1
+  _currentExp: 0
+  _maxExp: 100
   _currentHP: 100
   _maxHP: 0
   _damage: 0
@@ -195,6 +214,8 @@ MonoBehaviour:
   _dodgeChance: 0
   _attackCooldown: 0
   _moveSpeed: 0
+  _detectRange: 0
+  _attackRange: 0
   _hpScore: 0
   _damageScore: 0
   _defenceScore: 0
