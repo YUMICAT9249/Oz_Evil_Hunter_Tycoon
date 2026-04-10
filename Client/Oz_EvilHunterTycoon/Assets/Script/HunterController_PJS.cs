@@ -55,15 +55,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
     // [5] 초기화
     protected override void Start()
     {
-        base.Start();
-        // 시작 시 현재 구역을 가져옴
-        if (_hunterData != null)
-        {
-            // 기본 지역 저장
-            _areaCheck = _hunterData._areaType;
-        }
-        // 행동 루프 시작(1회)
-        StartCoroutine(HunterActionCenterLoop());
+        StartCoroutine(ManagerWaiting());
     }
 
     void Update()
@@ -397,6 +389,23 @@ public class HunterController_PJS : BaseWorldObject_KJG
         }
         _animator.speed = 1.0f;
     }
+
+    #region Manager 초기화 웨이팅
+    IEnumerator ManagerWaiting()
+    {
+        yield return null;
+
+        base.Start();
+        // 시작 시 현재 구역을 가져옴
+        if (_hunterData != null)
+        {
+            // 기본 지역 저장
+            _areaCheck = _hunterData._areaType;
+        }
+        // 행동 루프 시작(1회)
+        StartCoroutine(HunterActionCenterLoop());
+    }
+    #endregion
 
     #region UI
     void OnMouseDown()
