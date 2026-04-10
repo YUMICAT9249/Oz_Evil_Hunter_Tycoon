@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingInstance_YHJ
@@ -15,7 +15,61 @@ public class BuildingInstance_YHJ
     public int currentLevel = 1;
     public BuildingLevelData_YHJ levelData;
 
-    // ÇöÀç ½ºÅÈ
+    public int capacity;
+    public float workSpeed;
+    private GameObject owner;
+
+    public void Initialize(string id, BuildingLevelData_YHJ data, GameObject obj)
+    {
+        buildingID = id;
+        levelData = data;
+        owner = obj;
+
+        currentLevel = 1;
+
+        ApplyLevel();
+    }
+
+    public void ApplyLevel()
+    {
+        if (levelData == null)
+        {
+            Debug.LogError($"[BuildingInstance] LevelData ì—†ìŒ: {buildingID}");
+            return;
+        }
+
+        if (currentLevel <= 0 || currentLevel > levelData.levelStats.Count)
+        {
+            Debug.LogError($"[BuildingInstance] ë ˆë²¨ ë²”ìœ„ ì´ìƒ: {currentLevel}");
+            return;
+        }
+
+        LevelStat stat = levelData.levelStats[currentLevel - 1];
+
+        // ğŸ”¥ ê³µí†µ ì ìš©
+        capacity = stat.capacity;
+        workSpeed = stat.workSpeed;
+
+        // í•„ìš”í•˜ë©´ ê³„ì† ì¶”ê°€
+        // healAmount = stat.healAmount;
+        // reviveDelay = stat.reviveDelay;
+    }
+    public void Upgrade()
+    {
+        if (levelData == null) return;
+
+        if (currentLevel >= levelData.MaxLevel)
+        {
+            Debug.Log("ìµœëŒ€ ë ˆë²¨");
+            return;
+        }
+
+        currentLevel++;
+
+        ApplyLevel();
+    }
+
+    // í˜„ì¬ ìŠ¤íƒ¯
     public LevelStat CurrentStat
     {
         get
@@ -32,7 +86,7 @@ public class BuildingInstance_YHJ
         }
     }
 
-    // ·¹º§ ¾÷
+    // ë ˆë²¨ ì—…
     public bool TryUpgrade(ref int gold)
     {
         if (levelData == null || levelData.levelStats == null)
@@ -52,7 +106,7 @@ public class BuildingInstance_YHJ
         return true;
     }
 
-    // ¸Å´ÏÀú µî·Ï
+    // ë§¤ë‹ˆì € ë“±ë¡
     public void Register()
     {
         if (BuildingManager_YHJ.Instance != null)

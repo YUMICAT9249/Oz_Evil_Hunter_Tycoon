@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ad5c62078e00f41bf092c3445b3502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  revivePoint: {fileID: 0}
 --- !u!114 &2536735483440181179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,8 +217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Unknown Object
-  maxHp: 100
+  displayName: "\uC131\uC18C"
+  maxHp: 0
+  buildingType: 2
 --- !u!114 &-8100223985567207785
 MonoBehaviour:
   m_ObjectHideFlags: 0

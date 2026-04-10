@@ -158,7 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Unknown Object
-  maxHp: 100
+  maxHp: 0
+  buildingType: 4
 --- !u!114 &-44504429274075285
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class LevelStat
     public float workSpeed;
     public int upgradeCost;
 
-    // ★ 제작 건물 공통 : 현재 레벨에서 사용/제작 가능한 아이템
+    // ★ 제작 건물 공통
     public List<string> unlockItemIDs = new List<string>();
 
     // ★ 치료소
@@ -30,18 +30,19 @@ public class LevelStat
     public int trainingGoldCost;
     public float trainingDuration;
 
-    // ★ 수련장 / 필드 접근용
+    // ★ 수련장 / 필드 접근
     public int requiredRebirthCountMin;
     public int requiredRebirthCountMax;
 
-    // ★ 지하던전용은 이번 제외지만 데이터칸은 남겨둠
+    // ★ 던전
     public int minDungeonFloor;
     public int maxDungeonFloor;
 }
+
 [CreateAssetMenu(menuName = "Building/LevelData")]
-[System.Serializable]
-public class BuildingLevelData_YHJ
+public class BuildingLevelData_YHJ : ScriptableObject
 {
-    public int MaxLevel => levelStats.Count;
     public List<LevelStat> levelStats = new List<LevelStat>();
+
+    public int MaxLevel => levelStats.Count;
 }

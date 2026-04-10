@@ -299,6 +299,11 @@ MonoBehaviour:
   useBounds: 0
   minPosition: {x: 0, y: 0}
   maxPosition: {x: 0, y: 0}
+  camera: {fileID: 0}
+  IsTarget: 0
+  zoomSize: 3
+  zoomSpeed: 3
+  targetHunter: {fileID: 0}
 --- !u!1 &603444440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,8 +1604,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 1
-    levelData:
-      levelStats: []
+    levelData: {fileID: 11400000, guid: 875ac2d846cef434394176aeb90166f8, type: 2}
   - name: "\uAE38"
     prefab: {fileID: 4901616389152144399, guid: 8af3d6ca2e7ba8b43bb0325ee15049ca, type: 3}
     size: {x: 1, y: 1}
@@ -1610,8 +1614,7 @@ MonoBehaviour:
     isRoad: 1
     canRotate: 0
     buildingType: 0
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uC131\uC18C"
     prefab: {fileID: 5252334655521503675, guid: b85d24f15b033fb45b2886926c6ca47a, type: 3}
     size: {x: 2, y: 2}
@@ -1621,8 +1624,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 2
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uAC70\uB798\uC18C"
     prefab: {fileID: 351315981259905032, guid: ca0c1355156f26b40947fed310c21ba7, type: 3}
     size: {x: 2, y: 2}
@@ -1632,8 +1634,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 3
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uB300\uC7A5\uAC04"
     prefab: {fileID: 4143389764929945007, guid: 1e61d9c914827d84b8f3a25350253703, type: 3}
     size: {x: 2, y: 2}
@@ -1643,8 +1644,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 4
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uD3EC\uC158\uC0C1\uC810"
     prefab: {fileID: 4942847635725805708, guid: 58082f69c117c5745a3df08b7e8ef395, type: 3}
     size: {x: 2, y: 2}
@@ -1654,8 +1654,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 5
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uCE58\uB8CC\uC18C"
     prefab: {fileID: 2146539352484460820, guid: 85cfe3c6e495e4b40b9d2cc07860d77e, type: 3}
     size: {x: 2, y: 2}
@@ -1665,8 +1664,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 6
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uC218\uB828\uC7A5"
     prefab: {fileID: 2303638240229769192, guid: 8749593784b1fd9479b14b59c8cd7fff, type: 3}
     size: {x: 2, y: 2}
@@ -1676,8 +1674,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 8
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uC9C0\uD558\uB358\uC804 \uC785\uAD6C"
     prefab: {fileID: 3660913859153385945, guid: 05e3e08d8c206754e8b42f468508e740, type: 3}
     size: {x: 2, y: 2}
@@ -1687,8 +1684,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 9
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uD328\uC2DC\uBE0C \uD050\uBE0C"
     prefab: {fileID: 3108495701090290341, guid: 81f7fb015b5fb8549a196dc2a1d0257e, type: 3}
     size: {x: 1, y: 1}
@@ -1698,8 +1694,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 7
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   - name: "\uBCF4\uC2A4\uC758 \uBFD4\uD53C\uB9AC"
     prefab: {fileID: 3355346269967466306, guid: e5eff0c2a58e73e469451467f2fbdc06, type: 3}
     size: {x: 1, y: 1}
@@ -1709,8 +1704,7 @@ MonoBehaviour:
     isRoad: 0
     canRotate: 1
     buildingType: 10
-    levelData:
-      levelStats: []
+    levelData: {fileID: 0}
   selectedIndex: 0
   content: {fileID: 1271528963}
   buildingButtonPrefab: {fileID: 5864929429538458362, guid: 55573c78909897747942779996f5c52d, type: 3}

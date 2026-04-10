@@ -458,20 +458,41 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         Vector3 finalPos = worldPos + GetGridOffset();
         GameObject obj = Instantiate(data.prefab, finalPos, Quaternion.identity);
+
         StartCoroutine(ApplySortingNextFrame(obj));
 
+        // 셀 계산
         var cells = CalculateCells(currentGridPos, buildingSize);
 
-        BuildingInstance_YHJ instanceData = new BuildingInstance_YHJ
+        // Instance는 여기서 직접 생성하지 않는다
+        BuildingInstance_YHJ instanceData = null;
+
+        // 고유 ID 생성
+        string uniqueBuildingID = System.Guid.NewGuid().ToString();
+
+        // WorldObject 가져오기
+        var worldObj = obj.GetComponent<BuildingWorldObject_YHJ>();
+        if (worldObj != null)
         {
-            buildingID = System.Guid.NewGuid().ToString(), // ★ 고유 ID 생성 (필수)
-            buildingType = data.buildingType,
-            origin = currentGridPos,
-            size = buildingSize,
-            instance = obj,
-            occupiedCells = cells,
-            levelData = data.levelData
-        };
+            // 여기서만 Instance 생성됨
+            worldObj.Initialize(uniqueBuildingID, data.levelData);
+
+            instanceData = worldObj.GetInstance();
+
+            // 데이터 세팅
+            instanceData.buildingType = data.buildingType;
+            instanceData.origin = currentGridPos;
+            instanceData.size = buildingSize;
+            instanceData.instance = obj;
+            instanceData.occupiedCells = cells;
+        }
+        else
+        {
+            Debug.LogError($"[BuildingPlacement] {data.name}에 BuildingWorldObject_YHJ 없음");
+            return;
+        }
+
+        // 인벤토리 연결
         var inventory = obj.GetComponent<BuildingInventory_YHJ>();
         if (inventory != null)
         {
@@ -482,11 +503,13 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             Debug.LogWarning($"[Inventory] {data.name}에 BuildingInventory 없음");
         }
 
+        // gridMap 등록
         foreach (var cell in cells)
         {
             gridMap[cell] = instanceData;
         }
 
+        // 방향 적용
         bool flip = previewRenderers.Count > 0 && previewRenderers[0].flipX;
 
         var renderers = obj.GetComponentsInChildren<SpriteRenderer>(true);
@@ -498,6 +521,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             r.sortingOrder = 10;
         }
 
+        // 점유 처리
         for (int x = 0; x < buildingSize.x; x++)
         {
             for (int y = 0; y < buildingSize.y; y++)
@@ -507,19 +531,16 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             }
         }
 
-        // ★ 오늘 작업 반영
+        // 매니저 등록
         if (!data.isRoad && data.buildingType != BuildingType_YHJ.None)
         {
             instanceData.Register();
         }
 
-        // ★ 오늘 작업 반영
-        var worldObj = obj.GetComponent<BuildingWorldObject_YHJ>();
-        if (worldObj != null)
-        {
-            worldObj.displayName = data.name;
-        }
+        // 이름 설정
+        worldObj.displayName = data.name;
 
+        // 단일 건물 제한 처리
         if (!data.isRoad)
         {
             builtBuildingIDs.Add(data.buildingID);
