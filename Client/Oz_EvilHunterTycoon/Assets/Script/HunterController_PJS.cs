@@ -354,7 +354,7 @@ public class HunterController_PJS : BaseWorldObject_KJG
             if (!_targetMonster.activeInHierarchy) yield break;
 
             float currentDistance = Vector2.Distance(transform.position, _targetMonster.transform.position);
-            if (currentDistance > _hunterData._unitData.attackRange)
+            if (currentDistance > _hunterData._attackRange)
             {
                 _animator.speed = 1.0f;
                 yield break;
