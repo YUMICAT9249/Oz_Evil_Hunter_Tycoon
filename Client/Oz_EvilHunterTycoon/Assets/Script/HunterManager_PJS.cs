@@ -34,7 +34,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     [Header("구역(공통 변수)")]
     public AreaType _areaType; // 호출할 구역 타입
 
-    protected override void Start() // BaseManager에 Start 추가되면 protected override void Start() 로 수정
+    protected override void Start() 
     {
         base.Start();
         HunterController_PJS[] findingHunters = FindObjectsOfType<HunterController_PJS>();
@@ -125,7 +125,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
                 HunterData_PJS data = hunter.GetComponent<HunterData_PJS>();
                 if (data != null && data._areaType == areaType)
                 {
-                    data.AddExp(expAmount); // HunterData_PJS에 AddExp 메서드가 필요합니다
+                    data.AddExp(expAmount);
                 }
             }
         }
