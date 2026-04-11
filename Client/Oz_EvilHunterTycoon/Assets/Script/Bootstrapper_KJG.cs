@@ -2,70 +2,63 @@
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// [KJG 실무 아키텍처] Bootstrapper_KJG - NullReference 완전 방지 + 상세 로그 버전
+/// [KJG] Bootstrapper_KJG - 원래 가장 안정적이었던 방식 + 클릭 대기 기능
 /// </summary>
 public class Bootstrapper_KJG : MonoBehaviour
 {
     [Header("부팅 후 이동할 Scene 이름")]
     [SerializeField] private string nextSceneName = "Ingame_Scene";
 
+    private bool hasClicked = false;
+
     private void Awake()
     {
         Debug.Log("🚀 [Bootstrapper_KJG] 게임 부팅 시작");
 
         DontDestroyOnLoad(gameObject);
-        Debug.Log("✅ Bootstrapper 자신 DontDestroyOnLoad 완료");
 
         var locator = ServiceLocator_KJG.Instance;
         Debug.Log("✅ ServiceLocator_KJG 준비 완료");
 
         Debug.Log("📌 매니저 등록 시작...");
 
-        RegisterManager<CurrencyManager_KJG>(locator);
-        RegisterManager<SaveLoadManager_KJG>(locator);
-        RegisterManager<EventManager_KJG>(locator);
-        RegisterManager<AchievementManager_KJG>(locator);
-        RegisterManager<DifficultyManager_KJG>(locator);
-        RegisterManager<DataManager_KJG>(locator);
-        RegisterManager<AudioManager_KJG>(locator);
-        RegisterManager<GameManager_KJG>(locator);
-        RegisterManager<MapManager_KJG>(locator);
-        RegisterManager<HunterManager_PJS>(locator);
-        RegisterManager<ExpManager_KJG>(locator);
-        RegisterManager<BuildingManager_YHJ>(locator);
-        RegisterManager<DropManager_KJG>(locator);
-        RegisterManager<EffectManager_KJG>(locator);
+        // 원래 가장 안정적이었던 .Instance 방식으로 등록
+        locator.Register(CurrencyManager_KJG.Instance);
+        locator.Register(SaveLoadManager_KJG.Instance);
+        locator.Register(EventManager_KJG.Instance);
+        locator.Register(AchievementManager_KJG.Instance);
+        locator.Register(DifficultyManager_KJG.Instance);
+        locator.Register(DataManager_KJG.Instance);
+        locator.Register(AudioManager_KJG.Instance);
+        locator.Register(GameManager_KJG.Instance);
+        locator.Register(MapManager_KJG.Instance);
+        locator.Register(HunterManager_PJS.Instance);
+        locator.Register(ExpManager_KJG.Instance);
+        locator.Register(BuildingManager_YHJ.Instance);
+        locator.Register(DropManager_KJG.Instance);
+        locator.Register(EffectManager_KJG.Instance);
 
-        // LoadingManager (팀원 스크립트)
         LoadingManager loading = FindObjectOfType<LoadingManager>();
         if (loading != null)
         {
             locator.Register(loading);
             DontDestroyOnLoad(loading.gameObject);
-            Debug.Log("✅ LoadingManager 등록 완료");
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ LoadingManager를 Bootstrap Scene에서 찾을 수 없습니다!");
         }
 
-        Debug.Log("✅ [Bootstrapper_KJG] 모든 매니저 등록 완료!");
-
-        LoadingManager.LoadScene(nextSceneName);
+        Debug.Log("✅ [Bootstrapper_KJG] 모든 매니저 등록 완료! 클릭 대기 중...");
     }
 
-    private void RegisterManager<T>(ServiceLocator_KJG locator) where T : MonoBehaviour
+    private void Update()
     {
-        T mgr = FindObjectOfType<T>();
-        if (mgr != null)
+        if (hasClicked) return;
+
+        // 화면 클릭(마우스 또는 터치) 감지
+        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            locator.Register(mgr);
-            DontDestroyOnLoad(mgr.gameObject);
-            Debug.Log($"✅ {typeof(T).Name} 등록 + DontDestroyOnLoad 완료");
-        }
-        else
-        {
-            Debug.LogError($"❌ {typeof(T).Name}를 Bootstrap Scene에서 찾을 수 없습니다! (GameObject가 없거나 비활성화됨)");
+            hasClicked = true;
+            Debug.Log("👆 화면 클릭 감지 → LoadingManager 호출");
+
+            LoadingManager.LoadScene(nextSceneName);
         }
     }
 }
