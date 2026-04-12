@@ -12,6 +12,7 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
         Setting,
         CameraNoTarget,
         DifficultySet,
+        DifficultySetCheck,
     }
 
     public buttionActionType actionType;
@@ -32,6 +33,10 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
             case buttionActionType.DifficultySet:
                 UiManager.Instance.UI_Difficulty();
                 break;
+            case buttionActionType.DifficultySetCheck:
+                UiManager.Instance.DifficultyCheckWindow.SetActive(true);
+                break;
+            
 
         }
     }
