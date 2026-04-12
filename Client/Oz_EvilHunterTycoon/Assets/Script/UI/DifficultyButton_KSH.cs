@@ -20,7 +20,7 @@ public class DifficultyButton_KSH : MonoBehaviour, IPointerUpHandler
 
     public void SetActive()
     {
-        if (UiManager.Instance.Difficulty == (int)buttonDifficulty)
+        if (UiManager.Instance.OnDifficulty == (int)buttonDifficulty)
         {
             SelectImage.SetActive(true);
         }
@@ -32,7 +32,7 @@ public class DifficultyButton_KSH : MonoBehaviour, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        UiManager.Instance.Difficulty = (int)buttonDifficulty;
+        UiManager.Instance.OnDifficulty = (int)buttonDifficulty;
         UiManager.Instance.RefreshDifficultyButton();
     }
 }
