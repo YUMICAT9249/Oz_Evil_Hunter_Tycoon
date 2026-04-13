@@ -95,6 +95,36 @@ public class HunterController_PJS : BaseWorldObject_KJG
         }
     }
 
+    // [16] 마을 귀환 함수
+    public void ReturnVillage(BoxCollider2D villageBox)
+    {
+        _hunterData._areaType = AreaType.Village;
+        _areaCheck = AreaType.Village;
+
+        if (villageBox != null)
+        {
+            transform.position = villageBox.bounds.center;
+            _targetBox = villageBox; // 구역 갱신
+        }
+
+        // 반투명 알파 값 복구
+        if (_spriteRenderer != null)
+        {
+            Color color = _spriteRenderer.color;
+            color.a = 1f;
+            _spriteRenderer.color = color;
+        }
+
+        // HP 최대치 + 부활처리
+        _hunterData.CurrentHP = _hunterData.GetMaxHP();
+        _hunterCollider.enabled = true;
+        _currentState = HunterState.Idle;
+
+        SetArea(_targetBox); // 위치갱신 로직 실행
+        StopAllCoroutines();
+        StartCoroutine(HunterActionCenterLoop());
+    }
+
     // [6] 지역 변경 감지 (변경될 때만 실행)
     private void AreaCheck()
     {
@@ -185,34 +215,18 @@ public class HunterController_PJS : BaseWorldObject_KJG
         }
     }
 
-    // [16] 마을 귀환 함수
-    public void ReturnVillage(BoxCollider2D villageBox)
+    // 자기 위치기준 Area 찾기
+    private BoxCollider2D FindAreaPosition()
     {
-        _hunterData._areaType = AreaType.Village;
-        _areaCheck = AreaType.Village;
-
-        if (villageBox != null)
+        Collider2D[] find = Physics2D.OverlapPointAll(transform.position);
+        for (int i = 0; i < find.Length; i++)
         {
-            transform.position = villageBox.bounds.center;
-            _targetBox = villageBox; // 구역 갱신
+            if (find[i] is BoxCollider2D box)
+            { 
+                return box;
+            }
         }
-
-        // 반투명 알파 값 복구
-        if (_spriteRenderer != null)
-        {
-            Color color = _spriteRenderer.color;
-            color.a = 1f;
-            _spriteRenderer.color = color;
-        }
-
-        // HP 최대치 + 부활처리
-        _hunterData.CurrentHP = _hunterData.GetMaxHP();
-        _hunterCollider.enabled = true;
-        _currentState = HunterState.Idle;
-
-        SetArea(_targetBox); // 위치갱신 로직 실행
-        StopAllCoroutines();
-        StartCoroutine(HunterActionCenterLoop());
+        return null;
     }
 
     // [8] 행동 중앙 제어(메인)
@@ -402,6 +416,18 @@ public class HunterController_PJS : BaseWorldObject_KJG
             // 기본 지역 저장
             _areaCheck = _hunterData._areaType;
         }
+        // 헌터 위치기반 지역찾기 / 시작시 가만히 있는 상태 방지
+        if (_targetBox == null)
+        { 
+            _targetBox = FindAreaPosition();
+        }
+        // 없으면 대기
+        while (_targetBox == null)
+        {
+            _targetBox = FindAreaPosition();
+            yield return null;
+        }
+
         // 행동 루프 시작(1회)
         StartCoroutine(HunterActionCenterLoop());
     }
