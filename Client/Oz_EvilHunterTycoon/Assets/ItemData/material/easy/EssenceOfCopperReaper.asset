@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
+  m_Name: EssenceOfCopperReaper
+  m_EditorClassIdentifier: 
+  itemID: EssenceOfCopperReaper
+  itemName: "\uAD6C\uB9AC\uB85C \uB9CC\uB4E0 \uB9AC\uD37C\uC758 \uC815\uC218"
+  icon: {fileID: 1220104832, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemKind: 3
+  effectType: 0
+  value: 0
+  isStackable: 1
+  attack: 0
+  defense: 0
