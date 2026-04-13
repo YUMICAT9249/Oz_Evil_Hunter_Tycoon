@@ -2,7 +2,8 @@
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// [KJG] Bootstrapper_KJG - 원래 가장 안정적이었던 방식 + 클릭 대기 기능
+/// [KJG] Bootstrapper_KJG - Phase 0 최종 안정 버전
+/// 클릭 대기 + 모든 매니저 등록을 안전하게 처리
 /// </summary>
 public class Bootstrapper_KJG : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class Bootstrapper_KJG : MonoBehaviour
 
         Debug.Log("📌 매니저 등록 시작...");
 
-        // 원래 가장 안정적이었던 .Instance 방식으로 등록
+        // 매니저 등록 (Execution Order로 순서 보장됨)
         locator.Register(CurrencyManager_KJG.Instance);
         locator.Register(SaveLoadManager_KJG.Instance);
         locator.Register(EventManager_KJG.Instance);
@@ -52,7 +53,6 @@ public class Bootstrapper_KJG : MonoBehaviour
     {
         if (hasClicked) return;
 
-        // 화면 클릭(마우스 또는 터치) 감지
         if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             hasClicked = true;
