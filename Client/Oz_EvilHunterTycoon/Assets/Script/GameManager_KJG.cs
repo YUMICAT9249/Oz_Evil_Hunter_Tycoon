@@ -36,7 +36,7 @@ public class GameManager_KJG : BaseManager_KJG<GameManager_KJG>
     {
         base.Start();
 
-        // Bootstrapper가 모두 끝난 후에 초기화
+        // Bootstrapper가 매니저 등록을 완료할 때까지 기다림
         if (Manager_KJG.SaveLoad != null)
         {
             InitializeAllManagers();

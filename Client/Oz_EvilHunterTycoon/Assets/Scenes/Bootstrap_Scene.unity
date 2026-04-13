@@ -419,6 +419,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &824165595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 824165597}
+  - component: {fileID: 824165596}
+  m_Layer: 0
+  m_Name: ServiceLocator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &824165596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824165595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de40cf8762fdae4cb3270bfab21d3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &824165597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824165595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.403664, y: -0.89171225, z: 0.028245458}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &860065180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,8 +1198,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570761355}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.403664, y: -0.89171225, z: 0.028245458}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.403664, y: -0.89171225, z: 0.028245457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1609,11 +1653,8 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1364094513}
-  - {fileID: 623663229}
-  - {fileID: 437869755}
-  - {fileID: 1415337983}
-  - {fileID: 1965303110}
+  - {fileID: 824165597}
+  - {fileID: 1570761357}
   - {fileID: 1913102516}
   - {fileID: 1801134462}
   - {fileID: 1933732761}
@@ -1621,7 +1662,6 @@ SceneRoots:
   - {fileID: 1758343551}
   - {fileID: 1735388633}
   - {fileID: 63390583}
-  - {fileID: 1570761357}
   - {fileID: 1914680891}
   - {fileID: 702128826}
   - {fileID: 1365372139}
@@ -1629,3 +1669,8 @@ SceneRoots:
   - {fileID: 1056746536}
   - {fileID: 1713622139}
   - {fileID: 234743724}
+  - {fileID: 623663229}
+  - {fileID: 1415337983}
+  - {fileID: 1364094513}
+  - {fileID: 437869755}
+  - {fileID: 1965303110}
