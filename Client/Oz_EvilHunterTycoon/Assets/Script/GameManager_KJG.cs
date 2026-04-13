@@ -36,14 +36,14 @@ public class GameManager_KJG : BaseManager_KJG<GameManager_KJG>
     {
         base.Start();
 
-        // Bootstrapper가 매니저 등록을 완료할 때까지 기다림
+        // Bootstrapper가 모든 매니저 등록을 완료할 때까지 기다림
         if (Manager_KJG.SaveLoad != null)
         {
             InitializeAllManagers();
         }
         else
         {
-            Debug.LogWarning("[GameManager_KJG] SaveLoad가 아직 준비되지 않았습니다.");
+            Debug.LogWarning("[GameManager_KJG] SaveLoad가 아직 준비되지 않았습니다. (Bootstrapper 완료 후 자동 호출)");
         }
     }
 
