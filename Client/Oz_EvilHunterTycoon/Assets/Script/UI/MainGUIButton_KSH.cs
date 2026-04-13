@@ -4,6 +4,7 @@ using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainGUIButton_KSH : MonoBehaviour, IPointerUpHandler
 {
@@ -30,7 +31,13 @@ public class MainGUIButton_KSH : MonoBehaviour, IPointerUpHandler
     public TMP_Text bt_Text;
     public RectTransform rectTrans;
     public bool IsPressed = false;
+    public Button btn;
 
+
+    private void Awake()
+    {
+        btn = GetComponent<Button>();
+    }
 
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -52,34 +59,79 @@ public class MainGUIButton_KSH : MonoBehaviour, IPointerUpHandler
         }
         else
         {
+            Action();
 
             IsPressed = true;
             bt_Img.sprite = sprClicked;
             bg_Img.sprite = bgClicked;
             ColorUtility.TryParseHtmlString("#1E1710", out color);
+            
         }
         rectTrans.sizeDelta = new Vector2(240, 240);
         bt_Text.color = color;
     }
 
+    public void Disable()
+    {
+        UnityEngine.Color color;
+
+        if (IsPressed)
+        {
+            IsPressed = false;
+            bt_Img.sprite = sprNoClick;
+            bg_Img.sprite = bgNoClick;
+
+
+            ColorUtility.TryParseHtmlString("#93D4B4", out color);
+
+            rectTrans.sizeDelta = new Vector2(240, 240);
+            bt_Text.color = color;
+
+            btn.onClick.Invoke();
+
+
+            switch (gui_type)
+            {
+                case GUI_Type.Build: // 건설
+                    
+                    // 로직
+                    break;
+                case GUI_Type.Dungeon: // 던전
+                                       // 로직
+                    break;
+                case GUI_Type.Hunter: // 헌터
+                                      // 로직
+                    break;
+                case GUI_Type.Storage: // 창고
+                                       // 로직
+                    break;
+                case GUI_Type.Store: // 상점
+                                     // 로직
+                    break;
+            }
+        }
+    }
     public void Action()
     {
+
+        UiManager.Instance.DisableMainGUI();
+
         switch (gui_type)
         {
             case GUI_Type.Build: // 건설
-                // 로직
+                                 // 로직
                 break;
             case GUI_Type.Dungeon: // 던전
-                // 로직
+                                   // 로직
                 break;
             case GUI_Type.Hunter: // 헌터
-                // 로직
+                                  // 로직
                 break;
             case GUI_Type.Storage: // 창고
-                // 로직
+                                   // 로직
                 break;
             case GUI_Type.Store: // 상점
-                // 로직
+                                 // 로직
                 break;
         }
     }

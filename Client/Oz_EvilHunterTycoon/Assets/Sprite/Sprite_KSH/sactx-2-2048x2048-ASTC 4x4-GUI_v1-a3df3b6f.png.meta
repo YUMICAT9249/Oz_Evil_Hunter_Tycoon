@@ -110,13 +110,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0
+      name: sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1
       rect:
         serializedVersion: 2
-        x: 1923
-        y: 733
-        width: 50
-        height: 57
+        x: 90
+        y: 1999
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 322020a84bdadfa4e8c4f9ab3b4516f6
+      internalID: 932403126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterTierBackGround_5
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 1621
+        width: 171
+        height: 246
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +145,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da38d770b9fdd644299090a69bb36adc
-      internalID: 517195105
+      spriteID: 959bc9bcff07bf74c873c6e6a5f2e1a9
+      internalID: 775758460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterTierBackGround_3
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 1373
+        width: 171
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daf04bc92bfa7af4d8d083ee4b172f65
+      internalID: 1165864382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterTierBackGround_4
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 1329
+        width: 171
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f84a88f0ffbd0a45a3f631a4eb06f0a
+      internalID: -1384220727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterTierBackGround_2
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 1577
+        width: 171
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc42f329dcd1aa48a713586eace0114
+      internalID: 888272794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterTierBackGround_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1500
+        width: 170
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73e67ad5d1235ff43b6420cae49e93b1
+      internalID: -1429757241
       vertices: []
       indices: 
       edges: []
@@ -141,7 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: 517195105
+      HunterTierBackGround_2: 888272794
+      HunterTierBackGround_3: 1165864382
+      HunterTierBackGround_4: -1384220727
+      HunterTierBackGround_5: 517195105
+      HunterTierBackGround_6: -1429757241
+      sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 932403126
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
