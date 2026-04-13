@@ -108,7 +108,217 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Button_red01
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 1998
+        width: 2
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1a264a4b54897c49878c90e1eb85520
+      internalID: 1394773368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_red03
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 1990
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac3d06d791529a54ca4e71868390a3f2
+      internalID: 1171623599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_red02
+      rect:
+        serializedVersion: 2
+        x: 1823
+        y: 2038
+        width: 40
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 968642cbcd910c840927b9d8da4bfec2
+      internalID: 1058835980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_yellow02
+      rect:
+        serializedVersion: 2
+        x: 1882
+        y: 2038
+        width: 40
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 583d4f950bbbed44aac24876aa858f70
+      internalID: -1767164415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_yellow01
+      rect:
+        serializedVersion: 2
+        x: 1874
+        y: 1998
+        width: 2
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3c753e48dd5fed4e8abb61af2734b1c
+      internalID: 1183930983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_yellow03
+      rect:
+        serializedVersion: 2
+        x: 1874
+        y: 1990
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f5f09b57c087c4ebd4da6c841a5cbb
+      internalID: -997714788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_red05
+      rect:
+        serializedVersion: 2
+        x: 1819
+        y: 1994
+        width: 48
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd58c00e2f240c0499c9c897f509a5e5
+      internalID: -1452331505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_yellow05
+      rect:
+        serializedVersion: 2
+        x: 1878
+        y: 1994
+        width: 48
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5ef20f66d88b7640b99a069c7319135
+      internalID: 175032712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_red04
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 2030
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98533f9618cd0744db67ca63e33684d2
+      internalID: 2115020475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_yellow04
+      rect:
+        serializedVersion: 2
+        x: 1874
+        y: 2030
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37412559d392c1743a6465e4326e6e64
+      internalID: -464482706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +329,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Button_red01: 1394773368
+      Button_red02: 1058835980
+      Button_red03: 1171623599
+      Button_red04: 2115020475
+      Button_red05: -1452331505
+      Button_yellow01: 1183930983
+      Button_yellow02: -1767164415
+      Button_yellow03: -997714788
+      Button_yellow04: -464482706
+      Button_yellow05: 175032712
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

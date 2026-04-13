@@ -571,6 +571,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Equip_Slot_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1238
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b6e69b6f528bc841a37b88a8b610f79
+      internalID: -1233370407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Equip_Slot_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 1278
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09084f2f90f154c4ea1c049f7746a5f2
+      internalID: -475169704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bill_3
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 164
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c8a0c09f07ba2e4a973a3d457b61d69
+      internalID: -2090180129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -587,6 +650,8 @@ TextureImporter:
       Difficulty03: 537509542
       Difficulty04: 1238186101
       Difficulty08: 491758140
+      Equip_Slot_1: -1233370407
+      Equip_Slot_2: -475169704
       Setting_Bg: 49053643
       Setting_Bg01: 401005365
       Setting_Bg02: -87545998
@@ -598,6 +663,7 @@ TextureImporter:
       UI_BackGround03: -777243497
       UI_Hunter_Select_BackGround: -312614959
       UI_Selected_BackGround: -1038168250
+      bill_3: -2090180129
       difficulty_selectedAnim01: -1013681532
       difficulty_selectedAnim02: -677258885
       difficulty_selectedAnim03: 222582048
