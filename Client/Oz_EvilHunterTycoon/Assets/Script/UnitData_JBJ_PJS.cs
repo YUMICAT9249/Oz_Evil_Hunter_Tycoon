@@ -13,7 +13,7 @@ public class UnitData_JBJ_PJS : ScriptableObject
 {
     [Header("유닛 상세 스텟(공통)")]
     public float maxHp = 100f;              // 최대 체력
-    public float attackDamage = 10f;        // 공격력
+    public float attackDamage = 20f;        // 공격력
     public float attackCooldown = 1.5f;     // 공격 쿨타임
     public float moveSpeed = 0.5f;          // 이동 속도
     public float detectRange = 5f;          // 감지 범위
