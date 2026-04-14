@@ -19,6 +19,7 @@ public class UiManager : MonoBehaviour
 
     public GameObject settingBG;
     public GameObject HunterClickUI; // 헌터 누를 시 GUI
+    public GameObject HunterInfoUI; // 헌터 정보 GUI
     public GameObject difficultyUI; // 난이도 선택 창
     public List<DifficultyButton_KSH> difficultyButtons = new List<DifficultyButton_KSH>();
     public DifficultyButton_KSH d1;
@@ -33,6 +34,7 @@ public class UiManager : MonoBehaviour
 
     public GameObject DifficultyCheckWindow; // 난이도 설정 창
 
+    public HunterData_PJS hunterData; // 헌터 데이터 베이스
     
     public int Difficulty = 1; // 현재 난이도
     public int OnDifficulty = 1; // 변경하려는 난이도
@@ -64,6 +66,20 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    public void OpenHunterInfoUI(HunterData_PJS hunterData = null)
+    {
+        if (HunterInfoUI.activeInHierarchy == false)
+        {
+            // 비활성 상태면 활성
+            HunterInfoUI.SetActive(true);
+        }
+        else if (HunterInfoUI.activeInHierarchy == true)
+        {
+            // 반대의 경우
+            HunterInfoUI.SetActive(false);
+        }
+    }
+
     public void UI_Difficulty()
     {
         if (difficultyUI == null)
@@ -77,7 +93,7 @@ public class UiManager : MonoBehaviour
             difficultyUI.SetActive(true);
             RefreshDifficultyButton();
         }
-        else if (settingBG.activeInHierarchy == true)
+        else if (difficultyUI.activeInHierarchy == true)
         {
             // 반대의 경우
             Difficulty = OnDifficulty;
@@ -108,8 +124,10 @@ public class UiManager : MonoBehaviour
         MGB_Storage.Disable();
         MGB_Store.Disable();
     }
-    public void TargetHunter(bool isActive, HunterUIAction_KSH hunter = null)
+    public void TargetHunter(bool isActive, HunterController_PJS hunter = null)
     {
+        // 카메라 타겟 지정
+
         if (isActive)
         {
             UserCameraMove_YHJ.Instance.TargetHunter(hunter);

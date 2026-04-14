@@ -11,7 +11,7 @@ public class UserCameraMove_YHJ : MonoBehaviour
     [SerializeField] private Vector2 minPosition;
     [SerializeField] private Vector2 maxPosition;
 
-    // 코드라인 김성호 수정함
+    // 카메라 관련 코드라인 김성호 추가함
     public static UserCameraMove_YHJ Instance { get; set; }
 
     public Camera camera; // 카메라 객체
@@ -19,7 +19,7 @@ public class UserCameraMove_YHJ : MonoBehaviour
 
     public float zoomSize = 3f;
     public float zoomSpeed = 3f; // 카메라 줌아웃 속도
-    public HunterUIAction_KSH targetHunter; // 타겟 헌터
+    public HunterController_PJS targetHunter; // 타겟 헌터
 
     private void Awake()
     {
@@ -63,7 +63,7 @@ public class UserCameraMove_YHJ : MonoBehaviour
         transform.position = new Vector3(nextPos.x, nextPos.y, transform.position.z);
     }
 
-    public void TargetHunter(HunterUIAction_KSH _targetHunter) // 헌터 객체 매개 변수
+    public void TargetHunter(HunterController_PJS _targetHunter) // 헌터 객체 매개 변수
     {
         // 헌터 클릭 시 카메라 추적
         if (targetHunter != null) { return; }
