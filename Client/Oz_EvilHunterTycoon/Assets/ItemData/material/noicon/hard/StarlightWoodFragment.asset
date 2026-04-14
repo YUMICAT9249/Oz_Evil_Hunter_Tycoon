@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
-  m_Name: EssenceOfScoutSkull
+  m_Name: StarlightWoodFragment
   m_EditorClassIdentifier: 
-  itemID: EssenceOfScoutSkull
-  itemName: "\uC815\uCC30\uBA85 \uD574\uACE8\uC758 \uC815\uC218"
-  icon: {fileID: 319540024, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemID: StarlightWoodFragment
+  itemName: "\uBCC4\uBE5B\uB098\uBB34 \uC870\uAC01"
+  icon: {fileID: 0}
   itemKind: 3
   effectType: 0
   value: 0

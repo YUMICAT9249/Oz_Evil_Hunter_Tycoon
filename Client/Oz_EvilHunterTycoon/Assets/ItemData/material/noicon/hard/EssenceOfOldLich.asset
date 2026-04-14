@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
-  m_Name: LycanFur
+  m_Name: EssenceOfOldLich
   m_EditorClassIdentifier: 
-  itemID: 
-  itemName: 
+  itemID: EssenceOfOldLich
+  itemName: "\uB291\uC740 \uB9AC\uCE58\uC758 \uC815\uC218"
   icon: {fileID: 0}
   itemKind: 3
   effectType: 0
