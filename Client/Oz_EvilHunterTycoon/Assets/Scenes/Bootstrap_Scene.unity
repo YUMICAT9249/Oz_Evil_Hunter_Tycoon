@@ -367,58 +367,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &702128824
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 702128826}
-  - component: {fileID: 702128825}
-  m_Layer: 0
-  m_Name: HunterManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &702128825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702128824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f83c27b7fee2149a32438dd25228b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _allArea: []
-  berserkerPrefabs: []
-  paladinPrefabs: []
-  rangerPrefabs: []
-  sorcererPrefabs: []
-  spawnPoint: {fileID: 0}
-  _activeHunters: []
-  _areaType: 0
---- !u!4 &702128826
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702128824}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.403664, y: -0.89171225, z: 0.028245458}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &824165595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,7 +1611,6 @@ SceneRoots:
   - {fileID: 1735388633}
   - {fileID: 63390583}
   - {fileID: 1914680891}
-  - {fileID: 702128826}
   - {fileID: 1365372139}
   - {fileID: 860065182}
   - {fileID: 1056746536}

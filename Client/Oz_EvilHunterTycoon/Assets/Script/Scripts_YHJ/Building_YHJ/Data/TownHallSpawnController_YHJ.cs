@@ -33,8 +33,10 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
         // ★ 현재 인구 요청 (헌터팀)
         EventBus_YHJ.RequestPopulation?.Invoke();
 
-        // ★ 레벨 기반 최대 인구 계산
-        maxPopulation = GetMaxPopulation();
+        if (maxPopulation <= 0)
+        {
+            maxPopulation = GetFallbackMaxPopulation();
+        }
 
         canSpawn = currentPopulation < maxPopulation;
 
@@ -44,7 +46,7 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= spawnInterval)
         {
-            timer = 1f;
+            timer = 0f;
 
             EventBus_YHJ.RequestSpawnHunter?.Invoke();
         }
@@ -53,18 +55,17 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
     void OnPopulationResult(int current, int max)
     {
         currentPopulation = current;
-        int levelMax = max;
-
-        if (levelComponent != null && levelComponent.CurrentStat != null)
-        {
-            levelMax = levelComponent.CurrentStat.capacity;
-        }
-
-        canSpawn = current < levelMax;
+        maxPopulation = max > 0 ? max : GetFallbackMaxPopulation();
+        canSpawn = currentPopulation < maxPopulation;
     }
 
-    private int GetMaxPopulation()
+    private int GetFallbackMaxPopulation()
     {
+        if (HunterManager_PJS.Instance != null)
+        {
+            return HunterManager_PJS.Instance.GetTotalCapacity();
+        }
+
         if (levelComponent == null || levelComponent.CurrentStat == null)
             return 0;
 
