@@ -412,6 +412,10 @@ public class HunterController_PJS : BaseWorldObject_KJG
     {
         if (_hunterData == null) return;
         HunterData_PJS.InfoHunter = _hunterData;
+
+        UiManager.Instance.TargetHunter(true ,this); // Camera
+        UiManager.Instance.hunterData = _hunterData; // UI
+        Debug.Log("헌터 정보 카메라 지정");
     }
     #endregion
 }

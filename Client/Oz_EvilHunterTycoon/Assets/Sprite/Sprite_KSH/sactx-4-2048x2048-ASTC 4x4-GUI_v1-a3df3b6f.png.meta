@@ -108,7 +108,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 2015
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bd3efdec34d60b408e45464bfff3de2
+      internalID: -366949516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 2015
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6b8661b62902674e94fa822d29f4875
+      internalID: 1953613812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 1954
+        width: 140
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fde30cbf95bf86744a83bc1195e55a63
+      internalID: -1955637961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +182,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: -366949516
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 1953613812
+      sactx-4-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2: -1955637961
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
