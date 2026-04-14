@@ -9429,6 +9429,30 @@ RectTransform:
   m_AnchoredPosition: {x: -326.4678, y: 0.000015258789}
   m_SizeDelta: {x: 158.08646, y: 63.00049}
   m_Pivot: {x: 0.5, y: 0.5}
+  - {fileID: 365713433}
+  - {fileID: 1142368335}
+  - {fileID: 166858968}
+  - {fileID: 1513718009}
+  - {fileID: 1004064374}
+  - {fileID: 2002410272}
+  - {fileID: 1401010301}
+  - {fileID: 302218388}
+  - {fileID: 1493228559}
+  - {fileID: 310168392}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  - {fileID: 365713433}
+  - {fileID: 1142368335}
+  - {fileID: 166858968}
+  - {fileID: 1513718009}
+  - {fileID: 1004064374}
+  - {fileID: 2002410272}
+  - {fileID: 1401010301}
+  - {fileID: 302218388}
+  - {fileID: 1493228559}
+  - {fileID: 310168392}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &775568897
 GameObject:
   m_ObjectHideFlags: 0
@@ -18993,30 +19017,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 1000304492, guid: 25240ea593820ad418f7114eeb59b30c, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1608083416
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608083413}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1627972143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19079,6 +19079,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6165789777654829905, guid: 8f553c959e36bf14d982583c633f3ff8, type: 3}
   m_PrefabInstance: {fileID: 1627972143}
   m_PrefabAsset: {fileID: 0}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076038577659405370, guid: 1ef09621d988904458a6b5fc598ebe0e, type: 3}
+      propertyPath: m_Name
+      value: Ranger_C
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ef09621d988904458a6b5fc598ebe0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076038577659405370, guid: 1ef09621d988904458a6b5fc598ebe0e, type: 3}
+      propertyPath: m_Name
+      value: Ranger_C
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ef09621d988904458a6b5fc598ebe0e, type: 3}
 --- !u!1 &1635669616
 GameObject:
   m_ObjectHideFlags: 0
