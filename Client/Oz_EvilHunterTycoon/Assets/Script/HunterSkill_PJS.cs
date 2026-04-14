@@ -36,6 +36,7 @@ public class HunterSkill_PJS : MonoBehaviour
         {
             _animator.SetTrigger(_mainSkill.skillName.ToString());
             _mainSkillCooldown = Time.time + _mainSkill.cooldownTime;
+            SkillActive();
             return;
         }
 
@@ -44,6 +45,7 @@ public class HunterSkill_PJS : MonoBehaviour
         {
             _animator.SetTrigger(_subSkill.skillName.ToString());
             _subSkillCooldown = Time.time + _subSkill.cooldownTime;
+            SkillBuff();
             return;
         }
     }
