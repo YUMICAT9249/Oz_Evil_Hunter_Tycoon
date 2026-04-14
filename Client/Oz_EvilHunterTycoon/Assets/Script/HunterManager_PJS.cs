@@ -1,81 +1,65 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-// 헌터 제어 스크립트
-
-public enum AreaType
-{
-    Village = 0,
-    AreaA = 1,
-    AreaB = 2,
-    AreaC = 3,
-    AreaFieldBoss = 4,
-    AreaWorldBoss = 5,
-    AreaDevilCastle = 6
-}
-
 public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 {
-    [Header("구역 설정(AreaType 순서대로 배치)")]
+    [Header("구역 설정")]
     [SerializeField] private BoxCollider2D[] _allArea;
 
-    [Header("직업별 외형 프리팹 (A,B,C)")]
+    [Header("직업 프리팹")]
     public GameObject[] berserkerPrefabs;
     public GameObject[] paladinPrefabs;
     public GameObject[] rangerPrefabs;
     public GameObject[] sorcererPrefabs;
 
-    [Header("스폰 설정")]
+    [Header("스폰")]
     public Transform spawnPoint;
 
-    [Header("활성화된 헌터 리스트")]
+    [Header("리스트")]
     public List<HunterController_PJS> _activeHunters = new List<HunterController_PJS>();
-
-    [Header("대기소 헌터 리스트")]
     public List<HunterController_PJS> _waitingHunters = new List<HunterController_PJS>();
 
-    [Header("헌터 수용량")]
+    [Header("수용량")]
     [SerializeField] private int maxWaitingHunters = 3;
     [SerializeField] private int maxVillageHunters = 4;
 
+    public BuildingLevelComponent_YHJ levelComponent;
 
-    [Header("구역(공통 변수)")]
-    public AreaType _areaType; // 호출할 구역 타입
+    public System.Action OnWaitingListChanged;
+
     private Queue<HunterController_PJS> _waitingQueue = new Queue<HunterController_PJS>();
 
     float moveTimer;
     float moveInterval = 3f;
 
-    protected override void Start() 
+    protected override void Start()
     {
+        levelComponent = FindObjectOfType<BuildingLevelComponent_YHJ>();
         base.Start();
-        HunterController_PJS[] findingHunters = FindObjectsOfType<HunterController_PJS>();
-        BoxCollider2D villageBox = AreaCollider(AreaType.Village);
 
-        for (int i = 0; i < findingHunters.Length; i++)
-        {
-            _activeHunters.Add(findingHunters[i]);
-            findingHunters[i].SetArea(villageBox);
-        }
+        EventBus_YHJ.RequestSpawnHunter?.Invoke(); // 시작 1명
     }
+
     void OnEnable()
     {
         EventBus_YHJ.RequestSpawnHunter += OnRequestSpawnHunter;
-        EventBus_YHJ.RequestPopulation += SendPopulation; // ⭐ 추가
+        EventBus_YHJ.RequestPopulation += SendPopulation;
     }
 
     void OnDisable()
     {
         EventBus_YHJ.RequestSpawnHunter -= OnRequestSpawnHunter;
-        EventBus_YHJ.RequestPopulation -= SendPopulation; // ⭐ 추가
+        EventBus_YHJ.RequestPopulation -= SendPopulation;
     }
-    private void OnRequestSpawnHunter()
-    {
-         SpawnHunterToWaiting();
-        Debug.Log($"[대기소 수] {_waitingHunters.Count}");
-    }
+
     void Update()
     {
+        if (levelComponent != null && levelComponent.CurrentStat != null)
+        {
+            maxWaitingHunters = levelComponent.CurrentStat.waitingCapacity;
+            maxVillageHunters = levelComponent.CurrentStat.capacity;
+        }
+
         moveTimer += Time.deltaTime;
 
         if (moveTimer >= moveInterval)
@@ -84,35 +68,47 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             TryMoveWaitingHunterToVillage();
         }
     }
+
+    private void OnRequestSpawnHunter()
+    {
+        SpawnHunterToWaiting();
+        OnWaitingListChanged?.Invoke();
+    }
+
     public List<HunterController_PJS> GetWaitingHunters()
     {
         return new List<HunterController_PJS>(_waitingHunters);
     }
-    // 헌터 직업 랜덤 생성
-    public void HunterRandomSpawn()
+
+    // =========================
+    // 스폰
+    // =========================
+    public HunterController_PJS SpawnHunterToWaiting()
     {
+        if (spawnPoint == null) return null;
+
         HunterJop jop = (HunterJop)Random.Range(1, 5);
-        GameObject[] jopSelect = JopSelect(jop);
+        GameObject[] prefabs = JopSelect(jop);
+        if (prefabs == null || prefabs.Length == 0) return null;
 
-        if (jopSelect == null || jopSelect.Length == 0) return;
+        GameObject obj = Instantiate(prefabs[Random.Range(0, prefabs.Length)], spawnPoint.position, Quaternion.identity);
 
-        GameObject newHunter = Instantiate
-            (
-                jopSelect[Random.Range(0, jopSelect.Length)],
-                spawnPoint.position,
-                Quaternion.identity
-            );
-        HunterData_PJS hunterData = newHunter.GetComponent<HunterData_PJS>();
-        if (hunterData != null)
+        var data = obj.GetComponent<HunterData_PJS>();
+        if (data != null) data.SettingHunterData(jop);
+
+        var controller = obj.GetComponent<HunterController_PJS>();
+        if (controller == null) return null;
+
+        if (_waitingHunters.Count < maxWaitingHunters)
         {
-            hunterData.SettingHunterData(jop);
+            _waitingHunters.Add(controller);
+        }
+        else
+        {
+            _waitingQueue.Enqueue(controller);
         }
 
-        HunterController_PJS hunterController = newHunter.GetComponent<HunterController_PJS>();
-        if (hunterController != null)
-        {
-            _activeHunters.Add(hunterController);
-        }
+        return controller;
     }
 
     private GameObject[] JopSelect(HunterJop jop)
@@ -124,160 +120,41 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         return null;
     }
 
-    // 보스 / 마왕성 보스 소환시 모든 헌터 강제 이동
-    public void CallAllHuntersToArea()
-    {
-        for (int i = 0; i < _activeHunters.Count; i++)
-        {
-            HunterController_PJS hunterController = _activeHunters[i];
-            if (hunterController != null)
-            {
-                HunterData_PJS hunterData = hunterController.GetComponent<HunterData_PJS>();
-                if (hunterData != null)
-                {
-                    // 보스 구역으로 변경
-                    hunterData._areaType = AreaType.AreaFieldBoss;
-                    // 실제 이동할 콜라이더 찾아서 SetArea에 넣음
-                    BoxCollider2D bossArea = AreaCollider(AreaType.AreaFieldBoss);
-                    hunterController.SetArea(bossArea);
-                }
-            }
-        }
-    }
-
-    // 구역 전환 / _areaIndex 변수에 담긴 번호 -> 콜라이더를 반환
-    public BoxCollider2D AreaCollider(AreaType type)
-    {
-        int index = (int)type;
-        // 입력된 인덱스가 배열 범위 안에 있는지 확인
-        if (index >= 0 && index < _allArea.Length)
-        {
-            return _allArea[index];
-        }
-        return null;
-    }
-
-    public void AddExpToHuntersInArea(int expAmount, AreaType areaType)
-    {
-        foreach (var hunter in _activeHunters)
-        {
-            if (hunter != null)
-            {
-                HunterData_PJS data = hunter.GetComponent<HunterData_PJS>();
-                if (data != null && data._areaType == areaType)
-                {
-                    data.AddExp(expAmount);
-                }
-            }
-        }
-    }
-    public HunterController_PJS SpawnHunterToWaiting()
-    {
-        Debug.Log("헌터 생성됨 (대기소)");
-
-        if (spawnPoint == null)
-        {
-            Debug.LogError("[HunterManager] spawnPoint가 비어 있음");
-            return null;
-        }
-
-        HunterJop jop = (HunterJop)Random.Range(1, 5);
-        GameObject[] jopSelect = JopSelect(jop);
-
-        if (jopSelect == null || jopSelect.Length == 0)
-            return null;
-
-        GameObject newHunter = Instantiate
-        (
-            jopSelect[Random.Range(0, jopSelect.Length)],
-            spawnPoint.position,
-            Quaternion.identity
-        );
-
-        HunterData_PJS hunterData = newHunter.GetComponent<HunterData_PJS>();
-        if (hunterData != null)
-        {
-            hunterData.SettingHunterData(jop);
-        }
-
-        HunterController_PJS hunterController = newHunter.GetComponent<HunterController_PJS>();
-
-        if (hunterController == null)
-            return null;
-
-        // ⭐ 여기서만 처리해야 함
-        if (_waitingHunters.Count < maxWaitingHunters)
-        {
-            _waitingHunters.Add(hunterController);
-        }
-        else
-        {
-            _waitingQueue.Enqueue(hunterController);
-            Debug.Log("[HunterManager] 큐에 추가됨");
-        }
-
-        return hunterController;
-    }
+    // =========================
+    // 대기 → 마을 이동
+    // =========================
     private void TryMoveWaitingHunterToVillage()
     {
-        if (_waitingHunters.Count == 0)
-            return;
+        if (_waitingHunters.Count == 0) return;
+        if (_activeHunters.Count >= maxVillageHunters) return;
 
-        if (_activeHunters.Count >= maxVillageHunters)
-            return;
-
-        HunterController_PJS hunter = _waitingHunters[0];
-        if (hunter == null)
-        {
-            _waitingHunters.RemoveAt(0);
-            return;
-        }
-
+        var hunter = _waitingHunters[0];
         _waitingHunters.RemoveAt(0);
 
-        if (!_activeHunters.Contains(hunter))
-        {
-            _activeHunters.Add(hunter);
-        }
-
-        HunterData_PJS hunterData = hunter.GetComponent<HunterData_PJS>();
-        if (hunterData != null)
-        {
-            hunterData._areaType = AreaType.Village;
-        }
-
-        BoxCollider2D villageBox = AreaCollider(AreaType.Village);
-        if (villageBox != null)
-        {
-            hunter.SetArea(villageBox);
-        }
-
-        Debug.Log("[HunterManager] 대기 헌터 1명을 마을로 이동");
+        _activeHunters.Add(hunter);
 
         if (_waitingQueue.Count > 0)
         {
-            var next = _waitingQueue.Dequeue();
-            _waitingHunters.Add(next);
-
-            Debug.Log("[HunterManager] 큐 → 대기소 이동");
+            _waitingHunters.Add(_waitingQueue.Dequeue());
         }
+
+        OnWaitingListChanged?.Invoke();
     }
+
+    // =========================
+    // 추방
+    // =========================
     public void RemoveWaitingHunter(HunterController_PJS hunter)
     {
-        if (hunter == null)
-            return;
-
-        if (_waitingHunters.Contains(hunter))
+        if (_waitingHunters.Remove(hunter))
         {
-            _waitingHunters.Remove(hunter);
             _waitingQueue.Enqueue(hunter);
-
-            Debug.Log("[HunterManager] 헌터를 큐 뒤로 이동");
+            OnWaitingListChanged?.Invoke();
         }
     }
+
     void SendPopulation()
     {
-        int current = _activeHunters.Count;
-        EventBus_YHJ.OnPopulationResult?.Invoke(current, 999);
+        EventBus_YHJ.OnPopulationResult?.Invoke(_activeHunters.Count, 999);
     }
 }
