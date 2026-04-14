@@ -37,6 +37,9 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         levelComponent = FindObjectOfType<BuildingLevelComponent_YHJ>();
         base.Start();
 
+        Debug.Log($"[HunterManager_PJS] Start - levelComponent: {(levelComponent != null ? levelComponent.name : "null")}");
+        Debug.Log("[HunterManager_PJS] Initial spawn request");
+
         EventBus_YHJ.RequestSpawnHunter?.Invoke(); // 시작 1명
     }
 
@@ -70,6 +73,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 
     private void OnRequestSpawnHunter()
     {
+        Debug.Log("[HunterManager_PJS] OnRequestSpawnHunter received");
         SpawnHunterToWaiting();
         OnWaitingListChanged?.Invoke();
     }
@@ -77,6 +81,43 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     public List<HunterController_PJS> GetWaitingHunters()
     {
         return new List<HunterController_PJS>(_waitingHunters);
+    }
+
+    public int GetWaitingCount()
+    {
+        return _waitingHunters.Count;
+    }
+
+    public int GetActiveCount()
+    {
+        return _activeHunters.Count;
+    }
+
+    public int GetWaitingCapacity()
+    {
+        return maxWaitingHunters;
+    }
+
+    public int GetVillageCapacity()
+    {
+        return maxVillageHunters;
+    }
+
+    public int GetTotalCount()
+    {
+        return _activeHunters.Count + _waitingHunters.Count;
+    }
+
+    public int GetTotalCapacity()
+    {
+        return maxVillageHunters + maxWaitingHunters;
+    }
+
+    public bool CanSpawnWaitingHunter()
+    {
+        if (_waitingHunters.Count >= maxWaitingHunters) return false;
+        if (GetTotalCount() >= GetTotalCapacity()) return false;
+        return true;
     }
 
     public void AddExpToHuntersInArea(int expAmount, AreaType areaType)
@@ -93,35 +134,185 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         }
     }
 
-    // =========================
+
     // 스폰
-    // =========================
+
     public HunterController_PJS SpawnHunterToWaiting()
     {
-        if (spawnPoint == null) return null;
+        Debug.Log("[HunterManager_PJS] SpawnHunterToWaiting called");
 
-        HunterJop jop = (HunterJop)Random.Range(1, 5);
+        if (!CanSpawnWaitingHunter())
+        {
+            Debug.Log($"[HunterManager_PJS] Spawn canceled - waiting/full active:{_activeHunters.Count} waiting:{_waitingHunters.Count}");
+            return null;
+        }
+
+        if (spawnPoint == null)
+        {
+            Debug.LogWarning("[HunterManager_PJS] Spawn canceled - spawnPoint is null");
+            return null;
+        }
+
+        HunterJop jop = SelectBalancedJob();
+        Debug.Log($"[HunterManager_PJS] Balanced job selected: {jop}");
         GameObject[] prefabs = JopSelect(jop);
-        if (prefabs == null || prefabs.Length == 0) return null;
+        if (prefabs == null || prefabs.Length == 0)
+        {
+            Debug.LogWarning($"[HunterManager_PJS] Spawn canceled - no prefabs for job {jop}");
+            return null;
+        }
 
-        GameObject obj = Instantiate(prefabs[Random.Range(0, prefabs.Length)], spawnPoint.position, Quaternion.identity);
+        GameObject selectedPrefab = SelectPrefabVariant(jop, prefabs);
+        if (selectedPrefab == null)
+        {
+            Debug.LogWarning($"[HunterManager_PJS] Spawn canceled - no selectable prefab for job {jop}");
+            return null;
+        }
+
+        GameObject obj = Instantiate(selectedPrefab, spawnPoint.position, Quaternion.identity);
+        Debug.Log($"[HunterManager_PJS] Spawned object: {obj.name} at {spawnPoint.position}");
 
         var data = obj.GetComponent<HunterData_PJS>();
         if (data != null) data.SettingHunterData(jop);
+        else Debug.LogWarning("[HunterManager_PJS] Spawned object has no HunterData_PJS");
 
         var controller = obj.GetComponent<HunterController_PJS>();
-        if (controller == null) return null;
+        if (controller == null)
+        {
+            Debug.LogWarning("[HunterManager_PJS] Spawned object has no HunterController_PJS");
+            return null;
+        }
 
         if (_waitingHunters.Count < maxWaitingHunters)
         {
             _waitingHunters.Add(controller);
+            Debug.Log($"[HunterManager_PJS] Added to waiting list - waiting: {_waitingHunters.Count}/{maxWaitingHunters}");
         }
         else
         {
             _waitingQueue.Enqueue(controller);
+            Debug.Log($"[HunterManager_PJS] Waiting full - queued hunter. Queue count: {_waitingQueue.Count}");
         }
 
         return controller;
+    }
+
+    private HunterJop SelectBalancedJob()
+    {
+        List<HunterJop> availableJobs = new List<HunterJop>();
+        int minCount = int.MaxValue;
+
+        AddCandidateJob(HunterJop.Berserker, berserkerPrefabs, availableJobs, ref minCount);
+        AddCandidateJob(HunterJop.Paladin, paladinPrefabs, availableJobs, ref minCount);
+        AddCandidateJob(HunterJop.Ranger, rangerPrefabs, availableJobs, ref minCount);
+        AddCandidateJob(HunterJop.Sorcerer, sorcererPrefabs, availableJobs, ref minCount);
+
+        if (availableJobs.Count == 0)
+        {
+            return HunterJop.Berserker;
+        }
+
+        return availableJobs[Random.Range(0, availableJobs.Count)];
+    }
+
+    private void AddCandidateJob(HunterJop job, GameObject[] prefabs, List<HunterJop> candidates, ref int minCount)
+    {
+        if (prefabs == null || prefabs.Length == 0) return;
+
+        int currentCount = GetHunterCountByJob(job);
+
+        if (currentCount < minCount)
+        {
+            minCount = currentCount;
+            candidates.Clear();
+            candidates.Add(job);
+            return;
+        }
+
+        if (currentCount == minCount)
+        {
+            candidates.Add(job);
+        }
+    }
+
+    private int GetHunterCountByJob(HunterJop job)
+    {
+        int count = 0;
+
+        count += CountHuntersByJob(_activeHunters, job);
+        count += CountHuntersByJob(_waitingHunters, job);
+
+        return count;
+    }
+
+    private int CountHuntersByJob(List<HunterController_PJS> hunters, HunterJop job)
+    {
+        int count = 0;
+
+        foreach (var hunter in hunters)
+        {
+            if (hunter == null) continue;
+
+            HunterData_PJS data = hunter.GetComponent<HunterData_PJS>();
+            if (data != null && data._hunterJop == job)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    private GameObject SelectPrefabVariant(HunterJop job, GameObject[] prefabs)
+    {
+        List<GameObject> availablePrefabs = new List<GameObject>();
+
+        foreach (GameObject prefab in prefabs)
+        {
+            if (prefab == null) continue;
+
+            string prefabName = prefab.name;
+            if (!HasHunterWithPrefabName(job, prefabName))
+            {
+                availablePrefabs.Add(prefab);
+            }
+        }
+
+        if (availablePrefabs.Count > 0)
+        {
+            GameObject selected = availablePrefabs[Random.Range(0, availablePrefabs.Count)];
+            Debug.Log($"[HunterManager_PJS] Selected unique variant: {selected.name}");
+            return selected;
+        }
+
+        GameObject fallback = prefabs[Random.Range(0, prefabs.Length)];
+        Debug.Log($"[HunterManager_PJS] All variants already used for {job}. Fallback variant: {fallback.name}");
+        return fallback;
+    }
+
+    private bool HasHunterWithPrefabName(HunterJop job, string prefabName)
+    {
+        return HasHunterWithPrefabName(_activeHunters, job, prefabName) ||
+               HasHunterWithPrefabName(_waitingHunters, job, prefabName);
+    }
+
+    private bool HasHunterWithPrefabName(List<HunterController_PJS> hunters, HunterJop job, string prefabName)
+    {
+        foreach (var hunter in hunters)
+        {
+            if (hunter == null) continue;
+
+            HunterData_PJS data = hunter.GetComponent<HunterData_PJS>();
+            if (data == null || data._hunterJop != job) continue;
+
+            string hunterName = hunter.gameObject.name.Replace("(Clone)", "").Trim();
+            if (hunterName == prefabName)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private GameObject[] JopSelect(HunterJop jop)
@@ -133,9 +324,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         return null;
     }
 
-    // =========================
     // 대기 → 마을 이동
-    // =========================
     private void TryMoveWaitingHunterToVillage()
     {
         if (_waitingHunters.Count == 0) return;
@@ -154,9 +343,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         OnWaitingListChanged?.Invoke();
     }
 
-    // =========================
     // 추방
-    // =========================
     public void RemoveWaitingHunter(HunterController_PJS hunter)
     {
         if (_waitingHunters.Remove(hunter))
@@ -168,6 +355,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 
     void SendPopulation()
     {
-        EventBus_YHJ.OnPopulationResult?.Invoke(_activeHunters.Count, 999);
+        Debug.Log($"[HunterManager_PJS] SendPopulation - active: {_activeHunters.Count}, waiting: {_waitingHunters.Count}, total: {GetTotalCount()}/{GetTotalCapacity()}");
+        EventBus_YHJ.OnPopulationResult?.Invoke(GetTotalCount(), GetTotalCapacity());
     }
 }
