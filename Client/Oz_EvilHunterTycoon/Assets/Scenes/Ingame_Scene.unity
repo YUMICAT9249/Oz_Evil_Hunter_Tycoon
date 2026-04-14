@@ -4958,9 +4958,9 @@ MonoBehaviour:
     buildingType: 10
     levelData: {fileID: 0}
   selectedIndex: 0
-  content: {fileID: 0}
+  content: {fileID: 2854854495509476283}
   buildingButtonPrefab: {fileID: 5864929429538458362, guid: 55573c78909897747942779996f5c52d, type: 3}
-  buildPanel: {fileID: 0}
+  buildPanel: {fileID: 8341030233828330257}
   previewUIPrefab: {fileID: 3214713376090514805, guid: 7c8b345fa05e9db418e0c707981507eb, type: 3}
 --- !u!4 &1848985878
 Transform:
@@ -30099,7 +30099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -453, y: -495}
+  m_AnchoredPosition: {x: -430, y: -156}
   m_SizeDelta: {x: 74, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7162711500498645200
