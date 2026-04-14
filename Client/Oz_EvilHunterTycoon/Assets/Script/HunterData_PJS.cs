@@ -350,6 +350,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _armor = armor;
         FinalStats();
     }
+    #endregion
 
     public void SetGloves(object gloves) // Àå°© ½½·Ô
     {
@@ -357,6 +358,8 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         FinalStats();
     }
 
+    /*
+    #region È®Àå¿ë
     public void SetBoots(object boots) // ºÎÃ÷ ½½·Ô
     {
         _boots = boots;
@@ -374,12 +377,14 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _necklace = necklace;
         FinalStats();
     }
+    #endregion
+    */
 
     public Dictionary<object, int> GetInventory() // UI
     { 
         return _inventory;
     }
-    #endregion
+    
 
     #region Get ÇÔ¼ö => ÃÖÁ¾ °ª¸¸ ¹ÝÈ¯
     public float GetMaxHP() => _maxHP;
