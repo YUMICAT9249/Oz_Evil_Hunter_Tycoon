@@ -32,7 +32,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public static Action OnHunterDie;
 
     #region 프로퍼티 외부용
-    public float CurrentHP 
+    public float CurrentHP
     {
         get => _currentHP;
         set
@@ -83,7 +83,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     [SerializeField] public int _dodgeChanceScore;    // 회피확률 등급
     [SerializeField] public int _attackCooldownScore; // 공격속도 등급
     [SerializeField] public int _moveSpeedScore;      // 이동속도 등급
-    
+
     [Header("헌터 등급 결과")]
     [SerializeField] public int _totalScore;
     [SerializeField] public HunterRank _hunterRank;
@@ -92,14 +92,23 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     [SerializeField] public int _rebirthCount = 0;      // 환생 횟수
     [SerializeField] public float _rebirthBonus = 1.0f; // 환생 보너스 배율
 
+    // 헌터 골드 / 재료 인벤토리 관련
+    private Dictionary<object, int> _inventory = new Dictionary<object, int>();
+    private int _gold = 0;
+
+    // 헌터 장비 슬롯
+    private object _weapon;
+    private object _armor;
+    private object _gloves;
+    private object _boots;
+    private object _ring;
+    private object _necklace;
+
     // 직업별 헌터 이름
     private List<string> beserkerNames = new List<string> { "브란", "샤론", "세나" };
     private List<string> paladinNames = new List<string> { "카일", "알프", "홉스" };
     private List<string> rangerNames = new List<string> { "카이즈", "바레인", "크리샤" };
     private List<string> sorcererNames = new List<string> { "라글라스", "두아트린", "브리디도" };
-    private List<object> _inventory = new List<object>();
-
-    private int _gold = 0;
 
     public static HunterData_PJS InfoHunter;
 
@@ -128,7 +137,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     }
 
     public void LevelUp()
-    { 
+    {
         _currentExp -= _maxExp; // 남은 경험치 유지
         _maxExp *= 2f;          // 필요경험치 복리 2배
         _currentLevel++;        // 레벨 증가
@@ -273,6 +282,8 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _dodgeChance = AddStatsByScore(_unitData.dodgeChance, _dodgeChanceScore) * _rebirthBonus;
         _attackCooldown = AddAttackCooldownByScore(_unitData.attackCooldown, _attackCooldownScore) / _rebirthBonus;
         _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore) * _rebirthBonus;
+
+        ApplyEquipStats(); // 장비 수치 추가
     }
 
     // 점수별 스탯 추가 / 매개변수 사용 => 유지보수, 하나의 함수로 해결가능
@@ -280,7 +291,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     private float AddStatsByScore(float baseValue, int score)
     {
         switch (score)
-        { 
+        {
             case 0: return baseValue * 1.0f;
             case 1: return baseValue * 1.1f;
             case 2: return baseValue * 1.2f;
@@ -302,19 +313,71 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         return baseValue;
     }
 
-    #region 드랍 획득
-    // 골드
-    public void AddGold(int amount)
-    {
-        _gold += amount;
-        Debug.Log($"{_hunterNameList} 골드 획득 : {amount} / 보유 : {_gold}");
+    // 최종 스탯계산에 추가하여 넣을 장비 수치
+    private void ApplyEquipStats()
+    { 
+        // 장비 수치 나오면 채워넣을것
     }
-    //재료
-    public void AddItem(object item)
+
+    #region 헌터 인벤토리 연결용
+    public void SetGold(int value) // 골드
+    {
+        _gold = value;
+    }
+
+    public void SetItem(object item) // 재료
     {
         if (item == null) return;
-        _inventory.Add(item);
-        Debug.Log($"{_hunterNameList} 아이템 획득 : {item}");
+
+        if (_inventory.ContainsKey(item))
+        {
+            _inventory[item]++;
+        }
+        else
+        {
+            _inventory[item] = 1;
+        }
+    }
+
+    public void SetWeapon(object weapon) // 무기 슬롯
+    {
+        _weapon = weapon;
+        FinalStats();
+    }
+
+    public void SetArmor(object armor) // 갑옷 슬롯
+    {
+        _armor = armor;
+        FinalStats();
+    }
+
+    public void SetGloves(object gloves) // 장갑 슬롯
+    {
+        _gloves = gloves;
+        FinalStats();
+    }
+
+    public void SetBoots(object boots) // 부츠 슬롯
+    {
+        _boots = boots;
+        FinalStats();
+    }
+
+    public void SetRing(object ring) // 반지 슬롯
+    {
+        _ring = ring;
+        FinalStats();
+    }
+
+    public void SetNecklace(object necklace) // 목걸이 슬롯
+    { 
+        _necklace = necklace;
+        FinalStats();
+    }
+
+    public Dictionary<object, int> GetInventory() // UI
+    { 
+        return _inventory;
     }
     #endregion
 
