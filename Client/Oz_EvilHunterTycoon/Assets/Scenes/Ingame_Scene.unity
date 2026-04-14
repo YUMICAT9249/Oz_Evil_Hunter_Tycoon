@@ -18973,7 +18973,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1608083414}
-  - component: {fileID: 1608083416}
   - component: {fileID: 1608083415}
   m_Layer: 5
   m_Name: EquipSlot_Ring

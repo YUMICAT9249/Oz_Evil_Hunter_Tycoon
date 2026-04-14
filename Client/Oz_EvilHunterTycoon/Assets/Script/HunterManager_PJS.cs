@@ -176,11 +176,12 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         Debug.Log($"[HunterManager_PJS] Spawned object: {obj.name} at {spawnPoint.position}");
 
         var data = obj.GetComponent<HunterData_PJS>();
-        var controller = obj.GetComponent<HunterController_PJS>();
 
         if (data != null) data.SettingHunterData(jop);
         else Debug.LogWarning("[HunterManager_PJS] Spawned object has no HunterData_PJS");
 
+        // YHJ: HunterController_PJS controller 중복 선언으로 컴파일 에러가 발생해서
+        // 기존 선언 하나를 제거하고 이 위치에서만 캐싱한다.
         var controller = obj.GetComponent<HunterController_PJS>();
         if (controller == null)
         {
