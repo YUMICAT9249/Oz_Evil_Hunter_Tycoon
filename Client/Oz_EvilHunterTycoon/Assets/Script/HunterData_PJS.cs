@@ -43,6 +43,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     }
     public float MaxHP => _maxHP;
     public bool IsDead => _currentHP <= 0;
+    public int Gold => _gold;
     #endregion
 
     [Header("기본 데이터 참조")]
@@ -96,6 +97,9 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     private List<string> paladinNames = new List<string> { "카일", "알프", "홉스" };
     private List<string> rangerNames = new List<string> { "카이즈", "바레인", "크리샤" };
     private List<string> sorcererNames = new List<string> { "라글라스", "두아트린", "브리디도" };
+    private List<object> _inventory = new List<object>();
+
+    private int _gold = 0;
 
     public static HunterData_PJS InfoHunter;
 
@@ -297,6 +301,22 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         }
         return baseValue;
     }
+
+    #region 드랍 획득
+    // 골드
+    public void AddGold(int amount)
+    {
+        _gold += amount;
+        Debug.Log($"{_hunterNameList} 골드 획득 : {amount} / 보유 : {_gold}");
+    }
+    //재료
+    public void AddItem(object item)
+    {
+        if (item == null) return;
+        _inventory.Add(item);
+        Debug.Log($"{_hunterNameList} 아이템 획득 : {item}");
+    }
+    #endregion
 
     #region Get 함수 => 최종 값만 반환
     public float GetMaxHP() => _maxHP;
