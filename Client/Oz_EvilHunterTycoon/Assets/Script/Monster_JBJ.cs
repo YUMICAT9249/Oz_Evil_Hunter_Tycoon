@@ -315,7 +315,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
             Die();
         }
 
-        OnHealthChanged(currentHp, maxHp);
+        OnHealthChanged(currentHP, maxHp);
     }
 
     protected virtual void Die()
@@ -323,9 +323,14 @@ public class Monster_JBJ : BaseWorldObject_KJG
         if (isDead) return;
         isDead = true;
 
-        if (Manager_KJG.Exp != null)
+        if (Manager_KJG.Exp != null && Hunter != null)
         {
-            Manager_KJG.Exp.AddExpToHuntersInArea(50, _hunterData._areaType);
+            var _hunterData = Hunter.GetComponent<HunterData_PJS>();
+
+            if (_hunterData != null)
+            {
+                Manager_KJG.Exp.AddExpToHuntersInArea(50, _hunterData._areaType);
+            }
         }
 
         if (Manager_KJG.Drop != null)
