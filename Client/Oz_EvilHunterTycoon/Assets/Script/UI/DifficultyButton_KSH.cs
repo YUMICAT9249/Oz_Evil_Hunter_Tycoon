@@ -18,9 +18,14 @@ public class DifficultyButton_KSH : MonoBehaviour, IPointerUpHandler
     public ButtonDifficulty_Type buttonDifficulty; // 버튼 난이도
 
 
+    public void Start()
+    {
+        
+    }
+
     public void SetActive()
     {
-        if (UiManager.Instance.OnDifficulty == (int)buttonDifficulty)
+        if ((int)buttonDifficulty == UiManager.Instance.OnDifficulty)
         {
             SelectImage.SetActive(true);
         }

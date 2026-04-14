@@ -131,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HunterTierBackGround_5
+      name: HunterTierBackGround_Legendary
       rect:
         serializedVersion: 2
         x: 341
@@ -139,7 +139,7 @@ TextureImporter:
         width: 171
         height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +152,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HunterTierBackGround_3
+      name: HunterTierBackGround_Rare
       rect:
         serializedVersion: 2
         x: 425
@@ -160,7 +160,7 @@ TextureImporter:
         width: 171
         height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,15 +173,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HunterTierBackGround_4
+      name: HunterTierBackGround_Heroic
       rect:
         serializedVersion: 2
         x: 254
         y: 1329
         width: 171
-        height: 248
+        height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,7 +194,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HunterTierBackGround_2
+      name: HunterTierBackGround_Normal
       rect:
         serializedVersion: 2
         x: 170
@@ -202,7 +202,7 @@ TextureImporter:
         width: 171
         height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,7 +215,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HunterTierBackGround_6
+      name: HunterTierBackGround_Ultimate
       rect:
         serializedVersion: 2
         x: 0
@@ -223,7 +223,7 @@ TextureImporter:
         width: 170
         height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -231,6 +231,195 @@ TextureImporter:
       bones: []
       spriteID: 73e67ad5d1235ff43b6420cae49e93b1
       internalID: -1429757241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterInfo_BackGround_Legendary
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 1436
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0a9a408d7059f428a5a03edc72dbf8
+      internalID: 1548144220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterInfo_BackGround_Normal
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 1440
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380201751c079484da1e0df21f3e17a7
+      internalID: -2115183274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterInfo_BackGround_Ultimate
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 1444
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaa2718f3060117419ebfe8d5cc16ff8
+      internalID: 1617463813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterInfo_BackGround_Rare
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 1291
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 656a1b311b2043840ab9f92e0bd6a5fd
+      internalID: 1642022167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterInfo_BackGround_Heroic
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 1595
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 362b7279450f5c746a4b13e17546f387
+      internalID: 553830026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterTierBackGround_Superior
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 1125
+        width: 171
+        height: 246
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea0d342e9bac5934ca41de91e9a20757
+      internalID: 1372008029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterInfo_BackGround_Superior
+      rect:
+        serializedVersion: 2
+        x: 1776
+        y: 700
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbaa8ed507006c44db2da45a9d9df50f
+      internalID: -446194287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0
+      rect:
+        serializedVersion: 2
+        x: 1577
+        y: 2026
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3616881af7aca14e907859db08c950c
+      internalID: -474085682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 945
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1716cf4b60ce0049944c6f89449e968
+      internalID: -1458407917
       vertices: []
       indices: 
       edges: []
@@ -246,12 +435,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HunterTierBackGround_2: 888272794
-      HunterTierBackGround_3: 1165864382
-      HunterTierBackGround_4: -1384220727
-      HunterTierBackGround_5: 517195105
-      HunterTierBackGround_6: -1429757241
+      HunterInfo_BackGround_Heroic: 553830026
+      HunterInfo_BackGround_Legendary: 1548144220
+      HunterInfo_BackGround_Normal: -2115183274
+      HunterInfo_BackGround_Rare: 1642022167
+      HunterInfo_BackGround_Superior: -446194287
+      HunterInfo_BackGround_Ultimate: 1617463813
+      HunterTierBackGround_Heroic: -1384220727
+      HunterTierBackGround_Legendary: 775758460
+      HunterTierBackGround_Normal: 888272794
+      HunterTierBackGround_Rare: 1165864382
+      HunterTierBackGround_Superior: 1372008029
+      HunterTierBackGround_Ultimate: -1429757241
+      sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: -474085682
       sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 932403126
+      sactx-2-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2: -1458407917
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

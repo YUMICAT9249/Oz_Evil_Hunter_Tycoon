@@ -15,4 +15,5 @@ public class HunterUIAction_KSH : MonoBehaviour
     {
         Debug.Log("´­¸²");
     }
+    
 }
