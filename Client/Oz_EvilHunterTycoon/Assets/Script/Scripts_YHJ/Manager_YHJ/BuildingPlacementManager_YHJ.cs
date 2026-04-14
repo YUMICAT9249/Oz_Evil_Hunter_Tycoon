@@ -72,10 +72,66 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void Start()
     {
+        RegisterPrePlacedBuildings();
         GenerateBuildingButtons();
-
         if (buildPanel != null)
             buildPanel.SetActive(false);
+    }
+    void RegisterPrePlacedBuildings()
+    {
+        var worldObjects = FindObjectsOfType<BuildingWorldObject_YHJ>();
+
+        foreach (var obj in worldObjects)
+        {
+            var instance = obj.GetInstance();
+
+            if (instance == null)
+            {
+                Debug.LogWarning($"[초기건물] Instance 없음: {obj.name}");
+                continue;
+            }
+
+            // 좌표 계산 (중요)
+            Vector2Int gridPos = WorldToGrid(obj.transform.position);
+
+            instance.origin = gridPos;
+            instance.instance = obj.gameObject;
+
+            // size 없으면 기본 1x1 (필요하면 데이터에서 가져오게 개선 가능)
+            if (instance.size == Vector2Int.zero)
+                instance.size = new Vector2Int(1, 1);
+
+            // 셀 계산
+            var cells = new List<Vector2Int>();
+
+            for (int x = 0; x < instance.size.x; x++)
+            {
+                for (int y = 0; y < instance.size.y; y++)
+                {
+                    Vector2Int pos = new Vector2Int(gridPos.x + x, gridPos.y - y);
+                    cells.Add(pos);
+
+                    // gridMap 등록
+                    gridMap[pos] = instance;
+
+                    // occupied 등록
+                    occupied.Add(pos);
+                }
+            }
+
+            instance.occupiedCells = cells;
+
+            // 단일 건물 제한
+            if (!string.IsNullOrEmpty(instance.buildingID))
+            {
+                builtBuildingIDs.Add(instance.buildingID);
+            }
+
+            // 매니저 등록 (중요)
+            instance.Register();
+
+            Debug.Log($"[초기건물 등록 완료] {obj.name}");
+        }
     }
 
     IEnumerator ApplySortingNextFrame(GameObject obj)

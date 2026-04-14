@@ -1,7 +1,7 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
-// ÇåÅÍ Á¦¾î ½ºÅ©¸³Æ®
+// í—Œí„° ì œì–´ ìŠ¤í¬ë¦½íŠ¸
 
 public enum AreaType
 {
@@ -16,23 +16,35 @@ public enum AreaType
 
 public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 {
-    [Header("±¸¿ª ¼³Á¤(AreaType ¼ø¼­´ë·Î ¹èÄ¡)")]
+    [Header("êµ¬ì—­ ì„¤ì •(AreaType ìˆœì„œëŒ€ë¡œ ë°°ì¹˜)")]
     [SerializeField] private BoxCollider2D[] _allArea;
 
-    [Header("Á÷¾÷º° ¿ÜÇü ÇÁ¸®ÆÕ (A,B,C)")]
+    [Header("ì§ì—…ë³„ ì™¸í˜• í”„ë¦¬íŒ¹ (A,B,C)")]
     public GameObject[] berserkerPrefabs;
     public GameObject[] paladinPrefabs;
     public GameObject[] rangerPrefabs;
     public GameObject[] sorcererPrefabs;
 
-    [Header("½ºÆù ¼³Á¤")]
+    [Header("ìŠ¤í° ì„¤ì •")]
     public Transform spawnPoint;
 
-    [Header("È°¼ºÈ­µÈ ÇåÅÍ ¸®½ºÆ®")]
+    [Header("í™œì„±í™”ëœ í—Œí„° ë¦¬ìŠ¤íŠ¸")]
     public List<HunterController_PJS> _activeHunters = new List<HunterController_PJS>();
 
-    [Header("±¸¿ª(°øÅë º¯¼ö)")]
-    public AreaType _areaType; // È£ÃâÇÒ ±¸¿ª Å¸ÀÔ
+    [Header("ëŒ€ê¸°ì†Œ í—Œí„° ë¦¬ìŠ¤íŠ¸")]
+    public List<HunterController_PJS> _waitingHunters = new List<HunterController_PJS>();
+
+    [Header("í—Œí„° ìˆ˜ìš©ëŸ‰")]
+    [SerializeField] private int maxWaitingHunters = 3;
+    [SerializeField] private int maxVillageHunters = 4;
+
+
+    [Header("êµ¬ì—­(ê³µí†µ ë³€ìˆ˜)")]
+    public AreaType _areaType; // í˜¸ì¶œí•  êµ¬ì—­ íƒ€ì…
+    private Queue<HunterController_PJS> _waitingQueue = new Queue<HunterController_PJS>();
+
+    float moveTimer;
+    float moveInterval = 3f;
 
     protected override void Start() 
     {
@@ -46,8 +58,37 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             findingHunters[i].SetArea(villageBox);
         }
     }
+    void OnEnable()
+    {
+        EventBus_YHJ.RequestSpawnHunter += OnRequestSpawnHunter;
+        EventBus_YHJ.RequestPopulation += SendPopulation; // â­ ì¶”ê°€
+    }
 
-    // ÇåÅÍ Á÷¾÷ ·£´ı »ı¼º
+    void OnDisable()
+    {
+        EventBus_YHJ.RequestSpawnHunter -= OnRequestSpawnHunter;
+        EventBus_YHJ.RequestPopulation -= SendPopulation; // â­ ì¶”ê°€
+    }
+    private void OnRequestSpawnHunter()
+    {
+         SpawnHunterToWaiting();
+        Debug.Log($"[ëŒ€ê¸°ì†Œ ìˆ˜] {_waitingHunters.Count}");
+    }
+    void Update()
+    {
+        moveTimer += Time.deltaTime;
+
+        if (moveTimer >= moveInterval)
+        {
+            moveTimer = 0f;
+            TryMoveWaitingHunterToVillage();
+        }
+    }
+    public List<HunterController_PJS> GetWaitingHunters()
+    {
+        return new List<HunterController_PJS>(_waitingHunters);
+    }
+    // í—Œí„° ì§ì—… ëœë¤ ìƒì„±
     public void HunterRandomSpawn()
     {
         HunterJop jop = (HunterJop)Random.Range(1, 5);
@@ -83,7 +124,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         return null;
     }
 
-    // º¸½º / ¸¶¿Õ¼º º¸½º ¼ÒÈ¯½Ã ¸ğµç ÇåÅÍ °­Á¦ ÀÌµ¿
+    // ë³´ìŠ¤ / ë§ˆì™•ì„± ë³´ìŠ¤ ì†Œí™˜ì‹œ ëª¨ë“  í—Œí„° ê°•ì œ ì´ë™
     public void CallAllHuntersToArea()
     {
         for (int i = 0; i < _activeHunters.Count; i++)
@@ -94,9 +135,9 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
                 HunterData_PJS hunterData = hunterController.GetComponent<HunterData_PJS>();
                 if (hunterData != null)
                 {
-                    // º¸½º ±¸¿ªÀ¸·Î º¯°æ
+                    // ë³´ìŠ¤ êµ¬ì—­ìœ¼ë¡œ ë³€ê²½
                     hunterData._areaType = AreaType.AreaFieldBoss;
-                    // ½ÇÁ¦ ÀÌµ¿ÇÒ Äİ¶óÀÌ´õ Ã£¾Æ¼­ SetArea¿¡ ³ÖÀ½
+                    // ì‹¤ì œ ì´ë™í•  ì½œë¼ì´ë” ì°¾ì•„ì„œ SetAreaì— ë„£ìŒ
                     BoxCollider2D bossArea = AreaCollider(AreaType.AreaFieldBoss);
                     hunterController.SetArea(bossArea);
                 }
@@ -104,11 +145,11 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         }
     }
 
-    // ±¸¿ª ÀüÈ¯ / _areaIndex º¯¼ö¿¡ ´ã±ä ¹øÈ£ -> Äİ¶óÀÌ´õ¸¦ ¹İÈ¯
+    // êµ¬ì—­ ì „í™˜ / _areaIndex ë³€ìˆ˜ì— ë‹´ê¸´ ë²ˆí˜¸ -> ì½œë¼ì´ë”ë¥¼ ë°˜í™˜
     public BoxCollider2D AreaCollider(AreaType type)
     {
         int index = (int)type;
-        // ÀÔ·ÂµÈ ÀÎµ¦½º°¡ ¹è¿­ ¹üÀ§ ¾È¿¡ ÀÖ´ÂÁö È®ÀÎ
+        // ì…ë ¥ëœ ì¸ë±ìŠ¤ê°€ ë°°ì—´ ë²”ìœ„ ì•ˆì— ìˆëŠ”ì§€ í™•ì¸
         if (index >= 0 && index < _allArea.Length)
         {
             return _allArea[index];
@@ -129,5 +170,114 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
                 }
             }
         }
+    }
+    public HunterController_PJS SpawnHunterToWaiting()
+    {
+        Debug.Log("í—Œí„° ìƒì„±ë¨ (ëŒ€ê¸°ì†Œ)");
+
+        if (spawnPoint == null)
+        {
+            Debug.LogError("[HunterManager] spawnPointê°€ ë¹„ì–´ ìˆìŒ");
+            return null;
+        }
+
+        HunterJop jop = (HunterJop)Random.Range(1, 5);
+        GameObject[] jopSelect = JopSelect(jop);
+
+        if (jopSelect == null || jopSelect.Length == 0)
+            return null;
+
+        GameObject newHunter = Instantiate
+        (
+            jopSelect[Random.Range(0, jopSelect.Length)],
+            spawnPoint.position,
+            Quaternion.identity
+        );
+
+        HunterData_PJS hunterData = newHunter.GetComponent<HunterData_PJS>();
+        if (hunterData != null)
+        {
+            hunterData.SettingHunterData(jop);
+        }
+
+        HunterController_PJS hunterController = newHunter.GetComponent<HunterController_PJS>();
+
+        if (hunterController == null)
+            return null;
+
+        // â­ ì—¬ê¸°ì„œë§Œ ì²˜ë¦¬í•´ì•¼ í•¨
+        if (_waitingHunters.Count < maxWaitingHunters)
+        {
+            _waitingHunters.Add(hunterController);
+        }
+        else
+        {
+            _waitingQueue.Enqueue(hunterController);
+            Debug.Log("[HunterManager] íì— ì¶”ê°€ë¨");
+        }
+
+        return hunterController;
+    }
+    private void TryMoveWaitingHunterToVillage()
+    {
+        if (_waitingHunters.Count == 0)
+            return;
+
+        if (_activeHunters.Count >= maxVillageHunters)
+            return;
+
+        HunterController_PJS hunter = _waitingHunters[0];
+        if (hunter == null)
+        {
+            _waitingHunters.RemoveAt(0);
+            return;
+        }
+
+        _waitingHunters.RemoveAt(0);
+
+        if (!_activeHunters.Contains(hunter))
+        {
+            _activeHunters.Add(hunter);
+        }
+
+        HunterData_PJS hunterData = hunter.GetComponent<HunterData_PJS>();
+        if (hunterData != null)
+        {
+            hunterData._areaType = AreaType.Village;
+        }
+
+        BoxCollider2D villageBox = AreaCollider(AreaType.Village);
+        if (villageBox != null)
+        {
+            hunter.SetArea(villageBox);
+        }
+
+        Debug.Log("[HunterManager] ëŒ€ê¸° í—Œí„° 1ëª…ì„ ë§ˆì„ë¡œ ì´ë™");
+
+        if (_waitingQueue.Count > 0)
+        {
+            var next = _waitingQueue.Dequeue();
+            _waitingHunters.Add(next);
+
+            Debug.Log("[HunterManager] í â†’ ëŒ€ê¸°ì†Œ ì´ë™");
+        }
+    }
+    public void RemoveWaitingHunter(HunterController_PJS hunter)
+    {
+        if (hunter == null)
+            return;
+
+        if (_waitingHunters.Contains(hunter))
+        {
+            _waitingHunters.Remove(hunter);
+            _waitingQueue.Enqueue(hunter);
+
+            Debug.Log("[HunterManager] í—Œí„°ë¥¼ í ë’¤ë¡œ ì´ë™");
+        }
+    }
+    void SendPopulation()
+    {
+        int current = _activeHunters.Count;
+        EventBus_YHJ.OnPopulationResult?.Invoke(current, 999);
     }
 }
