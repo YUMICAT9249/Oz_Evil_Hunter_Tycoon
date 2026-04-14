@@ -45,12 +45,14 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 
     void OnEnable()
     {
+        // EventBus 구독 -> 스폰 요청 및 체류 인원 확인 요청
         EventBus_YHJ.RequestSpawnHunter += OnRequestSpawnHunter;
         EventBus_YHJ.RequestPopulation += SendPopulation;
     }
 
     void OnDisable()
     {
+        // 오브젝트 비활성화 시 EventBus 구독 해제
         EventBus_YHJ.RequestSpawnHunter -= OnRequestSpawnHunter;
         EventBus_YHJ.RequestPopulation -= SendPopulation;
     }
@@ -71,6 +73,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         }
     }
 
+    // 대기 리스트 상태 변했을 때 UI 갱신용 함수
     private void OnRequestSpawnHunter()
     {
         Debug.Log("[HunterManager_PJS] OnRequestSpawnHunter received");
@@ -125,7 +128,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         foreach (var hunter in _activeHunters)
         {
             if (hunter == null) continue;
-
+            // 헌터 데이터 캐싱
             var data = hunter.GetComponent<HunterData_PJS>();
             if (data != null && data._areaType == areaType)
             {
@@ -173,6 +176,8 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         Debug.Log($"[HunterManager_PJS] Spawned object: {obj.name} at {spawnPoint.position}");
 
         var data = obj.GetComponent<HunterData_PJS>();
+        var controller = obj.GetComponent<HunterController_PJS>();
+
         if (data != null) data.SettingHunterData(jop);
         else Debug.LogWarning("[HunterManager_PJS] Spawned object has no HunterData_PJS");
 
@@ -183,6 +188,7 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             return null;
         }
 
+        // 자리가 남아있으면 추가, 남아있지않으면 대기열
         if (_waitingHunters.Count < maxWaitingHunters)
         {
             _waitingHunters.Add(controller);
@@ -193,7 +199,6 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             _waitingQueue.Enqueue(controller);
             Debug.Log($"[HunterManager_PJS] Waiting full - queued hunter. Queue count: {_waitingQueue.Count}");
         }
-
         return controller;
     }
 
@@ -327,19 +332,21 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     // 대기 → 마을 이동
     private void TryMoveWaitingHunterToVillage()
     {
+        // 대기중인 헌터 없으면 실행 X
         if (_waitingHunters.Count == 0) return;
+        // 헌터가 꽉찼다면 실행 X
         if (_activeHunters.Count >= maxVillageHunters) return;
-
+        
         var hunter = _waitingHunters[0];
-        _waitingHunters.RemoveAt(0);
+        _waitingHunters.RemoveAt(0); // 대기가 가장 긴 헌터 제거
 
-        _activeHunters.Add(hunter);
+        _activeHunters.Add(hunter); // 마을 체류 헌터로 등록
 
+        // 대기걸려있던 헌터가 있고 마을 체류 헌터 자리가 비어있다면 체류자리로 등록
         if (_waitingQueue.Count > 0)
         {
             _waitingHunters.Add(_waitingQueue.Dequeue());
         }
-
         OnWaitingListChanged?.Invoke();
     }
 
@@ -353,7 +360,8 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         }
     }
 
-    void SendPopulation()
+    // 현재 체류중인 헌터 수를 EventBus에 알려줌 (마을 체류 헌터 수 표시)
+    private void SendPopulation()
     {
         Debug.Log($"[HunterManager_PJS] SendPopulation - active: {_activeHunters.Count}, waiting: {_waitingHunters.Count}, total: {GetTotalCount()}/{GetTotalCapacity()}");
         EventBus_YHJ.OnPopulationResult?.Invoke(GetTotalCount(), GetTotalCapacity());
