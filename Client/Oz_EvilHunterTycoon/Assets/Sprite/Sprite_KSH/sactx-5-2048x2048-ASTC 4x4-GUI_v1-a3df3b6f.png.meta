@@ -580,7 +580,7 @@ TextureImporter:
         width: 72
         height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -601,7 +601,7 @@ TextureImporter:
         width: 71
         height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -622,7 +622,7 @@ TextureImporter:
         width: 16
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -630,6 +630,195 @@ TextureImporter:
       bones: []
       spriteID: 3c8a0c09f07ba2e4a973a3d457b61d69
       internalID: -2090180129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Exp_bar
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 1408
+        width: 173
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f4dad8d9e9d0824895bd15a7135765c
+      internalID: 1037867441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_HunterInfo_dmg
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 1685
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dcab0b580e0fd84491fb3616eea06c6
+      internalID: -660198361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_HunterInfo_Hungry
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 1143
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b26051571e52dc24495d7448886f9c8f
+      internalID: 279418226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2
+      rect:
+        serializedVersion: 2
+        x: 1653
+        y: 1435
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78b8e56045077ae42919ea48ef0268a1
+      internalID: -211197213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 896
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 062c7a0b41aa2d643ad0628eee76e128
+      internalID: -502932363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 1740
+        width: 56
+        height: 62
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f360cdf6cadd7d548b4c3e65cd904137
+      internalID: 2097293043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterWait_Icon_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1313
+        width: 74
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1109c8c6189beff4bbef6b67b0b80606
+      internalID: -1853604064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterWait_Icon_02
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 1042
+        width: 74
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05a63e1f39cd2204c8ae91feadba5424
+      internalID: 1388374005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HunterWait_Icon_03
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 1078
+        width: 74
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e55a750c04acd14382e46017a4349cb
+      internalID: -2117154459
       vertices: []
       indices: 
       edges: []
@@ -652,6 +841,10 @@ TextureImporter:
       Difficulty08: 491758140
       Equip_Slot_1: -1233370407
       Equip_Slot_2: -475169704
+      Exp_bar: 1037867441
+      HunterWait_Icon_01: -1853604064
+      HunterWait_Icon_02: 1388374005
+      HunterWait_Icon_03: -2117154459
       Setting_Bg: 49053643
       Setting_Bg01: 401005365
       Setting_Bg02: -87545998
@@ -661,6 +854,8 @@ TextureImporter:
       UI_BackGround01: 1060126939
       UI_BackGround02: 580452708
       UI_BackGround03: -777243497
+      UI_HunterInfo_Hungry: 279418226
+      UI_HunterInfo_dmg: -660198361
       UI_Hunter_Select_BackGround: -312614959
       UI_Selected_BackGround: -1038168250
       bill_3: -2090180129
@@ -669,7 +864,10 @@ TextureImporter:
       difficulty_selectedAnim03: 222582048
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: 1374364888
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 1288762212
+      sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2: -211197213
+      sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3: -502932363
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: 1006406694
+      sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5: 2097293043
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

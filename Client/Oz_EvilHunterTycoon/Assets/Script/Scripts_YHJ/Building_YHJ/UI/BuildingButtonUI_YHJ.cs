@@ -43,21 +43,27 @@ public class BuildingButtonUI_YHJ : MonoBehaviour
             item.transform.Find("Icon").GetComponent<Image>().sprite = cost.icon;
             item.transform.Find("Text").GetComponent<TMP_Text>().text = cost.amount.ToString();
         }
-        
-        
-        if (canBuild)
+
+
+        if (alreadyBuilt)
+        {
+            stateBar.color = Color.gray;
+            statusText.text = "건설됨";
+
+            // 버튼도 비활성화
+            var btn = GetComponent<Button>();
+            if (btn != null)
+                btn.interactable = false;
+
+            // 아이콘도 회색 처리 (선택)
+            icon.color = Color.gray;
+            costArea.gameObject.SetActive(!alreadyBuilt);
+        }
+        else if (canBuild)
         {
             stateBar.color = Color.green;
             statusText.text = "건설";
         }
-        
-        else if (alreadyBuilt)
-        {
-            stateBar.color = Color.gray;
-            statusText.text = "건설 완료"; 
-
-        }
-
         else
         {
             stateBar.color = Color.red;
