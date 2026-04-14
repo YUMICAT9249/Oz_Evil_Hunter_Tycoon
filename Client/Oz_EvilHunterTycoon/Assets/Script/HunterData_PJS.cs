@@ -32,7 +32,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public static Action OnHunterDie;
 
     #region 프로퍼티 외부용
-    public float CurrentHP 
+    public float CurrentHP
     {
         get => _currentHP;
         set
@@ -43,6 +43,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     }
     public float MaxHP => _maxHP;
     public bool IsDead => _currentHP <= 0;
+    public int Gold => _gold;
     #endregion
 
     [Header("기본 데이터 참조")]
@@ -82,7 +83,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     [SerializeField] public int _dodgeChanceScore;    // 회피확률 등급
     [SerializeField] public int _attackCooldownScore; // 공격속도 등급
     [SerializeField] public int _moveSpeedScore;      // 이동속도 등급
-    
+
     [Header("헌터 등급 결과")]
     [SerializeField] public int _totalScore;
     [SerializeField] public HunterRank _hunterRank;
@@ -90,6 +91,18 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     [Header("헌터 환생")]
     [SerializeField] public int _rebirthCount = 0;      // 환생 횟수
     [SerializeField] public float _rebirthBonus = 1.0f; // 환생 보너스 배율
+
+    // 헌터 골드 / 재료 인벤토리 관련
+    private Dictionary<object, int> _inventory = new Dictionary<object, int>();
+    private int _gold = 0;
+
+    // 헌터 장비 슬롯
+    private object _weapon;
+    private object _armor;
+    private object _gloves;
+    private object _boots;
+    private object _ring;
+    private object _necklace;
 
     // 직업별 헌터 이름
     private List<string> beserkerNames = new List<string> { "브란", "샤론", "세나" };
@@ -124,7 +137,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     }
 
     public void LevelUp()
-    { 
+    {
         _currentExp -= _maxExp; // 남은 경험치 유지
         _maxExp *= 2f;          // 필요경험치 복리 2배
         _currentLevel++;        // 레벨 증가
@@ -269,6 +282,8 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _dodgeChance = AddStatsByScore(_unitData.dodgeChance, _dodgeChanceScore) * _rebirthBonus;
         _attackCooldown = AddAttackCooldownByScore(_unitData.attackCooldown, _attackCooldownScore) / _rebirthBonus;
         _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore) * _rebirthBonus;
+
+        ApplyEquipStats(); // 장비 수치 추가
     }
 
     // 점수별 스탯 추가 / 매개변수 사용 => 유지보수, 하나의 함수로 해결가능
@@ -276,7 +291,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     private float AddStatsByScore(float baseValue, int score)
     {
         switch (score)
-        { 
+        {
             case 0: return baseValue * 1.0f;
             case 1: return baseValue * 1.1f;
             case 2: return baseValue * 1.2f;
@@ -297,6 +312,79 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         }
         return baseValue;
     }
+
+    // 최종 스탯계산에 추가하여 넣을 장비 수치
+    private void ApplyEquipStats()
+    { 
+        // 장비 수치 나오면 채워넣을것
+    }
+
+    #region 헌터 인벤토리 연결용
+    public void SetGold(int value) // 골드
+    {
+        _gold = value;
+    }
+
+    public void SetItem(object item) // 재료
+    {
+        if (item == null) return;
+
+        if (_inventory.ContainsKey(item))
+        {
+            _inventory[item]++;
+        }
+        else
+        {
+            _inventory[item] = 1;
+        }
+    }
+
+    public void SetWeapon(object weapon) // 무기 슬롯
+    {
+        _weapon = weapon;
+        FinalStats();
+    }
+
+    public void SetArmor(object armor) // 갑옷 슬롯
+    {
+        _armor = armor;
+        FinalStats();
+    }
+    #endregion
+
+    public void SetGloves(object gloves) // 장갑 슬롯
+    {
+        _gloves = gloves;
+        FinalStats();
+    }
+
+    /*
+    #region 확장용
+    public void SetBoots(object boots) // 부츠 슬롯
+    {
+        _boots = boots;
+        FinalStats();
+    }
+
+    public void SetRing(object ring) // 반지 슬롯
+    {
+        _ring = ring;
+        FinalStats();
+    }
+
+    public void SetNecklace(object necklace) // 목걸이 슬롯
+    { 
+        _necklace = necklace;
+        FinalStats();
+    }
+    #endregion
+    */
+
+    public Dictionary<object, int> GetInventory() // UI
+    { 
+        return _inventory;
+    }
+    
 
     #region Get 함수 => 최종 값만 반환
     public float GetMaxHP() => _maxHP;
