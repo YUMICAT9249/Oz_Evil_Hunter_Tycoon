@@ -1,6 +1,6 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// ¡Ú ¸¶À»È¸°ü ±â¹İ ÇåÅÍ »ı¼º ½Ã½ºÅÛ (·¹º§ ¿¬µ¿)
+// â˜… ë§ˆì„íšŒê´€ ê¸°ë°˜ í—Œí„° ìƒì„± ì‹œìŠ¤í…œ (ë ˆë²¨ ì—°ë™)
 public class TownHallSpawnController_YHJ : MonoBehaviour
 {
     public float spawnInterval = 5f;
@@ -30,10 +30,10 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
 
     void Update()
     {
-        // ¡Ú ÇöÀç ÀÎ±¸ ¿äÃ» (ÇåÅÍÆÀ)
+        // â˜… í˜„ì¬ ì¸êµ¬ ìš”ì²­ (í—Œí„°íŒ€)
         EventBus_YHJ.RequestPopulation?.Invoke();
 
-        // ¡Ú ·¹º§ ±â¹İ ÃÖ´ë ÀÎ±¸ °è»ê
+        // â˜… ë ˆë²¨ ê¸°ë°˜ ìµœëŒ€ ì¸êµ¬ ê³„ì‚°
         maxPopulation = GetMaxPopulation();
 
         canSpawn = currentPopulation < maxPopulation;
@@ -42,12 +42,9 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
             return;
 
         timer += Time.deltaTime;
-
         if (timer >= spawnInterval)
         {
-            timer = 0f;
-
-            Debug.Log($"ÇåÅÍ »ı¼º ¿äÃ» ({currentPopulation}/{maxPopulation})");
+            timer = 1f;
 
             EventBus_YHJ.RequestSpawnHunter?.Invoke();
         }
@@ -55,6 +52,7 @@ public class TownHallSpawnController_YHJ : MonoBehaviour
 
     void OnPopulationResult(int current, int max)
     {
+        currentPopulation = current;
         int levelMax = max;
 
         if (levelComponent != null && levelComponent.CurrentStat != null)
