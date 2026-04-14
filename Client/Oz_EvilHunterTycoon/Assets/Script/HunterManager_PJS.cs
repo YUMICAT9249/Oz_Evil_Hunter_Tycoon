@@ -56,7 +56,6 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     {
         if (levelComponent != null && levelComponent.CurrentStat != null)
         {
-            maxWaitingHunters = levelComponent.CurrentStat.waitingCapacity;
             maxVillageHunters = levelComponent.CurrentStat.capacity;
         }
 
@@ -78,6 +77,20 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     public List<HunterController_PJS> GetWaitingHunters()
     {
         return new List<HunterController_PJS>(_waitingHunters);
+    }
+
+    public void AddExpToHuntersInArea(int expAmount, AreaType areaType)
+    {
+        foreach (var hunter in _activeHunters)
+        {
+            if (hunter == null) continue;
+
+            var data = hunter.GetComponent<HunterData_PJS>();
+            if (data != null && data._areaType == areaType)
+            {
+                data.AddExp(expAmount);
+            }
+        }
     }
 
     // =========================
