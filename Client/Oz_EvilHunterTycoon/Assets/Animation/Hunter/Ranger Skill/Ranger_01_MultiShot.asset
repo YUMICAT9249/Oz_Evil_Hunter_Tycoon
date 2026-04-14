@@ -12,15 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fa76c25478bec478819fc3fe05354a, type: 3}
   m_Name: Ranger_01_MultiShot
   m_EditorClassIdentifier: 
-  skillName: "\uBA40\uD2F0\uC0F7"
-  skillType: 0
+  skillName: 5
+  skillType: 1
   hunterJop: 3
-  maxLevel: 10
+  currentLevel: 1
+  mainSkillMaxLevel: 10
+  subSkillMaxLevel: 5
   cooldownTime: 5
   durationTime: 0
   hitCount: 13
   damageMultiplier: 150
+  hitInterval: 0
+  splashRange: 0
+  targetStat: 0
   statBonus: 0
   probability: 0
   ccDurationTime: 0
-  effectPrefabs: {fileID: 0}
+  effectPrefabs: {fileID: 7755072912657097452, guid: 45670a1709323ff46bf47cbb9acc8fe1, type: 3}

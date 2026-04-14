@@ -12,15 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fa76c25478bec478819fc3fe05354a, type: 3}
   m_Name: Berserker_01_Fury
   m_EditorClassIdentifier: 
-  skillName: "\uD4E8\uB9AC"
-  skillType: 2
+  skillName: 1
+  skillType: 1
   hunterJop: 1
-  maxLevel: 10
+  currentLevel: 1
+  mainSkillMaxLevel: 10
+  subSkillMaxLevel: 5
   cooldownTime: 15
   durationTime: 10
   hitCount: 0
   damageMultiplier: 100
+  hitInterval: 0
+  splashRange: 0
+  targetStat: 0
   statBonus: 400
   probability: 0
   ccDurationTime: 0
-  effectPrefabs: {fileID: 0}
+  effectPrefabs: {fileID: 8367455555190629829, guid: 8b35dee724582c649a763204c383dad8, type: 3}

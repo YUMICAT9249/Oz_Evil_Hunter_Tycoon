@@ -12,15 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fa76c25478bec478819fc3fe05354a, type: 3}
   m_Name: Sorcerer_01_Thunderbolt
   m_EditorClassIdentifier: 
-  skillName: "\uC36C\uB354\uBCFC\uD2B8"
-  skillType: 0
+  skillName: 7
+  skillType: 1
   hunterJop: 4
-  maxLevel: 10
+  currentLevel: 1
+  mainSkillMaxLevel: 10
+  subSkillMaxLevel: 5
   cooldownTime: 5
   durationTime: 0
   hitCount: 5
   damageMultiplier: 250
+  hitInterval: 0
+  splashRange: 0
+  targetStat: 0
   statBonus: 0
   probability: 0
   ccDurationTime: 0
-  effectPrefabs: {fileID: 0}
+  effectPrefabs: {fileID: 3496142630294602505, guid: 282f7ddea4108bb4db92621f63263893, type: 3}

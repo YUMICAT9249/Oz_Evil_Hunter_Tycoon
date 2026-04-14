@@ -12,15 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fa76c25478bec478819fc3fe05354a, type: 3}
   m_Name: Paladin_02_Barrier
   m_EditorClassIdentifier: 
-  skillName: "\uBC30\uB9AC\uC5B4"
-  skillType: 2
+  skillName: 4
+  skillType: 3
   hunterJop: 2
-  maxLevel: 5
+  currentLevel: 1
+  mainSkillMaxLevel: 10
+  subSkillMaxLevel: 5
   cooldownTime: 15
   durationTime: 7
   hitCount: 0
   damageMultiplier: 0
+  hitInterval: 0
+  splashRange: 0
+  targetStat: 0
   statBonus: 60
   probability: 0
   ccDurationTime: 0
-  effectPrefabs: {fileID: 0}
+  effectPrefabs: {fileID: 3773886220428651915, guid: 161f101d6346d2148bcf045642f674cd, type: 3}
