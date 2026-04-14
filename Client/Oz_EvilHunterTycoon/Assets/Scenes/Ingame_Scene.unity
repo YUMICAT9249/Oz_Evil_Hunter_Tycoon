@@ -1786,7 +1786,7 @@ MonoBehaviour:
   uniqueMonster: {fileID: 6698325660374546701, guid: 9a4a1e65171a64f47880d437b57068f8, type: 3}
   monsterData: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   spawnInterval: 5
-  maxMonsterCount: 13
+  maxMonsterCount: 7
   spawnAreaMin: {x: -2, y: -2, z: 0}
   spawnAreaMax: {x: 2, y: 2, z: 0}
 --- !u!1 &162475554
@@ -19003,7 +19003,7 @@ MonoBehaviour:
   uniqueMonster: {fileID: 6698325660374546701, guid: 0cbc634980ca3f2499223d57b0764e67, type: 3}
   monsterData: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   spawnInterval: 5
-  maxMonsterCount: 13
+  maxMonsterCount: 7
   spawnAreaMin: {x: -2, y: -2, z: 0}
   spawnAreaMax: {x: 2, y: 2, z: 0}
 --- !u!1 &1696396025
@@ -21311,7 +21311,7 @@ MonoBehaviour:
   uniqueMonster: {fileID: 6698325660374546701, guid: cc43143dad4d1a54abc792015aa44200, type: 3}
   monsterData: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   spawnInterval: 5
-  maxMonsterCount: 13
+  maxMonsterCount: 7
   spawnAreaMin: {x: -2, y: -2, z: 0}
   spawnAreaMax: {x: 2, y: 2, z: 0}
 --- !u!1 &1883365301

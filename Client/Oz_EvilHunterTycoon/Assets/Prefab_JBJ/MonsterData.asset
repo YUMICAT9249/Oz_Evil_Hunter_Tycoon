@@ -13,8 +13,17 @@ MonoBehaviour:
   m_Name: MonsterData
   m_EditorClassIdentifier: 
   maxHp: 100
-  attackDamage: 10
+  attackDamage: 20
+  attackCooldown: 1.5
   moveSpeed: 0.5
   detectRange: 5
   attackRange: 1.2
-  attackCooldown: 1.5
+  monsterHp: 200
+  uniqueMonsterHp: 350
+  bossHp: 1000
+  hunterName: 
+  hunterJop: 0
+  maxLevel: 100
+  defence: 10
+  criticalChance: 10
+  dodgeChance: 10
