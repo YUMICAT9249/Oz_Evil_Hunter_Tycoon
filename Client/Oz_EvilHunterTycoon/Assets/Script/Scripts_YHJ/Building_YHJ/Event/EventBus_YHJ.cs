@@ -1,43 +1,50 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-// ¡Ú ÀüÃ¼ ½Ã½ºÅÛ ÀÌº¥Æ® Çãºê
+// â˜… ì „ì²´ ì‹œìŠ¤í…œ ì´ë²¤íŠ¸ í—ˆë¸Œ
 public static class EventBus_YHJ
 {
-    // ¡Ú °Ç¹° »óÈ£ÀÛ¿ë ¿äÃ»
+    // â˜… ê±´ë¬¼ ìƒí˜¸ì‘ìš© ìš”ì²­
     public static Action<GameObject, IUnit_YHJ> RequestInteract;
 
-    // ¡Ú »óÈ£ÀÛ¿ë °á°ú
+    // â˜… ìƒí˜¸ì‘ìš© ê²°ê³¼
     public static Action<IUnit_YHJ, InteractionResult_YHJ> OnInteractionResult;
 
-    // ¡Ú ¾ÆÀÌÅÛ Á¦Ãâ ¿äÃ»
+    // â˜… ì•„ì´í…œ ì œì¶œ ìš”ì²­
     public static Action<IUnit_YHJ, string> RequestItemFromUnit;
 
-    // ¡Ú ÆÇ¸Å Ã³¸® ¿äÃ»
+    // â˜… íŒë§¤ ì²˜ë¦¬ ìš”ì²­
     public static Action<IUnit_YHJ, string, int> RequestSellItem;
 
-    // ¡Ú ÇöÀç ÀÎ±¸ ¿äÃ»
+    // â˜… í˜„ì¬ ì¸êµ¬ ìš”ì²­
     public static Action RequestPopulation;
 
-    // ¡Ú ÀÎ±¸ ÀÀ´ä
+    // â˜… ì¸êµ¬ ì‘ë‹µ
     public static Action<int, int> OnPopulationResult;
 
-    // ¡Ú ÇåÅÍ »ı¼º ¿äÃ»
+    // â˜… í—Œí„° ìƒì„± ìš”ì²­
     public static Action RequestSpawnHunter;
 
-    // ¡Ú ±â´É: ½ºÅ³ UI ¿­±â ¿äÃ»
-    // - Æ¯Á¤ À¯´Ö ±âÁØ UI Ç¥½Ã
-    // - ÇöÀç´Â ¼ö½ÅÀÚ ¾øÀ½ (UI ¿¬°á ¿¹Á¤)
+    // â˜… ê¸°ëŠ¥: ìŠ¤í‚¬ UI ì—´ê¸° ìš”ì²­
+    // - íŠ¹ì • ìœ ë‹› ê¸°ì¤€ UI í‘œì‹œ
+    // - í˜„ì¬ëŠ” ìˆ˜ì‹ ì ì—†ìŒ (UI ì—°ê²° ì˜ˆì •)
     public static Action<IUnit_YHJ> RequestOpenSkillUI;
 
-    // ¡Ú ±â´É: º¸½º UI ¿­±â ¿äÃ»
+    // â˜… ê¸°ëŠ¥: ë³´ìŠ¤ UI ì—´ê¸° ìš”ì²­
     public static Action RequestOpenBossUI;
 
-    public static System.Action<IUnit_YHJ, GameObject> RequestProcessUnit;
+    public static Action<IUnit_YHJ, GameObject> RequestProcessUnit;
 
     public static Action<IUnit_YHJ, string, int> OnItemReceived;
 
     public static Action<IUnit_YHJ, string> RequestBuyItem;
 
     public static Action<IUnit_YHJ, string, bool> OnBuyItemResult;
+
+    // â˜… í—Œí„° ê°œì¸ ê³¨ë“œ ì§€ë¶ˆ ìš”ì²­
+    // í—Œí„° ë‹´ë‹¹ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ unitì„ í™•ì¸í•œ ë’¤ resultCallback(true/false)ì„ í˜¸ì¶œí•´ì¤€ë‹¤.
+    public static Action<IUnit_YHJ, int, Action<bool>> RequestSpendUnitGold;
+
+    // â˜… í—Œí„° ê°œì¸ ê³¨ë“œ ì§€ë¶ˆ ê²°ê³¼ ì•Œë¦¼
+    public static Action<IUnit_YHJ, int, bool> OnSpendUnitGoldResult;
 }

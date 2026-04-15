@@ -42,6 +42,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     private HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
     private HashSet<string> builtBuildingIDs = new HashSet<string>();
+    private readonly List<GameObject> buildingButtonObjects = new List<GameObject>();
     private GameObject previewRoot;
     private GameObject previewUI;
     [SerializeField] private GameObject previewUIPrefab;
@@ -112,7 +113,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         foreach (var obj in worldObjects)
         {
-            var instance = obj.GetInstance();
+            // ★ YHJ: Start 순서와 상관없이 초기 배치 건물 Instance/size를 먼저 보장해 점유 칸 누락 방지
+            var instance = obj.EnsurePrePlacedInstance();
 
             if (instance == null)
             {
@@ -120,13 +122,15 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
                 continue;
             }
 
-            // 좌표 계산 (중요)
-            Vector2Int gridPos = WorldToGrid(obj.transform.position);
+            // ★ YHJ: 동적 건설은 GridToWorld + size offset 위치에 배치되므로,
+            // 초기 배치 건물도 같은 기준으로 역산해야 점유칸이 오른쪽/아래로 밀리지 않음
+            Vector3 originWorldPos = GetPrePlacedAnchorWorldPosition(obj) - GetGridOffset(instance.size);
+            Vector2Int gridPos = WorldToGrid(originWorldPos);
 
             instance.origin = gridPos;
             instance.instance = obj.gameObject;
 
-            // size 없으면 기본 1x1 (필요하면 데이터에서 가져오게 개선 가능)
+            // size 없으면 기본 1x1
             if (instance.size == Vector2Int.zero)
                 instance.size = new Vector2Int(1, 1);
 
@@ -185,7 +189,29 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             return;
         }
 
-        buildPanel.SetActive(!buildPanel.activeSelf);
+        bool nextState = !buildPanel.activeSelf;
+        buildPanel.SetActive(nextState);
+
+        if (nextState)
+        {
+            buildPanel.transform.SetAsLastSibling();
+        }
+    }
+
+    Vector3 GetPrePlacedAnchorWorldPosition(BuildingWorldObject_YHJ obj)
+    {
+        Transform visual = obj.transform.Find("Visual");
+        if (visual != null)
+        {
+            float threshold = Mathf.Max(grid.cellSize.x, grid.cellSize.y) * 0.75f;
+            if (Vector2.Distance(obj.transform.position, visual.position) > threshold)
+            {
+                // ★ YHJ: 일부 초기 배치 건물은 루트가 아니라 Visual 자식에 위치가 들어가므로 실제 배치 기준 위치를 보정
+                return visual.position;
+            }
+        }
+
+        return obj.transform.position;
     }
 
     bool IsPointerOverUI()
@@ -249,7 +275,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         Vector3 worldPos = GridToWorld(gridPos);
         worldPos.z = -1f;
 
-        previewRoot.transform.position = worldPos + GetGridOffset();
+        previewRoot.transform.position = worldPos + GetGridOffset(buildingSize);
 
         canPlace = CanPlace(gridPos);
 
@@ -344,9 +370,12 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void GenerateBuildingButtons()
     {
+        ClearBuildingButtons();
+
         foreach (var data in buildings)
         {
             GameObject obj = Instantiate(buildingButtonPrefab, content);
+            buildingButtonObjects.Add(obj);
 
             var ui = obj.GetComponent<BuildingButtonUI_YHJ>();
             if (ui == null) continue;
@@ -381,6 +410,17 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
                 });
             }
         }
+    }
+
+    void ClearBuildingButtons()
+    {
+        foreach (var buttonObject in buildingButtonObjects)
+        {
+            if (buttonObject != null)
+                Destroy(buttonObject);
+        }
+
+        buildingButtonObjects.Clear();
     }
 
     void SelectBuilding(int index)
@@ -422,6 +462,12 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         previewRoot = new GameObject("PreviewRoot");
 
         previewInstance = Instantiate(data.prefab, previewRoot.transform);
+        foreach (var worldObject in previewInstance.GetComponentsInChildren<BuildingWorldObject_YHJ>(true))
+        {
+            // ★ YHJ: 고스트 프리뷰는 실제 건물이 아니므로 초기 배치/맵 등록 로직을 막음
+            worldObject.SetPreviewMode(true);
+        }
+
         previewUI = Instantiate(previewUIPrefab, previewRoot.transform);
 
         var buttons = previewUI.GetComponentsInChildren<ButtonWorld_YHJ>();
@@ -553,7 +599,7 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         var data = buildings[selectedIndex];
 
-        Vector3 finalPos = worldPos + GetGridOffset();
+        Vector3 finalPos = worldPos + GetGridOffset(buildingSize);
         GameObject obj = Instantiate(data.prefab, finalPos, Quaternion.identity);
 
         StartCoroutine(ApplySortingNextFrame(obj));
@@ -582,6 +628,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             instanceData.size = buildingSize;
             instanceData.instance = obj;
             instanceData.occupiedCells = cells;
+            // ★ YHJ: 동적 건설 후 실제 건물 크기 기준으로 헌터 회피용 콜라이더를 다시 맞춤
+            worldObj.RefreshObstacleCollider();
         }
         else
         {
@@ -641,6 +689,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         if (!data.isRoad)
         {
             builtBuildingIDs.Add(data.buildingID);
+            // ★ YHJ: 동적 건설 완료 후 빌드 패널 버튼을 건설됨/비활성화 상태로 즉시 갱신
+            GenerateBuildingButtons();
             CancelPlacement();
         }
 
@@ -684,9 +734,13 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         if (selectedIndex < 0 || selectedIndex >= buildings.Length)
             return Vector3.zero;
 
-        var data = buildings[selectedIndex];
-        float xOffset = 0.5f * (data.size.x - 1) * grid.cellSize.x;
-        float yOffset = -0.5f * (data.size.y - 1) * grid.cellSize.y;
+        return GetGridOffset(buildings[selectedIndex].size);
+    }
+
+    Vector3 GetGridOffset(Vector2Int size)
+    {
+        float xOffset = 0.5f * (size.x - 1) * grid.cellSize.x;
+        float yOffset = -0.5f * (size.y - 1) * grid.cellSize.y;
         return new Vector3(xOffset, yOffset, 0f);
     }
 }

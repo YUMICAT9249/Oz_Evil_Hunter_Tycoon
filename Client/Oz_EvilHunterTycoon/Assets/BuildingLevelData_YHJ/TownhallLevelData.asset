@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9b48d39ab2969749af771055c64d489, type: 3}
-  m_Name: TownhallLevelData
+  m_Name: TownHallLevelData
   m_EditorClassIdentifier: 
   levelStats:
   - level: 1
