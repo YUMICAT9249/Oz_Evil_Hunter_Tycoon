@@ -502,7 +502,6 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
   Hunter: {fileID: 0}
-  lastAttackTime: 0
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -1.5, y: -1.5, z: -1.5}
   maxBounds: {x: 1.5, y: 1.5, z: 1.5}
@@ -550,7 +549,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04, y: -0.09}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -561,7 +560,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.3, y: 0.45}
   m_EdgeRadius: 0
 --- !u!50 &3223526391685412180
 Rigidbody2D:
