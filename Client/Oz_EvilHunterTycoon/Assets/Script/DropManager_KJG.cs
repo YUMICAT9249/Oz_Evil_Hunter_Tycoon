@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// DropManager_KJG
-///
-/// 몬스터 사망 시 재료 드랍을 중앙에서 처리
-/// ExpManager와 완전히 분리되어 있어 유지보수가 매우 쉬움
+/// DropTableSO_KJG와 완전 연동 완료
 /// </summary>
 public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
 {
-    [Header("드랍 설정")]
-    [Tooltip("드랍 확률 (0~1)")]
-    public float dropChance = 0.7f;
+    [Header("드랍 테이블")]
+    [SerializeField] private List<DropTableSO_KJG> dropTables;
+
+    [Header("드랍 프리팹")]
+    [SerializeField] private GameObject dropItemPrefab;
 
     protected override void Awake()
     {
@@ -18,17 +19,33 @@ public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
         Debug.Log("✅ [DropManager_KJG] 드랍 시스템 초기화 완료");
     }
 
-    /// <summary>
-    /// Monster_JBJ.Die()에서 호출됨
-    /// </summary>
     public void DropFromMonster(Monster_JBJ monster)
     {
-        if (monster == null || Random.value > dropChance) return;
+        if (monster == null || dropTables == null || dropTables.Count == 0) return;
 
-        // TODO: 실제 드랍 테이블 SO를 사용해 재료 드랍 (DropTableSO_KJG 연동 예정)
-        Debug.Log($"[DropManager] {monster.displayName} 사망 → 재료 드랍 발생!");
+        Debug.Log($"[DropManager_KJG] {monster.displayName} 사망 → 드랍 시작");
 
-        // 나중에 DropTableSO_KJG와 연결할 부분
-        // Manager_KJG.Building.ConsumeMaterial(...) 등으로 확장 가능
+        foreach (var table in dropTables)
+        {
+            var drops = table.GetDrops();
+            foreach (var drop in drops)
+            {
+                CreateDropItem(drop, monster.transform.position);
+            }
+        }
+    }
+
+    private void CreateDropItem(DropTableSO_KJG.DropEntry drop, Vector3 position)
+    {
+        if (dropItemPrefab == null) return;
+
+        Vector3 spawnPos = position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, Random.Range(-0.5f, 0.5f));
+        var itemGO = Instantiate(dropItemPrefab, spawnPos, Quaternion.identity);
+        var pickup = itemGO.GetComponent<DropItemPickup_KJG>();
+
+        if (pickup != null)
+        {
+            pickup.SetDropData(drop.itemType, drop.amount);
+        }
     }
 }

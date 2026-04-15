@@ -1,13 +1,10 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
-/// 화폐 관리 매니저
-/// 
-/// 특징:
-/// - Manager_KJG.Currency 형태로만 접근 가능
-/// - 직접 .Instance 호출 완전 제거
-/// - 이벤트는 Manager_KJG.Event를 사용
+/// CurrencyManager_KJG
+/// 원작의 Gold, Cash, Exp 시스템 완전 구현
+/// UI 갱신, Save/Load, Building 소비와 완벽 연동
 /// </summary>
 public class CurrencyManager_KJG : BaseManager_KJG<CurrencyManager_KJG>
 {
@@ -20,18 +17,19 @@ public class CurrencyManager_KJG : BaseManager_KJG<CurrencyManager_KJG>
     public float goldMultiplier = 1f;
     public float expMultiplier = 1f;
 
-    public double Gold => gold;
-    public long Exp => exp;
-    public int Cash => cash;
-
+    // 이벤트 (UI 갱신용)
     public event Action<double> OnGoldChanged;
     public event Action<long> OnExpChanged;
     public event Action<int> OnCashChanged;
 
+    public double Gold => gold;
+    public long Exp => exp;
+    public int Cash => cash;
+
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("✅ [CurrencyManager_KJG] 화폐 시스템 초기화 완료");
+        Debug.Log("✅ [CurrencyManager_KJG] 경제 시스템 초기화 완료");
     }
 
     public void AddGold(double amount)
@@ -39,9 +37,8 @@ public class CurrencyManager_KJG : BaseManager_KJG<CurrencyManager_KJG>
         if (amount <= 0) return;
         gold += amount * goldMultiplier;
         gold = Math.Max(0, gold);
-
-        OnGoldChanged?.Invoke(amount);
-        RequestUIRefreshAndSave();
+        OnGoldChanged?.Invoke(gold);
+        RequestSaveAndUIUpdate();
     }
 
     public void AddExp(long amount)
@@ -49,50 +46,56 @@ public class CurrencyManager_KJG : BaseManager_KJG<CurrencyManager_KJG>
         if (amount <= 0) return;
         exp += (long)(amount * expMultiplier);
         exp = Math.Max(0, exp);
-
-        OnExpChanged?.Invoke(amount);
-        RequestUIRefreshAndSave();
+        OnExpChanged?.Invoke(exp);
+        RequestSaveAndUIUpdate();
     }
 
     public void AddCash(int amount)
     {
-        if (amount == 0) return;
+        if (amount <= 0) return;
         cash += amount;
-        cash = Mathf.Max(0, cash);
+        OnCashChanged?.Invoke(cash);
+        RequestSaveAndUIUpdate();
+    }
 
-        OnCashChanged?.Invoke(amount);
-        RequestUIRefreshAndSave();
+    public bool SpendGold(double amount)
+    {
+        if (gold < amount) return false;
+        gold -= amount;
+        OnGoldChanged?.Invoke(gold);
+        RequestSaveAndUIUpdate();
+        return true;
     }
 
     public bool SpendCash(int amount)
     {
-        if (cash >= amount)
-        {
-            cash -= amount;
-            OnCashChanged?.Invoke(-amount);
-            RequestUIRefreshAndSave();
-            return true;
-        }
-        Debug.LogWarning("캐시 부족!");
-        return false;
+        if (cash < amount) return false;
+        cash -= amount;
+        OnCashChanged?.Invoke(cash);
+        RequestSaveAndUIUpdate();
+        return true;
     }
 
-    private void RequestUIRefreshAndSave()
+    private void RequestSaveAndUIUpdate()
     {
-        Manager_KJG.Event.RefreshUI();           // EventManager를 Manager_KJG를 통해 호출
-        Manager_KJG.SaveLoad.GameSave();         // 저장 요청도 Manager_KJG를 통해
+        if (Manager_KJG.SaveLoad != null)
+            Manager_KJG.SaveLoad.GameSave();
+
+        if (Manager_KJG.Event != null)
+            Manager_KJG.Event.RefreshUI();
     }
 
-    public void UpdateMultipliers(int difficultyLevel)
+    // 난이도 변경 시 배율 업데이트
+    public void UpdateMultipliers()
     {
         if (Manager_KJG.Difficulty != null)
         {
             goldMultiplier = Manager_KJG.Difficulty.GetCurrentGoldMultiplier();
             expMultiplier = Manager_KJG.Difficulty.GetCurrentExpMultiplier();
-            Debug.Log($"[Currency] 난이도 배율 업데이트 → Gold:{goldMultiplier:F2} Exp:{expMultiplier:F2}");
         }
     }
 
+    // Save/Load용
     public void SetGold(double value) => gold = Math.Max(0, value);
     public void SetExp(long value) => exp = Math.Max(0, value);
     public void SetCash(int value) => cash = Mathf.Max(0, value);
