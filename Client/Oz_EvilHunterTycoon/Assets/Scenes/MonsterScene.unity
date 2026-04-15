@@ -545,9 +545,12 @@ MonoBehaviour:
   paladinPrefabs: []
   rangerPrefabs: []
   sorcererPrefabs: []
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 368431072}
   _activeHunters: []
-  _areaType: 0
+  _waitingHunters: []
+  maxWaitingHunters: 3
+  maxVillageHunters: 4
+  levelComponent: {fileID: 0}
 --- !u!4 &368431072
 Transform:
   m_ObjectHideFlags: 0

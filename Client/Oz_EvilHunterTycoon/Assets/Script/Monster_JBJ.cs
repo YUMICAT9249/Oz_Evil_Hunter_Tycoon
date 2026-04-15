@@ -15,10 +15,12 @@ public class Monster_JBJ : BaseWorldObject_KJG
     public UnitData_JBJ_PJS data;
 
     public float currentHP;
+    public float lastAttackTime;
     public Transform Hunter;
     public Vector3 moveDirection;
     public Vector3 minBounds;
     public Vector3 maxBounds;
+
 
     Vector3 lastMoveDir;
     SpriteRenderer[] renderers;
@@ -70,7 +72,70 @@ public class Monster_JBJ : BaseWorldObject_KJG
     protected virtual void Update()
     {
         if (isDead) return;
-        // 기존 Update 로직 (원본 그대로 유지)
+
+        stateTimer += Time.deltaTime;
+
+        if (moveDirection != Vector3.zero)
+        {
+            lastMoveDir = moveDirection;
+        }
+
+        if (stateTimer <= 0)
+        {
+            if (isIdle)
+                SetMoveState();
+
+            else
+                SetIdleState();
+        }
+
+        bool isMovingNow = false;
+
+        if (Hunter == null)
+        {
+            FindHunter();
+
+            if (!isIdle)
+            {
+                Move();
+                isMovingNow = true;
+            }
+
+            Flip();
+            animator.SetBool("isMoving", isMovingNow);
+            return;
+        }
+
+        float distance = Vector3.Distance(transform.position, Hunter.position);
+
+        if (distance <= data.detectRange)
+        {  
+            isIdle = false;
+
+            if (distance <= data.attackRange)
+            {
+                Attack();
+                isMovingNow = false;
+            }
+
+            else
+            {
+                ChaseHunter();
+                isMovingNow = true;
+            }
+        }
+
+        else
+        {
+            if (!isIdle)
+            {
+                Move();
+                isMovingNow = true;
+            }
+        }
+
+        Flip();
+        animator.SetBool("isMoving", isMovingNow);
     }
 
     private void FindHunter()
@@ -78,17 +143,146 @@ public class Monster_JBJ : BaseWorldObject_KJG
         Hunter = GameObject.FindWithTag("Hunter")?.transform;
     }
 
+    private void Move()
+    {
+        Vector3 pos = transform.position;
+
+        pos += moveDirection * data.moveSpeed * Time.deltaTime;
+
+        bool bounced = false;
+
+        if (pos.x < minBounds.x || pos.x > maxBounds.x)
+        {
+            moveDirection.x *= -1;
+            bounced = true;
+        }
+
+        if (pos.y < minBounds.y || pos.y > maxBounds.y)
+        {
+            moveDirection.y *= -1;
+            bounced = true;
+        }
+
+        pos.x = Mathf.Clamp(pos.x, minBounds.x, maxBounds.x);
+        pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
+
+        transform.position = pos;
+
+        if (bounced)
+        {
+            moveDirection += new Vector3
+                (
+                    Random.Range(-0.3f, 0.3f),
+                    Random.Range(-0.3f, 0.3f),
+                    0
+                );
+        }
+
+        moveDirection.Normalize();
+    }
+
     private void SetRandomDirection()
     {
-        moveDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
-        lastMoveDir = moveDirection;
+        moveDirection = new Vector3
+            (
+                Random.Range(-1f, 1f),
+                Random.Range(-1f, 1f),
+                0
+            ).normalized;
     }
 
     private void SetMoveState()
     {
-        stateTimer = 0f;
-        moveDuration = Random.Range(2f, 5f);
-        idleDuration = Random.Range(1f, 3f);
+        isIdle = false;
+        moveDuration = Random.Range(2f, 4f);
+        stateTimer = moveDuration;
+
+        SetRandomDirection();
+    }
+
+    private void SetIdleState()
+    {
+        isIdle = true;
+        idleDuration = Random.Range(1f, 2.5f);
+        stateTimer = idleDuration;
+    }
+
+    private void SetFacing(int dir)
+    {
+        if (dir == facingDir) return;
+
+        facingDir = dir;
+
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * -facingDir;
+        transform.localScale = scale;
+    }
+
+    private void ChaseHunter()
+    {
+        Vector3 dir = (Hunter.position - transform.position).normalized;
+
+        transform.position += dir * data.moveSpeed * Time.deltaTime;
+
+        moveDirection = dir;
+
+        if (dir.x > 0) SetFacing(1);
+        else if (dir.x < 0) SetFacing(-1);
+    }
+
+    private void Flip()
+    {
+        if (Mathf.Abs(moveDirection.x) < 0.01f) return;
+
+        int newDir = moveDirection.x > 0 ? 1 : -1;
+
+        if (newDir != facingDir)
+        {
+            facingDir = newDir;
+
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * -facingDir;
+            transform.localScale = scale;
+        }
+    }
+
+    private void Attack()
+    {
+        if (Time.time - lastAttackTime < data.attackCooldown) return;
+
+        lastAttackTime = Time.time;
+
+        animator.SetTrigger("Attack");
+
+        PlayAttackSound();
+
+        Debug.Log("Monster attacks (Hunter)");
+    }
+
+    public void PlayAttackSound()
+    {
+        Manager_KJG.Audio.PlaySFX("Monster Attack");
+    }
+
+    public void DealDamage()
+    {
+        if (Hunter == null || battle == null) return;
+
+        Battle_JBJ_PJS targetBattle = Hunter.GetComponent<Battle_JBJ_PJS>();
+
+        battle.GiveDamage(targetBattle);
+    }
+
+    public void MonsterTakeDamage(float damage)
+    {
+        currentHP -= damage;
+
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+
+        OnHealthChanged(currentHP, maxHp);
     }
 
     protected virtual void Die()
