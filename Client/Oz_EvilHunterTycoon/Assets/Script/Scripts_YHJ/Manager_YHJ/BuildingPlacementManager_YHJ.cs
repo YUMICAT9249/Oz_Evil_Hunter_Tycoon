@@ -46,7 +46,6 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
     private GameObject previewRoot;
     private GameObject previewUI;
     [SerializeField] private GameObject previewUIPrefab;
-
     private bool isPlacing = false;
     private bool canPlace = false;
     private bool isDragging = false;
@@ -57,6 +56,8 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
     Vector3 dragOffset;
     Vector3 mouseDownPos;
     float dragThreshold = 0.1f;
+
+    public static BuildingPlacementManager_YHJ Instance { get; private set; }
 
     bool IsPointerOnPreview()
     {
@@ -70,6 +71,11 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         if (hit == null) return false;
 
         return hit.transform.IsChildOf(previewRoot.transform);
+    }
+
+    void Awake()
+    {
+        Instance = this;
     }
 
     void Start()
@@ -107,6 +113,13 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
         villageBuildArea = areas[0];
     }
+
+    void OnDisable()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
     void RegisterPrePlacedBuildings()
     {
         var worldObjects = FindObjectsOfType<BuildingWorldObject_YHJ>();
@@ -258,6 +271,17 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
         {
             isDragging = false;
         }
+    }
+
+    public bool ShouldBlockCameraDrag()
+    {
+        if (!isPlacing)
+            return false;
+
+        if (isDragging)
+            return true;
+
+        return IsPointerOnPreview();
     }
 
     void UpdatePreviewPosition()

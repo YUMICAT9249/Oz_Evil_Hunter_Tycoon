@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BuildingWorldObject_YHJ : BaseWorldObject_KJG
+public class BuildingWorldObject_YHJ : BaseWorldObject_KJG, OnClick_KSH
 {
     [Header("초기 배치 건물용")]
     [SerializeField] private bool isPrePlaced = false;
@@ -97,6 +97,12 @@ public class BuildingWorldObject_YHJ : BaseWorldObject_KJG
     {
         base.OnClicked();
         Debug.Log("건물 클릭됨: " + displayName);
+    }
+
+    public void OnClick()
+    {
+        // ★ YHJ: KSH 카메라 클릭 Raycast 시스템이 건물도 기존 클릭 로직으로 연결되도록 어댑터 제공
+        OnClicked();
     }
 
     public void RefreshObstacleCollider()

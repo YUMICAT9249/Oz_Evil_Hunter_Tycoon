@@ -16,6 +16,12 @@ public class CameraDrag : MonoBehaviour
     private bool isDragging = false;
     private bool hasDragged = false;
 
+    private bool IsBlockedByBuildingPreview()
+    {
+        return BuildingPlacementManager_YHJ.Instance != null
+            && BuildingPlacementManager_YHJ.Instance.ShouldBlockCameraDrag();
+    }
+
     void Update()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -29,6 +35,9 @@ public class CameraDrag : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (IsBlockedByBuildingPreview())
+                return;
+
             if (EventSystem.current != null &&
                 EventSystem.current.IsPointerOverGameObject())
                 return;
@@ -73,6 +82,12 @@ public class CameraDrag : MonoBehaviour
         }
 
         Touch touch = Input.GetTouch(0);
+
+        if (IsBlockedByBuildingPreview())
+        {
+            isDragging = false;
+            return;
+        }
 
         if (EventSystem.current != null &&
             EventSystem.current.IsPointerOverGameObject(touch.fingerId))
