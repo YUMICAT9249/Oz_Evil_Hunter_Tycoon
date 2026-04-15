@@ -58,10 +58,9 @@ public class Monster_JBJ : BaseWorldObject_KJG
 
     protected override void Start()
     {
-        base.Start();
         currentHP = data.maxHp;
         renderers = GetComponentsInChildren<SpriteRenderer>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInParent<Animator>();
         battle = GetComponent<Battle_JBJ_PJS>();
 
         FindHunter();
