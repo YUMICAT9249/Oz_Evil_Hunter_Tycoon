@@ -583,7 +583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4e9b210e3a9404b9bf277acba3ce75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 0.7
+  dropTables: []
+  dropItemPrefab: {fileID: 0}
 --- !u!4 &1056746536
 Transform:
   m_ObjectHideFlags: 0
