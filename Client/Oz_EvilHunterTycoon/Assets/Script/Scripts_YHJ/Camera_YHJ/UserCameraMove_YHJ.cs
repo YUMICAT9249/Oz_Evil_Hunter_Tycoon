@@ -35,7 +35,6 @@ public class UserCameraMove_YHJ : MonoBehaviour
         }
         else
         {
-            HandleMove();
             camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, zoomSize, zoomSpeed * Time.deltaTime);
         }
             
