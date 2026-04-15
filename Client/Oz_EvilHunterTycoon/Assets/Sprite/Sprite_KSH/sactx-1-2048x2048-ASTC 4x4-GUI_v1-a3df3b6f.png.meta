@@ -286,7 +286,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -307,7 +307,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -315,6 +315,27 @@ TextureImporter:
       bones: []
       spriteID: 37412559d392c1743a6465e4326e6e64
       internalID: -464482706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-1-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1994
+        width: 56
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ee32044dcfedd4b849b75339baeae6
+      internalID: 1806387143
       vertices: []
       indices: 
       edges: []
@@ -340,6 +361,7 @@ TextureImporter:
       Button_yellow03: -997714788
       Button_yellow04: -464482706
       Button_yellow05: 175032712
+      sactx-1-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: 1806387143
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
