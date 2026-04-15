@@ -271,6 +271,9 @@ MonoBehaviour:
   _currentState: 0
   _areaCheck: 0
   _targetBox: {fileID: 0}
+  arrowPrefab: {fileID: 0}
+  fireBallPrefab: {fileID: 0}
+  projectileSpeed: 10
 --- !u!114 &1148836506786982876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitData: {fileID: 11400000, guid: cc6ce1bc5153fd547a702a5caedde20c, type: 2}
   _areaType: 0
-  _hunterJop: 0
+  _hunterJop: 1
   _hunterNameList: 
   _currentLevel: 1
   _currentExp: 0
