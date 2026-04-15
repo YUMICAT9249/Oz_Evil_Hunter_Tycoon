@@ -3298,10 +3298,10 @@ MonoBehaviour:
   HunterClickUI: {fileID: 5145762562561454153}
   HunterInfoUI: {fileID: 8180612810107584680}
   difficultyUI: {fileID: 2539756941956833886}
-  difficultyButtons: []
-  d1: {fileID: 0}
-  d2: {fileID: 0}
-  d3: {fileID: 0}
+  difficultyButtons:
+  - {fileID: 736495695936553674}
+  - {fileID: 8955253010765296573}
+  - {fileID: 7985682424068003950}
   MainGUIButton_Build: {fileID: 9126841193437928864}
   MainGUIButton_Dungeon: {fileID: 5463803857699274073}
   MainGUIButton_HunterInfo: {fileID: 6027473920272300135}
@@ -9165,7 +9165,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9139365549993617681}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10720,7 +10720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -11050,6 +11050,7 @@ RectTransform:
   m_Children:
   - {fileID: 5322143864691418884}
   - {fileID: 2329508412747003702}
+  - {fileID: 961328520261749138}
   - {fileID: 566835300971196611}
   - {fileID: 5472168681280916377}
   - {fileID: 7213619145199390170}
@@ -11057,7 +11058,6 @@ RectTransform:
   - {fileID: 1623020918712434903}
   - {fileID: 2144763716369947347}
   - {fileID: 2231905374809077857}
-  - {fileID: 961328520261749138}
   - {fileID: 1200853608}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16650,7 +16650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -18730,9 +18730,9 @@ RectTransform:
   m_Father: {fileID: 3635099930195441743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3740685512490084868
 MonoBehaviour:
@@ -18912,7 +18912,7 @@ RectTransform:
   m_Father: {fileID: 9118047054742742515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -19499,7 +19499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -26378,7 +26378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &6068351348363949785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -32435,7 +32435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -33989,7 +33989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8348357263169875689
 RectTransform:
   m_ObjectHideFlags: 0
