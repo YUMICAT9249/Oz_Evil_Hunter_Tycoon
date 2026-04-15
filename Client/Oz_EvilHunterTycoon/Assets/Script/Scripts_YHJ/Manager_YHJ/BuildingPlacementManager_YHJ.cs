@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BuildingPlacementManager_YHJ : MonoBehaviour
 {
     [SerializeField] private Grid grid;
+    [SerializeField] private Collider2D villageBuildArea;
 
     [System.Serializable]
     public class BuildingData
@@ -72,10 +73,38 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
 
     void Start()
     {
+        ResolveVillageBuildArea();
         RegisterPrePlacedBuildings();
         GenerateBuildingButtons();
         if (buildPanel != null)
             buildPanel.SetActive(false);
+    }
+
+    void ResolveVillageBuildArea()
+    {
+        if (villageBuildArea != null)
+            return;
+
+        if (HunterManager_PJS.Instance == null)
+            return;
+
+        BoxCollider2D[] areas = HunterManager_PJS.Instance.GetAllAreas();
+        if (areas == null || areas.Length == 0)
+            return;
+
+        foreach (var area in areas)
+        {
+            if (area == null)
+                continue;
+
+            if (area.name.Contains("Village") || area.name.Contains("village") || area.name.Contains("마을"))
+            {
+                villageBuildArea = area;
+                return;
+            }
+        }
+
+        villageBuildArea = areas[0];
     }
     void RegisterPrePlacedBuildings()
     {
@@ -491,12 +520,24 @@ public class BuildingPlacementManager_YHJ : MonoBehaviour
             {
                 Vector2Int checkPos = new Vector2Int(startPos.x + x, startPos.y - y);
 
+                if (!IsInsideVillageBuildArea(checkPos))
+                    return false;
+
                 if (occupied.Contains(checkPos))
                     return false;
             }
         }
 
         return true;
+    }
+
+    bool IsInsideVillageBuildArea(Vector2Int gridPos)
+    {
+        if (villageBuildArea == null)
+            return true;
+
+        Vector3 worldPos = GridToWorld(gridPos);
+        return villageBuildArea.OverlapPoint(worldPos);
     }
 
     void TryPlace()
