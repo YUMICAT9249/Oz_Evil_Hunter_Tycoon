@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Linq;
 
 /// <summary>
-/// [KJG 아키텍처] BuildingManager_YHJ
+/// BuildingManager_YHJ
 ///
 /// BuildingInstance_YHJ와 연동되어 건물을 중앙에서 관리합니다.
 /// </summary>
@@ -14,9 +14,27 @@ public class BuildingManager_YHJ : BaseManager_KJG<BuildingManager_YHJ>
     // public getter 추가 (실무에서 가장 추천하는 방식)
     public List<BuildingInstance_YHJ> Buildings => buildings;
 
+    // ★ KJG 추가: MaterialInventory 참조 (DropItemPickup과 연결하기 위함)
+    private MaterialInventory_YHJ _materialInventory;
+
     protected override void Awake()
     {
         base.Awake();
+
+        // ★ KJG 수정: MaterialInventory 안전하게 찾기 (null 대비)
+        if (MaterialInventory_YHJ.Instance != null)
+        {
+            _materialInventory = MaterialInventory_YHJ.Instance;
+        }
+        else
+        {
+            _materialInventory = FindObjectOfType<MaterialInventory_YHJ>(true);
+        }
+
+        if (_materialInventory == null)
+            Debug.LogError("[BuildingManager] MaterialInventory_YHJ를 찾을 수 없습니다!");
+        else
+            Debug.Log("✅ [BuildingManager] MaterialInventory_YHJ 연결 완료");
     }
 
     protected override void Start()
@@ -59,11 +77,21 @@ public class BuildingManager_YHJ : BaseManager_KJG<BuildingManager_YHJ>
     /// </summary>
     public bool ConsumeMaterial(DropItemType itemType, int amount)
     {
-        Debug.Log($"[BuildingManager_YHJ] {itemType} {amount}개 소비 (업그레이드 비용으로 사용)");
+        // ★ KJG 수정: 실제 MaterialInventory에서 재료 소비 처리
+        if (_materialInventory == null)
+        {
+            Debug.LogError("[BuildingManager] MaterialInventory가 없습니다.");
+            return false;
+        }
 
-        // TODO: 실제 재료 인벤토리나 저장 시스템과 연결
-        // 예: inventory.RemoveMaterial(itemType, amount);
+        string itemID = itemType.ToString();
+        bool success = _materialInventory.RemoveItem(itemID, amount);
 
-        return true; // 소비 성공
+        if (success)
+            Debug.Log($"[BuildingManager] {itemType} {amount}개 소비 성공");
+        else
+            Debug.LogWarning($"[BuildingManager] {itemType} {amount}개 부족");
+
+        return success;
     }
 }

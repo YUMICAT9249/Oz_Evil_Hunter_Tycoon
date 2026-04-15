@@ -2,24 +2,18 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// UIManager_KJG
-/// 
-/// 역할:
-/// - HP Bar 표시
-/// - 오브젝트 클릭 시 기본 UI 표시
-/// - (추가) 건물 클릭 시 건물 UI 처리
+/// [KJG] UIManager_KJG - Phase 1 Core UI 중앙 관리자 (팀원 UiManager 연동 버전)
 /// </summary>
 public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
 {
-    [Header("HP Bar 설정")]
+    [Header("=== HP Bar 설정 ===")]
     [SerializeField] private GameObject hpBarPrefab;
     [SerializeField] private float hpBarYOffset = -1.8f;
 
-    [Header("선택 UI 설정")]
+    [Header("=== 선택 UI 설정 ===")]
     [SerializeField] private GameObject selectionUIPrefab;
 
-    private readonly Dictionary<BaseWorldObject_KJG, HPBar_KJG> _hpBars
-        = new Dictionary<BaseWorldObject_KJG, HPBar_KJG>();
+    private readonly Dictionary<BaseWorldObject_KJG, HPBar_KJG> _hpBars = new Dictionary<BaseWorldObject_KJG, HPBar_KJG>();
 
     protected override void Start()
     {
@@ -31,7 +25,6 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
     private void SubscribeToMapManager()
     {
         if (Manager_KJG.Map == null) return;
-
         Manager_KJG.Map.AddHealthChangedListener(HandleHealthChanged);
         Manager_KJG.Map.AddObjectClickedListener(HandleObjectClicked);
     }
@@ -39,7 +32,6 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
     protected override void OnDestroy()
     {
         base.OnDestroy();
-
         if (Manager_KJG.Map != null)
         {
             Manager_KJG.Map.RemoveHealthChangedListener(HandleHealthChanged);
@@ -47,15 +39,14 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
         }
     }
 
-    // ====================== HP Bar ======================
     private void HandleHealthChanged(BaseWorldObject_KJG obj, float currentHp, float maxHp)
     {
         if (obj == null || obj is BuildingWorldObject_YHJ) return;
 
-        if (!_hpBars.TryGetValue(obj, out var hpBar))
+        if (!_hpBars.ContainsKey(obj))
             CreateHPBar(obj);
 
-        if (_hpBars.TryGetValue(obj, out hpBar))
+        if (_hpBars.TryGetValue(obj, out HPBar_KJG hpBar))
             hpBar.UpdateHP(currentHp, maxHp);
     }
 
@@ -72,22 +63,27 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
             _hpBars[obj] = hpBar;
     }
 
-    // ====================== 클릭 처리 ======================
     private void HandleObjectClicked(BaseWorldObject_KJG clickedObject)
     {
         if (clickedObject == null) return;
 
         Debug.Log($"[UIManager_KJG] {clickedObject.displayName} 클릭");
 
-        // 🔥 건물 먼저 처리 (너 파트)
-        BuildingWorldObject_YHJ building = clickedObject as BuildingWorldObject_YHJ;
-        if (building != null)
+        // 1. 건물 클릭 처리
+        if (clickedObject is BuildingWorldObject_YHJ building)
         {
-            HandleBuildingUI(building);
+            HandleBuildingClicked(building);
             return;
         }
 
-        // 🔹 기본 UI
+        // 2. Hunter 클릭 처리 (팀원 UiManager.TargetHunter와 정확히 맞춤)
+        if (clickedObject is HunterController_PJS hunterController)
+        {
+            UiManager.Instance.TargetHunter(true, hunterController);
+            return;
+        }
+
+        // 3. 일반 오브젝트 클릭 → 선택 UI 표시
         if (selectionUIPrefab != null)
         {
             Vector3 uiPos = clickedObject.transform.position + Vector3.up * 3f;
@@ -95,36 +91,18 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
         }
     }
 
+    private void HandleBuildingClicked(BuildingWorldObject_YHJ building)
+    {
+        Debug.Log($"[UIManager_KJG] 건물 클릭: {building.displayName}");
+        // 추후 Building UI Prefab Instantiate 로직 추가 예정
+    }
+
     public void RemoveHPBar(BaseWorldObject_KJG obj)
     {
-        if (_hpBars.TryGetValue(obj, out var hpBar))
+        if (_hpBars.TryGetValue(obj, out HPBar_KJG hpBar))
         {
             Destroy(hpBar.gameObject);
             _hpBars.Remove(obj);
-        }
-    }
-
-    // ====================== 건물 UI ======================
-    private void HandleBuildingUI(BuildingWorldObject_YHJ building)
-    {
-        var interactions = building.GetComponents<IBuildingInteraction_YHJ>();
-
-        if (interactions == null || interactions.Length == 0)
-        {
-            Debug.Log("인터렉션 없음");
-            return;
-        }
-
-        GameObject ui = Instantiate(selectionUIPrefab,
-            building.transform.position + Vector3.up * 3f,
-            Quaternion.identity);
-
-        Debug.Log($"인터렉션 개수: {interactions.Length}");
-
-        foreach (var interaction in interactions)
-        {
-            string name = interaction.GetType().Name;
-            Debug.Log($"UI 생성 대상: {name}");
         }
     }
 }

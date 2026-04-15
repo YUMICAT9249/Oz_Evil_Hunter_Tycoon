@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// DropItemPickup_KJG - 바닥에 떨어진 드랍 아이템에 붙이는 스크립트
-/// 플레이어가 클릭하면 자동으로 수집됩니다. (원작 스타일)
+/// DropItemPickup_KJG - 바닥에 떨어진 드랍 아이템
+/// 수집 시 MaterialInventory에 실제로 추가
 /// </summary>
 public class DropItemPickup_KJG : MonoBehaviour
 {
@@ -28,18 +28,16 @@ public class DropItemPickup_KJG : MonoBehaviour
         if (_isCollected) return;
         _isCollected = true;
 
-        // Gold은 제외 (원작 고증)
-        if (itemType == DropItemType.Material || itemType == DropItemType.RareMaterial || itemType == DropItemType.Essence)
+        // ★ 수집 성공 → MaterialInventory에 실제 추가
+        if (MaterialInventory_YHJ.Instance != null)
         {
-            // BuildingManager에 재료 소비 요청
-            if (Manager_KJG.Building != null)
-            {
-                bool success = Manager_KJG.Building.ConsumeMaterial(itemType, amount);
-                if (success)
-                {
-                    Debug.Log($"[DropItemPickup_KJG] {itemType} {amount}개 → Building 업그레이드 비용으로 소비");
-                }
-            }
+            string itemID = itemType.ToString();
+            MaterialInventory_YHJ.Instance.AddItem(itemID, amount);
+            Debug.Log($"[DropItemPickup] {itemType} {amount}개 수집 완료 → MaterialInventory 추가");
+        }
+        else
+        {
+            Debug.LogError("[DropItemPickup] MaterialInventory_YHJ.Instance가 없습니다!");
         }
 
         Destroy(gameObject);

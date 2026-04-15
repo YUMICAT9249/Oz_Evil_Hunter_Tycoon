@@ -72,6 +72,11 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             TryMoveWaitingHunterToVillage();
         }
     }
+    //헌터 위치 파악
+    public BoxCollider2D[] GetAllAreas()
+    {
+        return _allArea;
+    }
 
     // 대기 리스트 상태 변했을 때 UI 갱신용 함수
     private void OnRequestSpawnHunter()
