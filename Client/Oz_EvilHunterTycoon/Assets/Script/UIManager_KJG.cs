@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// [KJG] UIManager_KJG - Phase 1 Core UI 중앙 관리자 (팀원 UiManager와 연동)
-/// 
-/// 역할:
-/// - HP Bar (World Space) 관리
-/// - 오브젝트 클릭 시 선택 UI 처리
-/// - 팀원 UiManager와 연동 (DisableMainGUI, TargetHunter 등)
+/// [KJG] UIManager_KJG - Phase 1 Core UI 중앙 관리자 (팀원 UiManager 연동 버전)
 /// </summary>
 public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
 {
@@ -24,7 +19,7 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
     {
         base.Start();
         SubscribeToMapManager();
-        Debug.Log("[UIManager_KJG] 초기화 완료 - HP Bar + 클릭 UI 준비");
+        Debug.Log("[UIManager_KJG] 초기화 완료");
     }
 
     private void SubscribeToMapManager()
@@ -32,6 +27,16 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
         if (Manager_KJG.Map == null) return;
         Manager_KJG.Map.AddHealthChangedListener(HandleHealthChanged);
         Manager_KJG.Map.AddObjectClickedListener(HandleObjectClicked);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (Manager_KJG.Map != null)
+        {
+            Manager_KJG.Map.RemoveHealthChangedListener(HandleHealthChanged);
+            Manager_KJG.Map.RemoveObjectClickedListener(HandleObjectClicked);
+        }
     }
 
     private void HandleHealthChanged(BaseWorldObject_KJG obj, float currentHp, float maxHp)
@@ -64,31 +69,32 @@ public class UIManager_KJG : BaseManager_KJG<UIManager_KJG>
 
         Debug.Log($"[UIManager_KJG] {clickedObject.displayName} 클릭");
 
-        // 1. 건물 클릭
+        // 1. 건물 클릭 처리
         if (clickedObject is BuildingWorldObject_YHJ building)
         {
             HandleBuildingClicked(building);
             return;
         }
 
-        // 2. 일반 오브젝트 클릭 → 팀원 UiManager와 연동
+        // 2. Hunter 클릭 처리 (팀원 UiManager.TargetHunter와 정확히 맞춤)
+        if (clickedObject is HunterController_PJS hunterController)
+        {
+            UiManager.Instance.TargetHunter(true, hunterController);
+            return;
+        }
+
+        // 3. 일반 오브젝트 클릭 → 선택 UI 표시
         if (selectionUIPrefab != null)
         {
             Vector3 uiPos = clickedObject.transform.position + Vector3.up * 3f;
             Instantiate(selectionUIPrefab, uiPos, Quaternion.identity);
-        }
-
-        // 팀원 UiManager와 연동 (Hunter 클릭 시)
-        if (clickedObject is HunterController_PJS hunter)
-        {
-            UiManager.Instance.TargetHunter(true, hunter.GetComponent<HunterUIAction_KSH>());
         }
     }
 
     private void HandleBuildingClicked(BuildingWorldObject_YHJ building)
     {
         Debug.Log($"[UIManager_KJG] 건물 클릭: {building.displayName}");
-        // 추후 Building UI Prefab Instantiate
+        // 추후 Building UI Prefab Instantiate 로직 추가 예정
     }
 
     public void RemoveHPBar(BaseWorldObject_KJG obj)

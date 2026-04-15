@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
-// ¡Ú °ø¿ë ¼ÒÀç ÀÎº¥Åä¸®
+// â˜… ê³µìš© ì†Œì¬ ì¸ë²¤í† ë¦¬
 public class MaterialInventory_YHJ : MonoBehaviour
 {
     public static MaterialInventory_YHJ Instance;
@@ -11,6 +11,11 @@ public class MaterialInventory_YHJ : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        // â˜… KJG ìˆ˜ì •: ì”¬ì´ ë°”ë€Œì–´ë„ ìœ ì§€ë˜ë„ë¡ DontDestroyOnLoad ì ìš©
+        DontDestroyOnLoad(gameObject);
+
+        Debug.Log("âœ… [MaterialInventory_YHJ] ì´ˆê¸°í™” + DontDestroyOnLoad ì™„ë£Œ");
     }
 
     public void AddItem(string id, int amount)
@@ -20,9 +25,9 @@ public class MaterialInventory_YHJ : MonoBehaviour
 
         items[id] += amount;
 
-        Debug.Log($"[Material] {id} +{amount} ¡æ {items[id]}");
+        Debug.Log($"[Material] {id} +{amount} â†’ {items[id]}");
 
-        // ¡Ú UIÆÀÀÌ ¼ÒÀç UI ºÙÀÏ ¶§ ¿©±â ¿¬°á
+        // â˜… UIíŒ€ì´ ì†Œì¬ UI ë¶™ì¼ ë•Œ ì—¬ê¸° ì—°ê²°
         // EventBus_YHJ.OnMaterialChanged?.Invoke(id, items[id]);
     }
 
@@ -33,7 +38,7 @@ public class MaterialInventory_YHJ : MonoBehaviour
 
         items[id] -= amount;
 
-        // ¡Ú UIÆÀÀÌ ¼ÒÀç UI ºÙÀÏ ¶§ ¿©±â ¿¬°á
+        // â˜… UIíŒ€ì´ ì†Œì¬ UI ë¶™ì¼ ë•Œ ì—¬ê¸° ì—°ê²°
         // EventBus_YHJ.OnMaterialChanged?.Invoke(id, items[id]);
 
         return true;
@@ -53,7 +58,7 @@ public class MaterialInventory_YHJ : MonoBehaviour
     }
 
     /// <summary>
-    /// Save/Load¸¦ À§ÇØ ¸ğµç Àç·á µ¥ÀÌÅÍ¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+    /// Save/Loadë¥¼ ìœ„í•´ ëª¨ë“  ì¬ë£Œ ë°ì´í„°ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
     /// </summary>
     public List<SaveLoadManager_KJG.MaterialSaveData> GetAllMaterials()
     {
@@ -70,7 +75,7 @@ public class MaterialInventory_YHJ : MonoBehaviour
     }
 
     /// <summary>
-    /// SaveData¿¡¼­ Àç·á¸¦ ·ÎµåÇÕ´Ï´Ù.
+    /// SaveDataì—ì„œ ì¬ë£Œë¥¼ ë¡œë“œí•©ë‹ˆë‹¤.
     /// </summary>
     public void LoadMaterials(List<SaveLoadManager_KJG.MaterialSaveData> materials)
     {
@@ -80,6 +85,6 @@ public class MaterialInventory_YHJ : MonoBehaviour
             string key = m.itemType.ToString();
             items[key] = m.amount;
         }
-        Debug.Log("[BuildingInventory_YHJ] Àç·á ·Îµå ¿Ï·á");
+        Debug.Log("[BuildingInventory_YHJ] ì¬ë£Œ ë¡œë“œ ì™„ë£Œ");
     }
 }
