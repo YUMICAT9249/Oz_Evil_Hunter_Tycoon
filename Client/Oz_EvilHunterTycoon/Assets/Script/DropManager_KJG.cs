@@ -1,50 +1,34 @@
-using System.Collections.Generic;
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// DropManager_KJG - ¿øÀÛ ½ºÅ¸ÀÏ µå¶ø ¸Å´ÏÀú
-/// ¸ó½ºÅÍ »ç¸Á ½Ã ¹Ù´Ú¿¡ µå¶ø ¾ÆÀÌÅÛ »ı¼º
+/// DropManager_KJG
+///
+/// ëª¬ìŠ¤í„° ì‚¬ë§ ì‹œ ì¬ë£Œ ë“œëì„ ì¤‘ì•™ì—ì„œ ì²˜ë¦¬
+/// ExpManagerì™€ ì™„ì „íˆ ë¶„ë¦¬ë˜ì–´ ìˆì–´ ìœ ì§€ë³´ìˆ˜ê°€ ë§¤ìš° ì‰¬ì›€
 /// </summary>
 public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
 {
-    [Header("µå¶ø Å×ÀÌºí")]
-    [SerializeField] private List<DropTableSO_KJG> dropTables;
+    [Header("ë“œë ì„¤ì •")]
+    [Tooltip("ë“œë í™•ë¥  (0~1)")]
+    public float dropChance = 0.7f;
 
-    [Header("µå¶ø ÇÁ¸®ÆÕ")]
-    [SerializeField] private GameObject dropItemPrefab;
-
-    /// <summary>
-    /// ¸ó½ºÅÍ°¡ Á×À» ¶§ È£Ãâ (Monster_JBJ.cs¿¡¼­ È£Ãâ)
-    /// </summary>
-    public void DropFromMonster(BaseWorldObject_KJG deadMonster)
+    protected override void Awake()
     {
-        if (dropTables == null || dropTables.Count == 0) return;
-
-        Debug.Log($"[DropManager_KJG] {deadMonster.displayName} »ç¸Á ¡æ µå¶ø ½ÃÀÛ");
-
-        foreach (var table in dropTables)
-        {
-            var drops = table.GetDrops();   // ¡ç GetDrops()·Î ¼öÁ¤ (GetRandomDrops ¡æ GetDrops)
-
-            foreach (var drop in drops)
-            {
-                CreateDropItem(drop, deadMonster.transform.position);
-            }
-        }
+        base.Awake();
+        Debug.Log("âœ… [DropManager_KJG] ë“œë ì‹œìŠ¤í…œ ì´ˆê¸°í™” ì™„ë£Œ");
     }
 
-    private void CreateDropItem(DropTableSO_KJG.DropEntry drop, Vector3 position)
+    /// <summary>
+    /// Monster_JBJ.Die()ì—ì„œ í˜¸ì¶œë¨
+    /// </summary>
+    public void DropFromMonster(Monster_JBJ monster)
     {
-        if (dropItemPrefab == null) return;
+        if (monster == null || Random.value > dropChance) return;
 
-        Vector3 spawnPos = position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, Random.Range(-0.5f, 0.5f));
+        // TODO: ì‹¤ì œ ë“œë í…Œì´ë¸” SOë¥¼ ì‚¬ìš©í•´ ì¬ë£Œ ë“œë (DropTableSO_KJG ì—°ë™ ì˜ˆì •)
+        Debug.Log($"[DropManager] {monster.displayName} ì‚¬ë§ â†’ ì¬ë£Œ ë“œë ë°œìƒ!");
 
-        var itemGO = Instantiate(dropItemPrefab, spawnPos, Quaternion.identity);
-
-        var pickup = itemGO.GetComponent<DropItemPickup_KJG>();
-        if (pickup != null)
-        {
-            pickup.SetDropData(drop.itemType, drop.amount);
-        }
+        // ë‚˜ì¤‘ì— DropTableSO_KJGì™€ ì—°ê²°í•  ë¶€ë¶„
+        // Manager_KJG.Building.ConsumeMaterial(...) ë“±ìœ¼ë¡œ í™•ì¥ ê°€ëŠ¥
     }
 }
