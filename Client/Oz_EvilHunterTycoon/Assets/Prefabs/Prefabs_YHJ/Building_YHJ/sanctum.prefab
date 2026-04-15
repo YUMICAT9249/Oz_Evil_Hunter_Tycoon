@@ -254,7 +254,7 @@ MonoBehaviour:
   isPrePlaced: 0
   prePlacedBuildingID: 
   prePlacedLevelData: {fileID: 0}
-  prePlacedSize: {x: 1, y: 1}
+  prePlacedSize: {x: 2, y: 2}
   isPreview: 0
   buildingType: 2
 --- !u!114 &-8100223985567207785
