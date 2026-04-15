@@ -22,9 +22,7 @@ public class UiManager : MonoBehaviour
     public GameObject HunterInfoUI; // 헌터 정보 GUI
     public GameObject difficultyUI; // 난이도 선택 창
     public List<DifficultyButton_KSH> difficultyButtons = new List<DifficultyButton_KSH>();
-    public DifficultyButton_KSH d1;
-    public DifficultyButton_KSH d2;
-    public DifficultyButton_KSH d3;
+    
     
     public GameObject MainGUIButton_Build;
     public GameObject MainGUIButton_Dungeon;
@@ -42,9 +40,7 @@ public class UiManager : MonoBehaviour
     public void Awake()
     {
         Instance = this;
-        difficultyButtons.Add(d1);
-        difficultyButtons.Add(d2);
-        difficultyButtons.Add(d3);
+        
     }
 
     public void SettingBG()
