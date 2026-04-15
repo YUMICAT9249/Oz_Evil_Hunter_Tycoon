@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 766917027724184782}
   - component: {fileID: 3518323577206027627}
   - component: {fileID: 1631270727589620857}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sorcerer_C
   m_TagString: Hunter
   m_Icon: {fileID: 0}

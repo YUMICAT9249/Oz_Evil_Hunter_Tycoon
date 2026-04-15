@@ -557,7 +557,7 @@ GameObject:
   - component: {fileID: 2521235788715515145}
   - component: {fileID: 1854609217641960843}
   - component: {fileID: 8843148204743948241}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ranger_A
   m_TagString: Hunter
   m_Icon: {fileID: 0}

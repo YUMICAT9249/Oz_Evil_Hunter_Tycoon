@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 1148836506786982876}
   - component: {fileID: 993720809616912750}
   - component: {fileID: 6336854405817709896}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Berserker_C
   m_TagString: Hunter
   m_Icon: {fileID: 0}

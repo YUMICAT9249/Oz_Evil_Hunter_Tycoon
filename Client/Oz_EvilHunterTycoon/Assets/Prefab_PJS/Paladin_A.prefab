@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 4979263557358587242}
   - component: {fileID: 1937194379421797426}
   - component: {fileID: 2531228296965979456}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Paladin_A
   m_TagString: Hunter
   m_Icon: {fileID: 0}
