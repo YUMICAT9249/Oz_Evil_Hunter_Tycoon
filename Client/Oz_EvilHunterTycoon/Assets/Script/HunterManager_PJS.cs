@@ -70,6 +70,11 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             TryMoveWaitingHunterToVillage();
         }
     }
+    //헌터 위치 파악
+    public BoxCollider2D[] GetAllAreas()
+    {
+        return _allArea;
+    }
 
     private void OnRequestSpawnHunter()
     {
