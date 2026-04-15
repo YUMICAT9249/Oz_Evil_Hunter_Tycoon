@@ -3,7 +3,7 @@ using System.Collections;
 
 // 헌터 행동(어디로 이동/어떻게 공격) 스크립트
 
-public class HunterController_PJS : BaseWorldObject_KJG
+public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 {
     // [1] 헌터 상태
     private enum HunterState
@@ -493,9 +493,14 @@ public class HunterController_PJS : BaseWorldObject_KJG
     #endregion
 
     #region UI
-    void OnMouseDown()
+    public void OnClick()
     {
-        if (_hunterData == null) return;
+        if (_hunterData == null)
+        {
+            Debug.Log("헌터 정보가 없음");
+            return;
+        }
+            
         HunterData_PJS.InfoHunter = _hunterData;
 
         UiManager.Instance.TargetHunter(true ,this); // Camera
