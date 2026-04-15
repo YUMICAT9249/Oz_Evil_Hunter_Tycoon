@@ -69,10 +69,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -1382,6 +1382,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: arrow
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 1647
+        width: 9
+        height: 33
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4da9ffe33fd946a4eba9ba414cf9519c
+      internalID: 520618549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fireBall
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 1612
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79bb4ad3a03b5574badacdc33a174b70
+      internalID: 1089234541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1439,6 +1481,8 @@ TextureImporter:
       WarCry4: -569535791
       WarCry5: -1169236451
       WarCry6: 2085102798
+      arrow: 520618549
+      fireBall: 1089234541
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_0: -1276641688
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1: 477638310
       sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_10: -1211964178
