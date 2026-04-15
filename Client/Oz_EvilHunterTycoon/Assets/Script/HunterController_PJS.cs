@@ -18,6 +18,11 @@ public class HunterController_PJS : BaseWorldObject_KJG
     [Header("이동 영역")]
     [SerializeField] private BoxCollider2D _targetBox;   // 현재 이동 영역
 
+    [Header("원거리 기본공격")]
+    [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private GameObject fireBallPrefab;
+    [SerializeField] private float projectileSpeed = 10f;
+
     // 최적화를 위한 변수처리 (TryGetComponent, FindWithTag 제거)
     private HunterData_PJS _hunterData;
     private HunterSkill_PJS _hunterSkill;
@@ -384,10 +389,56 @@ public class HunterController_PJS : BaseWorldObject_KJG
 
                 _animator.SetTrigger("Attack");
 
-                // 데미지 처리 (전투 스크립트 호출)
-                if (_battle != null && _targetBattle != null)
+                // [원거리] 데미지 처리
+                if (_hunterData._attackRange > 1.5f)
                 {
-                    _battle.GiveDamage(_targetBattle);
+                    GameObject projectilePrefab = null;
+                    // 레인저, 소서러 투사체 선택
+                    if (_hunterData._hunterJop == HunterJop.Ranger)
+                    {
+                        projectilePrefab = arrowPrefab;
+                    }
+                    else if (_hunterData._hunterJop == HunterJop.Sorcerer)
+                    {
+                        projectilePrefab = fireBallPrefab;
+                    }
+
+                    if (projectilePrefab != null)
+                    {
+                        // 투사체 생성
+                        GameObject projectile = Instantiate
+                            (
+                                projectilePrefab,
+                                transform.position,
+                                Quaternion.identity
+                            );
+                        // 방향 계산
+                        Vector2 direction = (_targetMonster.transform.position - transform.position).normalized;
+                        // 회전 / 오른쪽 기준
+                        projectile.transform.right = direction;
+                        // 발사체 이동
+                        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+                        if (rb != null)
+                        {
+                            rb.velocity = direction * projectileSpeed;
+                        }
+                        Collider2D myCollider = GetComponent<Collider2D>();
+                        Collider2D projectileCollider = projectile.GetComponent<Collider2D>();
+
+                        if (myCollider != null && projectileCollider != null)
+                        {
+                            Physics2D.IgnoreCollision(projectileCollider, myCollider);
+                        }
+                    }
+                }
+
+                // [근거리] 데미지 처리 (전투 스크립트 호출)
+                else
+                {
+                    if (_battle != null && _targetBattle != null)
+                    {
+                        _battle.GiveDamage(_targetBattle);
+                    }
                 }
                 _lastAttackTime = Time.time;
 
