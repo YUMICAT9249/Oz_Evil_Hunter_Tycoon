@@ -67,4 +67,20 @@ public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
             pickup.SetDropData(drop.itemType, drop.amount, drop.iconSprite);
         }
     }
+
+    /// <summary>
+    /// 특정 드랍 테이블만 처리 (Monster_JBJ에서 호출)
+    /// </summary>
+    public void DropFromTable(DropTableSO_KJG table, Vector3 position)
+    {
+        if (table == null) return;
+
+        Debug.Log($"[DropManager_KJG] {table.name} 테이블 처리 시작");
+        var drops = table.GetDrops();
+
+        foreach (var drop in drops)
+        {
+            CreateDropItem(drop, position);
+        }
+    }
 }
