@@ -1,0 +1,31 @@
+﻿%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
+  m_Name: Defence Potion 1
+  m_EditorClassIdentifier: 
+  itemID: Defence Potion 1
+  itemName: Defence Potion 1
+  icon: {fileID: -2138087679, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemKind: 1
+  effectType: 3
+  value: 0
+  isStackable: 1
+  equipmentSlot: 0
+  equipmentHunterJop: 0
+  hp: 0
+  damage: 0
+  defence: 0
+  criticalChance: 0
+  dodgeChance: 0
+  attackCooldown: 0
+  moveSpeed: 0
+  itemPrefab: {fileID: 7248872194341645886, guid: 770188e27e6c3ad499ec9d55967ae949, type: 3}

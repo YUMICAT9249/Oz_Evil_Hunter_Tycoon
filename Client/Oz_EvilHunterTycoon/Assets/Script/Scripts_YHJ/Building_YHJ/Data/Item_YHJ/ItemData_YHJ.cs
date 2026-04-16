@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum ItemKind_YHJ
 {
-    Bandage,      // 붕대 (치료소)
-    Potion,       // 포션 (전투)
-    Equipment,    // 장비
-    Material      // 재료 (드랍/제작)
+    Bandage,
+    Potion,
+    Equipment,
+    Material
 }
+
 public enum ItemEffectType_YHJ
 {
     None,
@@ -61,24 +63,26 @@ public class ItemData_YHJ : ScriptableObject
     public float attackCooldown;
     public float moveSpeed;
 
-    // 무기장착 프리팹 교체
-    public GameObject weaponPrefab;
+    [Header("Prefab")]
+    [FormerlySerializedAs("weaponPrefab")]
+    public GameObject itemPrefab;
 
-    // ★ YHJ TODO: HunterData_PJS.SetWeapon/SetArmor/SetGloves/SetBoots에서
-    // itemID로 ItemData_YHJ를 가져온 뒤 itemKind, equipmentSlot, equipmentHunterJop을 먼저 검사해서 장착 가능 여부를 확인할 것
     public bool IsEquipmentItem()
     {
         return itemKind == ItemKind_YHJ.Equipment;
     }
 
-    // ★ YHJ TODO: 헌터 직업과 장비 직업 제한이 맞는지 확인하는 공용 체크 함수
     public bool CanEquip(HunterJop hunterJop)
     {
         if (!IsEquipmentItem())
+        {
             return false;
+        }
 
         if (equipmentHunterJop == EquipmentHunterJop_YHJ.Public)
+        {
             return true;
+        }
 
         switch (equipmentHunterJop)
         {
@@ -98,13 +102,11 @@ public class ItemData_YHJ : ScriptableObject
         return false;
     }
 
-    // ★ YHJ TODO: HunterData의 슬롯별 Set 함수에서 현재 슬롯과 장비 슬롯이 일치하는지 검사할 것
     public bool IsMatchSlot(EquipmentSlot_YHJ slot)
     {
         return IsEquipmentItem() && equipmentSlot == slot;
     }
 
-    // ★ YHJ TODO: HunterData_PJS의 EquipStat에 그대로 복사해서 쓰기 위한 장비 수치 변환 함수
     public EquipStat ToEquipStat()
     {
         EquipStat stat = new EquipStat();

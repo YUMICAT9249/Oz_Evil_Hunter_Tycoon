@@ -1,0 +1,31 @@
+﻿%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
+  m_Name: Speed Potion 1
+  m_EditorClassIdentifier: 
+  itemID: Speed Potion 1
+  itemName: Speed Potion 1
+  icon: {fileID: -398590007, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemKind: 1
+  effectType: 3
+  value: 0
+  isStackable: 1
+  equipmentSlot: 0
+  equipmentHunterJop: 0
+  hp: 0
+  damage: 0
+  defence: 0
+  criticalChance: 0
+  dodgeChance: 0
+  attackCooldown: 0
+  moveSpeed: 0
+  itemPrefab: {fileID: 5511975772359141802, guid: 2eeebdea9ef80734e9e5bb3647288c81, type: 3}

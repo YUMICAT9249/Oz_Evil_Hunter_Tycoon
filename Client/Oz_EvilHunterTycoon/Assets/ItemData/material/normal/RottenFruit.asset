@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -27,4 +27,6 @@ MonoBehaviour:
   criticalChance: 0
   dodgeChance: 0
   attackCooldown: 0
-  moveSpeed: 0
+
+  itemPrefab: {fileID: , guid: 7efd5faafab84719a908da426888a35a, type: 3}
+

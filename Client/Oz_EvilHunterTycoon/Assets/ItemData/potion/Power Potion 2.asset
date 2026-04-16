@@ -1,0 +1,31 @@
+﻿%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
+  m_Name: Power Potion 2
+  m_EditorClassIdentifier: 
+  itemID: Power Potion 2
+  itemName: Power Potion 2
+  icon: {fileID: 422721350, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemKind: 1
+  effectType: 3
+  value: 0
+  isStackable: 1
+  equipmentSlot: 0
+  equipmentHunterJop: 0
+  hp: 0
+  damage: 0
+  defence: 0
+  criticalChance: 0
+  dodgeChance: 0
+  attackCooldown: 0
+  moveSpeed: 0
+  itemPrefab: {fileID: 27205418766082779, guid: 395521b615690b64da709d7bf857e965, type: 3}
