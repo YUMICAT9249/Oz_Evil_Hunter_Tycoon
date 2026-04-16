@@ -55,18 +55,32 @@ public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
 
     private void CreateDropItem(DropTableSO_KJG.DropEntry drop, Vector3 position)
     {
-        Vector3 spawnPos = position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, Random.Range(-0.5f, 0.5f));
-        var itemGO = Instantiate(dropItemPrefab, spawnPos, Quaternion.identity);
-        var pickup = itemGO.GetComponent<DropItemPickup_KJG>();
+        if (dropItemPrefab == null) return;
 
+        Vector3 spawnPos = position + new Vector3(Random.Range(-0.5f, 0.5f), 0.3f, Random.Range(-0.5f, 0.5f));
+        var itemGO = Instantiate(dropItemPrefab, spawnPos, Quaternion.identity);
+
+        var pickup = itemGO.GetComponent<DropItemPickup_KJG>();
         if (pickup != null)
         {
-            pickup.SetDropData(drop.itemType, drop.amount);
-            Debug.Log($"[DropManager_KJG] 드랍 아이템 생성 성공: {drop.itemType} x {drop.amount}");
+            // ★ KJG 수정: iconSprite도 같이 넘김
+            pickup.SetDropData(drop.itemType, drop.amount, drop.iconSprite);
         }
-        else
+    }
+
+    /// <summary>
+    /// 특정 드랍 테이블만 처리 (Monster_JBJ에서 호출)
+    /// </summary>
+    public void DropFromTable(DropTableSO_KJG table, Vector3 position)
+    {
+        if (table == null) return;
+
+        Debug.Log($"[DropManager_KJG] {table.name} 테이블 처리 시작");
+        var drops = table.GetDrops();
+
+        foreach (var drop in drops)
         {
-            Debug.LogError("[DropManager_KJG] DropItemPickup_KJG 컴포넌트가 Prefab에 없습니다!");
+            CreateDropItem(drop, position);
         }
     }
 }
