@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System;
 
 /// <summary>
-/// SaveLoadManager_KJG - 최종 보강 버전
-///
-/// - Building currentLevel 완전 복원
-/// - MaterialInventory_YHJ (드랍 재료) 
-/// - Audio 볼륨 저장/로드
-/// - Achievement 저장/로드
+/// [KJG 실무 최고 수준] SaveLoadManager_KJG
+/// 
+/// - MaterialInventory (드랍 재료)
+/// - Building currentLevel + capacity, workSpeed 등
+/// - HunterData (exp, level, rebirth, rank 등)
+/// - Currency (Gold, Cash, Exp)
+/// - Audio 볼륨
+/// - Achievement
 /// </summary>
 public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
 {
@@ -18,30 +20,62 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
     public class SaveData
     {
         public double Gold = 0;
+        public long Exp = 0;
+        public int Cash = 0;
         public int DifficultyLevel = 1;
 
         public List<HunterSaveData> Hunters = new List<HunterSaveData>();
         public List<BuildingSaveData> Buildings = new List<BuildingSaveData>();
-        public List<MaterialSaveData> Materials = new List<MaterialSaveData>();   // 드랍 재료 저장
+        public List<MaterialSaveData> Materials = new List<MaterialSaveData>();
+
         public List<string> UnlockedAchievements = new List<string>();
 
-        // Audio 볼륨
+        // Audio
         public float MasterVolume = 1f;
         public float BGMVolume = 0.8f;
         public float SFXVolume = 1f;
     }
 
-    [Serializable] public class HunterSaveData { public string hunterName; public HunterJop job; public int level = 1; public int exp = 0; public AreaType areaType = AreaType.Village; }
-    [Serializable] public class BuildingSaveData { public string buildingID; public int currentLevel = 1; public Vector2Int gridPosition; }
-    [Serializable] public class MaterialSaveData { public DropItemType itemType; public int amount = 0; }
+    [Serializable]
+    public class HunterSaveData
+    {
+        public string hunterName;
+        public HunterJop job;
+        public int level = 1;
+        public long exp = 0;                    // long으로 유지 (큰 숫자 대응)
+        public AreaType areaType = AreaType.Village;
+        public int rebirthCount = 0;
+        public HunterRank rank = HunterRank.Normal;
+    }
+
+    [Serializable]
+    public class BuildingSaveData
+    {
+        public string buildingID;
+        public int currentLevel = 1;
+        public Vector2Int gridPosition;
+        public int capacity;
+        public float workSpeed;
+    }
+
+    [Serializable]
+    public class MaterialSaveData
+    {
+        public DropItemType itemType;
+        public int amount = 0;
+    }
 
     // ==================== 저장 ====================
     public void GameSave()
     {
         SaveData data = new SaveData();
-        data.Gold = Manager_KJG.Currency.Gold;
 
-        // Hunter 저장 (기존)
+        // Currency
+        data.Gold = Manager_KJG.Currency.Gold;
+        data.Exp = Manager_KJG.Currency.Exp;
+        data.Cash = Manager_KJG.Currency.Cash;
+
+        // Hunter 저장
         if (Manager_KJG.Hunter != null)
         {
             foreach (var hunter in Manager_KJG.Hunter._activeHunters)
@@ -55,13 +89,15 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
                     hunterName = hData._hunterNameList,
                     job = hData._hunterJop,
                     level = hData._currentLevel,
-                    exp = 0,
-                    areaType = hData._areaType
+                    exp = (long)hData._currentExp,           // ★ float → long 명시적 캐스트
+                    areaType = hData._areaType,
+                    rebirthCount = hData._rebirthCount,
+                    rank = hData._hunterRank
                 });
             }
         }
 
-        // Building currentLevel 저장 (기존)
+        // Building 저장
         if (Manager_KJG.Building != null)
         {
             foreach (var building in Manager_KJG.Building.Buildings)
@@ -71,12 +107,14 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
                 {
                     buildingID = building.buildingID,
                     currentLevel = building.currentLevel,
-                    gridPosition = building.origin
+                    gridPosition = building.origin,
+                    capacity = building.capacity,
+                    workSpeed = building.workSpeed
                 });
             }
         }
 
-        // ★★★ MaterialInventory_YHJ (드랍 재료) 저장 - 원작 고증 핵심
+        // MaterialInventory 저장
         var materialInventory = FindObjectOfType<MaterialInventory_YHJ>();
         if (materialInventory != null)
         {
@@ -95,7 +133,7 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
         PlayerPrefs.SetString(SAVE_KEY, json);
         PlayerPrefs.Save();
 
-        Debug.Log("[SaveLoadManager_KJG] 저장 완료 (Building + MaterialInventory + Audio 포함)");
+        Debug.Log("[SaveLoadManager_KJG] 저장 완료");
     }
 
     // ==================== 로드 ====================
@@ -111,9 +149,12 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
         string json = PlayerPrefs.GetString(SAVE_KEY);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
+        // Currency 로드
         Manager_KJG.Currency.SetGold(data.Gold);
+        Manager_KJG.Currency.SetExp(data.Exp);
+        Manager_KJG.Currency.SetCash(data.Cash);
 
-        // Building currentLevel 복원
+        // Building 로드
         if (Manager_KJG.Building != null)
         {
             foreach (var saved in data.Buildings)
@@ -122,12 +163,13 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
                 if (target != null)
                 {
                     target.currentLevel = saved.currentLevel;
-                    Debug.Log($"[SaveLoad] {saved.buildingID} 레벨 {saved.currentLevel}로 복원");
+                    target.capacity = saved.capacity;
+                    target.workSpeed = saved.workSpeed;
                 }
             }
         }
 
-        // ★★★ MaterialInventory_YHJ (드랍 재료) 로드 - 원작 고증 핵심
+        // MaterialInventory 로드
         var materialInventory = FindObjectOfType<MaterialInventory_YHJ>();
         if (materialInventory != null)
         {
@@ -142,7 +184,7 @@ public class SaveLoadManager_KJG : BaseManager_KJG<SaveLoadManager_KJG>
             Manager_KJG.Audio.SetSFXVolume(data.SFXVolume);
         }
 
-        Debug.Log("[SaveLoadManager_KJG] 로드 완료 (모든 데이터 완전 복원)");
+        Debug.Log("[SaveLoadManager_KJG] 로드 완료");
     }
 
     public void NewGameSetup()
