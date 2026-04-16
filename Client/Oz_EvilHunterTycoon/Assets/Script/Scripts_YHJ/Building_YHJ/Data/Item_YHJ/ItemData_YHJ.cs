@@ -67,6 +67,8 @@ public class ItemData_YHJ : ScriptableObject
     [FormerlySerializedAs("weaponPrefab")]
     public GameObject itemPrefab;
 
+    public GameObject weaponPrefab => itemPrefab;
+
     public bool IsEquipmentItem()
     {
         return itemKind == ItemKind_YHJ.Equipment;
