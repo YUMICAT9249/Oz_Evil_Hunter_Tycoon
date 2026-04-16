@@ -2,7 +2,7 @@
 
 /// <summary>
 /// 난이도 관리 매니저
-/// 
+///
 /// 특징:
 /// - Manager_KJG.Difficulty 형태로만 접근
 /// - 난이도 업그레이드, 배율 관리 등을 Manager_KJG를 통해 사용
@@ -39,9 +39,7 @@ public class DifficultyManager_KJG : BaseManager_KJG<DifficultyManager_KJG>
     {
         if (currentDifficultyLevel >= difficultyNames.Length - 1)
             return false;
-
-        // HunterManager와 연동은 나중에
-        return true; // 테스트용
+        return true; // 테스트용 (나중에 HunterManager와 연동 가능)
     }
 
     public void UpgradeDifficulty()
@@ -49,23 +47,17 @@ public class DifficultyManager_KJG : BaseManager_KJG<DifficultyManager_KJG>
         if (!CanUpgradeDifficulty()) return;
 
         currentDifficultyLevel++;
-
         Debug.Log($"난이도 업그레이드 완료 → {GetCurrentDifficultyName()}");
 
         OnDifficultyChanged?.Invoke(currentDifficultyLevel);
 
-        // ★ YHJ: CurrencyManager_KJG.UpdateMultipliers는 현재 인자를 받지 않으므로 호출 형식을 맞춰 컴파일 에러를 수정
-        // ★ YHJ: 난이도 상승 직후 골드/경험치 배율이 정상 반영되도록 배율 갱신 기능을 유지
+        // ★ KJG 수정: CurrencyManager의 UpdateMultipliers()는 인자를 받지 않음
+        // 내부에서 DifficultyManager를 조회해서 배율을 자동 업데이트하도록 호출
         if (Manager_KJG.Currency != null)
             Manager_KJG.Currency.UpdateMultipliers();
 
-        // ★ YHJ: 매니저 초기화 순서에 따라 null일 수 있어 임시 런타임 에러를 막기 위해 안전 검사 추가
-        if (Manager_KJG.Event != null)
-            Manager_KJG.Event.RefreshUI();
-
-        // ★ YHJ: 세이브 매니저가 준비된 경우에만 저장해 null 참조 에러를 방지
-        if (Manager_KJG.SaveLoad != null)
-            Manager_KJG.SaveLoad.GameSave();
+        Manager_KJG.Event.RefreshUI();
+        Manager_KJG.SaveLoad.GameSave();
     }
 
     public float GetCurrentGoldMultiplier()
