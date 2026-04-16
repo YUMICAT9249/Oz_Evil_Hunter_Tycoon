@@ -23,6 +23,18 @@ public enum HunterRank
     Legendary,
     Ultimate
 }
+
+public struct EquipStat
+{
+    public float hp;
+    public float damage;
+    public float defence;
+    public float criticalChance;
+    public float dodgeChance;
+    public float attackCooldown;
+    public float moveSpeed;
+}
+
 public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 {
     public Action<float, float> OnHpChanged;
@@ -51,59 +63,61 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public UnitData_JBJ_PJS _unitData;
 
     [Header("헌터 기본 정보")]
-    [SerializeField] public AreaType _areaType; // 위치 확인용
-    [SerializeField] public HunterJop _hunterJop; // 헌터이름을 랜덤으로 생성할 직업타입
+    [SerializeField] public AreaType _areaType;     // 위치 확인용
+    [SerializeField] public HunterJop _hunterJop;   // 헌터이름을 랜덤으로 생성할 직업타입
     [SerializeField] public string _hunterNameList; // 랜덤으로 생성된 이름을 담는 변수
 
     [Header("레벨 / 경험치")]
-    [SerializeField] public int _currentLevel = 1; // 현재 레벨
-    [SerializeField] public float _currentExp; // 현재 경험치
-    [SerializeField] public float _maxExp = 100; // 최대 경험치 초기값
+    [SerializeField] public int _currentLevel = 1;  // 현재 레벨
+    [SerializeField] public float _currentExp;      // 현재 경험치
+    [SerializeField] public float _maxExp = 100;    // 최대 경험치 초기값
 
     [Header("현재 체력")]
     [SerializeField] public float _currentHP = 100.0f; // 현재 체력
 
     [Header("헌터 최종 스탯")]
-    [SerializeField] public float _maxHP; // 합산 최대HP
-    [SerializeField] public float _damage; // 합산 공격력
-    [SerializeField] public float _defence; // 합산 방어력
-    [SerializeField] public float _criticalChance; // 합산 치명타확률
-    [SerializeField] public float _dodgeChance; // 합산 회피확률
-    [SerializeField] public float _attackCooldown; // 합산 공격 속도
-    [SerializeField] public float _moveSpeed; // 합산 이동 속도
+    [SerializeField] public float _maxHP;           // 합산 최대HP
+    [SerializeField] public float _damage;          // 합산 공격력
+    [SerializeField] public float _defence;         // 합산 방어력
+    [SerializeField] public float _criticalChance;  // 합산 치명타확률
+    [SerializeField] public float _dodgeChance;     // 합산 회피확률
+    [SerializeField] public float _attackCooldown;  // 합산 공격 속도
+    [SerializeField] public float _moveSpeed;       // 합산 이동 속도
 
     [Header("탐지 / 공격 범위")]
     [SerializeField] public float _detectRange; // 탐지 범위
     [SerializeField] public float _attackRange; // 공격 사거리
 
     [Header("스탯 점수 (0:하급(흰색) 1:중급(파란색) 2:상급(주황색) 3:최상급(보라색))")]
-    [SerializeField] public int _hpScore; // HP 등급
-    [SerializeField] public int _damageScore; // 공격력 등급
-    [SerializeField] public int _defenceScore; // 방어력 등급
-    [SerializeField] public int _criticalChanceScore; // 치명타확률 등급
-    [SerializeField] public int _dodgeChanceScore; // 회피확률 등급
-    [SerializeField] public int _attackCooldownScore; // 공격속도 등급
-    [SerializeField] public int _moveSpeedScore; // 이동속도 등급
+    [SerializeField] public int _hpScore;               // HP 등급
+    [SerializeField] public int _damageScore;           // 공격력 등급
+    [SerializeField] public int _defenceScore;          // 방어력 등급
+    [SerializeField] public int _criticalChanceScore;   // 치명타확률 등급
+    [SerializeField] public int _dodgeChanceScore;      // 회피확률 등급
+    [SerializeField] public int _attackCooldownScore;   // 공격속도 등급
+    [SerializeField] public int _moveSpeedScore;        // 이동속도 등급
 
     [Header("헌터 등급 결과")]
     [SerializeField] public int _totalScore;
     [SerializeField] public HunterRank _hunterRank;
 
     [Header("헌터 환생")]
-    [SerializeField] public int _rebirthCount = 0; // 환생 횟수
+    [SerializeField] public int _rebirthCount = 0;      // 환생 횟수
     [SerializeField] public float _rebirthBonus = 1.0f; // 환생 보너스 배율
 
     // 헌터 골드 / 재료 인벤토리 관련
-    private Dictionary<object, int> _inventory = new Dictionary<object, int>();
+    private Dictionary<string, int> _inventory = new Dictionary<string, int>();
     private int _gold = 0;
 
-    // 헌터 장비 슬롯
-    private object _weapon;
-    private object _armor;
-    private object _gloves;
-    private object _boots;
-    private object _ring;
-    private object _necklace;
+    // 장비 ID / 헌터 장비 슬롯
+    private string _weaponId;
+    private EquipStat _weapon;
+    private string _armorId;
+    private EquipStat _armor;
+    private string _glovesId;
+    private EquipStat _gloves;
+    private string _bootsId;
+    private EquipStat _boots;
 
     // 직업별 헌터 이름
     private List<string> beserkerNames = new List<string> { "브란", "샤론", "세나" };
@@ -308,18 +322,40 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         return baseValue;
     }
 
-    // 최종 스탯계산에 추가하여 넣을 장비 수치
+    #region 최종 스탯계산에 추가하여 넣을 장비 수치
+    private void ApplyStat(EquipStat stat)
+    {
+        _maxHP += stat.hp;
+        _damage += stat.damage;
+        _defence += stat.defence;
+        _criticalChance += stat.criticalChance;
+        _dodgeChance += stat.dodgeChance;
+        _attackCooldown -= stat.attackCooldown;
+        _moveSpeed += stat.moveSpeed;
+    }
+
     private void ApplyEquipStats()
     {
-        // 장비 수치 나오면 채워넣을것
+        ApplyStat(_weapon);
+        ApplyStat(_armor);
+        ApplyStat(_gloves);
+        ApplyStat(_boots);
+        Debug.LogWarning("장비 스탯 외부 연동 필요");
     }
+
+    // 안정성을 위한 스탯 재계산 함수 / 확장용 (추가로 넣을게있다면 이 함수 안에 넣으면 됨)
+    private void RefreshStats()
+    {
+        FinalStats();
+    }
+    #endregion
 
     #region 헌터 인벤토리 연결용
     public void SetGold(int value) // 골드
     {
         _gold = value;
     }
-    public void SetItem(object item) // 재료
+    public void SetItem(string item) // 재료
     {
         if (item == null) return;
         if (_inventory.ContainsKey(item))
@@ -331,24 +367,42 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
             _inventory[item] = 1;
         }
     }
-    public void SetWeapon(object weapon) // 무기 슬롯
+    public void SetWeapon(string itemId) // 무기 슬롯
     {
-        _weapon = weapon;
-        FinalStats();
+        _weaponId = itemId;
+
+        // 외부에서 장비 스탯 받아올 곳
+
+        RefreshStats();
     }
-    public void SetArmor(object armor) // 갑옷 슬롯
+    public void SetArmor(string itemId) // 갑옷 슬롯
     {
-        _armor = armor;
-        FinalStats();
+        _armorId = itemId;
+
+        // 외부에서 장비 스탯 받아올 곳
+
+        RefreshStats();
     }
     #endregion
-    public void SetGloves(object gloves) // 장갑 슬롯
+    public void SetGloves(string itemId) // 장갑 슬롯
     {
-        _gloves = gloves;
-        FinalStats();
+        _glovesId = itemId;
+
+        // 외부에서 장비 스탯 받아올 곳
+
+        RefreshStats();
     }
 
-    public Dictionary<object, int> GetInventory() // UI
+    public void SetBoots(string itemId) // 신발 슬롯
+    { 
+        _bootsId = itemId;
+
+        // 외부에서 장비 스탯 받아올 곳
+
+        RefreshStats();
+    }
+
+    public Dictionary<string, int> GetInventory() // UI
     {
         return _inventory;
     }
