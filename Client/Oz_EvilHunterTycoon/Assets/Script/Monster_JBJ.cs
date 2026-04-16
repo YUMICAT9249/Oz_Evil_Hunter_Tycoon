@@ -75,6 +75,13 @@ public class Monster_JBJ : BaseWorldObject_KJG
     protected virtual void Update()
     {
         if (isDead) return;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Kill();
+            return;
+        }
+
         stateTimer += Time.deltaTime;
         if (moveDirection != Vector3.zero)
         {

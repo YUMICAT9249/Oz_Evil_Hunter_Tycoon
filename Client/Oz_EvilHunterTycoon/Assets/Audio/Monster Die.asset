@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d103c1f79e9514eb4e071f9c96e411, type: 3}
   m_Name: Monster Die
   m_EditorClassIdentifier: 
-  soundId: 
-  clip: {fileID: 0}
-  mixerGroup: {fileID: 0}
+  soundId: Monster Die
+  clip: {fileID: 8300000, guid: e50882e6233b9f8438e2118b1562d0ec, type: 3}
+  mixerGroup: {fileID: 386566303705783938, guid: a7a86f550074af04d93f7200e29c9d77, type: 2}
   volume: 1
   pitch: 1
   loop: 0

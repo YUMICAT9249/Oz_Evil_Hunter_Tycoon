@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d103c1f79e9514eb4e071f9c96e411, type: 3}
   m_Name: Monster Attack
   m_EditorClassIdentifier: 
-  soundId: 
+  soundId: Monster Attack
   clip: {fileID: 8300000, guid: 3499dfcd644853e4cb2537fc3c91be79, type: 3}
-  mixerGroup: {fileID: 0}
+  mixerGroup: {fileID: 386566303705783938, guid: a7a86f550074af04d93f7200e29c9d77, type: 2}
   volume: 1
   pitch: 1
   loop: 0

@@ -506,6 +506,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -1.5, y: -1.5, z: -1.5}
   maxBounds: {x: 1.5, y: 1.5, z: 1.5}
+  monsterDropTable: {fileID: 11400000, guid: 3e90dd4a11b408449b8c8be6e03abbf5, type: 2}
 --- !u!114 &1999097689345746556
 MonoBehaviour:
   m_ObjectHideFlags: 0
