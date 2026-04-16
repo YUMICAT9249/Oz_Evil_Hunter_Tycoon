@@ -513,11 +513,12 @@ MonoBehaviour:
   monsterName: 
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
-  Hunter: {fileID: 0}
   lastAttackTime: 0
+  Hunter: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -1.5, y: -1.5, z: -1.5}
   maxBounds: {x: 1.5, y: 1.5, z: 1.5}
+  monsterDropTable: {fileID: 11400000, guid: a1c64a26ee44fe6439069a33313d9ada, type: 2}
   minionPrefab: {fileID: 6698325660374546701, guid: 2b71c57168cb5d14f9cb5ef599772b8c, type: 3}
   summonInterval: 30
   summonCount: 3
