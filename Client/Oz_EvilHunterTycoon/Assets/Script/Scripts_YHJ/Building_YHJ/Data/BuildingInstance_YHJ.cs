@@ -1,32 +1,29 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class BuildingInstance_YHJ
 {
     public string buildingID;
-
     public BuildingType_YHJ buildingType;
-
     public Vector2Int origin;
     public Vector2Int size;
     public GameObject instance;
     public List<Vector2Int> occupiedCells;
-
     public int currentLevel = 1;
     public BuildingLevelData_YHJ levelData;
 
+    // ★ KJG 추가: Save/Load를 위해 필요한 필드 (LevelStat에서 가져오는 값)
     public int capacity;
     public float workSpeed;
-    private GameObject owner;
+
+    // ★ KJG 추가: 업그레이드 성공 시 다른 시스템(UI, Sound, SaveLoad)이 구독할 수 있는 이벤트
+    public event System.Action OnUpgraded;
 
     public void Initialize(string id, BuildingLevelData_YHJ data, GameObject obj)
     {
         buildingID = id;
         levelData = data;
-        owner = obj;
-
         currentLevel = 1;
-
         ApplyLevel();
     }
 
@@ -37,36 +34,16 @@ public class BuildingInstance_YHJ
             Debug.LogError($"[BuildingInstance] LevelData 없음: {buildingID}");
             return;
         }
-
         if (currentLevel <= 0 || currentLevel > levelData.levelStats.Count)
         {
             Debug.LogError($"[BuildingInstance] 레벨 범위 이상: {currentLevel}");
             return;
         }
-
         LevelStat stat = levelData.levelStats[currentLevel - 1];
 
-        // 🔥 공통 적용
+        // ★ KJG 추가: Save/Load를 위해 capacity와 workSpeed 저장
         capacity = stat.capacity;
         workSpeed = stat.workSpeed;
-
-        // 필요하면 계속 추가
-        // healAmount = stat.healAmount;
-        // reviveDelay = stat.reviveDelay;
-    }
-    public void Upgrade()
-    {
-        if (levelData == null) return;
-
-        if (currentLevel >= levelData.MaxLevel)
-        {
-            Debug.Log("최대 레벨");
-            return;
-        }
-
-        currentLevel++;
-
-        ApplyLevel();
     }
 
     // 현재 스탯
@@ -76,32 +53,34 @@ public class BuildingInstance_YHJ
         {
             if (levelData == null || levelData.levelStats == null)
                 return null;
-
             int index = currentLevel - 1;
-
             if (index < 0 || index >= levelData.levelStats.Count)
                 return null;
-
             return levelData.levelStats[index];
         }
     }
 
     // 레벨 업
-    public bool TryUpgrade(ref int gold)
+    public bool TryUpgrade()
     {
-        if (levelData == null || levelData.levelStats == null)
-            return false;
-
+        if (levelData == null || CurrentStat == null) return false;
         if (currentLevel >= levelData.levelStats.Count)
             return false;
 
         var nextStat = levelData.levelStats[currentLevel];
 
-        if (gold < nextStat.upgradeCost)
+        // ★ KJG 수정: CurrencyManager를 통해 Gold 소비 처리 (ref int gold 방식 제거)
+        if (!Manager_KJG.Currency.SpendGold(nextStat.upgradeCost))
+        {
+            Debug.LogWarning($"[BuildingInstance] Gold 부족! 필요: {nextStat.upgradeCost}");
             return false;
+        }
 
-        gold -= nextStat.upgradeCost;
         currentLevel++;
+        ApplyLevel();
+
+        // ★ KJG 추가: 업그레이드 성공 시 이벤트 발생
+        OnUpgraded?.Invoke();
 
         return true;
     }

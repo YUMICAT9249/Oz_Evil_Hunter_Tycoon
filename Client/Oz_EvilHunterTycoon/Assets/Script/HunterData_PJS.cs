@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 헌터 데이터 + 수치 계산식 스크립트
-
 // 헌터 클래스 열거형사용
 // 헌터는 직업 별로 고유 이름, 스킬 등 있는데 문자열로 나누기 위한 작업
 public enum HunterJop
@@ -14,9 +13,8 @@ public enum HunterJop
     Ranger,
     Sorcerer
 }
-
 public enum HunterRank
-{ 
+{
     NONE,
     Normal,
     Rare,
@@ -25,10 +23,13 @@ public enum HunterRank
     Legendary,
     Ultimate
 }
-
 public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 {
     public Action<float, float> OnHpChanged;
+
+    // ★ KJG 추가: EXP 변경 시 UI 새로고침 등을 위해 이벤트 추가
+    public Action<long> OnExpChanged;
+
     public static Action OnHunterDie;
 
     #region 프로퍼티 외부용
@@ -50,46 +51,46 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public UnitData_JBJ_PJS _unitData;
 
     [Header("헌터 기본 정보")]
-    [SerializeField] public AreaType _areaType;     // 위치 확인용
-    [SerializeField] public HunterJop _hunterJop;   // 헌터이름을 랜덤으로 생성할 직업타입
+    [SerializeField] public AreaType _areaType; // 위치 확인용
+    [SerializeField] public HunterJop _hunterJop; // 헌터이름을 랜덤으로 생성할 직업타입
     [SerializeField] public string _hunterNameList; // 랜덤으로 생성된 이름을 담는 변수
 
     [Header("레벨 / 경험치")]
-    [SerializeField] public int _currentLevel = 1;      // 현재 레벨
-    [SerializeField] public float _currentExp;          // 현재 경험치
-    [SerializeField] public float _maxExp = 100;        // 최대 경험치 초기값
+    [SerializeField] public int _currentLevel = 1; // 현재 레벨
+    [SerializeField] public float _currentExp; // 현재 경험치
+    [SerializeField] public float _maxExp = 100; // 최대 경험치 초기값
 
     [Header("현재 체력")]
-    [SerializeField] public float _currentHP = 100.0f;  // 현재 체력
+    [SerializeField] public float _currentHP = 100.0f; // 현재 체력
 
     [Header("헌터 최종 스탯")]
-    [SerializeField] public float _maxHP;           // 합산 최대HP
-    [SerializeField] public float _damage;          // 합산 공격력
-    [SerializeField] public float _defence;         // 합산 방어력
-    [SerializeField] public float _criticalChance;  // 합산 치명타확률
-    [SerializeField] public float _dodgeChance;     // 합산 회피확률
-    [SerializeField] public float _attackCooldown;  // 합산 공격 속도
-    [SerializeField] public float _moveSpeed;       // 합산 이동 속도
+    [SerializeField] public float _maxHP; // 합산 최대HP
+    [SerializeField] public float _damage; // 합산 공격력
+    [SerializeField] public float _defence; // 합산 방어력
+    [SerializeField] public float _criticalChance; // 합산 치명타확률
+    [SerializeField] public float _dodgeChance; // 합산 회피확률
+    [SerializeField] public float _attackCooldown; // 합산 공격 속도
+    [SerializeField] public float _moveSpeed; // 합산 이동 속도
 
     [Header("탐지 / 공격 범위")]
-    [SerializeField] public float _detectRange;     // 탐지 범위
-    [SerializeField] public float _attackRange;     // 공격 사거리
+    [SerializeField] public float _detectRange; // 탐지 범위
+    [SerializeField] public float _attackRange; // 공격 사거리
 
     [Header("스탯 점수 (0:하급(흰색) 1:중급(파란색) 2:상급(주황색) 3:최상급(보라색))")]
-    [SerializeField] public int _hpScore;             // HP 등급
-    [SerializeField] public int _damageScore;         // 공격력 등급
-    [SerializeField] public int _defenceScore;        // 방어력 등급
+    [SerializeField] public int _hpScore; // HP 등급
+    [SerializeField] public int _damageScore; // 공격력 등급
+    [SerializeField] public int _defenceScore; // 방어력 등급
     [SerializeField] public int _criticalChanceScore; // 치명타확률 등급
-    [SerializeField] public int _dodgeChanceScore;    // 회피확률 등급
+    [SerializeField] public int _dodgeChanceScore; // 회피확률 등급
     [SerializeField] public int _attackCooldownScore; // 공격속도 등급
-    [SerializeField] public int _moveSpeedScore;      // 이동속도 등급
+    [SerializeField] public int _moveSpeedScore; // 이동속도 등급
 
     [Header("헌터 등급 결과")]
     [SerializeField] public int _totalScore;
     [SerializeField] public HunterRank _hunterRank;
 
     [Header("헌터 환생")]
-    [SerializeField] public int _rebirthCount = 0;      // 환생 횟수
+    [SerializeField] public int _rebirthCount = 0; // 환생 횟수
     [SerializeField] public float _rebirthBonus = 1.0f; // 환생 보너스 배율
 
     // 헌터 골드 / 재료 인벤토리 관련
@@ -119,7 +120,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
             Debug.LogError("UnitData가 연결 안됨", gameObject);
             return;
         }
-
         // 직업이 NONE이면 기본값 버서커로 강제 설정
         if (_hunterJop == HunterJop.NONE)
         {
@@ -134,15 +134,17 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _currentExp += expAmount;
         while (_currentExp >= _maxExp) { LevelUp(); }
         Debug.Log($"[HunterData_PJS] {_hunterNameList}이(가) {expAmount} EXP 획득");
+
+        // ★ KJG 추가: EXP 변경 시 UI 새로고침을 위해 이벤트 호출
+        OnExpChanged?.Invoke((long)_currentExp);
     }
 
     public void LevelUp()
     {
         _currentExp -= _maxExp; // 남은 경험치 유지
-        _maxExp *= 2f;          // 필요경험치 복리 2배
-        _currentLevel++;        // 레벨 증가
-
-        FinalStats();   // 스탯 재계산
+        _maxExp *= 2f; // 필요경험치 복리 2배
+        _currentLevel++; // 레벨 증가
+        FinalStats(); // 스탯 재계산
         Debug.Log($"{_hunterNameList} 레벨업! LV {_currentLevel}");
     }
 
@@ -152,7 +154,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         if (IsDead) return;
         _currentHP += amount;
         if (_currentHP > MaxHP) { _currentHP = _maxHP; }
-        // HP변경 이벤트 -> UI 연결 및 갱신 
+        // HP변경 이벤트 -> UI 연결 및 갱신
         OnHpChanged?.Invoke(_currentHP, _maxHP);
         Debug.Log($"{_hunterNameList}가 {amount}만큼 회복. 현재HP: {_currentHP}");
     }
@@ -161,9 +163,8 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public void Revive()
     {
         if (!IsDead) return;
-
         _currentHP = _maxHP * 0.3f;
-        // 부활 시 HP변경 이벤트 -> UI 연결 및 갱신 
+        // 부활 시 HP변경 이벤트 -> UI 연결 및 갱신
         OnHpChanged?.Invoke(_currentHP, _maxHP);
         Debug.Log($"{_hunterNameList}가 부활");
     }
@@ -172,7 +173,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public void SettingHunterData(HunterJop jop)
     {
         _hunterJop = jop;
-
         switch (_hunterJop)
         {
             case HunterJop.Berserker:
@@ -201,7 +201,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     {
         // 버서커를 기본값으로 넣음
         List<string> hunterNameList = beserkerNames;
-
         if (_hunterJop == HunterJop.Paladin) { hunterNameList = paladinNames; }
         else if (_hunterJop == HunterJop.Ranger) { hunterNameList = rangerNames; }
         else if (_hunterJop == HunterJop.Sorcerer) { hunterNameList = sorcererNames; }
@@ -212,11 +211,10 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     private int GetRandomScore()
     {
         int randomScore = UnityEngine.Random.Range(0, 100);
-
-        if (randomScore < 40) return 0;      // 40% 흰색
+        if (randomScore < 40) return 0; // 40% 흰색
         else if (randomScore < 70) return 1; // 30% 파란색
         else if (randomScore < 90) return 2; // 20% 주황색
-        else return 3;                       // 10% 보라색
+        else return 3; // 10% 보라색
     }
 
     // 랜덤 스탯 생성 + 최종 스탯 계산
@@ -242,7 +240,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public void RankScore()
     {
         _totalScore = _hpScore + _damageScore + _defenceScore + _criticalChanceScore + _dodgeChanceScore + _attackCooldownScore + _moveSpeedScore;
-
         if (_totalScore <= 1) { _hunterRank = HunterRank.Normal; }
         else if (_totalScore <= 5) { _hunterRank = HunterRank.Rare; }
         else if (_totalScore <= 9) { _hunterRank = HunterRank.Superior; }
@@ -268,7 +265,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _rebirthBonus = 1.0f + (_rebirthCount * 0.1f); // 1환생당 10% 추가 보너스 스탯 (복리x)
         FinalStats(); // 기존 등급에 환생 보너스만 계산
         _currentHP = _maxHP;
-
         Debug.Log($"{_hunterNameList} 환생. {_rebirthCount}회. {_rebirthBonus}배");
     }
 
@@ -282,7 +278,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _dodgeChance = AddStatsByScore(_unitData.dodgeChance, _dodgeChanceScore) * _rebirthBonus;
         _attackCooldown = AddAttackCooldownByScore(_unitData.attackCooldown, _attackCooldownScore) / _rebirthBonus;
         _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore) * _rebirthBonus;
-
         ApplyEquipStats(); // 장비 수치 추가
     }
 
@@ -315,7 +310,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
     // 최종 스탯계산에 추가하여 넣을 장비 수치
     private void ApplyEquipStats()
-    { 
+    {
         // 장비 수치 나오면 채워넣을것
     }
 
@@ -324,11 +319,9 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     {
         _gold = value;
     }
-
     public void SetItem(object item) // 재료
     {
         if (item == null) return;
-
         if (_inventory.ContainsKey(item))
         {
             _inventory[item]++;
@@ -338,53 +331,27 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
             _inventory[item] = 1;
         }
     }
-
     public void SetWeapon(object weapon) // 무기 슬롯
     {
         _weapon = weapon;
         FinalStats();
     }
-
     public void SetArmor(object armor) // 갑옷 슬롯
     {
         _armor = armor;
         FinalStats();
     }
     #endregion
-
     public void SetGloves(object gloves) // 장갑 슬롯
     {
         _gloves = gloves;
         FinalStats();
     }
 
-    /*
-    #region 확장용
-    public void SetBoots(object boots) // 부츠 슬롯
-    {
-        _boots = boots;
-        FinalStats();
-    }
-
-    public void SetRing(object ring) // 반지 슬롯
-    {
-        _ring = ring;
-        FinalStats();
-    }
-
-    public void SetNecklace(object necklace) // 목걸이 슬롯
-    { 
-        _necklace = necklace;
-        FinalStats();
-    }
-    #endregion
-    */
-
     public Dictionary<object, int> GetInventory() // UI
-    { 
+    {
         return _inventory;
     }
-    
 
     #region Get 함수 => 최종 값만 반환
     public float GetMaxHP() => _maxHP;
@@ -395,4 +362,8 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public float GetAttackCooldown() => Mathf.Max(0.25f, _attackCooldown);
     public float GetMoveSpeed() => _moveSpeed;
     #endregion
+
+    // ★ KJG 추가: Save/Load를 위해 EXP를 long으로 반환/설정하는 메서드
+    public long GetCurrentExp() => (long)_currentExp;
+    public void SetCurrentExp(long value) => _currentExp = value;
 }
