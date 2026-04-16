@@ -22,7 +22,7 @@ public class ItemDatabase_YHJ : MonoBehaviour
 
         if (Instance != null && Instance != this)
         {
-            Debug.LogError("[ItemDatabase] 중복 생성됨");
+            Debug.LogError("[ItemDatabase] duplicate instance");
             Destroy(gameObject);
             return;
         }
@@ -37,7 +37,7 @@ public class ItemDatabase_YHJ : MonoBehaviour
 
             if (map.ContainsKey(item.itemID))
             {
-                Debug.LogError($"[ItemDatabase] 중복 ID: {item.itemID}");
+                Debug.LogError($"[ItemDatabase] duplicate ID: {item.itemID}");
                 continue;
             }
 
@@ -70,7 +70,25 @@ public class ItemDatabase_YHJ : MonoBehaviour
         if (map.TryGetValue(id, out var data))
             return data;
 
-        Debug.LogWarning($"[ItemDatabase] 없는 ID 요청: {id}");
+        Debug.LogWarning($"[ItemDatabase] missing ID: {id}");
         return null;
+    }
+
+    // ★ YHJ TODO: HunterData_PJS.SetWeapon/SetArmor/SetGloves/SetBoots에서
+    // itemID를 넘겨 장비 데이터 조회 후 슬롯/직업까지 한 번에 검사할 때 사용할 것
+    public bool TryGetEquipmentData(string itemID, EquipmentSlot_YHJ slot, HunterJop hunterJop, out ItemData_YHJ itemData)
+    {
+        itemData = Get(itemID);
+
+        if (itemData == null)
+            return false;
+
+        if (!itemData.IsMatchSlot(slot))
+            return false;
+
+        if (!itemData.CanEquip(hunterJop))
+            return false;
+
+        return true;
     }
 }

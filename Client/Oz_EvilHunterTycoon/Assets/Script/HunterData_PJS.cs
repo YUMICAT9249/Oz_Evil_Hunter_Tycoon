@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ÇåÅÍ µ¥ÀÌÅÍ + ¼öÄ¡ °è»ê½Ä ½ºÅ©¸³Æ®
-// ÇåÅÍ Å¬·¡½º ¿­°ÅÇü»ç¿ë
-// ÇåÅÍ´Â Á÷¾÷ º°·Î °íÀ¯ ÀÌ¸§, ½ºÅ³ µî ÀÖ´Âµ¥ ¹®ÀÚ¿­·Î ³ª´©±â À§ÇÑ ÀÛ¾÷
+// í—Œí„° ë°ì´í„° + ìˆ˜ì¹˜ ê³„ì‚°ì‹ ìŠ¤í¬ë¦½íŠ¸
+// í—Œí„° í´ë˜ìŠ¤ ì—´ê±°í˜•ì‚¬ìš©
+// í—Œí„°ëŠ” ì§ì—… ë³„ë¡œ ê³ ìœ  ì´ë¦„, ìŠ¤í‚¬ ë“± ìˆëŠ”ë° ë¬¸ìì—´ë¡œ ë‚˜ëˆ„ê¸° ìœ„í•œ ì‘ì—…
 public enum HunterJop
 {
     NONE,
@@ -39,12 +39,12 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 {
     public Action<float, float> OnHpChanged;
 
-    // ¡Ú KJG Ãß°¡: EXP º¯°æ ½Ã UI »õ·Î°íÄ§ µîÀ» À§ÇØ ÀÌº¥Æ® Ãß°¡
+    // â˜… KJG ì¶”ê°€: EXP ë³€ê²½ ì‹œ UI ìƒˆë¡œê³ ì¹¨ ë“±ì„ ìœ„í•´ ì´ë²¤íŠ¸ ì¶”ê°€
     public Action<long> OnExpChanged;
 
     public static Action OnHunterDie;
 
-    #region ÇÁ·ÎÆÛÆ¼ ¿ÜºÎ¿ë
+    #region í”„ë¡œí¼í‹° ì™¸ë¶€ìš©
     public float CurrentHP
     {
         get => _currentHP;
@@ -59,57 +59,57 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public int Gold => _gold;
     #endregion
 
-    [Header("±âº» µ¥ÀÌÅÍ ÂüÁ¶")]
+    [Header("ê¸°ë³¸ ë°ì´í„° ì°¸ì¡°")]
     public UnitData_JBJ_PJS _unitData;
 
-    [Header("ÇåÅÍ ±âº» Á¤º¸")]
-    [SerializeField] public AreaType _areaType;     // À§Ä¡ È®ÀÎ¿ë
-    [SerializeField] public HunterJop _hunterJop;   // ÇåÅÍÀÌ¸§À» ·£´ıÀ¸·Î »ı¼ºÇÒ Á÷¾÷Å¸ÀÔ
-    [SerializeField] public string _hunterNameList; // ·£´ıÀ¸·Î »ı¼ºµÈ ÀÌ¸§À» ´ã´Â º¯¼ö
+    [Header("í—Œí„° ê¸°ë³¸ ì •ë³´")]
+    [SerializeField] public AreaType _areaType;     // ìœ„ì¹˜ í™•ì¸ìš©
+    [SerializeField] public HunterJop _hunterJop;   // í—Œí„°ì´ë¦„ì„ ëœë¤ìœ¼ë¡œ ìƒì„±í•  ì§ì—…íƒ€ì…
+    [SerializeField] public string _hunterNameList; // ëœë¤ìœ¼ë¡œ ìƒì„±ëœ ì´ë¦„ì„ ë‹´ëŠ” ë³€ìˆ˜
 
-    [Header("·¹º§ / °æÇèÄ¡")]
-    [SerializeField] public int _currentLevel = 1;  // ÇöÀç ·¹º§
-    [SerializeField] public float _currentExp;      // ÇöÀç °æÇèÄ¡
-    [SerializeField] public float _maxExp = 100;    // ÃÖ´ë °æÇèÄ¡ ÃÊ±â°ª
+    [Header("ë ˆë²¨ / ê²½í—˜ì¹˜")]
+    [SerializeField] public int _currentLevel = 1;  // í˜„ì¬ ë ˆë²¨
+    [SerializeField] public float _currentExp;      // í˜„ì¬ ê²½í—˜ì¹˜
+    [SerializeField] public float _maxExp = 100;    // ìµœëŒ€ ê²½í—˜ì¹˜ ì´ˆê¸°ê°’
 
-    [Header("ÇöÀç Ã¼·Â")]
-    [SerializeField] public float _currentHP = 100.0f; // ÇöÀç Ã¼·Â
+    [Header("í˜„ì¬ ì²´ë ¥")]
+    [SerializeField] public float _currentHP = 100.0f; // í˜„ì¬ ì²´ë ¥
 
-    [Header("ÇåÅÍ ÃÖÁ¾ ½ºÅÈ")]
-    [SerializeField] public float _maxHP;           // ÇÕ»ê ÃÖ´ëHP
-    [SerializeField] public float _damage;          // ÇÕ»ê °ø°İ·Â
-    [SerializeField] public float _defence;         // ÇÕ»ê ¹æ¾î·Â
-    [SerializeField] public float _criticalChance;  // ÇÕ»ê Ä¡¸íÅ¸È®·ü
-    [SerializeField] public float _dodgeChance;     // ÇÕ»ê È¸ÇÇÈ®·ü
-    [SerializeField] public float _attackCooldown;  // ÇÕ»ê °ø°İ ¼Óµµ
-    [SerializeField] public float _moveSpeed;       // ÇÕ»ê ÀÌµ¿ ¼Óµµ
+    [Header("í—Œí„° ìµœì¢… ìŠ¤íƒ¯")]
+    [SerializeField] public float _maxHP;           // í•©ì‚° ìµœëŒ€HP
+    [SerializeField] public float _damage;          // í•©ì‚° ê³µê²©ë ¥
+    [SerializeField] public float _defence;         // í•©ì‚° ë°©ì–´ë ¥
+    [SerializeField] public float _criticalChance;  // í•©ì‚° ì¹˜ëª…íƒ€í™•ë¥ 
+    [SerializeField] public float _dodgeChance;     // í•©ì‚° íšŒí”¼í™•ë¥ 
+    [SerializeField] public float _attackCooldown;  // í•©ì‚° ê³µê²© ì†ë„
+    [SerializeField] public float _moveSpeed;       // í•©ì‚° ì´ë™ ì†ë„
 
-    [Header("Å½Áö / °ø°İ ¹üÀ§")]
-    [SerializeField] public float _detectRange; // Å½Áö ¹üÀ§
-    [SerializeField] public float _attackRange; // °ø°İ »ç°Å¸®
+    [Header("íƒì§€ / ê³µê²© ë²”ìœ„")]
+    [SerializeField] public float _detectRange; // íƒì§€ ë²”ìœ„
+    [SerializeField] public float _attackRange; // ê³µê²© ì‚¬ê±°ë¦¬
 
-    [Header("½ºÅÈ Á¡¼ö (0:ÇÏ±Ş(Èò»ö) 1:Áß±Ş(ÆÄ¶õ»ö) 2:»ó±Ş(ÁÖÈ²»ö) 3:ÃÖ»ó±Ş(º¸¶ó»ö))")]
-    [SerializeField] public int _hpScore;               // HP µî±Ş
-    [SerializeField] public int _damageScore;           // °ø°İ·Â µî±Ş
-    [SerializeField] public int _defenceScore;          // ¹æ¾î·Â µî±Ş
-    [SerializeField] public int _criticalChanceScore;   // Ä¡¸íÅ¸È®·ü µî±Ş
-    [SerializeField] public int _dodgeChanceScore;      // È¸ÇÇÈ®·ü µî±Ş
-    [SerializeField] public int _attackCooldownScore;   // °ø°İ¼Óµµ µî±Ş
-    [SerializeField] public int _moveSpeedScore;        // ÀÌµ¿¼Óµµ µî±Ş
+    [Header("ìŠ¤íƒ¯ ì ìˆ˜ (0:í•˜ê¸‰(í°ìƒ‰) 1:ì¤‘ê¸‰(íŒŒë€ìƒ‰) 2:ìƒê¸‰(ì£¼í™©ìƒ‰) 3:ìµœìƒê¸‰(ë³´ë¼ìƒ‰))")]
+    [SerializeField] public int _hpScore;               // HP ë“±ê¸‰
+    [SerializeField] public int _damageScore;           // ê³µê²©ë ¥ ë“±ê¸‰
+    [SerializeField] public int _defenceScore;          // ë°©ì–´ë ¥ ë“±ê¸‰
+    [SerializeField] public int _criticalChanceScore;   // ì¹˜ëª…íƒ€í™•ë¥  ë“±ê¸‰
+    [SerializeField] public int _dodgeChanceScore;      // íšŒí”¼í™•ë¥  ë“±ê¸‰
+    [SerializeField] public int _attackCooldownScore;   // ê³µê²©ì†ë„ ë“±ê¸‰
+    [SerializeField] public int _moveSpeedScore;        // ì´ë™ì†ë„ ë“±ê¸‰
 
-    [Header("ÇåÅÍ µî±Ş °á°ú")]
+    [Header("í—Œí„° ë“±ê¸‰ ê²°ê³¼")]
     [SerializeField] public int _totalScore;
     [SerializeField] public HunterRank _hunterRank;
 
-    [Header("ÇåÅÍ È¯»ı")]
-    [SerializeField] public int _rebirthCount = 0;      // È¯»ı È½¼ö
-    [SerializeField] public float _rebirthBonus = 1.0f; // È¯»ı º¸³Ê½º ¹èÀ²
+    [Header("í—Œí„° í™˜ìƒ")]
+    [SerializeField] public int _rebirthCount = 0;      // í™˜ìƒ íšŸìˆ˜
+    [SerializeField] public float _rebirthBonus = 1.0f; // í™˜ìƒ ë³´ë„ˆìŠ¤ ë°°ìœ¨
 
-    // ÇåÅÍ °ñµå / Àç·á ÀÎº¥Åä¸® °ü·Ã
+    // í—Œí„° ê³¨ë“œ / ì¬ë£Œ ì¸ë²¤í† ë¦¬ ê´€ë ¨
     private Dictionary<string, int> _inventory = new Dictionary<string, int>();
     private int _gold = 0;
 
-    // Àåºñ ID / ÇåÅÍ Àåºñ ½½·Ô
+    // ì¥ë¹„ ID / í—Œí„° ì¥ë¹„ ìŠ¬ë¡¯
     private string _weaponId;
     private EquipStat _weapon;
     private string _armorId;
@@ -119,11 +119,11 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     private string _bootsId;
     private EquipStat _boots;
 
-    // Á÷¾÷º° ÇåÅÍ ÀÌ¸§
-    private List<string> beserkerNames = new List<string> { "ºê¶õ", "»ş·Ğ", "¼¼³ª" };
-    private List<string> paladinNames = new List<string> { "Ä«ÀÏ", "¾ËÇÁ", "È©½º" };
-    private List<string> rangerNames = new List<string> { "Ä«ÀÌÁî", "¹Ù·¹ÀÎ", "Å©¸®»ş" };
-    private List<string> sorcererNames = new List<string> { "¶ó±Û¶ó½º", "µÎ¾ÆÆ®¸°", "ºê¸®µğµµ" };
+    // ì§ì—…ë³„ í—Œí„° ì´ë¦„
+    private List<string> beserkerNames = new List<string> { "ë¸Œë€", "ìƒ¤ë¡ ", "ì„¸ë‚˜" };
+    private List<string> paladinNames = new List<string> { "ì¹´ì¼", "ì•Œí”„", "í™‰ìŠ¤" };
+    private List<string> rangerNames = new List<string> { "ì¹´ì´ì¦ˆ", "ë°”ë ˆì¸", "í¬ë¦¬ìƒ¤" };
+    private List<string> sorcererNames = new List<string> { "ë¼ê¸€ë¼ìŠ¤", "ë‘ì•„íŠ¸ë¦°", "ë¸Œë¦¬ë””ë„" };
 
     public static HunterData_PJS InfoHunter;
 
@@ -131,10 +131,10 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     {
         if (_unitData == null)
         {
-            Debug.LogError("UnitData°¡ ¿¬°á ¾ÈµÊ", gameObject);
+            Debug.LogError("UnitDataê°€ ì—°ê²° ì•ˆë¨", gameObject);
             return;
         }
-        // Á÷¾÷ÀÌ NONEÀÌ¸é ±âº»°ª ¹ö¼­Ä¿·Î °­Á¦ ¼³Á¤
+        // ì§ì—…ì´ NONEì´ë©´ ê¸°ë³¸ê°’ ë²„ì„œì»¤ë¡œ ê°•ì œ ì„¤ì •
         if (_hunterJop == HunterJop.NONE)
         {
             _hunterJop = HunterJop.Berserker;
@@ -144,46 +144,46 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
     public void AddExp(int expAmount)
     {
-        // EXP Áõ°¡ ·ÎÁ÷ (ÆÀ¿øÀÌ ÇÊ¿ä¿¡ µû¶ó È®Àå °¡´É)
+        // EXP ì¦ê°€ ë¡œì§ (íŒ€ì›ì´ í•„ìš”ì— ë”°ë¼ í™•ì¥ ê°€ëŠ¥)
         _currentExp += expAmount;
         while (_currentExp >= _maxExp) { LevelUp(); }
-        Debug.Log($"[HunterData_PJS] {_hunterNameList}ÀÌ(°¡) {expAmount} EXP È¹µæ");
+        Debug.Log($"[HunterData_PJS] {_hunterNameList}ì´(ê°€) {expAmount} EXP íšë“");
 
-        // ¡Ú KJG Ãß°¡: EXP º¯°æ ½Ã UI »õ·Î°íÄ§À» À§ÇØ ÀÌº¥Æ® È£Ãâ
+        // â˜… KJG ì¶”ê°€: EXP ë³€ê²½ ì‹œ UI ìƒˆë¡œê³ ì¹¨ì„ ìœ„í•´ ì´ë²¤íŠ¸ í˜¸ì¶œ
         OnExpChanged?.Invoke((long)_currentExp);
     }
 
     public void LevelUp()
     {
-        _currentExp -= _maxExp; // ³²Àº °æÇèÄ¡ À¯Áö
-        _maxExp *= 2f; // ÇÊ¿ä°æÇèÄ¡ º¹¸® 2¹è
-        _currentLevel++; // ·¹º§ Áõ°¡
-        FinalStats(); // ½ºÅÈ Àç°è»ê
-        Debug.Log($"{_hunterNameList} ·¹º§¾÷! LV {_currentLevel}");
+        _currentExp -= _maxExp; // ë‚¨ì€ ê²½í—˜ì¹˜ ìœ ì§€
+        _maxExp *= 2f; // í•„ìš”ê²½í—˜ì¹˜ ë³µë¦¬ 2ë°°
+        _currentLevel++; // ë ˆë²¨ ì¦ê°€
+        FinalStats(); // ìŠ¤íƒ¯ ì¬ê³„ì‚°
+        Debug.Log($"{_hunterNameList} ë ˆë²¨ì—…! LV {_currentLevel}");
     }
 
-    // Ä¡·á¼Ò È¸º¹ ÇÔ¼ö
+    // ì¹˜ë£Œì†Œ íšŒë³µ í•¨ìˆ˜
     public void Heal(float amount)
     {
         if (IsDead) return;
         _currentHP += amount;
         if (_currentHP > MaxHP) { _currentHP = _maxHP; }
-        // HPº¯°æ ÀÌº¥Æ® -> UI ¿¬°á ¹× °»½Å
+        // HPë³€ê²½ ì´ë²¤íŠ¸ -> UI ì—°ê²° ë° ê°±ì‹ 
         OnHpChanged?.Invoke(_currentHP, _maxHP);
-        Debug.Log($"{_hunterNameList}°¡ {amount}¸¸Å­ È¸º¹. ÇöÀçHP: {_currentHP}");
+        Debug.Log($"{_hunterNameList}ê°€ {amount}ë§Œí¼ íšŒë³µ. í˜„ì¬HP: {_currentHP}");
     }
 
-    // ºÎÈ°ÀÇ ¼º¼Ò ºÎÈ° ÇÔ¼ö
+    // ë¶€í™œì˜ ì„±ì†Œ ë¶€í™œ í•¨ìˆ˜
     public void Revive()
     {
         if (!IsDead) return;
         _currentHP = _maxHP * 0.3f;
-        // ºÎÈ° ½Ã HPº¯°æ ÀÌº¥Æ® -> UI ¿¬°á ¹× °»½Å
+        // ë¶€í™œ ì‹œ HPë³€ê²½ ì´ë²¤íŠ¸ -> UI ì—°ê²° ë° ê°±ì‹ 
         OnHpChanged?.Invoke(_currentHP, _maxHP);
-        Debug.Log($"{_hunterNameList}°¡ ºÎÈ°");
+        Debug.Log($"{_hunterNameList}ê°€ ë¶€í™œ");
     }
 
-    // ÇåÅÍ°¡ ½ºÆùµÈ ÈÄ ÇåÅÍ µ¥ÀÌÅÍ ¼¼ÆÃ
+    // í—Œí„°ê°€ ìŠ¤í°ëœ í›„ í—Œí„° ë°ì´í„° ì„¸íŒ…
     public void SettingHunterData(HunterJop jop)
     {
         _hunterJop = jop;
@@ -210,10 +210,10 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         RandomStats();
     }
 
-    // ÇåÅÍ ÀÌ¸§»ı¼º ÇÔ¼ö / _hunterJopÀ» È®ÀÎ ÈÄ ·£´ıÀÌ¸§À» _nameList¿¡ ÇÒ´ç
+    // í—Œí„° ì´ë¦„ìƒì„± í•¨ìˆ˜ / _hunterJopì„ í™•ì¸ í›„ ëœë¤ì´ë¦„ì„ _nameListì— í• ë‹¹
     public void HunterRandomName()
     {
-        // ¹ö¼­Ä¿¸¦ ±âº»°ªÀ¸·Î ³ÖÀ½
+        // ë²„ì„œì»¤ë¥¼ ê¸°ë³¸ê°’ìœ¼ë¡œ ë„£ìŒ
         List<string> hunterNameList = beserkerNames;
         if (_hunterJop == HunterJop.Paladin) { hunterNameList = paladinNames; }
         else if (_hunterJop == HunterJop.Ranger) { hunterNameList = rangerNames; }
@@ -221,20 +221,20 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _hunterNameList = hunterNameList[UnityEngine.Random.Range(0, hunterNameList.Count)];
     }
 
-    // ½ºÅÈ »Ì±â È®·ü ÇÔ¼ö
+    // ìŠ¤íƒ¯ ë½‘ê¸° í™•ë¥  í•¨ìˆ˜
     private int GetRandomScore()
     {
         int randomScore = UnityEngine.Random.Range(0, 100);
-        if (randomScore < 40) return 0; // 40% Èò»ö
-        else if (randomScore < 70) return 1; // 30% ÆÄ¶õ»ö
-        else if (randomScore < 90) return 2; // 20% ÁÖÈ²»ö
-        else return 3; // 10% º¸¶ó»ö
+        if (randomScore < 40) return 0; // 40% í°ìƒ‰
+        else if (randomScore < 70) return 1; // 30% íŒŒë€ìƒ‰
+        else if (randomScore < 90) return 2; // 20% ì£¼í™©ìƒ‰
+        else return 3; // 10% ë³´ë¼ìƒ‰
     }
 
-    // ·£´ı ½ºÅÈ »ı¼º + ÃÖÁ¾ ½ºÅÈ °è»ê
+    // ëœë¤ ìŠ¤íƒ¯ ìƒì„± + ìµœì¢… ìŠ¤íƒ¯ ê³„ì‚°
     private void RandomStats()
     {
-        // 1. Á¡¼ö »ı¼º
+        // 1. ì ìˆ˜ ìƒì„±
         _hpScore = GetRandomScore();
         _damageScore = GetRandomScore();
         _defenceScore = GetRandomScore();
@@ -242,15 +242,15 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _dodgeChanceScore = GetRandomScore();
         _attackCooldownScore = GetRandomScore();
         _moveSpeedScore = GetRandomScore();
-        // 2. µî±Ş °è»ê
+        // 2. ë“±ê¸‰ ê³„ì‚°
         RankScore();
-        // 3. ÃÖÁ¾ ½ºÅÈ °è»ê
+        // 3. ìµœì¢… ìŠ¤íƒ¯ ê³„ì‚°
         FinalStats();
-        // 4. ÇöÀç Ã¼·Â ÃÊ±âÈ­
+        // 4. í˜„ì¬ ì²´ë ¥ ì´ˆê¸°í™”
         _currentHP = _maxHP;
     }
 
-    // ½ºÅÈ Á¡¼ö ÇÕ»ê / µî±Ş °áÁ¤
+    // ìŠ¤íƒ¯ ì ìˆ˜ í•©ì‚° / ë“±ê¸‰ ê²°ì •
     public void RankScore()
     {
         _totalScore = _hpScore + _damageScore + _defenceScore + _criticalChanceScore + _dodgeChanceScore + _attackCooldownScore + _moveSpeedScore;
@@ -262,7 +262,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         else { _hunterRank = HunterRank.Ultimate; }
     }
 
-    // È¯»ı Á¶°Ç Ã¼Å© ÈÄ ½ÇÇà ÇÔ¼ö
+    // í™˜ìƒ ì¡°ê±´ ì²´í¬ í›„ ì‹¤í–‰ í•¨ìˆ˜
     public void TryRebirth()
     {
         if (_currentLevel >= 100)
@@ -271,18 +271,18 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         }
     }
 
-    // È¯»ı ·ÎÁ÷
+    // í™˜ìƒ ë¡œì§
     public void Rebirth()
     {
         _rebirthCount++;
         _currentLevel = 1;
-        _rebirthBonus = 1.0f + (_rebirthCount * 0.1f); // 1È¯»ı´ç 10% Ãß°¡ º¸³Ê½º ½ºÅÈ (º¹¸®x)
-        FinalStats(); // ±âÁ¸ µî±Ş¿¡ È¯»ı º¸³Ê½º¸¸ °è»ê
+        _rebirthBonus = 1.0f + (_rebirthCount * 0.1f); // 1í™˜ìƒë‹¹ 10% ì¶”ê°€ ë³´ë„ˆìŠ¤ ìŠ¤íƒ¯ (ë³µë¦¬x)
+        FinalStats(); // ê¸°ì¡´ ë“±ê¸‰ì— í™˜ìƒ ë³´ë„ˆìŠ¤ë§Œ ê³„ì‚°
         _currentHP = _maxHP;
-        Debug.Log($"{_hunterNameList} È¯»ı. {_rebirthCount}È¸. {_rebirthBonus}¹è");
+        Debug.Log($"{_hunterNameList} í™˜ìƒ. {_rebirthCount}íšŒ. {_rebirthBonus}ë°°");
     }
 
-    // ÃÖÁ¾ ½ºÅÈ °è»ê ÇÔ¼ö
+    // ìµœì¢… ìŠ¤íƒ¯ ê³„ì‚° í•¨ìˆ˜
     public void FinalStats()
     {
         _maxHP = AddStatsByScore(_unitData.maxHp, _hpScore) * _rebirthBonus;
@@ -292,11 +292,11 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         _dodgeChance = AddStatsByScore(_unitData.dodgeChance, _dodgeChanceScore) * _rebirthBonus;
         _attackCooldown = AddAttackCooldownByScore(_unitData.attackCooldown, _attackCooldownScore) / _rebirthBonus;
         _moveSpeed = AddStatsByScore(_unitData.moveSpeed, _moveSpeedScore) * _rebirthBonus;
-        ApplyEquipStats(); // Àåºñ ¼öÄ¡ Ãß°¡
+        ApplyEquipStats(); // ì¥ë¹„ ìˆ˜ì¹˜ ì¶”ê°€
     }
 
-    // Á¡¼öº° ½ºÅÈ Ãß°¡ / ¸Å°³º¯¼ö »ç¿ë => À¯Áöº¸¼ö, ÇÏ³ªÀÇ ÇÔ¼ö·Î ÇØ°á°¡´É
-    // °ø°İ Äğ´Ù¿î Á¦¿Ü
+    // ì ìˆ˜ë³„ ìŠ¤íƒ¯ ì¶”ê°€ / ë§¤ê°œë³€ìˆ˜ ì‚¬ìš© => ìœ ì§€ë³´ìˆ˜, í•˜ë‚˜ì˜ í•¨ìˆ˜ë¡œ í•´ê²°ê°€ëŠ¥
+    // ê³µê²© ì¿¨ë‹¤ìš´ ì œì™¸
     private float AddStatsByScore(float baseValue, int score)
     {
         switch (score)
@@ -309,7 +309,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         return baseValue;
     }
 
-    // Á¡¼öº° °ø°İ Äğ´Ù¿î ÁÙÀÓ
+    // ì ìˆ˜ë³„ ê³µê²© ì¿¨ë‹¤ìš´ ì¤„ì„
     private float AddAttackCooldownByScore(float baseValue, int score)
     {
         switch (score)
@@ -322,7 +322,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         return baseValue;
     }
 
-    #region ÃÖÁ¾ ½ºÅÈ°è»ê¿¡ Ãß°¡ÇÏ¿© ³ÖÀ» Àåºñ ¼öÄ¡
+    #region ìµœì¢… ìŠ¤íƒ¯ê³„ì‚°ì— ì¶”ê°€í•˜ì—¬ ë„£ì„ ì¥ë¹„ ìˆ˜ì¹˜
     private void ApplyStat(EquipStat stat)
     {
         _maxHP += stat.hp;
@@ -336,26 +336,31 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
     private void ApplyEquipStats()
     {
+        // â˜… YHJ TODO: ê° ìŠ¬ë¡¯ EquipStatì€ SetWeapon/SetArmor/SetGloves/SetBootsì—ì„œ
+        // ItemDatabase_YHJ ì¡°íšŒ í›„ ì±„ì›Œì ¸ì•¼ ìµœì¢… ìŠ¤íƒ¯ ê³„ì‚°ì— ì •ìƒ ë°˜ì˜ë¨
+        // â˜… YHJ TODO: ì°¸ê³  ìŠ¤í¬ë¦½íŠ¸
+        // ItemDatabase_YHJ.TryGetEquipmentData() - ItemDatabase_YHJ.cs 78ì¤„ ê·¼ì²˜
+        // ItemData_YHJ.ToEquipStat() - ItemData_YHJ.cs 105ì¤„ ê·¼ì²˜
         ApplyStat(_weapon);
         ApplyStat(_armor);
         ApplyStat(_gloves);
         ApplyStat(_boots);
-        Debug.LogWarning("Àåºñ ½ºÅÈ ¿ÜºÎ ¿¬µ¿ ÇÊ¿ä");
+        Debug.LogWarning("ì¥ë¹„ ìŠ¤íƒ¯ ì™¸ë¶€ ì—°ë™ í•„ìš”");
     }
 
-    // ¾ÈÁ¤¼ºÀ» À§ÇÑ ½ºÅÈ Àç°è»ê ÇÔ¼ö / È®Àå¿ë (Ãß°¡·Î ³ÖÀ»°ÔÀÖ´Ù¸é ÀÌ ÇÔ¼ö ¾È¿¡ ³ÖÀ¸¸é µÊ)
+    // ì•ˆì •ì„±ì„ ìœ„í•œ ìŠ¤íƒ¯ ì¬ê³„ì‚° í•¨ìˆ˜ / í™•ì¥ìš© (ì¶”ê°€ë¡œ ë„£ì„ê²Œìˆë‹¤ë©´ ì´ í•¨ìˆ˜ ì•ˆì— ë„£ìœ¼ë©´ ë¨)
     private void RefreshStats()
     {
         FinalStats();
     }
     #endregion
 
-    #region ÇåÅÍ ÀÎº¥Åä¸® ¿¬°á¿ë
-    public void SetGold(int value) // °ñµå
+    #region í—Œí„° ì¸ë²¤í† ë¦¬ ì—°ê²°ìš©
+    public void SetGold(int value) // ê³¨ë“œ
     {
         _gold = value;
     }
-    public void SetItem(string item) // Àç·á
+    public void SetItem(string item) // ì¬ë£Œ
     {
         if (item == null) return;
         if (_inventory.ContainsKey(item))
@@ -367,37 +372,61 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
             _inventory[item] = 1;
         }
     }
-    public void SetWeapon(string itemId) // ¹«±â ½½·Ô
+    public void SetWeapon(string itemId) // ë¬´ê¸° ìŠ¬ë¡¯
     {
         _weaponId = itemId;
 
-        // ¿ÜºÎ¿¡¼­ Àåºñ ½ºÅÈ ¹Ş¾Æ¿Ã °÷
+        // â˜… YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Weapon, _hunterJop, out var itemData)
+        // ë¡œ ë¬´ê¸° ì¥ì°© ê°€ëŠ¥ ì—¬ë¶€ë¥¼ ê²€ì‚¬í•œ ë’¤ _weapon = itemData.ToEquipStat() í˜•íƒœë¡œ ì—°ê²° í•„ìš”
+        // â˜… YHJ TODO: ì°¸ê³ 
+        // ItemDatabase_YHJ.cs 78ì¤„ ê·¼ì²˜ - TryGetEquipmentData
+        // ItemData_YHJ.cs 99ì¤„ ê·¼ì²˜ - IsMatchSlot
+        // ItemData_YHJ.cs 72ì¤„ ê·¼ì²˜ - CanEquip
+        // ItemData_YHJ.cs 105ì¤„ ê·¼ì²˜ - ToEquipStat
 
         RefreshStats();
     }
-    public void SetArmor(string itemId) // °©¿Ê ½½·Ô
+    public void SetArmor(string itemId) // ê°‘ì˜· ìŠ¬ë¡¯
     {
         _armorId = itemId;
 
-        // ¿ÜºÎ¿¡¼­ Àåºñ ½ºÅÈ ¹Ş¾Æ¿Ã °÷
+        // â˜… YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Armor, _hunterJop, out var itemData)
+        // ë¡œ ê°‘ì˜· ì¥ì°© ê°€ëŠ¥ ì—¬ë¶€ë¥¼ ê²€ì‚¬í•œ ë’¤ _armor = itemData.ToEquipStat() í˜•íƒœë¡œ ì—°ê²° í•„ìš”
+        // â˜… YHJ TODO: ì°¸ê³ 
+        // ItemDatabase_YHJ.cs 78ì¤„ ê·¼ì²˜ - TryGetEquipmentData
+        // ItemData_YHJ.cs 99ì¤„ ê·¼ì²˜ - IsMatchSlot
+        // ItemData_YHJ.cs 72ì¤„ ê·¼ì²˜ - CanEquip
+        // ItemData_YHJ.cs 105ì¤„ ê·¼ì²˜ - ToEquipStat
 
         RefreshStats();
     }
     #endregion
-    public void SetGloves(string itemId) // Àå°© ½½·Ô
+    public void SetGloves(string itemId) // ì¥ê°‘ ìŠ¬ë¡¯
     {
         _glovesId = itemId;
 
-        // ¿ÜºÎ¿¡¼­ Àåºñ ½ºÅÈ ¹Ş¾Æ¿Ã °÷
+        // â˜… YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Gloves, _hunterJop, out var itemData)
+        // ë¡œ ì¥ê°‘ ì¥ì°© ê°€ëŠ¥ ì—¬ë¶€ë¥¼ ê²€ì‚¬í•œ ë’¤ _gloves = itemData.ToEquipStat() í˜•íƒœë¡œ ì—°ê²° í•„ìš”
+        // â˜… YHJ TODO: ì°¸ê³ 
+        // ItemDatabase_YHJ.cs 78ì¤„ ê·¼ì²˜ - TryGetEquipmentData
+        // ItemData_YHJ.cs 99ì¤„ ê·¼ì²˜ - IsMatchSlot
+        // ItemData_YHJ.cs 72ì¤„ ê·¼ì²˜ - CanEquip
+        // ItemData_YHJ.cs 105ì¤„ ê·¼ì²˜ - ToEquipStat
 
         RefreshStats();
     }
 
-    public void SetBoots(string itemId) // ½Å¹ß ½½·Ô
+    public void SetBoots(string itemId) // ì‹ ë°œ ìŠ¬ë¡¯
     { 
         _bootsId = itemId;
 
-        // ¿ÜºÎ¿¡¼­ Àåºñ ½ºÅÈ ¹Ş¾Æ¿Ã °÷
+        // â˜… YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Boots, _hunterJop, out var itemData)
+        // ë¡œ ì‹ ë°œ ì¥ì°© ê°€ëŠ¥ ì—¬ë¶€ë¥¼ ê²€ì‚¬í•œ ë’¤ _boots = itemData.ToEquipStat() í˜•íƒœë¡œ ì—°ê²° í•„ìš”
+        // â˜… YHJ TODO: ì°¸ê³ 
+        // ItemDatabase_YHJ.cs 78ì¤„ ê·¼ì²˜ - TryGetEquipmentData
+        // ItemData_YHJ.cs 99ì¤„ ê·¼ì²˜ - IsMatchSlot
+        // ItemData_YHJ.cs 72ì¤„ ê·¼ì²˜ - CanEquip
+        // ItemData_YHJ.cs 105ì¤„ ê·¼ì²˜ - ToEquipStat
 
         RefreshStats();
     }
@@ -407,7 +436,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         return _inventory;
     }
 
-    #region Get ÇÔ¼ö => ÃÖÁ¾ °ª¸¸ ¹İÈ¯
+    #region Get í•¨ìˆ˜ => ìµœì¢… ê°’ë§Œ ë°˜í™˜
     public float GetMaxHP() => _maxHP;
     public float GetAttackDamage() => _damage;
     public float GetDefence() => _defence;
@@ -417,7 +446,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public float GetMoveSpeed() => _moveSpeed;
     #endregion
 
-    // ¡Ú KJG Ãß°¡: Save/Load¸¦ À§ÇØ EXP¸¦ longÀ¸·Î ¹İÈ¯/¼³Á¤ÇÏ´Â ¸Ş¼­µå
+    // â˜… KJG ì¶”ê°€: Save/Loadë¥¼ ìœ„í•´ EXPë¥¼ longìœ¼ë¡œ ë°˜í™˜/ì„¤ì •í•˜ëŠ” ë©”ì„œë“œ
     public long GetCurrentExp() => (long)_currentExp;
     public void SetCurrentExp(long value) => _currentExp = value;
 }
