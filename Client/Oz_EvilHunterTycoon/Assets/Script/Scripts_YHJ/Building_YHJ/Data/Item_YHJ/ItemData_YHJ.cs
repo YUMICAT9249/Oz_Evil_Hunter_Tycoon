@@ -61,6 +61,9 @@ public class ItemData_YHJ : ScriptableObject
     public float attackCooldown;
     public float moveSpeed;
 
+    // 무기장착 프리팹 교체
+    public GameObject weaponPrefab;
+
     // ★ YHJ TODO: HunterData_PJS.SetWeapon/SetArmor/SetGloves/SetBoots에서
     // itemID로 ItemData_YHJ를 가져온 뒤 itemKind, equipmentSlot, equipmentHunterJop을 먼저 검사해서 장착 가능 여부를 확인할 것
     public bool IsEquipmentItem()

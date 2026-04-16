@@ -105,6 +105,12 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     [SerializeField] public int _rebirthCount = 0;      // 환생 횟수
     [SerializeField] public float _rebirthBonus = 1.0f; // 환생 보너스 배율
 
+    [Header("무기 장착 위치")]
+    [SerializeField] private Transform _weaponPoint;  // 무기 장착 위치
+
+    // 헌터 무기 오브젝트
+    private GameObject _currentWeaponObject;
+
     // 헌터 골드 / 재료 인벤토리 관련
     private Dictionary<string, int> _inventory = new Dictionary<string, int>();
     private int _gold = 0;
@@ -345,7 +351,6 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         ApplyStat(_armor);
         ApplyStat(_gloves);
         ApplyStat(_boots);
-        Debug.LogWarning("장비 스탯 외부 연동 필요");
     }
 
     // 안정성을 위한 스탯 재계산 함수 / 확장용 (추가로 넣을게있다면 이 함수 안에 넣으면 됨)
@@ -375,61 +380,87 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
     public void SetWeapon(string itemId) // 무기 슬롯
     {
         _weaponId = itemId;
-
-        // ★ YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Weapon, _hunterJop, out var itemData)
-        // 로 무기 장착 가능 여부를 검사한 뒤 _weapon = itemData.ToEquipStat() 형태로 연결 필요
-        // ★ YHJ TODO: 참고
-        // ItemDatabase_YHJ.cs 78줄 근처 - TryGetEquipmentData
-        // ItemData_YHJ.cs 99줄 근처 - IsMatchSlot
-        // ItemData_YHJ.cs 72줄 근처 - CanEquip
-        // ItemData_YHJ.cs 105줄 근처 - ToEquipStat
-
+        if (RepeatTryEquip(itemId, EquipmentSlot_YHJ.Weapon, out _weapon))
+        {
+            WeaponImageChange(itemId);
+        }
         RefreshStats();
     }
     public void SetArmor(string itemId) // 갑옷 슬롯
     {
         _armorId = itemId;
-
-        // ★ YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Armor, _hunterJop, out var itemData)
-        // 로 갑옷 장착 가능 여부를 검사한 뒤 _armor = itemData.ToEquipStat() 형태로 연결 필요
-        // ★ YHJ TODO: 참고
-        // ItemDatabase_YHJ.cs 78줄 근처 - TryGetEquipmentData
-        // ItemData_YHJ.cs 99줄 근처 - IsMatchSlot
-        // ItemData_YHJ.cs 72줄 근처 - CanEquip
-        // ItemData_YHJ.cs 105줄 근처 - ToEquipStat
-
+        RepeatTryEquip(itemId, EquipmentSlot_YHJ.Armor, out _armor);
         RefreshStats();
     }
-    #endregion
+    
     public void SetGloves(string itemId) // 장갑 슬롯
     {
         _glovesId = itemId;
-
-        // ★ YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Gloves, _hunterJop, out var itemData)
-        // 로 장갑 장착 가능 여부를 검사한 뒤 _gloves = itemData.ToEquipStat() 형태로 연결 필요
-        // ★ YHJ TODO: 참고
-        // ItemDatabase_YHJ.cs 78줄 근처 - TryGetEquipmentData
-        // ItemData_YHJ.cs 99줄 근처 - IsMatchSlot
-        // ItemData_YHJ.cs 72줄 근처 - CanEquip
-        // ItemData_YHJ.cs 105줄 근처 - ToEquipStat
-
+        RepeatTryEquip(itemId, EquipmentSlot_YHJ.Gloves, out _gloves);
         RefreshStats();
     }
 
     public void SetBoots(string itemId) // 신발 슬롯
     { 
         _bootsId = itemId;
-
-        // ★ YHJ TODO: ItemDatabase_YHJ.Instance.TryGetEquipmentData(itemId, EquipmentSlot_YHJ.Boots, _hunterJop, out var itemData)
-        // 로 신발 장착 가능 여부를 검사한 뒤 _boots = itemData.ToEquipStat() 형태로 연결 필요
-        // ★ YHJ TODO: 참고
-        // ItemDatabase_YHJ.cs 78줄 근처 - TryGetEquipmentData
-        // ItemData_YHJ.cs 99줄 근처 - IsMatchSlot
-        // ItemData_YHJ.cs 72줄 근처 - CanEquip
-        // ItemData_YHJ.cs 105줄 근처 - ToEquipStat
-
+        RepeatTryEquip(itemId, EquipmentSlot_YHJ.Boots, out _boots);
         RefreshStats();
     }
+
+    // 위의 반복 구조 함수화
+    private bool RepeatTryEquip(string itemId, EquipmentSlot_YHJ slot, out EquipStat stat)
+    { 
+        stat = default;
+        if (ItemDatabase_YHJ.Instance.TryGetEquipmentData
+            (
+                itemId, 
+                slot, 
+                _hunterJop, 
+                out var itemData
+            ))
+        { 
+            stat = itemData.ToEquipStat();
+            return true;
+        }
+        // 무기 외에 착용 제한 없음
+        if (slot == EquipmentSlot_YHJ.Weapon)
+        {
+            Debug.LogWarning("직업 타입이 맞지 않아, 장착 불가능한 무기");
+        }
+        return false;
+    }
+
+    // 무기 장착 이미지 교체 함수
+    private void WeaponImageChange(string itemId)
+    {
+        // 기존 무기 삭제
+        if (_currentWeaponObject != null)
+        {
+            Destroy(_currentWeaponObject);
+        }
+
+        if (ItemDatabase_YHJ.Instance.TryGetEquipmentData
+            (
+                itemId,
+                EquipmentSlot_YHJ.Weapon,
+                _hunterJop,
+                out var itemData
+            ))
+        {
+            GameObject prefab = itemData.weaponPrefab;
+            if (prefab != null && _weaponPoint != null)
+            {
+                _currentWeaponObject = Instantiate(prefab, _weaponPoint);
+                _currentWeaponObject.transform.localPosition = Vector3.zero;
+                _currentWeaponObject.transform.localRotation = Quaternion.identity;
+            }
+            else
+            {
+                Debug.LogWarning("무기 프리팹 or gripPoint 없음");
+            }
+        }
+    }
+    #endregion
 
     public Dictionary<string, int> GetInventory() // UI
     {

@@ -672,11 +672,12 @@ MonoBehaviour:
   monsterName: 
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
-  Hunter: {fileID: 0}
   lastAttackTime: 0
+  Hunter: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -1.5, y: -1.5, z: -1.5}
   maxBounds: {x: 1.5, y: 1.5, z: 1.5}
+  monsterDropTable: {fileID: 11400000, guid: 2dbdcdc2da78d2a47af2b75b5a4ab818, type: 2}
 --- !u!114 &8542528140437329774
 MonoBehaviour:
   m_ObjectHideFlags: 0
