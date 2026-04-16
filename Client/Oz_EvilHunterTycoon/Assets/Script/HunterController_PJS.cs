@@ -1,31 +1,31 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
-// ÇåÅÍ Çàµ¿(¾îµğ·Î ÀÌµ¿/¾î¶»°Ô °ø°İ) ½ºÅ©¸³Æ®
+// í—Œí„° í–‰ë™(ì–´ë””ë¡œ ì´ë™/ì–´ë–»ê²Œ ê³µê²©) ìŠ¤í¬ë¦½íŠ¸
 
 public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 {
-    // ÇåÅÍ »óÅÂ
+    // í—Œí„° ìƒíƒœ
     private enum HunterState
     {
         Idle, Move, Attack, Die
     }
 
     [SerializeField] private HunterState _currentState = HunterState.Idle;
-    [SerializeField] private AreaType _areaCheck; // ÀÌÀü Áö¿ª ÀúÀå¿ë
+    [SerializeField] private AreaType _areaCheck; // ì´ì „ ì§€ì—­ ì €ì¥ìš©
 
-    [Header("ÀÌµ¿ ¿µ¿ª")]
-    [SerializeField] private BoxCollider2D _targetBox;   // ÇöÀç ÀÌµ¿ ¿µ¿ª
+    [Header("ì´ë™ ì˜ì—­")]
+    [SerializeField] private BoxCollider2D _targetBox;   // í˜„ì¬ ì´ë™ ì˜ì—­
 
-    [Header("¿ø°Å¸® ±âº»°ø°İ")]
+    [Header("ì›ê±°ë¦¬ ê¸°ë³¸ê³µê²©")]
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private GameObject fireBallPrefab;
     [SerializeField] private float projectileSpeed = 5f;
 
-    [Header("¹ß»ç À§Ä¡")]
+    [Header("ë°œì‚¬ ìœ„ì¹˜")]
     [SerializeField] private Transform firePoint;
 
-    // ÃÖÀûÈ­¸¦ À§ÇÑ º¯¼öÃ³¸® (TryGetComponent, FindWithTag Á¦°Å)
+    // ìµœì í™”ë¥¼ ìœ„í•œ ë³€ìˆ˜ì²˜ë¦¬ (TryGetComponent, FindWithTag ì œê±°)
     private HunterData_PJS _hunterData;
     private HunterSkill_PJS _hunterSkill;
     private Battle_JBJ_PJS _battle;
@@ -33,28 +33,28 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
     private Collider2D _hunterCollider;
     private SpriteRenderer _spriteRenderer;
 
-    // ÀÌµ¿ Å¸°Ù °ü·Ã
+    // ì´ë™ íƒ€ê²Ÿ ê´€ë ¨
     private Battle_JBJ_PJS _targetBattle;
-    private GameObject _targetMonster;  // ÇöÀç Å¸°Ù
-    private Vector2 _targetPosition;    // ÀÌµ¿ ¸ñÀûÁö
+    private GameObject _targetMonster;  // í˜„ì¬ íƒ€ê²Ÿ
+    private Vector2 _targetPosition;    // ì´ë™ ëª©ì ì§€
     private float _lookTargetX;
 
-    // °Ç¹° »óÈ£ÀÛ¿ë °ü·Ã
-    private Transform _buildingTarget;      // °Ç¹° Å¸°Ù
-    private BuildingType_YHJ _buildingType; // °Ç¹° Å¸ÀÔ
+    // ê±´ë¬¼ ìƒí˜¸ì‘ìš© ê´€ë ¨
+    private Transform _buildingTarget;      // ê±´ë¬¼ íƒ€ê²Ÿ
+    private BuildingType_YHJ _buildingType; // ê±´ë¬¼ íƒ€ì…
 
-    // ³»ºÎ »óÅÂ°ª
+    // ë‚´ë¶€ ìƒíƒœê°’
     private float _lastAttackTime;
     private float _idleTime = 1.0f;
     private bool _isForcedMove = false;
     
-    // ¸ó½ºÅÍ Å½»ö (FindWithTag Á¦°Å)
+    // ëª¬ìŠ¤í„° íƒìƒ‰ (FindWithTag ì œê±°)
     private Collider2D[] _detectMonster = new Collider2D[20];
 
     protected override void Awake()
     {
         base.Awake();
-        // Ä³½Ì - ÃÖÀûÈ­
+        // ìºì‹± - ìµœì í™”
         _hunterData = GetComponent<HunterData_PJS>();
         _hunterSkill = GetComponent<HunterSkill_PJS>();
         _battle = GetComponent<Battle_JBJ_PJS>();
@@ -63,7 +63,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // ÃÊ±âÈ­
+    // ì´ˆê¸°í™”
     protected override void Start()
     {
         StartCoroutine(ManagerWaiting());
@@ -71,23 +71,23 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 
     void Update()
     {
-        // Áö¿ª º¯°æ °¨Áö
+        // ì§€ì—­ ë³€ê²½ ê°ì§€
         AreaCheck();
     }
 
-    // À§Ä¡ °»½Å (¸Å´ÏÀú°¡ ¼ÒÈ¯/ÀÌµ¿ ½Ã Á÷Á¢ È£Ãâ)
+    // ìœ„ì¹˜ ê°±ì‹  (ë§¤ë‹ˆì €ê°€ ì†Œí™˜/ì´ë™ ì‹œ ì§ì ‘ í˜¸ì¶œ)
     public void SetArea(BoxCollider2D newArea)
     {
         _targetBox = newArea;
-        _isForcedMove = true; // °­Á¦ ÀÌµ¿ ON
+        _isForcedMove = true; // ê°•ì œ ì´ë™ ON
 
         if (_targetBox != null)
         {
-            RandomPos(); // »õ·Î¿î ¸ñÀûÁö ¼³Á¤
+            RandomPos(); // ìƒˆë¡œìš´ ëª©ì ì§€ ì„¤ì •
         }
     }
 
-    // ÇåÅÍ »ç¸Á Ã³¸® ÇÔ¼ö
+    // í—Œí„° ì‚¬ë§ ì²˜ë¦¬ í•¨ìˆ˜
     public void HunterDie()
     {
         StopAllCoroutines();
@@ -98,7 +98,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _animator.speed = 1.0f;
 
         _hunterCollider.enabled = false;
-        // »ç¸Á ÀÌº¥Æ®
+        // ì‚¬ë§ ì´ë²¤íŠ¸
         HunterData_PJS.OnHunterDie?.Invoke();
         if (TryGetComponent(out IUnit_YHJ unit))
         {
@@ -106,7 +106,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // ¸¶À» ±ÍÈ¯ ÇÔ¼ö
+    // ë§ˆì„ ê·€í™˜ í•¨ìˆ˜
     public void ReturnVillage(BoxCollider2D villageBox)
     {
         _hunterData._areaType = AreaType.Village;
@@ -115,10 +115,10 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         if (villageBox != null)
         {
             transform.position = villageBox.bounds.center;
-            _targetBox = villageBox; // ±¸¿ª °»½Å
+            _targetBox = villageBox; // êµ¬ì—­ ê°±ì‹ 
         }
 
-        // ¹İÅõ¸í ¾ËÆÄ °ª º¹±¸
+        // ë°˜íˆ¬ëª… ì•ŒíŒŒ ê°’ ë³µêµ¬
         if (_spriteRenderer != null)
         {
             Color color = _spriteRenderer.color;
@@ -126,22 +126,22 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
             _spriteRenderer.color = color;
         }
 
-        // HP ÃÖ´ëÄ¡ + ºÎÈ°Ã³¸®
+        // HP ìµœëŒ€ì¹˜ + ë¶€í™œì²˜ë¦¬
         _hunterData.CurrentHP = _hunterData.GetMaxHP();
         _hunterCollider.enabled = true;
         _currentState = HunterState.Idle;
 
-        SetArea(_targetBox); // À§Ä¡°»½Å ·ÎÁ÷ ½ÇÇà
+        SetArea(_targetBox); // ìœ„ì¹˜ê°±ì‹  ë¡œì§ ì‹¤í–‰
         StopAllCoroutines();
         StartCoroutine(HunterActionCenterLoop());
     }
 
-    // ¹ß»çÃ¼ ÇÔ¼ö
+    // ë°œì‚¬ì²´ í•¨ìˆ˜
     public void FireProjectile()
     {
         if (_targetMonster == null) return;
         GameObject projectilePrefab = null;
-        // Á÷¾÷º° ¹ß»çÃ¼ ÇÁ¸®ÆÕ
+        // ì§ì—…ë³„ ë°œì‚¬ì²´ í”„ë¦¬íŒ¹
         if (_hunterData._hunterJop == HunterJop.Ranger)
         {
             projectilePrefab = arrowPrefab;
@@ -160,7 +160,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
                 firePoint.position,
                 Quaternion.identity
             );
-        // Á÷¾÷º° ¹æÇâ Ã³¸®
+        // ì§ì—…ë³„ ë°©í–¥ ì²˜ë¦¬
         if (_hunterData._hunterJop == HunterJop.Ranger)
         {
             projectile.transform.up = -direction;
@@ -174,7 +174,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         {
             rb.velocity = direction * projectileSpeed;
         }
-        // º»ÀÎ Ãæµ¹ ¹«½Ã
+        // ë³¸ì¸ ì¶©ëŒ ë¬´ì‹œ
         Collider2D myCollider = GetComponent<Collider2D>();
         Collider2D projectileCollider = projectile.GetComponent<Collider2D>();
 
@@ -184,34 +184,34 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // Áö¿ª º¯°æ °¨Áö (º¯°æµÉ ¶§¸¸ ½ÇÇà)
+    // ì§€ì—­ ë³€ê²½ ê°ì§€ (ë³€ê²½ë  ë•Œë§Œ ì‹¤í–‰)
     private void AreaCheck()
     {
         if (_hunterData != null && _areaCheck != _hunterData._areaType)
         {
-            // ±¸¿ªÀÌ º¯°æµÇ¸é "¿ÜºÎ ¸Å´ÏÀú"¿¡¼­ SetArea È£Ãâ
+            // êµ¬ì—­ì´ ë³€ê²½ë˜ë©´ "ì™¸ë¶€ ë§¤ë‹ˆì €"ì—ì„œ SetArea í˜¸ì¶œ
             _areaCheck = _hunterData._areaType;
         }
     }
 
-    // ¸ó½ºÅÍ Ã£±â
+    // ëª¬ìŠ¤í„° ì°¾ê¸°
     private void FindTarget()
     {
         if (_targetBox == null) return;
 
-        // 1. ±âÁ¸ Å¸°ÙÀÌ »ì¾ÆÀÖ´ÂÁö Ã¼Å©
+        // 1. ê¸°ì¡´ íƒ€ê²Ÿì´ ì‚´ì•„ìˆëŠ”ì§€ ì²´í¬
         if (_targetMonster != null)
         {
-            // ¸ó½ºÅÍ »ç¸Á½Ã ÇØÁ¦ / ¹üÀ§ ¹ÛÀÌ¸é Å¸°Ù ÇØÁ¦
+            // ëª¬ìŠ¤í„° ì‚¬ë§ì‹œ í•´ì œ / ë²”ìœ„ ë°–ì´ë©´ íƒ€ê²Ÿ í•´ì œ
             if (!_targetMonster.activeInHierarchy || !_targetBox.OverlapPoint(_targetMonster.transform.position))
             {
                 _targetMonster = null;
                 _targetBattle = null;
             }
-            // ¹üÀ§ ¾ÈÀÌ¸é Å¸°Ù À¯Áö
+            // ë²”ìœ„ ì•ˆì´ë©´ íƒ€ê²Ÿ ìœ ì§€
             else return;
         }
-        // 2. »õ·Î¿î ¸ó½ºÅÍ Å½Áö (Æ¯Á¤ ÅÂ±×(Monster)¸¸ Å½Áö)
+        // 2. ìƒˆë¡œìš´ ëª¬ìŠ¤í„° íƒì§€ (íŠ¹ì • íƒœê·¸(Monster)ë§Œ íƒì§€)
         int count = Physics2D.OverlapCircleNonAlloc
             (
                 transform.position,
@@ -244,7 +244,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _targetBattle = closestBattle;
     }
 
-    // ÇåÅÍ ÁÂ¿ì ¹æÇâ ÀüÈ¯
+    // í—Œí„° ì¢Œìš° ë°©í–¥ ì „í™˜
     private void LookAt()
     {
         if (_lookTargetX > transform.position.x)
@@ -257,7 +257,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // ÀÌµ¿ÇÒ À§Ä¡ ·£´ı »ı¼º
+    // ì´ë™í•  ìœ„ì¹˜ ëœë¤ ìƒì„±
     private void RandomPos()
     {
         if (_targetBox == null) return;
@@ -274,7 +274,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // ÇåÅÍ º»ÀÎ À§Ä¡ ±âÁØÀ¸·Î Area Ã£±â
+    // í—Œí„° ë³¸ì¸ ìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ Area ì°¾ê¸°
     private BoxCollider2D FindAreaPosition()
     {
         Collider2D[] find = Physics2D.OverlapPointAll(transform.position);
@@ -288,45 +288,48 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         return null;
     }
 
-    #region °Ç¹°¿¡¼­ ¿¬°áµÇ¾î¾ßÇÒ ÇÔ¼ö / È£Àç´Ô ÀÎÅÍÆäÀÌ½º ÇÊ¿ä
+    #region ê±´ë¬¼ì—ì„œ ì—°ê²°ë˜ì–´ì•¼í•  í•¨ìˆ˜ / í˜¸ì¬ë‹˜ ì¸í„°í˜ì´ìŠ¤ í•„ìš”
     private void BuildingInteraction()
     {
         if (_buildingTarget == null) return;
-        /*
-        if (_buildingTarget.TryGetComponent(out È£Àç´Ô½ºÅ©¸³Æ® building))
+
+        // â˜… 2026-04-16 YHJ: í—Œí„°ê°€ ê±´ë¬¼ì— ë„ì°©í•˜ë©´ YHJ ê±´ë¬¼ ìƒí˜¸ì‘ìš© ì´ë²¤íŠ¸ë¡œ ë„˜ê²¨ ì‹¤ì œ Interact íë¦„ì„ ì—°ê²°
+        if (!TryGetComponent(out IUnit_YHJ unit))
         {
-            building.Interact(gameObject);
+            // â˜… 2026-04-16 YHJ: í—Œí„°ê°€ IUnit_YHJë¥¼ ëª» ì°¾ëŠ” ê²½ìš° ê±´ë¬¼ ìƒí˜¸ì‘ìš©ì„ ì‹œë„í•˜ì§€ ì•Šë„ë¡ ì•ˆì „ ì²˜ë¦¬
+            Debug.LogWarning("IUnit_YHJ ì—†ìŒ");
+            _buildingTarget = null;
+            return;
         }
-        else
-        {
-            Debug.LogWarning("½ºÅ©¸³Æ® ¾øÀ½")
-        }
-        */
+
+        // â˜… 2026-04-16 YHJ: BuildingInteractionReceiver_YHJê°€ RequestInteractë¥¼ ë°›ì•„
+        // IBuildingInteraction_YHJ.CanInteract/Interactë¥¼ í˜¸ì¶œí•˜ë¯€ë¡œ í—Œí„° ìª½ì—ì„œëŠ” íƒ€ê²Ÿê³¼ ìœ ë‹›ë§Œ ì „ë‹¬í•˜ë©´ ë¨
+        EventBus_YHJ.RequestInteract?.Invoke(_buildingTarget.gameObject, unit);
         _buildingTarget = null;
     }
     #endregion
 
-    // Çàµ¿ Áß¾Ó Á¦¾î(¸ŞÀÎ)
+    // í–‰ë™ ì¤‘ì•™ ì œì–´(ë©”ì¸)
     IEnumerator HunterActionCenterLoop()
     {
         while (true)
         {
-            // 1. À¯Àú ¸í·É ÃÖ¿ì¼± Ã³¸®
+            // 1. ìœ ì € ëª…ë ¹ ìµœìš°ì„  ì²˜ë¦¬
             if (_isForcedMove)
             {
-                _targetMonster = null; // ±âÁ¸ Å¸°Ù Á¦°Å
+                _targetMonster = null; // ê¸°ì¡´ íƒ€ê²Ÿ ì œê±°
                 _targetBattle = null;
 
                 _currentState = HunterState.Move;
                 yield return StartCoroutine(HunterMoveLoop());
 
-                _isForcedMove = false; // ÀÌµ¿ ¿Ï·á
+                _isForcedMove = false; // ì´ë™ ì™„ë£Œ
                 continue;
             }
-            // 2. Å¸°Ù Å½»ö
+            // 2. íƒ€ê²Ÿ íƒìƒ‰
             FindTarget();
 
-            // 3. Å¸°Ù ¾øÀ½ ¡æ ÀÌµ¿
+            // 3. íƒ€ê²Ÿ ì—†ìŒ â†’ ì´ë™
             if (_targetMonster == null)
             {
                 _currentState = HunterState.Move;
@@ -336,20 +339,20 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
                 _animator.SetBool("IsMoving", false);
                 yield return new WaitForSeconds(_idleTime);
             }
-            // 4. Å¸°Ù ÀÖÀ½
+            // 4. íƒ€ê²Ÿ ìˆìŒ
             else
             {
                 if (_hunterData)
                 {
                     float distance = Vector2.Distance(transform.position, _targetMonster.transform.position);
-                    // °ø°İ ¹üÀ§ ¾È
+                    // ê³µê²© ë²”ìœ„ ì•ˆ
                     if (distance <= _hunterData._attackRange)
                     {
                         _currentState = HunterState.Attack;
                         _animator.SetBool("IsMoving", false);
                         yield return StartCoroutine(HunterAttackLoop());
                     }
-                    // ¹üÀ§ ¹Û ¡æ Ãß°İ
+                    // ë²”ìœ„ ë°– â†’ ì¶”ê²©
                     else
                     {
                         _currentState = HunterState.Move;
@@ -360,7 +363,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // ÀÌµ¿ ÄÚ·çÆ¾
+    // ì´ë™ ì½”ë£¨í‹´
     IEnumerator HunterMoveLoop()
     {
         if (_targetBox == null) yield break;
@@ -373,7 +376,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 
         while (Vector2.Distance(transform.position, _targetPosition) > 0.1f)
         {
-            // °Ç¹° µµÂø Ã¼Å©
+            // ê±´ë¬¼ ë„ì°© ì²´í¬
             if (_buildingTarget != null)
             {
                 float distance = Vector2.Distance(transform.position, _buildingTarget.position);
@@ -384,12 +387,12 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
                     yield break;
                 }
             }
-            FindTarget(); // ÁÖº¯¿¡ ¸ó½ºÅÍ°¡ ÀÖ´ÂÁö È®ÀÎ
+            FindTarget(); // ì£¼ë³€ì— ëª¬ìŠ¤í„°ê°€ ìˆëŠ”ì§€ í™•ì¸
 
-            // ¸ó½ºÅÍ¸¦ Ã£¾Ò´Ù¸é
+            // ëª¬ìŠ¤í„°ë¥¼ ì°¾ì•˜ë‹¤ë©´
             if (_targetMonster != null)
             {
-                // ÀÌµ¿·çÇÁ Å»Ãâ -> HunterActionCenterLoop()·Î º¹±Í
+                // ì´ë™ë£¨í”„ íƒˆì¶œ -> HunterActionCenterLoop()ë¡œ ë³µê·€
                 _animator.SetBool("IsMoving", false);
                 yield break;
             }
@@ -404,7 +407,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _animator.SetBool("IsMoving", false);
     }
 
-    // Ãß°İ ÄÚ·çÆ¾
+    // ì¶”ê²© ì½”ë£¨í‹´
     IEnumerator HunterFollowLoop()
     {
         _currentState = HunterState.Move;
@@ -434,12 +437,12 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _animator.SetBool("IsMoving", false);
     }
 
-    // °ø°İ ÄÚ·çÆ¾
+    // ê³µê²© ì½”ë£¨í‹´
     IEnumerator HunterAttackLoop()
     {
         while (_targetMonster != null)
         {
-            // Å¸°Ù Á×¾úÀ¸¸é Áï½Ã Á¾·á
+            // íƒ€ê²Ÿ ì£½ì—ˆìœ¼ë©´ ì¦‰ì‹œ ì¢…ë£Œ
             if (!_targetMonster.activeInHierarchy) yield break;
 
             float currentDistance = Vector2.Distance(transform.position, _targetMonster.transform.position);
@@ -456,10 +459,10 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
                 _lookTargetX = _targetMonster.transform.position.x;
                 LookAt();
 
-                // ¾Ö´Ï¸ŞÀÌ¼Ç °ø°İ Äğ´Ù¿î Á¶Àı(°ø°İ¼Óµµ Á¶Àı)
+                // ì• ë‹ˆë©”ì´ì…˜ ê³µê²© ì¿¨ë‹¤ìš´ ì¡°ì ˆ(ê³µê²©ì†ë„ ì¡°ì ˆ)
                 _animator.speed = _hunterData._unitData.attackCooldown / cooldown;
 
-                // ÇåÅÍ ½ºÅ³ »ç¿ë ½Ãµµ
+                // í—Œí„° ìŠ¤í‚¬ ì‚¬ìš© ì‹œë„
                 if (_hunterSkill != null && _targetBattle != null)
                 {
                     _hunterSkill.UseSkill(_targetBattle);
@@ -467,7 +470,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 
                 _animator.SetTrigger("Attack");
 
-                // µ¥¹ÌÁö Ã³¸® (ÀüÅõ ½ºÅ©¸³Æ® È£Ãâ)
+                // ë°ë¯¸ì§€ ì²˜ë¦¬ (ì „íˆ¬ ìŠ¤í¬ë¦½íŠ¸ í˜¸ì¶œ)
                 if (_hunterData._attackRange <= 1.5f)
                 {
                     if (_battle != null && _targetBattle != null)
@@ -478,7 +481,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
                 _lastAttackTime = Time.time;
 
                 yield return new WaitForSeconds(cooldown);
-                // °ø°İ ÈÄ ¾Ö´Ï¸ŞÀÌ¼Ç ¼Óµµ º¹±¸
+                // ê³µê²© í›„ ì• ë‹ˆë©”ì´ì…˜ ì†ë„ ë³µêµ¬
                 _animator.speed = 1.0f;
             }
             else
@@ -490,45 +493,46 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _animator.speed = 1.0f;
     }
 
-    #region °Ç¹° »óÈ£ÀÛ¿ë UI È£Ãâ¿ë
+    #region ê±´ë¬¼ ìƒí˜¸ì‘ìš© UI í˜¸ì¶œìš©
     public void CommandBuilding(Transform buildingTarget, BuildingType_YHJ buildingType)
     {
+        // â˜… 2026-04-16 YHJ: UIì—ì„œ ì„ íƒí•œ ê±´ë¬¼ íƒ€ê²Ÿê³¼ íƒ€ì…ì„ ì €ì¥í•´ ê°•ì œì´ë™ í›„ BuildingInteractionìœ¼ë¡œ ì´ì–´ì§€ê²Œ í•¨
         _buildingTarget = buildingTarget;
         _buildingType = buildingType;
 
-        _targetMonster = null;  // ¸ó½ºÅÍ ¹«½Ã
-        _targetBattle = null;   // ÀüÅõ ¹«½Ã
+        _targetMonster = null;  // ëª¬ìŠ¤í„° ë¬´ì‹œ
+        _targetBattle = null;   // ì „íˆ¬ ë¬´ì‹œ
 
         _targetPosition = buildingTarget.position;
         _isForcedMove = true;
     }
     #endregion
 
-    #region Manager ÃÊ±âÈ­ ¿şÀÌÆÃ
+    #region Manager ì´ˆê¸°í™” ì›¨ì´íŒ…
     IEnumerator ManagerWaiting()
     {
         yield return null;
 
         base.Start();
-        // ½ÃÀÛ ½Ã ÇöÀç ±¸¿ªÀ» °¡Á®¿È
+        // ì‹œì‘ ì‹œ í˜„ì¬ êµ¬ì—­ì„ ê°€ì ¸ì˜´
         if (_hunterData != null)
         {
-            // ±âº» Áö¿ª ÀúÀå
+            // ê¸°ë³¸ ì§€ì—­ ì €ì¥
             _areaCheck = _hunterData._areaType;
         }
-        // ÇåÅÍ À§Ä¡±â¹İ Áö¿ªÃ£±â / ½ÃÀÛ½Ã °¡¸¸È÷ ÀÖ´Â »óÅÂ ¹æÁö
+        // í—Œí„° ìœ„ì¹˜ê¸°ë°˜ ì§€ì—­ì°¾ê¸° / ì‹œì‘ì‹œ ê°€ë§Œíˆ ìˆëŠ” ìƒíƒœ ë°©ì§€
         if (_targetBox == null)
         { 
             _targetBox = FindAreaPosition();
         }
-        // ¾øÀ¸¸é ´ë±â
+        // ì—†ìœ¼ë©´ ëŒ€ê¸°
         while (_targetBox == null)
         {
             _targetBox = FindAreaPosition();
             yield return null;
         }
 
-        // Çàµ¿ ·çÇÁ ½ÃÀÛ(1È¸)
+        // í–‰ë™ ë£¨í”„ ì‹œì‘(1íšŒ)
         StartCoroutine(HunterActionCenterLoop());
     }
     #endregion
@@ -538,7 +542,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
     {
         if (_hunterData == null)
         {
-            Debug.Log("ÇåÅÍ Á¤º¸°¡ ¾øÀ½");
+            Debug.Log("í—Œí„° ì •ë³´ê°€ ì—†ìŒ");
             return;
         }
             
@@ -546,7 +550,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 
         UiManager.Instance.TargetHunter(true ,this); // Camera
         UiManager.Instance.hunterData = _hunterData; // UI
-        Debug.Log("ÇåÅÍ Á¤º¸ Ä«¸Ş¶ó ÁöÁ¤");
+        Debug.Log("í—Œí„° ì •ë³´ ì¹´ë©”ë¼ ì§€ì •");
     }
     #endregion
 }

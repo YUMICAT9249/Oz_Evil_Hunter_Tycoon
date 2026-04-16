@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -20,7 +20,7 @@ MonoBehaviour:
   value: 0
   isStackable: 0
   equipmentSlot: 2
-  equipmentPrefab: {fileID: 6592113408513154455, guid: c088f90a72b22b6439e195b4e00448c7, type: 3}
+  itemPrefab: {fileID: 1001, guid: 45b663378f5d45e184a2d5ffaceb485e, type: 3}
   hp: 0
   damage: 0
   defence: 0
@@ -28,3 +28,4 @@ MonoBehaviour:
   dodgeChance: 0
   attackCooldown: 0
   moveSpeed: 0
+

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
+  m_Name: Heal Potion 4
+  m_EditorClassIdentifier: 
+  itemID: Heal Potion 4
+  itemName: Heal Potion 4
+  icon: {fileID: -234639771, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemKind: 1
+  effectType: 1
+  value: 0
+  isStackable: 1
+  equipmentSlot: 0
+  equipmentHunterJop: 0
+  hp: 0
+  damage: 0
+  defence: 0
+  criticalChance: 0
+  dodgeChance: 0
+  attackCooldown: 0
+  moveSpeed: 0
+  itemPrefab: {fileID: 8723139984056529016, guid: c61037438c957c94ba35eb01b8c09328, type: 3}
