@@ -28,12 +28,24 @@ public class DropItemPickup_KJG : MonoBehaviour
         if (_isCollected) return;
         _isCollected = true;
 
-        // ★ 수집 성공 → MaterialInventory에 실제 추가
+        // ★ MaterialInventory에 실제 재료 추가
         if (MaterialInventory_YHJ.Instance != null)
         {
             string itemID = itemType.ToString();
             MaterialInventory_YHJ.Instance.AddItem(itemID, amount);
             Debug.Log($"[DropItemPickup] {itemType} {amount}개 수집 완료 → MaterialInventory 추가");
+
+            // ★ KJG 추가: 재료 수집 성공 시 자동 저장 (Save/Load 연동)
+            if (Manager_KJG.SaveLoad != null)
+            {
+                Manager_KJG.SaveLoad.GameSave();
+            }
+
+            // ★ KJG 추가: UI 새로고침 (EventManager_KJG 사용)
+            if (Manager_KJG.Event != null)
+            {
+                Manager_KJG.Event.RefreshUI();
+            }
         }
         else
         {
