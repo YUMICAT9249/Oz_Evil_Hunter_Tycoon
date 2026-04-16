@@ -21,13 +21,31 @@ public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
 
     public void DropFromMonster(Monster_JBJ monster)
     {
-        if (monster == null || dropTables == null || dropTables.Count == 0) return;
+        if (monster == null)
+        {
+            Debug.LogWarning("[DropManager_KJG] monster is null");
+            return;
+        }
 
-        Debug.Log($"[DropManager_KJG] {monster.displayName} 사망 → 드랍 시작");
+        if (dropTables == null || dropTables.Count == 0)
+        {
+            Debug.LogWarning("[DropManager_KJG] Drop Tables 리스트가 비어있습니다!");
+            return;
+        }
+
+        if (dropItemPrefab == null)
+        {
+            Debug.LogError("[DropManager_KJG] Drop Item Prefab이 할당되지 않았습니다!");
+            return;
+        }
+
+        Debug.Log($"[DropManager_KJG] {monster.displayName} 사망 → 드랍 시작 (테이블 {dropTables.Count}개)");
 
         foreach (var table in dropTables)
         {
             var drops = table.GetDrops();
+            Debug.Log($"[DropManager_KJG] 테이블에서 {drops.Count}개 드롭 결정됨");
+
             foreach (var drop in drops)
             {
                 CreateDropItem(drop, monster.transform.position);
@@ -37,8 +55,6 @@ public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
 
     private void CreateDropItem(DropTableSO_KJG.DropEntry drop, Vector3 position)
     {
-        if (dropItemPrefab == null) return;
-
         Vector3 spawnPos = position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, Random.Range(-0.5f, 0.5f));
         var itemGO = Instantiate(dropItemPrefab, spawnPos, Quaternion.identity);
         var pickup = itemGO.GetComponent<DropItemPickup_KJG>();
@@ -46,6 +62,11 @@ public class DropManager_KJG : BaseManager_KJG<DropManager_KJG>
         if (pickup != null)
         {
             pickup.SetDropData(drop.itemType, drop.amount);
+            Debug.Log($"[DropManager_KJG] 드랍 아이템 생성 성공: {drop.itemType} x {drop.amount}");
+        }
+        else
+        {
+            Debug.LogError("[DropManager_KJG] DropItemPickup_KJG 컴포넌트가 Prefab에 없습니다!");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 /// <summary>
 /// 난이도 관리 매니저
-/// 
+///
 /// 특징:
 /// - Manager_KJG.Difficulty 형태로만 접근
 /// - 난이도 업그레이드, 배율 관리 등을 Manager_KJG를 통해 사용
@@ -39,9 +39,7 @@ public class DifficultyManager_KJG : BaseManager_KJG<DifficultyManager_KJG>
     {
         if (currentDifficultyLevel >= difficultyNames.Length - 1)
             return false;
-
-        // HunterManager와 연동은 나중에
-        return true; // 테스트용
+        return true; // 테스트용 (나중에 HunterManager와 연동 가능)
     }
 
     public void UpgradeDifficulty()
@@ -49,14 +47,14 @@ public class DifficultyManager_KJG : BaseManager_KJG<DifficultyManager_KJG>
         if (!CanUpgradeDifficulty()) return;
 
         currentDifficultyLevel++;
-
         Debug.Log($"난이도 업그레이드 완료 → {GetCurrentDifficultyName()}");
 
         OnDifficultyChanged?.Invoke(currentDifficultyLevel);
 
-        // Currency 배율 업데이트
+        // ★ KJG 수정: CurrencyManager의 UpdateMultipliers()는 인자를 받지 않음
+        // 내부에서 DifficultyManager를 조회해서 배율을 자동 업데이트하도록 호출
         if (Manager_KJG.Currency != null)
-            Manager_KJG.Currency.UpdateMultipliers(currentDifficultyLevel);
+            Manager_KJG.Currency.UpdateMultipliers();
 
         Manager_KJG.Event.RefreshUI();
         Manager_KJG.SaveLoad.GameSave();
