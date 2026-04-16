@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class ItemDatabase_YHJ : MonoBehaviour
 {
@@ -12,22 +15,29 @@ public class ItemDatabase_YHJ : MonoBehaviour
 
     void Awake()
     {
+#if UNITY_EDITOR
+        // ★ YHJ: Assets/ItemData 아래의 ItemData_YHJ를 자동 수집해 새 장비 데이터가 누락되지 않도록 보조
+        RefreshEditorItemList();
+#endif
+
         if (Instance != null && Instance != this)
         {
-            Debug.LogError("[ItemDatabase] �ߺ� ������");
+            Debug.LogError("[ItemDatabase] 중복 생성됨");
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
+        map.Clear();
 
         foreach (var item in items)
         {
-            if (item == null) continue;
+            if (item == null)
+                continue;
 
             if (map.ContainsKey(item.itemID))
             {
-                Debug.LogError($"[ItemDatabase] �ߺ� ID: {item.itemID}");
+                Debug.LogError($"[ItemDatabase] 중복 ID: {item.itemID}");
                 continue;
             }
 
@@ -35,12 +45,32 @@ public class ItemDatabase_YHJ : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    // ★ YHJ: 수동 리스트 관리 실수를 줄이기 위해 에디터에서 ItemData 에셋 목록을 자동으로 갱신
+    private void RefreshEditorItemList()
+    {
+        string[] guids = AssetDatabase.FindAssets("t:ItemData_YHJ", new[] { "Assets/ItemData" });
+        List<ItemData_YHJ> loadedItems = new List<ItemData_YHJ>();
+
+        foreach (string guid in guids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            ItemData_YHJ item = AssetDatabase.LoadAssetAtPath<ItemData_YHJ>(path);
+
+            if (item != null)
+                loadedItems.Add(item);
+        }
+
+        items = loadedItems;
+    }
+#endif
+
     public ItemData_YHJ Get(string id)
     {
         if (map.TryGetValue(id, out var data))
             return data;
 
-        Debug.LogWarning($"[ItemDatabase] ���� ID ��û: {id}");
+        Debug.LogWarning($"[ItemDatabase] 없는 ID 요청: {id}");
         return null;
     }
 }

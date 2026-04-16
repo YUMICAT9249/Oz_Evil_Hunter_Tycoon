@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public enum ItemKind_YHJ
 {
-    Bandage,      // ºØ´ë (Ä¡·á¼Ò)
-    Potion,       // Æ÷¼Ç (ÀüÅõ)
-    Equipment,    // Àåºñ
-    Material      // Àç·á (µå¶ø/Á¦ÀÛ)
+    Bandage,      // ë¶•ëŒ€ (ì¹˜ë£Œì†Œ)
+    Potion,       // í¬ì…˜ (ì „íˆ¬)
+    Equipment,    // ì¥ë¹„
+    Material      // ì¬ë£Œ (ë“œë/ì œì‘)
 }
 public enum ItemEffectType_YHJ
 {
@@ -13,6 +13,24 @@ public enum ItemEffectType_YHJ
     HealHP,
     Revive,
     Buff
+}
+
+public enum EquipmentSlot_YHJ
+{
+    None,
+    Weapon,
+    Armor,
+    Gloves,
+    Boots
+}
+
+public enum EquipmentHunterJop_YHJ
+{
+    Public,
+    Ranger,
+    Sorcerer,
+    Berserker,
+    Paladin
 }
 
 [CreateAssetMenu(fileName = "ItemData_YHJ", menuName = "YHJ/Item Data")]
@@ -30,7 +48,16 @@ public class ItemData_YHJ : ScriptableObject
     [Header("Stack")]
     public bool isStackable = true;
 
+    [Header("Equipment")]
+    public EquipmentSlot_YHJ equipmentSlot = EquipmentSlot_YHJ.None;
+    public EquipmentHunterJop_YHJ equipmentHunterJop = EquipmentHunterJop_YHJ.Public;
+
     [Header("Equipment Stat")]
-    public int attack;
-    public int defense;
+    public float hp;
+    public float damage;
+    public float defence;
+    public float criticalChance;
+    public float dodgeChance;
+    public float attackCooldown;
+    public float moveSpeed;
 }
