@@ -501,8 +501,8 @@ MonoBehaviour:
   monsterName: 
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
-  Hunter: {fileID: 0}
   lastAttackTime: 0
+  Hunter: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -1.5, y: -1.5, z: -1.5}
   maxBounds: {x: 1.5, y: 1.5, z: 1.5}
@@ -561,7 +561,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.03, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &4021705244900265701
 Rigidbody2D:

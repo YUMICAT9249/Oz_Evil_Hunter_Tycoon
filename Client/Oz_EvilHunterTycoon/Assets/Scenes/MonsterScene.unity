@@ -532,7 +532,8 @@ MonoBehaviour:
   rangerPrefabs: []
   sorcererPrefabs: []
   spawnPoint: {fileID: 235501414}
-  _activeHunters: []
+  _activeHunters:
+  - {fileID: -5126931200409274301, guid: f98aaac8d5d2997449f99dac4c32cb17, type: 3}
   _waitingHunters: []
   maxWaitingHunters: 3
   maxVillageHunters: 4
@@ -689,6 +690,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &786033647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786033649}
+  - component: {fileID: 786033648}
+  m_Layer: 0
+  m_Name: ServiceLocator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &786033648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786033647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de40cf8762fdae4cb3270bfab21d3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &786033649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786033647}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.8073573, y: -4.328389, z: 0.028402612}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &817759238
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +817,62 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 360109403}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1037872673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037872675}
+  - component: {fileID: 1037872674}
+  m_Layer: 0
+  m_Name: DropManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1037872674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037872673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b4e9b210e3a9404b9bf277acba3ce75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropTables:
+  - {fileID: 11400000, guid: 5ca3841c6dca3f347bf51321bc320d0b, type: 2}
+  - {fileID: 11400000, guid: 80468e9a521824048abbe74067c7adc0, type: 2}
+  - {fileID: 11400000, guid: 274c00f5b687fc94aae60a15c4ddfcc7, type: 2}
+  - {fileID: 11400000, guid: f6976af871a61744ab93d42c93242998, type: 2}
+  - {fileID: 11400000, guid: 2dbdcdc2da78d2a47af2b75b5a4ab818, type: 2}
+  - {fileID: 11400000, guid: a1c64a26ee44fe6439069a33313d9ada, type: 2}
+  - {fileID: 11400000, guid: 9bcc15391bff01e4dbfbbc502a3fb1d2, type: 2}
+  - {fileID: 11400000, guid: bf6c24f7cefd80f47b5d83eca8e49759, type: 2}
+  - {fileID: 11400000, guid: 3e90dd4a11b408449b8c8be6e03abbf5, type: 2}
+  - {fileID: 11400000, guid: cda70305408fe3347a830a2df84e2015, type: 2}
+  dropItemPrefab: {fileID: 3892796350608592472, guid: 56bc6736ece3b064aaf90da750d12ab3, type: 3}
+--- !u!4 &1037872675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037872673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.530635, y: -4.053288, z: -0.0076235337}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1376659336
@@ -1302,3 +1403,5 @@ SceneRoots:
   - {fileID: 56905171}
   - {fileID: 1552868311}
   - {fileID: 1752983371}
+  - {fileID: 786033649}
+  - {fileID: 1037872675}

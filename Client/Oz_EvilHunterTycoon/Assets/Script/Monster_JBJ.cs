@@ -71,6 +71,13 @@ public class Monster_JBJ : BaseWorldObject_KJG
     protected virtual void Update()
     {
         if (isDead) return;
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Space pressed");
+            Kill();
+            return;
+        }
 
         stateTimer += Time.deltaTime;
 
@@ -290,23 +297,23 @@ public class Monster_JBJ : BaseWorldObject_KJG
         isDead = true;
 
         // ★ 실무 최고 수준: Monster는 EXP/드랍 로직을 직접 하지 않음
-        if (Manager_KJG.Exp != null)
-            Manager_KJG.Exp.OnMonsterDied(this);
+        // if (Manager_KJG.Exp != null)
+        //     Manager_KJG.Exp.OnMonsterDied(this);
 
-        if (Manager_KJG.Drop != null)
+        if (Manager_KJG.Drop != null) 
             Manager_KJG.Drop.DropFromMonster(this);
 
-        if (Manager_KJG.Audio != null)
-            Manager_KJG.Audio.PlaySFX("monster_death");
-
-        if (Manager_KJG.Achievement != null)
-            Manager_KJG.Achievement.OnMonsterKilled();
-
-        if (spawner != null)
-            spawner.OnMonsterDead(type);
-
-        if (boss != null)
-            boss.OnMinionDead();
+        // if (Manager_KJG.Audio != null)
+        //     Manager_KJG.Audio.PlaySFX("monster_death");
+        // 
+        // if (Manager_KJG.Achievement != null)
+        //     Manager_KJG.Achievement.OnMonsterKilled();
+        // 
+        // if (spawner != null)
+        //     spawner.OnMonsterDead(type);
+        // 
+        // if (boss != null)
+        //     boss.OnMinionDead();
 
         StartCoroutine(DieRoutine());
     }
