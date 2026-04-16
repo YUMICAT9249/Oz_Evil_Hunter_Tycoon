@@ -5,7 +5,7 @@ using System.Collections;
 
 public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 {
-    // [1] 헌터 상태
+    // 헌터 상태
     private enum HunterState
     {
         Idle, Move, Attack, Die
@@ -14,7 +14,6 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
     [SerializeField] private HunterState _currentState = HunterState.Idle;
     [SerializeField] private AreaType _areaCheck; // 이전 지역 저장용
 
-    // [2] 참조
     [Header("이동 영역")]
     [SerializeField] private BoxCollider2D _targetBox;   // 현재 이동 영역
 
@@ -34,17 +33,21 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
     private Collider2D _hunterCollider;
     private SpriteRenderer _spriteRenderer;
 
-    // [3] 이동 타겟 관련
+    // 이동 타겟 관련
     private Battle_JBJ_PJS _targetBattle;
     private GameObject _targetMonster;  // 현재 타겟
     private Vector2 _targetPosition;    // 이동 목적지
     private float _lookTargetX;
 
-    // [4] 내부 상태값
+    // 건물 상호작용 관련
+    private Transform _buildingTarget;      // 건물 타겟
+    private BuildingType_YHJ _buildingType; // 건물 타입
+
+    // 내부 상태값
     private float _lastAttackTime;
     private float _idleTime = 1.0f;
     private bool _isForcedMove = false;
-
+    
     // 몬스터 탐색 (FindWithTag 제거)
     private Collider2D[] _detectMonster = new Collider2D[20];
 
@@ -60,7 +63,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // [5] 초기화
+    // 초기화
     protected override void Start()
     {
         StartCoroutine(ManagerWaiting());
@@ -72,7 +75,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         AreaCheck();
     }
 
-    // [7] 위치 갱신 (매니저가 소환/이동 시 직접 호출)
+    // 위치 갱신 (매니저가 소환/이동 시 직접 호출)
     public void SetArea(BoxCollider2D newArea)
     {
         _targetBox = newArea;
@@ -84,7 +87,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // [15] 헌터 사망 처리 함수
+    // 헌터 사망 처리 함수
     public void HunterDie()
     {
         StopAllCoroutines();
@@ -103,7 +106,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // [16] 마을 귀환 함수
+    // 마을 귀환 함수
     public void ReturnVillage(BoxCollider2D villageBox)
     {
         _hunterData._areaType = AreaType.Village;
@@ -181,7 +184,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // [6] 지역 변경 감지 (변경될 때만 실행)
+    // 지역 변경 감지 (변경될 때만 실행)
     private void AreaCheck()
     {
         if (_hunterData != null && _areaCheck != _hunterData._areaType)
@@ -191,7 +194,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // [12] 몬스터 찾기
+    // 몬스터 찾기
     private void FindTarget()
     {
         if (_targetBox == null) return;
@@ -241,7 +244,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _targetBattle = closestBattle;
     }
 
-    // [13] 방향 전환
+    // 헌터 좌우 방향 전환
     private void LookAt()
     {
         if (_lookTargetX > transform.position.x)
@@ -254,7 +257,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // [14] 랜덤 위치 생성
+    // 이동할 위치 랜덤 생성
     private void RandomPos()
     {
         if (_targetBox == null) return;
@@ -271,7 +274,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // 자기 위치기준 Area 찾기
+    // 헌터 본인 위치 기준으로 Area 찾기
     private BoxCollider2D FindAreaPosition()
     {
         Collider2D[] find = Physics2D.OverlapPointAll(transform.position);
@@ -285,7 +288,25 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         return null;
     }
 
-    // [8] 행동 중앙 제어(메인)
+    #region 건물에서 연결되어야할 함수 / 호재님 인터페이스 필요
+    private void BuildingInteraction()
+    {
+        if (_buildingTarget == null) return;
+        /*
+        if (_buildingTarget.TryGetComponent(out 호재님스크립트 building))
+        {
+            building.Interact(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("스크립트 없음")
+        }
+        */
+        _buildingTarget = null;
+    }
+    #endregion
+
+    // 행동 중앙 제어(메인)
     IEnumerator HunterActionCenterLoop()
     {
         while (true)
@@ -339,7 +360,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
     }
 
-    // [9] 이동
+    // 이동 코루틴
     IEnumerator HunterMoveLoop()
     {
         if (_targetBox == null) yield break;
@@ -352,6 +373,17 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 
         while (Vector2.Distance(transform.position, _targetPosition) > 0.1f)
         {
+            // 건물 도착 체크
+            if (_buildingTarget != null)
+            {
+                float distance = Vector2.Distance(transform.position, _buildingTarget.position);
+                if (distance < 0.2f)
+                {
+                    _animator.SetBool("IsMoving", false);
+                    BuildingInteraction();
+                    yield break;
+                }
+            }
             FindTarget(); // 주변에 몬스터가 있는지 확인
 
             // 몬스터를 찾았다면
@@ -361,23 +393,18 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
                 _animator.SetBool("IsMoving", false);
                 yield break;
             }
-
-            // 이동속도 적용
-            if (_hunterData)
-            {
-                transform.position = Vector2.MoveTowards
-                    (
-                        transform.position,
-                        _targetPosition,
-                        _hunterData.GetMoveSpeed() * Time.deltaTime
-                    );
-            }
+            transform.position = Vector2.MoveTowards
+                (
+                    transform.position,
+                    _targetPosition,
+                    _hunterData.GetMoveSpeed() * Time.deltaTime
+                );
             yield return null;
         }
         _animator.SetBool("IsMoving", false);
     }
 
-    // [10] 추격
+    // 추격 코루틴
     IEnumerator HunterFollowLoop()
     {
         _currentState = HunterState.Move;
@@ -407,7 +434,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         _animator.SetBool("IsMoving", false);
     }
 
-    // [11] 공격
+    // 공격 코루틴
     IEnumerator HunterAttackLoop()
     {
         while (_targetMonster != null)
@@ -462,6 +489,20 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
         }
         _animator.speed = 1.0f;
     }
+
+    #region 건물 상호작용 UI 호출용
+    public void CommandBuilding(Transform buildingTarget, BuildingType_YHJ buildingType)
+    {
+        _buildingTarget = buildingTarget;
+        _buildingType = buildingType;
+
+        _targetMonster = null;  // 몬스터 무시
+        _targetBattle = null;   // 전투 무시
+
+        _targetPosition = buildingTarget.position;
+        _isForcedMove = true;
+    }
+    #endregion
 
     #region Manager 초기화 웨이팅
     IEnumerator ManagerWaiting()
