@@ -231,6 +231,7 @@ MonoBehaviour:
   _hunterRank: 0
   _rebirthCount: 0
   _rebirthBonus: 1
+  _weaponPoint: {fileID: 0}
 --- !u!61 &3518323577206027627
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -288,6 +289,37 @@ SortingGroup:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!1 &2058853336479997011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1469710965529894191}
+  m_Layer: 0
+  m_Name: weaponPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1469710965529894191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058853336479997011}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.02, y: -0.07, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6156964414066578432}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3365505013992757314
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1469710965529894191}
   - {fileID: 7689058275526040302}
   m_Father: {fileID: 1184652714773215319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
