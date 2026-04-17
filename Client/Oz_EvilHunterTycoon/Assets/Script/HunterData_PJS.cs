@@ -437,6 +437,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
         if (_currentWeaponObject != null)
         {
             Destroy(_currentWeaponObject);
+            _currentWeaponObject = null;
         }
 
         if (ItemDatabase_YHJ.Instance.TryGetEquipmentData
@@ -448,16 +449,28 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
             ))
         {
             GameObject prefab = itemData.weaponPrefab;
-            if (prefab != null && _weaponPoint != null)
+            if (prefab == null)
             {
-                _currentWeaponObject = Instantiate(prefab, _weaponPoint);
-                _currentWeaponObject.transform.localPosition = Vector3.zero;
-                _currentWeaponObject.transform.localRotation = Quaternion.identity;
+                Debug.LogWarning("무기 프리팹 없음");
+                return;
             }
-            else
+            if (_weaponPoint == null)
             {
-                Debug.LogWarning("무기 프리팹 or gripPoint 없음");
+                Debug.LogWarning("웨폰 포인트 없음");
+                return;
             }
+            // 프리팹 생성
+            _currentWeaponObject = Instantiate(prefab, _weaponPoint);
+            // 위치 초기화
+            _currentWeaponObject.transform.localPosition = Vector3.zero;
+            // ★ 프리팹 수정시 회전 값 수정
+            Quaternion weaponRotation = Quaternion.Euler(0, 0, -90);
+            if (_hunterJop == HunterJop.Ranger)
+            {
+                weaponRotation = Quaternion.Euler(0, 0, -135);
+            }
+            // 스케일 고정
+            _currentWeaponObject.transform.localScale = Vector3.one;
         }
     }
     #endregion

@@ -82,7 +82,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
             return;
         }
 
-        stateTimer += Time.deltaTime;
+        stateTimer -= Time.deltaTime;
         if (moveDirection != Vector3.zero)
         {
             lastMoveDir = moveDirection;
@@ -239,7 +239,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         Manager_KJG.Audio.PlaySFX("Monster Attack");
     }
 
-    public void DealDamage()
+    public void ApplyDamageToHunter()
     {
         if (Hunter == null || battle == null) return;
         Battle_JBJ_PJS targetBattle = Hunter.GetComponent<Battle_JBJ_PJS>();
