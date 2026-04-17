@@ -11,13 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: EssenceOfCopperReaper
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 2230629812619583280, guid: f0b708404fb76fd409f210aa54753e28, type: 3}
   itemID: EssenceOfCopperReaper
   itemName: "\uAD6C\uB9AC\uB85C \uB9CC\uB4E0 \uB9AC\uD37C\uC758 \uC815\uC218"
   icon: {fileID: 1220104832, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
-  attack: 0
-  defense: 0

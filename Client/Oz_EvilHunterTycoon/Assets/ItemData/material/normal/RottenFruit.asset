@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -15,9 +15,12 @@ MonoBehaviour:
   itemID: RottenFruit
   itemName: "\uC369\uC740 \uACFC\uC77C"
   icon: {fileID: 710147049, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
   equipmentSlot: 0
   equipmentHunterJop: 0
@@ -28,5 +31,5 @@ MonoBehaviour:
   dodgeChance: 0
   attackCooldown: 0
 
-  itemPrefab: {fileID: , guid: 7efd5faafab84719a908da426888a35a, type: 3}
+  itemPrefab: {fileID: 761874292, guid: 942f1ba3395a406caae670e8960f8928, type: 3}
 

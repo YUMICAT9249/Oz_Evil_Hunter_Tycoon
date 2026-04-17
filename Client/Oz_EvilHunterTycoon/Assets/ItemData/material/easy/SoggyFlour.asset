@@ -11,13 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: SoggyFlour
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 357291498, guid: 210ee034bd224607b78741f87114f7c1, type: 3}
   itemID: SoggyFlour
   itemName: "\uB205\uB205\uD55C \uBC00\uAC00\uB8E8"
   icon: {fileID: -1729627182, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
-  attack: 0
-  defense: 0

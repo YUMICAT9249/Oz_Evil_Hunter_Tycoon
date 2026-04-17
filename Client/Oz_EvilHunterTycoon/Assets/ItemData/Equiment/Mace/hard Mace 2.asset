@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: hard Mace 2
   itemName: hard Mace 2
-  icon: {fileID: 762107740, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  icon: {fileID: 762107740, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 2
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 0
   equipmentSlot: 1
   itemPrefab: {fileID: 1001, guid: aaa2578c94334ec080428fd34364cd6a, type: 3}

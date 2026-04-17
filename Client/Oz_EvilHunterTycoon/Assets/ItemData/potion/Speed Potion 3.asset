@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: Speed Potion 3
   itemName: Speed Potion 3
-  icon: {fileID: 21300000, guid: fda916bf041a34645a5693dd18260713, type: 3}
+  icon: {fileID: 21300000, guid: fda916bf041a34645a5693dd18260713, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 1
   effectType: 3
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
   equipmentSlot: 0
   equipmentHunterJop: 0

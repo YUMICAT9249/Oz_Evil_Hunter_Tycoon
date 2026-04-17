@@ -11,13 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: SlothDemonHorn
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 1416914183, guid: 17c87063edc743ebbe373210d75ced0b, type: 3}
   itemID: SlothDemonHorn
   itemName: "\uB098\uD0DC\uD55C \uB370\uBAAC\uC758 \uBFD4"
   icon: {fileID: 167811313, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
-  attack: 0
-  defense: 0

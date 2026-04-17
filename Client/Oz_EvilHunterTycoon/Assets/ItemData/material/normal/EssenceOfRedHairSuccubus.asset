@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
+  m_Name: EssenceOfRedHairSuccubus
+  m_EditorClassIdentifier: 
+  itemID: EssenceOfRedHairSuccubus
+  itemName: "\uBE68\uAC15\uBA38\uB9AC \uC11C\uD050\uBC84\uC2A4\uC758 \uC815\uC218"
+  icon: {fileID: -1774413293, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 0, g: 1, b: 1, a: 1}
+  itemKind: 3
+  effectType: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
+  isStackable: 1
+  equipmentSlot: 0
+  equipmentHunterJop: 0
+  hp: 0
+  damage: 0
+  defence: 0
+  criticalChance: 0
+  dodgeChance: 0
+  attackCooldown: 0
+  moveSpeed: 0
+  itemPrefab: {fileID: 23498146847701435, guid: 91c723da09561e8419a58e6552cdf9e9, type: 3}

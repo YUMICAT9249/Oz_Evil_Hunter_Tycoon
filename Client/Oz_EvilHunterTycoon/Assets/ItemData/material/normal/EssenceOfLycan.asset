@@ -11,13 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: EssenceOfLycan
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 6727810504009253457, guid: 03e392abb7fc2fa479c8e2807f74dd2c, type: 3}
   itemID: EssenceOfLycan
   itemName: "\uB77C\uC774\uCE78\uC758 \uC815\uC218"
   icon: {fileID: -1416348137, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
-  attack: 0
-  defense: 0

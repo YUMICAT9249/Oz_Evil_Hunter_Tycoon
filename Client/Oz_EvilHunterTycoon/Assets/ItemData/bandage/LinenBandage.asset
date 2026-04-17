@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: Linen Bandage
   itemName: "\uB9AC\uB128 \uBD95\uB300"
-  icon: {fileID: 1332270486, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  icon: {fileID: 1332270486, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 0
   effectType: 1
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
-  attack: 0
-  defense: 0

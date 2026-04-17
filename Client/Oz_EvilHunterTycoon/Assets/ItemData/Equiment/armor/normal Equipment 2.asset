@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: normal Equipment 2
   itemName: normal Equipment 2
-  icon: {fileID: -2142554548, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  icon: {fileID: -2142554548, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 2
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 0
   equipmentSlot: 2
   itemPrefab: {fileID: 1001, guid: 88de0ea7d011439dba5008b8f2ec8baa, type: 3}
