@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+癤퓎sing System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -6,35 +6,31 @@ public class LevelStat
 {
     public int level;
 
-    // ★ 공통
     public int capacity;
     public float workSpeed;
     public int upgradeCost;
 
-    // ★ 제작 건물 공통
     public List<string> unlockItemIDs = new List<string>();
+    public List<ItemData_YHJ> unlockItems = new List<ItemData_YHJ>();
 
-    // ★ 치료소
-    public float healAmount;
     public float autoHealHpPercent;
 
-    // ★ 성소 - 부활
     public int reviveGoldCost;
     public float reviveDelay;
 
-    // ★ 성소 - 스킬
     public bool canUseMainSkill;
     public bool canUseSubSkill;
+    public int mainSkillMaxLevel;
+    public int subSkillMaxLevel;
+    public int mainSkillUpgradeCost;
+    public int subSkillUpgradeCost;
 
-    // ★ 수련장
     public int trainingGoldCost;
     public float trainingDuration;
 
-    // ★ 수련장 / 필드 접근
     public int requiredRebirthCountMin;
     public int requiredRebirthCountMax;
 
-    // ★ 던전
     public int minDungeonFloor;
     public int maxDungeonFloor;
 }

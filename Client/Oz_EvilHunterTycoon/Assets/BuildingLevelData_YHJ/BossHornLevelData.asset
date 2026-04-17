@@ -17,14 +17,17 @@ MonoBehaviour:
     capacity: 0
     workSpeed: 0
     upgradeCost: 0
-    unlockItemIDs:
-    - boss_tier_easy
-    healAmount: 0
+    unlockItemIDs: []
+    unlockItems: []
     autoHealHpPercent: 0
     reviveGoldCost: 0
     reviveDelay: 0
     canUseMainSkill: 0
     canUseSubSkill: 0
+    mainSkillMaxLevel: 0
+    subSkillMaxLevel: 0
+    mainSkillUpgradeCost: 0
+    subSkillUpgradeCost: 0
     trainingGoldCost: 0
     trainingDuration: 0
     requiredRebirthCountMin: 0
@@ -35,15 +38,17 @@ MonoBehaviour:
     capacity: 0
     workSpeed: 0
     upgradeCost: 0
-    unlockItemIDs:
-    - boss_tier_easy
-    - boss_tier_normal
-    healAmount: 0
+    unlockItemIDs: []
+    unlockItems: []
     autoHealHpPercent: 0
     reviveGoldCost: 0
     reviveDelay: 0
     canUseMainSkill: 0
     canUseSubSkill: 0
+    mainSkillMaxLevel: 0
+    subSkillMaxLevel: 0
+    mainSkillUpgradeCost: 0
+    subSkillUpgradeCost: 0
     trainingGoldCost: 0
     trainingDuration: 0
     requiredRebirthCountMin: 0
@@ -58,12 +63,16 @@ MonoBehaviour:
     - boss_tier_easy
     - boss_tier_normal
     - boss_tier_hard
-    healAmount: 0
+    unlockItems: []
     autoHealHpPercent: 0
     reviveGoldCost: 0
     reviveDelay: 0
     canUseMainSkill: 0
     canUseSubSkill: 0
+    mainSkillMaxLevel: 0
+    subSkillMaxLevel: 0
+    mainSkillUpgradeCost: 0
+    subSkillUpgradeCost: 0
     trainingGoldCost: 0
     trainingDuration: 0
     requiredRebirthCountMin: 0

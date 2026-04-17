@@ -17721,27 +17721,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_948
-      rect:
-        serializedVersion: 2
-        x: 1712
-        y: 1392
-        width: 4
-        height: 4
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 29ff2a5e59fdd134ab3e20f18b207e83
-      internalID: 1298714381
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_949
       rect:
         serializedVersion: 2
@@ -26541,27 +26520,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1400
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 973
-        width: 19
-        height: 24
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d07a8ee65c8d43040a7e55ed2928ffd9
-      internalID: 2082063166
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1401
       rect:
         serializedVersion: 2
@@ -26904,7 +26862,7 @@ TextureImporter:
         x: 2
         y: 960
         width: 38
-        height: 20
+        height: 39
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -29589,10 +29547,10 @@ TextureImporter:
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1556
       rect:
         serializedVersion: 2
-        x: 963
-        y: 845
-        width: 46
-        height: 39
+        x: 965
+        y: 847
+        width: 37
+        height: 35
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -29602,27 +29560,6 @@ TextureImporter:
       bones: []
       spriteID: 0c456aa5cd8384a429bc138bb75d861b
       internalID: 1194525085
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1557
-      rect:
-        serializedVersion: 2
-        x: 1037
-        y: 874
-        width: 8
-        height: 11
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb0eb906571de2146953ce9dd7c61235
-      internalID: -23826183
       vertices: []
       indices: 
       edges: []
@@ -29901,27 +29838,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1574
-      rect:
-        serializedVersion: 2
-        x: 1059
-        y: 874
-        width: 4
-        height: 6
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 249ece020432a65419d808e5649548c5
-      internalID: -1643876831
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1575
       rect:
         serializedVersion: 2
@@ -30156,10 +30072,10 @@ TextureImporter:
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1586
       rect:
         serializedVersion: 2
-        x: 1043
+        x: 1036
         y: 867
-        width: 4
-        height: 5
+        width: 28
+        height: 25
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -32487,9 +32403,9 @@ TextureImporter:
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1712
       rect:
         serializedVersion: 2
-        x: 1027
+        x: 1026
         y: 770
-        width: 20
+        width: 21
         height: 30
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -70838,7 +70754,7 @@ TextureImporter:
         width: 20
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

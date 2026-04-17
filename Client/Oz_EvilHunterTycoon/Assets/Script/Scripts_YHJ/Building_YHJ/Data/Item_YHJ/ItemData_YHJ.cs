@@ -13,8 +13,10 @@ public enum ItemEffectType_YHJ
 {
     None,
     HealHP,
-    Revive,
-    Buff
+    IncreaseDefence,
+    IncreaseMoveSpeed,
+    IncreaseDropAmount,
+    IncreaseDamage
 }
 
 public enum EquipmentSlot_YHJ
@@ -41,11 +43,15 @@ public class ItemData_YHJ : ScriptableObject
     public string itemID;
     public string itemName;
     public Sprite icon;
+    public Color itemColor = Color.white;
 
     public ItemKind_YHJ itemKind;
 
+    [Header("Item Effect")]
     public ItemEffectType_YHJ effectType;
     public float value;
+    public float effectDuration;
+    public bool usePercentValue;
 
     [Header("Stack")]
     public bool isStackable = true;
@@ -68,10 +74,35 @@ public class ItemData_YHJ : ScriptableObject
     public GameObject itemPrefab;
 
     public GameObject weaponPrefab => itemPrefab;
+    public string ItemKey => string.IsNullOrEmpty(itemID) ? name : itemID;
+    public string DisplayName => string.IsNullOrEmpty(itemName) ? ItemKey : itemName;
+
+    public bool IsSameItem(string id)
+    {
+        return !string.IsNullOrEmpty(id) && ItemKey == id;
+    }
 
     public bool IsEquipmentItem()
     {
         return itemKind == ItemKind_YHJ.Equipment;
+    }
+
+    public bool HasConsumableEffect()
+    {
+        return effectType != ItemEffectType_YHJ.None;
+    }
+
+    public bool IsImmediateEffect()
+    {
+        return effectType == ItemEffectType_YHJ.HealHP;
+    }
+
+    public bool RequiresHunterBuffHandling()
+    {
+        return effectType == ItemEffectType_YHJ.IncreaseDefence
+            || effectType == ItemEffectType_YHJ.IncreaseMoveSpeed
+            || effectType == ItemEffectType_YHJ.IncreaseDropAmount
+            || effectType == ItemEffectType_YHJ.IncreaseDamage;
     }
 
     public bool CanEquip(HunterJop hunterJop)
