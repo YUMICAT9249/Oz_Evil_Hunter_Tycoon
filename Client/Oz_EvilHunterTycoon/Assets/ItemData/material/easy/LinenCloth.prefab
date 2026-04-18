@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1870160639}
   - component: {fileID: 776655667}
   m_Layer: 0
-  m_Name: LinenFabric
+  m_Name: LinenCloth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

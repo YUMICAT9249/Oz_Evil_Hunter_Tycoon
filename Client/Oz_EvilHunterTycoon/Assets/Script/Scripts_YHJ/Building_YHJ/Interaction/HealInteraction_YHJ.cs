@@ -22,7 +22,7 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     [SerializeField] private BandageOption[] bandages =
     {
-        new BandageOption { itemID = "Linen Bandage", healAmount = 8000f, goldCost = 60 },
+        new BandageOption { itemID = "LinenBandage", healAmount = 8000f, goldCost = 60 },
         new BandageOption { itemID = "WoolBandage", healAmount = 29600f, goldCost = 180 },
         new BandageOption { itemID = "SilkBandage", healAmount = 59200f, goldCost = 540 }
     };
@@ -114,7 +114,7 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         EventBus_YHJ.OnBuyItemResult?.Invoke(unit, bandage.itemID, true);
 
         inventory.RemoveItem(bandage.itemID, 1);
-        unit.Heal(bandage.healAmount);
+        unit.Heal(GetBandageHealAmount(bandage));
 
         // ★ 아직 체력이 부족하면 다시 대기열
         if (unit.CurrentHP < unit.MaxHP)
@@ -146,16 +146,33 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
             return null;
 
         BandageOption bestEnoughBandage = usableBandages
-            .Where(bandage => bandage.healAmount >= missingHp)
-            .OrderBy(bandage => bandage.healAmount)
+            .Where(bandage => GetBandageHealAmount(bandage) >= missingHp)
+            .OrderBy(bandage => GetBandageHealAmount(bandage))
             .FirstOrDefault();
 
         if (bestEnoughBandage != null)
             return bestEnoughBandage;
 
         return usableBandages
-            .OrderByDescending(bandage => bandage.healAmount)
+            .OrderByDescending(bandage => GetBandageHealAmount(bandage))
             .FirstOrDefault();
+    }
+
+    // ★ YHJ: 붕대 치료량은 아이템 자체 효과값을 우선 사용하고, 데이터가 비어 있으면 기존 치료소 설정값을 보조로 사용
+    private float GetBandageHealAmount(BandageOption bandage)
+    {
+        if (bandage == null)
+            return 0f;
+
+        if (ItemDatabase_YHJ.Instance != null)
+        {
+            ItemData_YHJ itemData = ItemDatabase_YHJ.Instance.Get(bandage.itemID);
+
+            if (itemData != null && itemData.effectType == ItemEffectType_YHJ.HealHP && itemData.value > 0f)
+                return itemData.value;
+        }
+
+        return bandage.healAmount;
     }
 
     // ★ YHJ: 치료 처리에서는 자동 제작하지 않고 치료소 인벤토리 재고만 확인
@@ -191,10 +208,20 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         if (MaterialInventory_YHJ.Instance == null)
             return false;
 
-        if (!MaterialInventory_YHJ.Instance.HasItem(bandage.materialID, bandage.materialCost))
-            return false;
+        ItemRecipe_YHJ recipe = ItemRecipeDatabase_YHJ.Instance?.GetByItemID(bandage.itemID);
 
-        MaterialInventory_YHJ.Instance.RemoveItem(bandage.materialID, bandage.materialCost);
+        if (recipe != null)
+        {
+            if (!recipe.TryConsume(MaterialInventory_YHJ.Instance, 1, 0))
+                return false;
+        }
+        else
+        {
+            if (!MaterialInventory_YHJ.Instance.HasItem(bandage.materialID, bandage.materialCost))
+                return false;
+
+            MaterialInventory_YHJ.Instance.RemoveItem(bandage.materialID, bandage.materialCost);
+        }
 
         inventory.AddItem(bandage.itemID, 1);
 

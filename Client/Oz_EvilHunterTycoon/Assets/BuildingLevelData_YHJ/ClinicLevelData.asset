@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelStats:
   - level: 1
-    capacity: 12
+    capacity: 3
     workSpeed: 0
     upgradeCost: 0
-    unlockItemIDs: []
+    unlockItemIDs:
+    - LinenBandage
     unlockItems: []
     autoHealHpPercent: 30
     reviveGoldCost: 0
@@ -35,11 +36,11 @@ MonoBehaviour:
     minDungeonFloor: 0
     maxDungeonFloor: 0
   - level: 2
-    capacity: 12
+    capacity: 3
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - Linen Bandage
+    - LinenBandage
     - WoolBandage
     unlockItems: []
     autoHealHpPercent: 40
@@ -58,11 +59,11 @@ MonoBehaviour:
     minDungeonFloor: 0
     maxDungeonFloor: 0
   - level: 3
-    capacity: 12
+    capacity: 3
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - Linen Bandage
+    - LinenBandage
     - WoolBandage
     - SilkBandage
     unlockItems: []

@@ -18,7 +18,11 @@ MonoBehaviour:
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - potion_tier_1
+    - Heal Potion 1
+    - Speed Potion 1
+    - Power Potion 1
+    - Defence Potion 1
+    - Luck Potion 1
     healAmount: 0
     autoHealHpPercent: 0
     reviveGoldCost: 0
@@ -36,8 +40,16 @@ MonoBehaviour:
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - potion_tier_1
-    - potion_tier_2
+    - Heal Potion 1
+    - Speed Potion 1
+    - Power Potion 1
+    - Defence Potion 1
+    - Luck Potion 1
+    - Heal Potion 2
+    - Speed Potion 2
+    - Power Potion 2
+    - Defence Potion 2
+    - Luck Potion 2
     healAmount: 0
     autoHealHpPercent: 0
     reviveGoldCost: 0
@@ -55,9 +67,21 @@ MonoBehaviour:
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - potion_tier_1
-    - potion_tier_2
-    - potion_tier_3
+    - Heal Potion 1
+    - Speed Potion 1
+    - Power Potion 1
+    - Defence Potion 1
+    - Luck Potion 1
+    - Heal Potion 2
+    - Speed Potion 2
+    - Power Potion 2
+    - Defence Potion 2
+    - Luck Potion 2
+    - Heal Potion 3
+    - Speed Potion 3
+    - Power Potion 3
+    - Defence Potion 3
+    - Luck Potion 3
     healAmount: 0
     autoHealHpPercent: 0
     reviveGoldCost: 0

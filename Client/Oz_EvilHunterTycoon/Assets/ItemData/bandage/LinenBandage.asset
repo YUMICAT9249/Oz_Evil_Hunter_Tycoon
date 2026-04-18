@@ -20,7 +20,7 @@ MonoBehaviour:
 
   itemKind: 0
   effectType: 1
-  value: 0
+  value: 8000
 
   effectDuration: 0
   usePercentValue: 0

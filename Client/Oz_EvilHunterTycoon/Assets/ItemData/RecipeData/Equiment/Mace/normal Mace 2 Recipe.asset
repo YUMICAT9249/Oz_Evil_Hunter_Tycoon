@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c962c1641a457a40ae80f2784214eb6, type: 3}
+  m_Name: normal Mace 2 Recipe
+  m_EditorClassIdentifier: 
+  resultItem: {fileID: 11400000, guid: d8366c2a14cb45058568bc3d9fe14d5f, type: 2}
+  resultAmount: 1
+  options: []
