@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -14,21 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: normal Bow 2
   itemName: normal Bow 2
-  icon: {fileID: -1423528590, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  icon: {fileID: -1423528590, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 2
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 0
   equipmentSlot: 1
+  equipmentHunterJop: 1
   itemPrefab: {fileID: 1001, guid: 8dde7639c4044f8799526c709b89d004, type: 3}
   hp: 0
-  damage: 0
+  damage: 18
   defence: 0
-  criticalChance: 0
+  criticalChance: 4.5
   dodgeChance: 0
-  attackCooldown: 0
-  moveSpeed: 0
+  attackCooldown: 0.08
+  moveSpeed: 0.09
 

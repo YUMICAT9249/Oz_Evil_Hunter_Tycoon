@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -14,21 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: easy Staff 2
   itemName: easy Staff 2
-  icon: {fileID: -48925549, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  icon: {fileID: -48925549, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 2
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 0
   equipmentSlot: 1
+  equipmentHunterJop: 2
   itemPrefab: {fileID: 1001, guid: 0032f5f201b84662ba7c7b617ad441d8, type: 3}
   hp: 0
-  damage: 0
+  damage: 11.4
   defence: 0
-  criticalChance: 0
+  criticalChance: 2
   dodgeChance: 0
-  attackCooldown: 0
-  moveSpeed: 0
+  attackCooldown: 0.06
+  moveSpeed: 0.03
 

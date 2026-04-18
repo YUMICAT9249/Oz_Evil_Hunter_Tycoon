@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -18,7 +18,42 @@ MonoBehaviour:
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - equipment_tier_1
+    - easy Bow 1
+    - easy Bow 2
+    - easy Bow 3
+    - easy Mace 1
+    - easy Mace 2
+    - easy Mace 3
+    - easy Staff 1
+    - easy Staff 2
+    - easy Staff 3
+    - easy Sword 1
+    - easy Sword 2
+    - easy Sword 3
+    - hard Bow 1
+    - hard Bow 2
+    - hard Bow 3
+    - hard Mace 1
+    - hard Mace 2
+    - hard Mace 3
+    - hard Staff 1
+    - hard Staff 2
+    - hard Staff 3
+    - hard Sword 1
+    - hard Sword 2
+    - hard Sword 3
+    - normal Bow 1
+    - normal Bow 2
+    - normal Bow 3
+    - normal Mace 1
+    - normal Mace 2
+    - normal Mace 3
+    - normal Staff 1
+    - normal Staff 2
+    - normal Staff 3
+    - normal Sword 1
+    - normal Sword 2
+    - normal Sword 3
     healAmount: 0
     autoHealHpPercent: 0
     reviveGoldCost: 0
@@ -36,8 +71,42 @@ MonoBehaviour:
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - equipment_tier_1
-    - equipment_tier_2
+    - easy Bow 1
+    - easy Bow 2
+    - easy Bow 3
+    - easy Mace 1
+    - easy Mace 2
+    - easy Mace 3
+    - easy Staff 1
+    - easy Staff 2
+    - easy Staff 3
+    - easy Sword 1
+    - easy Sword 2
+    - easy Sword 3
+    - hard Bow 1
+    - hard Bow 2
+    - hard Bow 3
+    - hard Mace 1
+    - hard Mace 2
+    - hard Mace 3
+    - hard Staff 1
+    - hard Staff 2
+    - hard Staff 3
+    - hard Sword 1
+    - hard Sword 2
+    - hard Sword 3
+    - normal Bow 1
+    - normal Bow 2
+    - normal Bow 3
+    - normal Mace 1
+    - normal Mace 2
+    - normal Mace 3
+    - normal Staff 1
+    - normal Staff 2
+    - normal Staff 3
+    - normal Sword 1
+    - normal Sword 2
+    - normal Sword 3
     healAmount: 0
     autoHealHpPercent: 0
     reviveGoldCost: 0
@@ -55,9 +124,42 @@ MonoBehaviour:
     workSpeed: 0
     upgradeCost: 0
     unlockItemIDs:
-    - equipment_tier_1
-    - equipment_tier_2
-    - equipment_tier_3
+    - easy Bow 1
+    - easy Bow 2
+    - easy Bow 3
+    - easy Mace 1
+    - easy Mace 2
+    - easy Mace 3
+    - easy Staff 1
+    - easy Staff 2
+    - easy Staff 3
+    - easy Sword 1
+    - easy Sword 2
+    - easy Sword 3
+    - hard Bow 1
+    - hard Bow 2
+    - hard Bow 3
+    - hard Mace 1
+    - hard Mace 2
+    - hard Mace 3
+    - hard Staff 1
+    - hard Staff 2
+    - hard Staff 3
+    - hard Sword 1
+    - hard Sword 2
+    - hard Sword 3
+    - normal Bow 1
+    - normal Bow 2
+    - normal Bow 3
+    - normal Mace 1
+    - normal Mace 2
+    - normal Mace 3
+    - normal Staff 1
+    - normal Staff 2
+    - normal Staff 3
+    - normal Sword 1
+    - normal Sword 2
+    - normal Sword 3
     healAmount: 0
     autoHealHpPercent: 0
     reviveGoldCost: 0

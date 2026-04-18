@@ -14,4 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultItem: {fileID: 11400000, guid: 2fbbeb399d06440fa606403c556c9264, type: 2}
   resultAmount: 1
-  options: []
+  options:
+  - optionName: 
+    costs:
+    - itemData: {fileID: 11400000, guid: d3c51db287c640bc80767d01428ec7b8, type: 2}
+      amount: 1
+    - itemData: {fileID: 11400000, guid: db512f47cde9450cb5a12db4ee29b2d7, type: 2}
+      amount: 1
+    - itemData: {fileID: 11400000, guid: 69274f5b971f4bfe84d04271de6f7c2f, type: 2}
+      amount: 1
+

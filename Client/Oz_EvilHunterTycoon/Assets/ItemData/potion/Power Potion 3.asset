@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -17,18 +17,19 @@ MonoBehaviour:
   icon: {fileID: 1653940201, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 1
-  effectType: 3
-  value: 0
+  effectType: 5
+  value: 30
   effectDuration: 0
-  usePercentValue: 0
+  usePercentValue: 1
   isStackable: 1
   equipmentSlot: 0
   equipmentHunterJop: 0
   hp: 0
   damage: 0
-  defence: 0
+  defence: 30
   criticalChance: 0
   dodgeChance: 0
   attackCooldown: 0
   moveSpeed: 0
   itemPrefab: {fileID: 7856253931961059667, guid: 530e71e3a4490494eb4521af7301abc6, type: 3}
+
