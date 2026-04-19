@@ -823,6 +823,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 2027
+        width: 36
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8658fb3be9bfdfd4cb9c0741141f0faf
+      internalID: -1208619589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_HunterInfo_GoldPetSlot_Img
+      rect:
+        serializedVersion: 2
+        x: 2014
+        y: 277
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a18ca335f5ff4f479cd8b9352292f9d
+      internalID: 1027006881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -854,6 +896,7 @@ TextureImporter:
       UI_BackGround01: 1060126939
       UI_BackGround02: 580452708
       UI_BackGround03: -777243497
+      UI_HunterInfo_GoldPetSlot_Img: 1027006881
       UI_HunterInfo_Hungry: 279418226
       UI_HunterInfo_dmg: -660198361
       UI_Hunter_Select_BackGround: -312614959
@@ -868,6 +911,7 @@ TextureImporter:
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_3: -502932363
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_4: 1006406694
       sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_5: 2097293043
+      sactx-5-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_6: -1208619589
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

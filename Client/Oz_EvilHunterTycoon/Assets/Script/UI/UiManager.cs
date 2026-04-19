@@ -66,8 +66,10 @@ public class UiManager : MonoBehaviour
     {
         if (HunterInfoUI.activeInHierarchy == false)
         {
+            UI_HunterInfo_KSH hunterinfo = HunterInfoUI.GetComponent<UI_HunterInfo_KSH>();
             // 비활성 상태면 활성
             HunterInfoUI.SetActive(true);
+            hunterinfo.ShowHunterInfo(hunterData);
         }
         else if (HunterInfoUI.activeInHierarchy == true)
         {

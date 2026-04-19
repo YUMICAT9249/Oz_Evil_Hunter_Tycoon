@@ -94,7 +94,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
     // «Â≈Õ ∞ÒµÂ / ¿Á∑· ¿Œ∫•≈‰∏Æ ∞¸∑√
     private Dictionary<object, int> _inventory = new Dictionary<object, int>();
-    private int _gold = 0;
+    public int _gold = 0;
 
     // «Â≈Õ ¿Â∫Ò ΩΩ∑‘
     private object _weapon;
