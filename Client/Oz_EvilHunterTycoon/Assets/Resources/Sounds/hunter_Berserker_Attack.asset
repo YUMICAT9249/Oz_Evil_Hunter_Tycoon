@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundId: hunter_Berserker_Attack
   clip: {fileID: 8300000, guid: 83b69a6c840cd7248a1e2ea469554a95, type: 3}
-  mixerGroup: {fileID: 0}
+  mixerGroup: {fileID: 386566303705783938, guid: a7a86f550074af04d93f7200e29c9d77, type: 2}
   volume: 1
   pitch: 1
   loop: 0

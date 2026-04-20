@@ -18,11 +18,34 @@ public class HunterSkill_PJS : MonoBehaviour
     private float _mainSkillCooldown; // 1차 메인 스킬 쿨타임
     private float _subSkillCooldown;  // 1차 서브 스킬 쿨타임 
     private Battle_JBJ_PJS _battleTarget;
+    private GameObject mainSkillObject;
+    private GameObject subSkillObject;
 
     void Awake()
     {
         _hunterData = GetComponent<HunterData_PJS>();
         _animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        if (_mainSkill == null) return;
+
+        mainSkillObject = Instantiate(_mainSkill.effectPrefabs);
+
+        if (mainSkillObject != null)
+        {
+            mainSkillObject.SetActive(false);
+        }
+
+        if (_subSkill == null) return;
+
+        subSkillObject = Instantiate(_subSkill.effectPrefabs);
+        
+        if (subSkillObject != null)
+        { 
+            subSkillObject.SetActive(false);
+        }
     }
 
     public void UseSkill(Battle_JBJ_PJS target)
@@ -56,8 +79,6 @@ public class HunterSkill_PJS : MonoBehaviour
         if (_mainSkill == null) return;
         StopAllCoroutines();
 
-        // 이펙트 재생
-        PlaySkillEffect(_mainSkill);
         // 사운드 재생
         PlaySkillSound(_mainSkill);
 
@@ -70,11 +91,11 @@ public class HunterSkill_PJS : MonoBehaviour
         switch (_mainSkill.skillName)
         {
             case SkillName.Fury:
-                Fury(ratio);
+                StartCoroutine(Fury(ratio));
                 break;
         
             case SkillName.HolyLight:
-                HolyLight(ratio);
+                StartCoroutine(HolyLight(ratio));
                 break;
             
             case SkillName.MultiShot:
@@ -92,8 +113,6 @@ public class HunterSkill_PJS : MonoBehaviour
     {
         if (_subSkill == null) return;
 
-        // 이펙트 재생
-        PlaySkillEffect(_subSkill);
         // 사운드 재생
         PlaySkillSound(_subSkill);
 
@@ -103,6 +122,8 @@ public class HunterSkill_PJS : MonoBehaviour
         }
 
         float ratio = (float)_subSkill.currentLevel / _subSkill.subSkillMaxLevel;
+        subSkillObject.SetActive(true);
+        
         switch (_subSkill.skillName)
         {
             case SkillName.WarCry:
@@ -130,18 +151,24 @@ public class HunterSkill_PJS : MonoBehaviour
         CancelInvoke();
         // 버프 이전으로 초기화
         _hunterData.FinalStats();
+        subSkillObject.SetActive(false);
     }
 
-    private void Fury(float ratio) // 버서커 1차 메인 퓨리
+    IEnumerator Fury(float ratio) // 버서커 1차 메인 퓨리
     {
+        mainSkillObject.SetActive(true);
         _hunterData._attackCooldown *= 0.25f;
         _hunterData._damage += _hunterData._damage * 1.0f * ratio;
-        Invoke(nameof(SkillEnd), _mainSkill.durationTime);
+
+        yield return new WaitForSeconds(_mainSkill.durationTime);
+        mainSkillObject.SetActive(false);
     }
 
-    private void HolyLight(float ratio) // 팔라딘 1차 메인 홀리라이트
+    IEnumerator HolyLight(float ratio) // 팔라딘 1차 메인 홀리라이트
     {
+        mainSkillObject.SetActive(true);
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _mainSkill.splashRange);
+
         for (int i = 0; i < hits.Length; i++)
         {
             if (hits[i].CompareTag("Monster") && hits[i].TryGetComponent(out Battle_JBJ_PJS battle))
@@ -149,10 +176,21 @@ public class HunterSkill_PJS : MonoBehaviour
                 Damage(battle, _mainSkill.damageMultiplier * ratio);
             }
         }
+        yield return new WaitForSeconds(_mainSkill.durationTime);
+        mainSkillObject.SetActive(false);
     }
 
     IEnumerator MultiShotRoutine(float ratio) // 레인저 1차 메인 멀티샷
     {
+        mainSkillObject.transform.position = transform.position;
+        // 기준 - 이펙트 위치 기준
+        Vector3 direction = (_battleTarget.transform.position - mainSkillObject.transform.position).normalized;
+        // Z축 회전값 계산
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // 프리팹 기준 좌 -> 우
+        mainSkillObject.transform.rotation = Quaternion.Euler(0, 0, angle);
+        mainSkillObject.SetActive(true);
+
         int count = _mainSkill.hitCount;
         for (int i = 0; i < count; i++)
         {
@@ -162,10 +200,14 @@ public class HunterSkill_PJS : MonoBehaviour
             }
             yield return new WaitForSeconds(_mainSkill.hitInterval);
         }
+        yield return new WaitForSeconds(_mainSkill.durationTime);
+        mainSkillObject.SetActive(false);
     }
 
     IEnumerator ThunderBoltRoutine(float ratio) // 소서러 1차 메인 썬더볼트
     {
+        mainSkillObject.transform.position = GetComponent<HunterController_PJS>()._targetMonster.transform.position;
+        mainSkillObject.SetActive(true);
         int count = _mainSkill.hitCount;
         for (int i = 0; i < count; i++)
         {
@@ -175,6 +217,8 @@ public class HunterSkill_PJS : MonoBehaviour
             }
             yield return new WaitForSeconds(_mainSkill.hitInterval);
         }
+        yield return new WaitForSeconds(_mainSkill.durationTime);
+        mainSkillObject.SetActive(false);
     }
 
     private void WarCry(float ratio)
@@ -212,16 +256,6 @@ public class HunterSkill_PJS : MonoBehaviour
     {
         float finalDamage = _hunterData.GetAttackDamage() * ratio;
         battleTarget.TakeDamage(finalDamage, gameObject);
-    }
-
-    private void PlaySkillEffect(HunterSkillData_PJS hunterSkillData)
-    { 
-        if (hunterSkillData == null || hunterSkillData.effectPrefabs == null) return;
-
-        if (Manager_KJG.Effect != null)
-        {
-            Manager_KJG.Effect.PlayEffect(hunterSkillData.effectPrefabs.name, transform.position);
-        }
     }
 
     private void PlaySkillSound(HunterSkillData_PJS skillData)

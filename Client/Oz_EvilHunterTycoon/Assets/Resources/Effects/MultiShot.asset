@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20fa76c25478bec478819fc3fe05354a, type: 3}
-  m_Name: MultuShot
+  m_Name: MultiShot
   m_EditorClassIdentifier: 
   skillName: 5
   skillType: 1
@@ -29,3 +29,5 @@ MonoBehaviour:
   probability: 0
   ccDurationTime: 0
   effectPrefabs: {fileID: 7755072912657097452, guid: 45670a1709323ff46bf47cbb9acc8fe1, type: 3}
+  effectId: MultuShot
+  soundId: 

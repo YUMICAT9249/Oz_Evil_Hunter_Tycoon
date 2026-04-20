@@ -29,3 +29,5 @@ MonoBehaviour:
   probability: 0
   ccDurationTime: 0
   effectPrefabs: {fileID: 3496142630294602505, guid: 282f7ddea4108bb4db92621f63263893, type: 3}
+  effectId: ThunderBolt
+  soundId: 
