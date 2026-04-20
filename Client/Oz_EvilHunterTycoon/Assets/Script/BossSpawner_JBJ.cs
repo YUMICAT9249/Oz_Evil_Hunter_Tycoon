@@ -31,6 +31,9 @@ public class BossSpawner_JBJ : MonoBehaviour
 
     void SpawnBoss()
     {
+        //KSH
+        UiManager.Instance.BossUI();
+
         Vector3 spawnPos = transform.position;
 
         GameObject boss = Instantiate(bossPrefab, transform.position, Quaternion.identity);

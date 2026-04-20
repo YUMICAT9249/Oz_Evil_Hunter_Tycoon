@@ -47,7 +47,7 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
                 UiManager.Instance.HunterWait();
                 break;
             case buttionActionType.BossCalling:
-                
+                UiManager.Instance.BossUI();
                 break;
 
 

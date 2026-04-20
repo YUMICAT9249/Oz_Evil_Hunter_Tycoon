@@ -9,5 +9,6 @@ public class UIBossSpawn : MonoBehaviour
     public void SpawnBoss()
     {
         bossspawner.SpawnBossFromTown();
+        UiManager.Instance.BossUI();
     }
 }
