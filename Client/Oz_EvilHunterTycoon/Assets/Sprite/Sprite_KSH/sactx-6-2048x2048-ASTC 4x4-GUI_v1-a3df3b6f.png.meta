@@ -215,27 +215,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_171
-      rect:
-        serializedVersion: 2
-        x: 1764
-        y: 1946
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c89cffc1986511e4eaa1e32b4a8a98da
-      internalID: -1205075561
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: UI_Storage_Click
       rect:
         serializedVersion: 2
@@ -252,27 +231,6 @@ TextureImporter:
       bones: []
       spriteID: a64dc0fc938a6114dabc42b54f26bc52
       internalID: 1174044926
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_177
-      rect:
-        serializedVersion: 2
-        x: 164
-        y: 1931
-        width: 68
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 68d648b2d2ed811418da69771f1c54c4
-      internalID: 104576831
       vertices: []
       indices: 
       edges: []
@@ -609,27 +567,6 @@ TextureImporter:
       bones: []
       spriteID: 19648625090127a4ebda1e8e9b7e7dd1
       internalID: -684320046
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_491
-      rect:
-        serializedVersion: 2
-        x: 1910
-        y: 1736
-        width: 21
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2e49038553ea80347a3f131ad4f9916e
-      internalID: 1244694425
       vertices: []
       indices: 
       edges: []
@@ -1391,27 +1328,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_956
-      rect:
-        serializedVersion: 2
-        x: 1796
-        y: 1380
-        width: 16
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30763537b3fa772488df7854365beeb8
-      internalID: -532409737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_963
       rect:
         serializedVersion: 2
@@ -1916,90 +1832,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1398
-      rect:
-        serializedVersion: 2
-        x: 967
-        y: 999
-        width: 26
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a16c036b46808d24c8dc23337f19e906
-      internalID: 1065279613
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1421
-      rect:
-        serializedVersion: 2
-        x: 1135
-        y: 984
-        width: 38
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d691b1bc523439f48b9511460e9c89be
-      internalID: -779495084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1452
-      rect:
-        serializedVersion: 2
-        x: 1122
-        y: 968
-        width: 56
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75a49568edfc3c24a845ae5e6461f896
-      internalID: 1375359161
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1461
-      rect:
-        serializedVersion: 2
-        x: 1127
-        y: 953
-        width: 46
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 170384ce5e5ba0f44b106ba42a1fdb92
-      internalID: -1016544386
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1470
       rect:
         serializedVersion: 2
@@ -2016,27 +1848,6 @@ TextureImporter:
       bones: []
       spriteID: 73684c71d39275244a7d669382b3f43b
       internalID: -726723142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1474
-      rect:
-        serializedVersion: 2
-        x: 1060
-        y: 952
-        width: 63
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a2fe128a75d7c24f971ae7745e68f89
-      internalID: 959300487
       vertices: []
       indices: 
       edges: []
@@ -2226,27 +2037,6 @@ TextureImporter:
       bones: []
       spriteID: 5646e22325b881b44a2fccc3677b7c2d
       internalID: 1311163425
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_1684
-      rect:
-        serializedVersion: 2
-        x: 1165
-        y: 803
-        width: 55
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 64affecedd3808248b0f89354162bd0a
-      internalID: 1574382167
       vertices: []
       indices: 
       edges: []
@@ -3428,27 +3218,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2389
-      rect:
-        serializedVersion: 2
-        x: 1148
-        y: 200
-        width: 15
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a6cd23b12c4bdf747b9d00a146afb4b1
-      internalID: 887275855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2392
       rect:
         serializedVersion: 2
@@ -3486,69 +3255,6 @@ TextureImporter:
       bones: []
       spriteID: 14911022754a18c43853d3782087df06
       internalID: -1325019233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2417
-      rect:
-        serializedVersion: 2
-        x: 1161
-        y: 199
-        width: 13
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ea2521fc071299143a3ad19ce0bd619a
-      internalID: -615968025
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2428
-      rect:
-        serializedVersion: 2
-        x: 1079
-        y: 178
-        width: 33
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e89f79078387e554880b7dd46d9fa7ba
-      internalID: -1017046032
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2429
-      rect:
-        serializedVersion: 2
-        x: 1119
-        y: 176
-        width: 19
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c7992641ddc3dc45af2cf2007e9df3c
-      internalID: -1915048216
       vertices: []
       indices: 
       edges: []
@@ -3612,48 +3318,6 @@ TextureImporter:
       bones: []
       spriteID: 513f06394c95be3459f4f47eda39f9a7
       internalID: 547034329
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2552
-      rect:
-        serializedVersion: 2
-        x: 1954
-        y: 117
-        width: 15
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6c7068fa9fd52d48bda475a29d8d466
-      internalID: -535574900
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_2553
-      rect:
-        serializedVersion: 2
-        x: 1977
-        y: 110
-        width: 21
-        height: 21
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a653ceb2f504c4c4bbcef3519db94c7c
-      internalID: 1127596131
       vertices: []
       indices: 
       edges: []
@@ -4633,7 +4297,7 @@ TextureImporter:
         width: 11
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4654,7 +4318,7 @@ TextureImporter:
         width: 17
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4675,7 +4339,7 @@ TextureImporter:
         width: 9
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4696,7 +4360,7 @@ TextureImporter:
         width: 17
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4717,7 +4381,7 @@ TextureImporter:
         width: 21
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4738,7 +4402,7 @@ TextureImporter:
         width: 24
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4759,7 +4423,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4780,7 +4444,7 @@ TextureImporter:
         width: 29
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4801,7 +4465,7 @@ TextureImporter:
         width: 40
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4809,6 +4473,27 @@ TextureImporter:
       bones: []
       spriteID: 17f7332f683526c4cbe9add336c0a176
       internalID: -502840235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-6-2048x2048-ASTC 4x4-GUI_v1-a3df3b6f_41
+      rect:
+        serializedVersion: 2
+        x: 1984
+        y: 1176
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17b03a9c04ddb87498eb467e1435394b
+      internalID: 1735040330
       vertices: []
       indices: 
       edges: []

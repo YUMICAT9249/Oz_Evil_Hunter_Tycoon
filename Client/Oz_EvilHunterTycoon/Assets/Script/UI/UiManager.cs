@@ -18,6 +18,8 @@ public class UiManager : MonoBehaviour
     public MainGUISelectType MainGuiSelected; // 선택중인 GUI Type
 
     public GameObject settingBG;
+    public GameObject hunterWait;
+    public GameObject bossUi; // 보스
     public GameObject HunterClickUI; // 헌터 누를 시 GUI
     public GameObject HunterInfoUI; // 헌터 정보 GUI
     public GameObject difficultyUI; // 난이도 선택 창
@@ -43,6 +45,45 @@ public class UiManager : MonoBehaviour
         
     }
 
+    
+    public void BossUI()
+    {
+        if (bossUi == null)
+        {
+            Debug.Log("bossUi 미할당");
+            return;
+        }
+        if (bossUi.activeInHierarchy == false)
+        {
+            // 설정창이 비활성 상태면 활성
+            bossUi.SetActive(true);
+        }
+        else if (bossUi.activeInHierarchy == true)
+        {
+            // 반대의 경우
+            bossUi.SetActive(false);
+        }
+    }
+
+    public void HunterWait()
+    {
+        if (hunterWait == null)
+        {
+            Debug.Log("HunterWait 미할당");
+            return;
+        }
+        if (hunterWait.activeInHierarchy == false)
+        {
+            // 설정창이 비활성 상태면 활성
+            hunterWait.SetActive(true);
+        }
+        else if (hunterWait.activeInHierarchy == true)
+        {
+            // 반대의 경우
+            hunterWait.SetActive(false);
+        }
+    }
+
     public void SettingBG()
     {
         if (settingBG == null)
@@ -66,8 +107,12 @@ public class UiManager : MonoBehaviour
     {
         if (HunterInfoUI.activeInHierarchy == false)
         {
+            UI_HunterInfo_KSH hunterinfo = HunterInfoUI.GetComponent<UI_HunterInfo_KSH>();
             // 비활성 상태면 활성
+            if (hunterData == null) { return; }
             HunterInfoUI.SetActive(true);
+            
+            hunterinfo.ShowHunterInfo(hunterData);
         }
         else if (HunterInfoUI.activeInHierarchy == true)
         {

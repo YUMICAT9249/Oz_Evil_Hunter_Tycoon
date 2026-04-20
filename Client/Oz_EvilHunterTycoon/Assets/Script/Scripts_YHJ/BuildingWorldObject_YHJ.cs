@@ -102,6 +102,7 @@ public class BuildingWorldObject_YHJ : BaseWorldObject_KJG, OnClick_KSH
     public void OnClick()
     {
         // ★ YHJ: KSH 카메라 클릭 Raycast 시스템이 건물도 기존 클릭 로직으로 연결되도록 어댑터 제공
+        UiManager.Instance.BossUI();
         OnClicked();
     }
 

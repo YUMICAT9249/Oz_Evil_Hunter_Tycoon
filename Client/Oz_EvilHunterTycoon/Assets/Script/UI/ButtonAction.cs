@@ -15,6 +15,8 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
         DifficultySetCheck,
         DifficultyClose,
         HunterInfoUI,
+        HunterWait,
+        BossCalling
     }
 
     public buttionActionType actionType;
@@ -39,7 +41,13 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
                 UiManager.Instance.DifficultyCheckWindow.SetActive(true);
                 break;
             case buttionActionType.HunterInfoUI:
-                UiManager.Instance.OpenHunterInfoUI();
+                UiManager.Instance.OpenHunterInfoUI(UiManager.Instance.hunterData);
+                break;
+            case buttionActionType.HunterWait:
+                UiManager.Instance.HunterWait();
+                break;
+            case buttionActionType.BossCalling:
+                UiManager.Instance.BossUI();
                 break;
 
 
