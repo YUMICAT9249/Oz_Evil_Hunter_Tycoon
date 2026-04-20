@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_HunterInfo_KSH : MonoBehaviour
 {
     public TMP_Text hunterLevel; // 헌터 레벨
+    public TMP_Text hunterJob; // 헌터 직업
+    public TMP_Text hunterTeir; // 헌터 등급
     public TMP_Text hunterName; // 헌터 이름
     public TMP_Text hunterGold; // 헌터 소지 골드
 
     public TMP_Text hunterHp; // 헌터 체력
+    public Image hpBar; // 체력바
+   
 
     public TMP_Text hunterExp; // 헌터 경험치
 
@@ -26,17 +31,20 @@ public class UI_HunterInfo_KSH : MonoBehaviour
     public void ShowHunterInfo(HunterData_PJS hunterData)
     {
 
-        hunterName.text = "안젤리나";
+        hunterName.text = hunterData._hunterNameList;
 
         hunterExp.text = $"{hunterData._currentExp} / {hunterData._maxExp}"; // 경험치
 
-        hunterHp.text = $"{hunterData._currentHP} / {hunterData._maxHP}"; // 체력
+        hunterHp.text = $"체력 {hunterData._currentHP} / {hunterData._maxHP}"; // 체력
         TextColorSet(hunterHp, hunterData._hpScore);
+        hpBar.color = new Color32(255, 165, 0, 255);   // 주황색
+        hpBar.transform.localScale = BarController(hunterData._currentHP, hunterData._maxHP);
 
-        hunterGold.text = hunterData._gold.ToString(); // 소지 골드
+        //hunterGold.text = hunterData._gold.ToString(); // 소지 골드
 
-        hunterLevel.text = hunterData._currentLevel.ToString(); // 현재 레벨
-        
+        hunterTeir.text = $"{hunterData._hunterRank}";
+        hunterLevel.text = $"Lv.{hunterData._currentLevel.ToString()}"; // 현재 레벨
+        hunterJob.text = $"{(HunterJop)hunterData._hunterJop}";
 
         //hunter_hunger = hunterData.hunger
 
@@ -49,12 +57,18 @@ public class UI_HunterInfo_KSH : MonoBehaviour
         hunterCritical.text = hunterData._criticalChance.ToString(); // 치명타
         TextColorSet(hunterAttackDmg, hunterData._criticalChanceScore);
 
-        hunterAttackSpeed.text = hunterData._attackCooldown.ToString(); // 공격속도
+        hunterAttackSpeed.text = hunterData._attackCooldown.ToString("F2"); // 공격속도
         TextColorSet(hunterAttackDmg, hunterData._attackCooldownScore);
 
         hunterDodge.text = hunterData._dodgeChance.ToString(); // 회피력
         TextColorSet(hunterAttackDmg, hunterData._dodgeChanceScore);
 
+    }
+    public Vector3 BarController(float min, float max)
+    {
+        float ratio = min / max;
+        Vector3 localScale = new Vector3(ratio, 1f, 1f);
+        return localScale;
     }
 
     public void TextColorSet(TMP_Text text, int tier)
