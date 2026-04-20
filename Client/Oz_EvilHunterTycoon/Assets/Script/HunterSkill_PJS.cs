@@ -31,7 +31,7 @@ public class HunterSkill_PJS : MonoBehaviour
     {
         if (_mainSkill == null) return;
 
-        mainSkillObject = Instantiate(_mainSkill.effectPrefabs);
+        mainSkillObject = Instantiate(_mainSkill.effectPrefabs, transform);
 
         if (mainSkillObject != null)
         {
@@ -40,7 +40,7 @@ public class HunterSkill_PJS : MonoBehaviour
 
         if (_subSkill == null) return;
 
-        subSkillObject = Instantiate(_subSkill.effectPrefabs);
+        subSkillObject = Instantiate(_subSkill.effectPrefabs, transform);
         
         if (subSkillObject != null)
         { 
@@ -182,9 +182,8 @@ public class HunterSkill_PJS : MonoBehaviour
 
     IEnumerator MultiShotRoutine(float ratio) // 레인저 1차 메인 멀티샷
     {
-        mainSkillObject.transform.position = transform.position;
         // 기준 - 이펙트 위치 기준
-        Vector3 direction = (_battleTarget.transform.position - mainSkillObject.transform.position).normalized;
+        Vector3 direction = GetComponent<HunterController_PJS>()._targetMonster.transform.position - transform.position;
         // Z축 회전값 계산
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         // 프리팹 기준 좌 -> 우
