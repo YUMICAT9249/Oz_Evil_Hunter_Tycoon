@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1036956005
   m_SortingLayer: 8
-  m_SortingOrder: 6
+  m_SortingOrder: 4
   m_Sprite: {fileID: 120616794, guid: fb336ea0a4b433e4180ee29d9fe18ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -162,7 +162,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1036956005
   m_SortingLayer: 8
-  m_SortingOrder: 4
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1241115748, guid: fb336ea0a4b433e4180ee29d9fe18ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -246,7 +246,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1036956005
   m_SortingLayer: 8
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 546103708, guid: fb336ea0a4b433e4180ee29d9fe18ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -330,7 +330,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1036956005
   m_SortingLayer: 8
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1624134667, guid: fb336ea0a4b433e4180ee29d9fe18ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -414,7 +414,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1036956005
   m_SortingLayer: 8
-  m_SortingOrder: 4
+  m_SortingOrder: 2
   m_Sprite: {fileID: 460433507, guid: fb336ea0a4b433e4180ee29d9fe18ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -663,7 +663,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1036956005
   m_SortingLayer: 8
-  m_SortingOrder: 4
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1960726866, guid: fb336ea0a4b433e4180ee29d9fe18ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -747,7 +747,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1036956005
   m_SortingLayer: 8
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: -696815064, guid: fb336ea0a4b433e4180ee29d9fe18ed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
