@@ -11,7 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: CopperReaperScythe
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+
   itemPrefab: {fileID: 1517270529, guid: e68a26012ae5476bac1c23a6c8dc1d0a, type: 3}
   itemID: CopperReaperScythe
   itemName: "\uAD6C\uB9AC\uB85C \uB9CC\uB4E0 \uB9AC\uD37C\uC758 \uB0AB"
@@ -19,7 +20,8 @@ MonoBehaviour:
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 1

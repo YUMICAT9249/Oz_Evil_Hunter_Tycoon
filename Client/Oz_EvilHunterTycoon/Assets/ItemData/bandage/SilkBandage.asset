@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: SilkBandage
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 0, guid: c5ae952312254d6784e2e0f549b73420, type: 3}
+  itemPrefab: {fileID: 1000000000000000000, guid: c5ae952312254d6784e2e0f549b73420, type: 3}
   itemID: SilkBandage
   itemName: "\uBE44\uB2E8 \uBD95\uB300"
   icon: {fileID: -1354735087, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}

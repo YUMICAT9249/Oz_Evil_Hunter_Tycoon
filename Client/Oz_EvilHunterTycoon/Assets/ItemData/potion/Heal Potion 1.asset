@@ -31,4 +31,4 @@ MonoBehaviour:
   dodgeChance: 0
   attackCooldown: 0
   moveSpeed: 0
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 1126322673899092811, guid: 6bf726323f8b3f04b805fa54b6809607, type: 3}

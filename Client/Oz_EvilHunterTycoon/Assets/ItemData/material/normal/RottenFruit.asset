@@ -18,7 +18,8 @@ MonoBehaviour:
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 1

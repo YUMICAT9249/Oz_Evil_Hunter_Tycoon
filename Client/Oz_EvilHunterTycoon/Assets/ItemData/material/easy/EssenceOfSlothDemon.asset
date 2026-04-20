@@ -11,7 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: EssenceOfSlothDemon
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+
   itemPrefab: {fileID: 7473959572741829556, guid: 1fec3bffa43e59d4b8656591cfbe8cb5, type: 3}
   itemID: EssenceOfSlothDemon
   itemName: "\uB098\uD0DC\uD55C \uB370\uBAAC\uC758 \uC815\uC218"
@@ -19,7 +20,8 @@ MonoBehaviour:
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 1

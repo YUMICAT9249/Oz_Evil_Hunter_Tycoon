@@ -11,7 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: EssenceOfReaper
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+
   itemPrefab: {fileID: 6785093175526284055, guid: 6da95f1f8cc2ab94aa7509dd44ebf549, type: 3}
   itemID: EssenceOfReaper
   itemName: "\uB9AC\uD37C\uC758 \uC815\uC218"
@@ -19,7 +20,8 @@ MonoBehaviour:
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 1

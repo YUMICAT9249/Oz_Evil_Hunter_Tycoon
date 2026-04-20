@@ -11,7 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: BoneChip
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+
   itemPrefab: {fileID: 586511197234154193, guid: 9865e27fc20bd5141a0246c3562e5930, type: 3}
   itemID: BoneChip
   itemName: "\uBF48\uC870\uAC01"
@@ -19,7 +20,8 @@ MonoBehaviour:
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 1

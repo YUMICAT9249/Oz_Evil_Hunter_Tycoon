@@ -11,7 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: EyeOfBeholder
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+
   itemPrefab: {fileID: 9170012916913999661, guid: 40b1d4cb76728d644a79792ac426b941, type: 3}
   itemID: EyeOfBeholder
   itemName: "\uAC70\uB300 \uBE44\uD640\uB354\uC758 \uB208"
@@ -19,7 +20,8 @@ MonoBehaviour:
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 1

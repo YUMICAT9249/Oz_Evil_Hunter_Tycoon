@@ -11,7 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: EssenceOfVampireBaron
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+
   itemPrefab: {fileID: 4071535756060979742, guid: d1d35b535aa905d40bf3d71ee303c01a, type: 3}
   itemID: EssenceOfVampireBaron
   itemName: "\uBC40\uD30C\uC774\uC5B4 \uB0A8\uC791\uC758 \uC815\uC218"
@@ -19,7 +20,8 @@ MonoBehaviour:
   itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+
   effectDuration: 0
   usePercentValue: 0
   isStackable: 1

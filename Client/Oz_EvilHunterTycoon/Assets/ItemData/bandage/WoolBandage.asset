@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: WoolBandage
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 0, guid: d90d0a068a914e47a7c6a21f24353f77, type: 3}
+  itemPrefab: {fileID: 1000000000000000000, guid: d90d0a068a914e47a7c6a21f24353f77, type: 3}
   itemID: WoolBandage
   itemName: "\uC591\uBAA8 \uBD95\uB300"
   icon: {fileID: 342475674, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}

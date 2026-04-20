@@ -15,20 +15,22 @@ MonoBehaviour:
   itemID: Defence Potion 3
   itemName: Defence Potion 3
   icon: {fileID: -1667938124, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+
   itemColor: {r: 1, g: 1, b: 1, a: 1}
-  itemKind: 0
-  effectType: 0
-  value: 0
+  itemKind: 1
+  effectType: 2
+  value: 30
   effectDuration: 0
-  usePercentValue: 0
+  usePercentValue: 1
   isStackable: 1
   equipmentSlot: 0
   equipmentHunterJop: 0
   hp: 0
   damage: 0
-  defence: 0
+  defence: 30
   criticalChance: 0
   dodgeChance: 0
   attackCooldown: 0
   moveSpeed: 0
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 7609576679600685277, guid: 0814aaa0f1a4a974da15931908e3daea, type: 3}
+
