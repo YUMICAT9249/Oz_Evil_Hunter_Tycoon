@@ -35,7 +35,7 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
 
     // 이동 타겟 관련
     private Battle_JBJ_PJS _targetBattle;
-    private GameObject _targetMonster;  // 현재 타겟
+    public GameObject _targetMonster;  // 현재 타겟
     private Vector2 _targetPosition;    // 이동 목적지
     private float _lookTargetX;
 

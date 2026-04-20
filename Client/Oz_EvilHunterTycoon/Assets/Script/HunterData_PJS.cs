@@ -113,7 +113,7 @@ public class HunterData_PJS : MonoBehaviour, IUnit_YHJ
 
     // 헌터 골드 / 재료 인벤토리 관련
     private Dictionary<string, int> _inventory = new Dictionary<string, int>();
-    private int _gold = 0;
+    public int _gold = 0;
 
     // 장비 ID / 헌터 장비 슬롯
     private string _weaponId;

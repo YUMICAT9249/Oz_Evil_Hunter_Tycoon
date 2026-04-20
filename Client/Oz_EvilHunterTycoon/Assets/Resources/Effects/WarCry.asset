@@ -29,3 +29,5 @@ MonoBehaviour:
   probability: 0.3
   ccDurationTime: 3
   effectPrefabs: {fileID: 1771867185204352251, guid: c3eba979c57b8d9478545cadeeeeef88, type: 3}
+  effectId: WarCry
+  soundId: 

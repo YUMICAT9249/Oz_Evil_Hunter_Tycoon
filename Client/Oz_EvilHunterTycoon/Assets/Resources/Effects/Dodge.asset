@@ -29,3 +29,5 @@ MonoBehaviour:
   probability: 0
   ccDurationTime: 0
   effectPrefabs: {fileID: 2341129270599073454, guid: df3f3de19aa06f74aa82e24a6d288fbe, type: 3}
+  effectId: Dodge
+  soundId: 

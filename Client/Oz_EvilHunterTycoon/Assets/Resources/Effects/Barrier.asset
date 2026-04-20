@@ -29,3 +29,5 @@ MonoBehaviour:
   probability: 0
   ccDurationTime: 0
   effectPrefabs: {fileID: 3773886220428651915, guid: 161f101d6346d2148bcf045642f674cd, type: 3}
+  effectId: Barrier
+  soundId: 

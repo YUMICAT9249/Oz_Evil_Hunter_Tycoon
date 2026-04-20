@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d103c1f79e9514eb4e071f9c96e411, type: 3}
   m_Name: Barrier
   m_EditorClassIdentifier: 
-  soundId: Skill_Barrier
+  soundId: Barrier
   clip: {fileID: 8300000, guid: 935ad2cbe25dc0d48861f95c9b1bd390, type: 3}
   mixerGroup: {fileID: 386566303705783938, guid: fd5ae837ae9fdcb4fa7186715b422cee, type: 2}
   volume: 1

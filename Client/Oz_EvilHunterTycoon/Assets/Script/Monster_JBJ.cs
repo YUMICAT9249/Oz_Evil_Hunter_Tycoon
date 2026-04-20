@@ -76,12 +76,6 @@ public class Monster_JBJ : BaseWorldObject_KJG
     {
         if (isDead) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Kill();
-            return;
-        }
-
         stateTimer -= Time.deltaTime;
         if (moveDirection != Vector3.zero)
         {
@@ -303,7 +297,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
             lastMoveDir = new Vector3(facingDir, 0, 0);
         Vector3 hitDir = -lastMoveDir;
         transform.position += new Vector3(hitDir.x * 0.1f, -0.05f, 0);
-        float angle = (hitDir.x >= 0) ? 90f : -90f;
+        float angle = Random.Range(-90f, 90f);
         transform.rotation = Quaternion.Euler(0, 0, angle);
         yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
