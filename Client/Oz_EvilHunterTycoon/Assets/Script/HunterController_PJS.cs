@@ -469,6 +469,25 @@ public class HunterController_PJS : BaseWorldObject_KJG, OnClick_KSH
                 }
 
                 _animator.SetTrigger("Attack");
+                if (Manager_KJG.Audio != null)
+                {
+                    if (_hunterData._hunterJop == HunterJop.Ranger)
+                    {
+                        Manager_KJG.Audio.PlaySFX("hunter_Ranger_Attack");
+                    }
+                    else if (_hunterData._hunterJop == HunterJop.Sorcerer)
+                    {
+                        Manager_KJG.Audio.PlaySFX("hunter_Sorcerer_Attack");
+                    }
+                    else if (_hunterData._hunterJop == HunterJop.Berserker)
+                    {
+                        Manager_KJG.Audio.PlaySFX("hunter_Berserker_Attack");
+                    }
+                    else
+                    {
+                        Manager_KJG.Audio.PlaySFX("hunter_Paladin_Attack");
+                    }
+                }
 
                 // 데미지 처리 (전투 스크립트 호출)
                 if (_hunterData._attackRange <= 1.5f)

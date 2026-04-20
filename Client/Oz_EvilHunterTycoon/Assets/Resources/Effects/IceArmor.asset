@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20fa76c25478bec478819fc3fe05354a, type: 3}
+  m_Name: IceArmor
+  m_EditorClassIdentifier: 
+  skillName: 8
+  skillType: 3
+  hunterJop: 4
+  currentLevel: 1
+  mainSkillMaxLevel: 0
+  subSkillMaxLevel: 5
+  cooldownTime: 15
+  durationTime: 14
+  hitCount: 0
+  damageMultiplier: 0
+  hitInterval: 0
+  splashRange: 0
+  targetStat: 3
+  statBonus: -0.5
+  probability: 1
+  ccDurationTime: 5
+  effectPrefabs: {fileID: 5966954940997995037, guid: e41c1045bc076d745b33b8ee348a7148, type: 3}
