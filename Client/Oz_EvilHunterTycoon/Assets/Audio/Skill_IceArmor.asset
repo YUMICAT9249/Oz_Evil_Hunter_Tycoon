@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundId: Skill_IceArmor
   clip: {fileID: 8300000, guid: c47e315a19e84f34a8e0757068f69e24, type: 3}
-  mixerGroup: {fileID: 0}
+  mixerGroup: {fileID: 386566303705783938, guid: a7a86f550074af04d93f7200e29c9d77, type: 2}
   volume: 1
   pitch: 1
   loop: 0

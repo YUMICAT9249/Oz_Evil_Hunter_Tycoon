@@ -58,6 +58,13 @@ public class HunterSkill_PJS : MonoBehaviour
 
         // 이펙트 재생
         PlaySkillEffect(_mainSkill);
+        // 사운드 재생
+        PlaySkillSound(_mainSkill);
+
+        if (Manager_KJG.Audio != null)
+        {
+            Manager_KJG.Audio.PlaySFX(_mainSkill.skillName.ToString());
+        }
 
         float ratio = (float)_mainSkill.currentLevel / _mainSkill.mainSkillMaxLevel;
         switch (_mainSkill.skillName)
@@ -87,6 +94,13 @@ public class HunterSkill_PJS : MonoBehaviour
 
         // 이펙트 재생
         PlaySkillEffect(_subSkill);
+        // 사운드 재생
+        PlaySkillSound(_subSkill);
+
+        if (Manager_KJG.Audio != null)
+        {
+            Manager_KJG.Audio.PlaySFX(_subSkill.skillName.ToString());
+        }
 
         float ratio = (float)_subSkill.currentLevel / _subSkill.subSkillMaxLevel;
         switch (_subSkill.skillName)
@@ -207,6 +221,16 @@ public class HunterSkill_PJS : MonoBehaviour
         if (Manager_KJG.Effect != null)
         {
             Manager_KJG.Effect.PlayEffect(hunterSkillData.effectPrefabs.name, transform.position);
+        }
+    }
+
+    private void PlaySkillSound(HunterSkillData_PJS skillData)
+    {
+        if (skillData == null) return;
+
+        if (Manager_KJG.Audio != null && !string.IsNullOrEmpty(skillData.soundId))
+        {
+            Manager_KJG.Audio.PlaySFX(skillData.soundId);
         }
     }
 }

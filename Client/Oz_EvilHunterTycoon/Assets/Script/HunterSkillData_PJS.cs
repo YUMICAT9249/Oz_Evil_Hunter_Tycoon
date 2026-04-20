@@ -56,4 +56,7 @@ public class HunterSkillData_PJS : ScriptableObject
 
     [Header("이펙트 프리팹")]
     public GameObject effectPrefabs;
+
+    [Header("사운드")]
+    public string soundId;
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundId: hunter_Ranger_Attack
   clip: {fileID: 8300000, guid: 681c6e27e18f4854b9e9c9a43985268a, type: 3}
-  mixerGroup: {fileID: 0}
+  mixerGroup: {fileID: 386566303705783938, guid: a7a86f550074af04d93f7200e29c9d77, type: 2}
   volume: 1
   pitch: 1
   loop: 0

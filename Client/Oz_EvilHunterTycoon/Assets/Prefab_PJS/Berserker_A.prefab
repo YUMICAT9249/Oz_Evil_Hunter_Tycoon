@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd29dc15da600774fb54a5f3bf555bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainSkill: {fileID: 11400000, guid: 825f40dc866df0f409e08c06c0a4683e, type: 2}
-  _subSkill: {fileID: 11400000, guid: 3a6e55517c401434e965e0380986b07b, type: 2}
+  _mainSkill: {fileID: 11400000, guid: 873c0b2795ed7d54f97e0e09fd2bfdd6, type: 2}
+  _subSkill: {fileID: 11400000, guid: 4488d2d6b3f930f4e95e8af1fbda2a52, type: 2}
 --- !u!114 &5481046814120020770
 MonoBehaviour:
   m_ObjectHideFlags: 0
