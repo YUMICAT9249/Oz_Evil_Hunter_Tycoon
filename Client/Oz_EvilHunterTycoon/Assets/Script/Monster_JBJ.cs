@@ -276,7 +276,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
         }
 
         if (Manager_KJG.Audio != null)
-            Manager_KJG.Audio.PlaySFX("monster_death");
+            Manager_KJG.Audio.PlaySFX("Monster Die");
 
         if (Manager_KJG.Achievement != null)
             Manager_KJG.Achievement.OnMonsterKilled();
@@ -303,7 +303,7 @@ public class Monster_JBJ : BaseWorldObject_KJG
             lastMoveDir = new Vector3(facingDir, 0, 0);
         Vector3 hitDir = -lastMoveDir;
         transform.position += new Vector3(hitDir.x * 0.1f, -0.05f, 0);
-        float angle = Random.Range(-35f, 35f);
+        float angle = (hitDir.x >= 0) ? 90f : -90f;
         transform.rotation = Quaternion.Euler(0, 0, angle);
         yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
