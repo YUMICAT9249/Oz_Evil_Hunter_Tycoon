@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
-/// [KJG 실무 최고 수준] AudioManager_KJG
-///
-/// 사용 예시:
-/// Manager_KJG.Audio.PlaySFX("monster_death");
-/// Manager_KJG.Audio.PlayBGM("main_theme");
-/// Manager_KJG.Audio.SetMasterVolume(0.8f);
+///  AudioManager_KJG
+/// - BGM 자동 전환 (Bootstrap → Intro BGM / Ingame_Scene → Main BGM)
+/// - SFX 풀링
+/// - SaveLoad 안전 처리
 /// </summary>
 public class AudioManager_KJG : BaseManager_KJG<AudioManager_KJG>
 {
-    [Header("Audio Mixer")]
+    [Header("Audio Mixer (필수)")]
     [SerializeField] private AudioMixer audioMixer;
 
-    [Header("BGM 전용")]
+    [Header("BGM 전용 AudioSource")]
     [SerializeField] private AudioSource bgmSource;
 
     [Header("SFX 풀링 설정")]
@@ -27,20 +26,62 @@ public class AudioManager_KJG : BaseManager_KJG<AudioManager_KJG>
     [Range(0f, 1f)] public float bgmVolume = 0.85f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
 
-    // SFX 풀링
     private List<AudioSource> sfxPool = new List<AudioSource>();
     private Queue<AudioSource> availableSFX = new Queue<AudioSource>();
-
-    // SoundData 빠른 검색용
     private Dictionary<string, SoundData_KJG> soundDictionary = new Dictionary<string, SoundData_KJG>();
 
     protected override void Awake()
     {
         base.Awake();
+
         InitializePool();
+        SetupBGMSouce();
         LoadAllSoundData();
-        LoadSavedVolumes();
+        LoadSavedVolumesSafe();
+
+        // 씬 전환 시 BGM 자동 변경
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         Debug.Log("✅ [AudioManager_KJG] 오디오 시스템 완전 초기화 완료");
+    }
+
+    protected override void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    /// <summary>
+    /// 씬이 바뀔 때 BGM 자동 전환
+    /// </summary>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Ingame_Scene")
+        {
+            PlayBGM("BGM_InGame");
+        }
+        else if (scene.name.Contains("Bootstrap") || scene.name.Contains("Title") || scene.name.Contains("Intro"))
+        {
+            PlayBGM("BGM_Intro");
+        }
+    }
+
+    private void SetupBGMSouce()
+    {
+        if (bgmSource != null)
+        {
+            bgmSource.loop = true;
+            bgmSource.playOnAwake = false;
+            Debug.Log("[AudioManager] 기존 BGM_Source 사용");
+            return;
+        }
+
+        // Inspector에 연결 안 되어 있으면 자동 생성
+        GameObject bgmObj = new GameObject("BGM_Source (Auto)");
+        bgmObj.transform.SetParent(transform);
+        bgmSource = bgmObj.AddComponent<AudioSource>();
+        bgmSource.loop = true;
+        bgmSource.playOnAwake = false;
+        Debug.Log("[AudioManager] BGM_Source 자동 생성");
     }
 
     private void InitializePool()
@@ -67,24 +108,36 @@ public class AudioManager_KJG : BaseManager_KJG<AudioManager_KJG>
         Debug.Log($"[AudioManager] {soundDictionary.Count}개 사운드 데이터 로드 완료");
     }
 
-    private void LoadSavedVolumes()
+    private void LoadSavedVolumesSafe()
     {
+        if (audioMixer == null)
+        {
+            Debug.LogWarning("[AudioManager_KJG] audioMixer가 Inspector에 할당되지 않았습니다.");
+            return;
+        }
+
         if (Manager_KJG.SaveLoad != null)
         {
-            // SaveLoadManager에서 볼륨 로드 (나중에 SaveLoad와 연동)
-            // 현재는 기본값 사용
+            Debug.Log("[AudioManager] SaveLoad에서 볼륨 로드 준비됨");
         }
+        else
+        {
+            Debug.LogWarning("[AudioManager] SaveLoadManager가 아직 등록되지 않았습니다.");
+        }
+
         ApplyVolumes();
     }
 
     private void ApplyVolumes()
     {
+        if (audioMixer == null) return;
+
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolume) * 20);
         audioMixer.SetFloat("BGMVolume", Mathf.Log10(bgmVolume) * 20);
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
     }
 
-    // ==================== Public API ====================
+    // ====================== Public API ======================
     public void PlaySFX(string soundId)
     {
         if (!soundDictionary.TryGetValue(soundId, out SoundData_KJG data))
@@ -95,7 +148,7 @@ public class AudioManager_KJG : BaseManager_KJG<AudioManager_KJG>
 
         if (availableSFX.Count == 0)
         {
-            Debug.LogWarning("[AudioManager] SFX 풀이 부족합니다. Pool Size를 늘려주세요.");
+            Debug.LogWarning("[AudioManager] SFX 풀이 부족합니다.");
             return;
         }
 
@@ -120,21 +173,27 @@ public class AudioManager_KJG : BaseManager_KJG<AudioManager_KJG>
         }
     }
 
-    public void PlayBGM(string soundId, bool fade = true)
+    public void PlayBGM(string soundId)
     {
-        if (!soundDictionary.TryGetValue(soundId, out SoundData_KJG data)) return;
+        if (!soundDictionary.TryGetValue(soundId, out SoundData_KJG data))
+        {
+            Debug.LogWarning($"[AudioManager] BGM ID를 찾을 수 없음: {soundId}");
+            return;
+        }
+
+        if (bgmSource == null) return;
 
         bgmSource.clip = data.GetClip();
-        bgmSource.loop = true;
-        bgmSource.outputAudioMixerGroup = data.mixerGroup;
         bgmSource.volume = data.GetVolume();
         bgmSource.pitch = data.GetPitch();
+        bgmSource.outputAudioMixerGroup = data.mixerGroup;
         bgmSource.Play();
     }
 
     public void StopBGM()
     {
-        bgmSource.Stop();
+        if (bgmSource != null)
+            bgmSource.Stop();
     }
 
     public void SetMasterVolume(float volume)

@@ -1,6 +1,6 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
-// â˜… ì¥ë¹„ì  ê¸°ëŠ¥
+// ¡Ú ÀåºñÁ¡ ±â´É
 public class ArmorShopInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
     private BuildingQueue_YHJ queue;
@@ -54,12 +54,13 @@ public class ArmorShopInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
         if (!inventory.HasItem(equipmentID, 1))
         {
-            Debug.Log("[ArmorShop] ì¬ê³  ì—†ìŒ");
+            Debug.Log("[ArmorShop] Àç°í ¾øÀ½");
             EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Fail);
             return;
         }
 
-        // â˜… í”Œë ˆì´ì–´ ì¡°ì‘ íŒë§¤í˜•ì´ë¯€ë¡œ ì‹¤ì œ íŒë§¤/ì¥ì°©/UIëŠ” í˜‘ì—… êµ¬ê°„
+        // ¡Ú ÇÃ·¹ÀÌ¾î Á¶ÀÛ ÆÇ¸ÅÇüÀÌ¹Ç·Î ½ÇÁ¦ ÆÇ¸Å/ÀåÂø/UI´Â Çù¾÷ ±¸°£
+        Manager_KJG.Audio?.PlaySFX("CD01042");
         EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Success);
     }
 
@@ -68,7 +69,7 @@ public class ArmorShopInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         if (levelComponent != null && !levelComponent.CanUseItem(equipmentID))
             return false;
 
-        // â˜… ì¥ë¹„ ì¬ë£Œ ê·œì¹™ì€ ì¥ë¹„ ë°ì´í„°/UIíŒ€ê³¼ ì—°ê²° í•„ìš”
+        // ¡Ú Àåºñ Àç·á ±ÔÄ¢Àº Àåºñ µ¥ÀÌÅÍ/UIÆÀ°ú ¿¬°á ÇÊ¿ä
         if (!MaterialInventory_YHJ.Instance.HasItem("Iron", 2))
             return false;
 

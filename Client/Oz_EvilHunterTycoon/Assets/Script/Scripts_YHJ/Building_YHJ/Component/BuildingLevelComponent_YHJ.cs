@@ -44,6 +44,8 @@ public class BuildingLevelComponent_YHJ : MonoBehaviour
 
         if (result)
         {
+            // UI에서 TryUpgrade()만 호출해도 업그레이드 성공 사운드가 같이 나도록 여기서 처리합니다.
+            Manager_KJG.Audio?.PlaySFX("AFG1350");
             OnLevelChanged?.Invoke(CurrentLevel);
             OnLevelStatChanged?.Invoke(CurrentStat);
             OnUpgraded?.Invoke();

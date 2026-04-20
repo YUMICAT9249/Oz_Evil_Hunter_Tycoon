@@ -1,9 +1,14 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
-// â˜… ê±°ë˜ì†Œ ê¸°ëŠ¥ (ì¬ë£Œ ìˆ˜ê¸‰ ì „ìš©)
+// ¡Ú °Å·¡¼Ò ±â´É (Àç·á ¼ö±Ş Àü¿ë)
 public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 {
-    public string itemID = "Loot";
+    [Header("Á÷Á¢ ÆÇ¸Å ±âº»°ª")]
+    [SerializeField] private string itemID = "Loot";
+
+    [Header("¿äÃ» ¸ÅÀÔ »óÅÂ")]
+    [SerializeField] private string requestedItemID = string.Empty;
+    [SerializeField] private int requestedAmount = 0;
 
     private BuildingLevelComponent_YHJ levelComponent;
 
@@ -19,7 +24,20 @@ public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
     public void Interact(IUnit_YHJ unit)
     {
-        // â˜… ìœ ë‹› â†’ ì•„ì´í…œ ì œì¶œ ìš”ì²­ (í—Œí„°íŒ€ ì—°ê²°)
+        if (unit == null)
+            return;
+
+        // ¡Ú UI¿¡¼­ ¿äÃ» ¸ÅÀÔÀÌ °É·Á ÀÖÀ¸¸é "ÇÊ¿ä ¼ö·®¸¸Å­ ÆÇ¸Å" ÀÌº¥Æ®¸¦ ¿ì¼± º¸³À´Ï´Ù.
+        if (HasActivePurchaseRequest())
+        {
+            EventBus_YHJ.RequestSellItem?.Invoke(unit, requestedItemID, requestedAmount);
+            return;
+        }
+
+        // ¡Ú À¯´Ö ¡æ ¾ÆÀÌÅÛ Á¦Ãâ ¿äÃ» (·¹°Å½Ã Á÷Á¢ ÆÇ¸Å Èå¸§)
+        // UI ´ã´ç:
+        // - Á÷Á¢ ÆÇ¸Å ¹öÆ°¿¡¼­ SetDirectSellItem(itemID)·Î ÆÇ¸Å ´ë»ó ÁöÁ¤
+        // - ÀÌÈÄ ÇåÅÍ¸¦ °Å·¡¼Ò·Î º¸³»¸é ÀÌ Èå¸§À» »ç¿ëÇÕ´Ï´Ù.
         EventBus_YHJ.RequestItemFromUnit?.Invoke(unit, itemID);
     }
 
@@ -33,9 +51,66 @@ public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         EventBus_YHJ.OnItemReceived -= OnItemReceived;
     }
 
+    // ¡Ú UI ´ã´ç:
+    // °Å·¡¼Ò¿¡¼­ "ÀÌ Àç·á¸¦ ÆÈ¾Æ¶ó" °°Àº Á÷Á¢ ÆÇ¸Å ¸í·ÉÀ» ¸¸µé ¶§ »ç¿ëÇÕ´Ï´Ù.
+    // ÀÌÈÄ ÇåÅÍ°¡ °Å·¡¼Ò¿Í »óÈ£ÀÛ¿ëÇÏ¸é RequestItemFromUnit(unit, itemID)°¡ È£ÃâµË´Ï´Ù.
+    public void SetDirectSellItem(string directSellItemID)
+    {
+        itemID = string.IsNullOrEmpty(directSellItemID) ? string.Empty : directSellItemID;
+    }
+
+    // ¡Ú UI ´ã´ç:
+    // °Å·¡¼Ò ºÎÁ· Àç·á¸¦ Ã¤¿ì±â À§ÇÑ "¿äÃ» ¸ÅÀÔ" µî·Ï ÁøÀÔÁ¡ÀÔ´Ï´Ù.
+    // ¿¹) SetPurchaseRequest("CopperOre", 10)
+    // ÀÌÈÄ ÇåÅÍ°¡ °Å·¡¼Ò¿¡ µµÂøÇÏ¸é RequestSellItem(unit, "CopperOre", 10)ÀÌ È£ÃâµË´Ï´Ù.
+    public bool SetPurchaseRequest(string targetItemID, int amount)
+    {
+        if (string.IsNullOrEmpty(targetItemID) || amount <= 0)
+            return false;
+
+        if (levelComponent != null && !levelComponent.CanUseItem(targetItemID))
+            return false;
+
+        requestedItemID = targetItemID;
+        requestedAmount = amount;
+        NotifyTradeRequestChanged();
+        return true;
+    }
+
+    // ¡Ú UI ´ã´ç:
+    // ¿äÃ» ¸ÅÀÔ Ãë¼Ò ¹öÆ°¿¡ ¿¬°áÇÒ ¶§ »ç¿ëÇÕ´Ï´Ù.
+    public void ClearPurchaseRequest()
+    {
+        requestedItemID = string.Empty;
+        requestedAmount = 0;
+        NotifyTradeRequestChanged();
+    }
+
+    // ¡Ú UI ´ã´ç:
+    // °Å·¡¼Ò ÆĞ³Î °»½Å ½Ã ÇöÀç ¿äÃ» »óÅÂ¸¦ ÀĞÀ» ¶§ »ç¿ëÇÕ´Ï´Ù.
+    public bool HasActivePurchaseRequest()
+    {
+        return !string.IsNullOrEmpty(requestedItemID) && requestedAmount > 0;
+    }
+
+    public string GetRequestedItemID()
+    {
+        return requestedItemID;
+    }
+
+    public int GetRequestedAmount()
+    {
+        return requestedAmount;
+    }
+
+    public string GetDirectSellItemID()
+    {
+        return itemID;
+    }
+
     private void OnItemReceived(IUnit_YHJ unit, string id, int amount)
     {
-        if (unit == null || id != itemID)
+        if (unit == null || string.IsNullOrEmpty(id))
             return;
 
         if (amount <= 0)
@@ -44,10 +119,16 @@ public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
             return;
         }
 
-        // â˜… ë ˆë²¨ë³„ ë§¤ì… ê°€ëŠ¥ ì†Œì¬ ì²´í¬
+        bool isRequestedTrade = HasActivePurchaseRequest() && id == requestedItemID;
+        bool isDirectTrade = id == itemID;
+
+        if (!isRequestedTrade && !isDirectTrade)
+            return;
+
+        // ¡Ú ·¹º§º° ¸ÅÀÔ °¡´É ¼ÒÀç Ã¼Å©
         if (levelComponent != null && !levelComponent.CanUseItem(id))
         {
-            Debug.Log("[Trade] í˜„ì¬ ë ˆë²¨ì—ì„œ ë§¤ì… ë¶ˆê°€");
+            Debug.Log("[Trade] ÇöÀç ·¹º§¿¡¼­ ¸ÅÀÔ ºÒ°¡");
             EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Fail);
             return;
         }
@@ -56,6 +137,22 @@ public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
 
         Debug.Log($"[Trade] {id} +{amount}");
 
+        if (isRequestedTrade)
+        {
+            requestedAmount = Mathf.Max(0, requestedAmount - amount);
+
+            if (requestedAmount <= 0)
+                requestedItemID = string.Empty;
+
+            NotifyTradeRequestChanged();
+        }
+
+        Manager_KJG.Audio?.PlaySFX("CD01042");
         EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Success);
+    }
+
+    private void NotifyTradeRequestChanged()
+    {
+        EventBus_YHJ.OnTradeRequestChanged?.Invoke(gameObject, requestedItemID, requestedAmount);
     }
 }
