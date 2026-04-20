@@ -29,3 +29,5 @@ MonoBehaviour:
   probability: 0
   ccDurationTime: 0
   effectPrefabs: {fileID: 967731101177308741, guid: f0859013d8a077b4fa3c0b70094335f2, type: 3}
+  effectId: HolyLight
+  soundId: 

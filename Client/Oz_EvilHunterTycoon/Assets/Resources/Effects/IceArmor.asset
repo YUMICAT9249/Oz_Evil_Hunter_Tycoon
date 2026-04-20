@@ -29,3 +29,5 @@ MonoBehaviour:
   probability: 1
   ccDurationTime: 5
   effectPrefabs: {fileID: 5966954940997995037, guid: e41c1045bc076d745b33b8ee348a7148, type: 3}
+  effectId: IceArmor
+  soundId: 
