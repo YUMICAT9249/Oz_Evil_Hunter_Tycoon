@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1036956005
+  m_SortingLayer: 8
   m_SortingOrder: 4
   m_Sprite: {fileID: -845888419, guid: 01e5caad67f7960448b04293e3db498a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -159,8 +159,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1036956005
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_Sprite: {fileID: -535943265, guid: 01e5caad67f7960448b04293e3db498a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -243,8 +243,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1036956005
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -1331825287, guid: 01e5caad67f7960448b04293e3db498a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -327,8 +327,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1036956005
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -1901522509, guid: 01e5caad67f7960448b04293e3db498a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -412,8 +412,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1036956005
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_Sprite: {fileID: -1105993272, guid: 01e5caad67f7960448b04293e3db498a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -501,11 +501,12 @@ MonoBehaviour:
   monsterName: 
   data: {fileID: 11400000, guid: 158fd153fabd8074da3a2730a063548d, type: 2}
   currentHP: 0
-  Hunter: {fileID: 0}
   lastAttackTime: 0
+  Hunter: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   minBounds: {x: -1.5, y: -1.5, z: -1.5}
   maxBounds: {x: 1.5, y: 1.5, z: 1.5}
+  monsterDropTable: {fileID: 0}
 --- !u!114 &3852096397643298377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,8 +661,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1036956005
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_Sprite: {fileID: 557751659, guid: 01e5caad67f7960448b04293e3db498a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -744,8 +745,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1036956005
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 1387171372, guid: 01e5caad67f7960448b04293e3db498a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
