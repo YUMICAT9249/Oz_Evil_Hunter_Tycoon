@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b48d39ab2969749af771055c64d489, type: 3}
+  m_Name: BossHornLevelData
+  m_EditorClassIdentifier: 
+  levelStats:
+  - level: 1
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    unlockItems: []
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    mainSkillMaxLevel: 0
+    subSkillMaxLevel: 0
+    mainSkillUpgradeCost: 0
+    subSkillUpgradeCost: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0
+  - level: 2
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    unlockItems: []
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    mainSkillMaxLevel: 0
+    subSkillMaxLevel: 0
+    mainSkillUpgradeCost: 0
+    subSkillUpgradeCost: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0
+  - level: 3
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs:
+    - boss_tier_easy
+    - boss_tier_normal
+    - boss_tier_hard
+    unlockItems: []
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    mainSkillMaxLevel: 0
+    subSkillMaxLevel: 0
+    mainSkillUpgradeCost: 0
+    subSkillUpgradeCost: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0

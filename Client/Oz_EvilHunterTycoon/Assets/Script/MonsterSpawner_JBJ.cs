@@ -8,11 +8,8 @@ public class MonsterSpawner_JBJ : MonoBehaviour
     public GameObject uniqueMonster;
     public UnitData_JBJ_PJS monsterData;
 
-    // 난이도 시스템 (추후 활성화)
-    // public Difficulty difficulty;
-
     public float spawnInterval = 5f;
-    public int maxMonsterCount = 13;
+    public int maxMonsterCount = 7;
 
     public Vector3 spawnAreaMin = new Vector3(-2, -2, 0);
     public Vector3 spawnAreaMax = new Vector3(2, 2, 0);
@@ -22,28 +19,6 @@ public class MonsterSpawner_JBJ : MonoBehaviour
     private int killCount;
 
     private bool uniqueSpawned = false;
-
-    /*
-    void Start()
-    {
-        // 난이도 별 설정 (추후 활성화)
-        switch (difficulty)
-        {
-            case Difficulty.Easy:
-                maxMonsterCount = 7;
-                break;
-
-            case Difficulty.Normal:
-                maxMonsterCount = 9;
-                break;
-
-            case Difficulty.Hard:
-                maxMonsterCount = 13;
-                break;
-        }
-    }
-    */
-
 
     void Update()
     {

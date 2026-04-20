@@ -1,18 +1,17 @@
+ï»¿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingLevelComponent_YHJ : MonoBehaviour
 {
     public BuildingInstance_YHJ instance;
 
-    // ¡Ú ·¹º§ º¯°æ ÀÌº¥Æ®
-    public System.Action<int> OnLevelChanged;
-
-    // ¡Ú ÇöÀç ·¹º§ µ¥ÀÌÅÍ º¯°æ ÀÌº¥Æ® (UI / Çù¾÷¿ë)
-    public System.Action<LevelStat> OnLevelStatChanged;
+    public Action<int> OnLevelChanged;
+    public Action<LevelStat> OnLevelStatChanged;
+    public event Action OnUpgraded;
 
     public int CurrentLevel => IsValid() ? instance.currentLevel : 0;
     public int MaxLevel => IsValid() ? instance.levelData.MaxLevel : 0;
-
     public LevelStat CurrentStat => IsValid() ? instance.CurrentStat : null;
 
     void Start()
@@ -24,7 +23,7 @@ public class BuildingLevelComponent_YHJ : MonoBehaviour
         OnLevelStatChanged?.Invoke(CurrentStat);
     }
 
-    public bool CanUpgrade(int gold)
+    public bool CanUpgrade()
     {
         if (instance == null || instance.levelData == null)
             return false;
@@ -32,40 +31,64 @@ public class BuildingLevelComponent_YHJ : MonoBehaviour
         if (CurrentLevel >= MaxLevel)
             return false;
 
-        var nextStat = instance.levelData.levelStats[CurrentLevel];
-
-        return gold >= nextStat.upgradeCost;
+        LevelStat nextStat = instance.levelData.levelStats[CurrentLevel];
+        return Manager_KJG.Currency.Gold >= nextStat.upgradeCost;
     }
 
-    public bool TryUpgrade(ref int gold)
+    public bool TryUpgrade()
     {
         if (instance == null)
             return false;
 
-        bool result = instance.TryUpgrade(ref gold);
+        bool result = instance.TryUpgrade();
 
         if (result)
         {
+            // UIì—ì„œ TryUpgrade()ë§Œ í˜¸ì¶œí•´ë„ ì—…ê·¸ë ˆì´ë“œ ì„±ê³µ ì‚¬ìš´ë“œê°€ ê°™ì´ ë‚˜ë„ë¡ ì—¬ê¸°ì„œ ì²˜ë¦¬í•©ë‹ˆë‹¤.
+            Manager_KJG.Audio?.PlaySFX("AFG1350");
             OnLevelChanged?.Invoke(CurrentLevel);
             OnLevelStatChanged?.Invoke(CurrentStat);
+            OnUpgraded?.Invoke();
+
+            if (Manager_KJG.SaveLoad != null)
+                Manager_KJG.SaveLoad.GameSave();
         }
 
         return result;
     }
 
-    // ¡Ú ÇöÀç ·¹º§¿¡¼­ ÀÌ ¾ÆÀÌÅÛ »ç¿ë/Á¦ÀÛ °¡´ÉÇÑÁö
     public bool CanUseItem(string itemID)
     {
         if (!IsValid() || CurrentStat == null)
             return true;
 
-        if (CurrentStat.unlockItemIDs == null || CurrentStat.unlockItemIDs.Count == 0)
+        List<ItemData_YHJ> unlockedItems = GetUnlockedItems();
+        bool hasItemReference = unlockedItems != null && unlockedItems.Count > 0;
+        bool hasItemID = CurrentStat.unlockItemIDs != null && CurrentStat.unlockItemIDs.Count > 0;
+
+        if (!hasItemReference && !hasItemID)
             return true;
 
-        return CurrentStat.unlockItemIDs.Contains(itemID);
+        if (hasItemReference)
+        {
+            foreach (ItemData_YHJ itemData in unlockedItems)
+            {
+                if (itemData != null && itemData.IsSameItem(itemID))
+                    return true;
+            }
+        }
+
+        return hasItemID && CurrentStat.unlockItemIDs.Contains(itemID);
     }
 
-    // ¡Ú ÇöÀç ·¹º§ µ¥ÀÌÅÍ °­Á¦ °»½Å ¾Ë¸²
+    public List<ItemData_YHJ> GetUnlockedItems()
+    {
+        if (!IsValid() || CurrentStat == null || CurrentStat.unlockItems == null)
+            return null;
+
+        return CurrentStat.unlockItems;
+    }
+
     public void RefreshLevelState()
     {
         if (!IsValid())

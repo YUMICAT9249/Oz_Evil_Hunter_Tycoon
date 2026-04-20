@@ -6,6 +6,7 @@ using System.Linq;
 /// BuildingManager_YHJ
 ///
 /// BuildingInstance_YHJ와 연동되어 건물을 중앙에서 관리합니다.
+/// DropItemPickup_KJG에서 재료를 소비하고, 나중에 Building 업그레이드도 여기서 처리합니다.
 /// </summary>
 public class BuildingManager_YHJ : BaseManager_KJG<BuildingManager_YHJ>
 {
@@ -14,14 +15,16 @@ public class BuildingManager_YHJ : BaseManager_KJG<BuildingManager_YHJ>
     // public getter 추가 (실무에서 가장 추천하는 방식)
     public List<BuildingInstance_YHJ> Buildings => buildings;
 
-    // ★ KJG 추가: MaterialInventory 참조 (DropItemPickup과 연결하기 위함)
+    // ★ KJG 추가: MaterialInventory 참조 (드랍된 재료를 실제로 소비하기 위함)
     private MaterialInventory_YHJ _materialInventory;
 
     protected override void Awake()
     {
         base.Awake();
 
-        // ★ KJG 수정: MaterialInventory 안전하게 찾기 (null 대비)
+        // ★ KJG 수정: MaterialInventory를 안전하게 찾기
+        // 이유: Bootstrapper에서 매니저들이 깨어나는 순서가 불확실하기 때문에
+        // Instance가 null일 수 있으므로 FindObjectOfType으로 보완
         if (MaterialInventory_YHJ.Instance != null)
         {
             _materialInventory = MaterialInventory_YHJ.Instance;

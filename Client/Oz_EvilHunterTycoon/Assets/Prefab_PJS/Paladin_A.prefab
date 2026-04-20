@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 4979263557358587242}
   - component: {fileID: 1937194379421797426}
   - component: {fileID: 2531228296965979456}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Paladin_A
   m_TagString: Hunter
   m_Icon: {fileID: 0}
@@ -413,8 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd29dc15da600774fb54a5f3bf555bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainSkill: {fileID: 11400000, guid: bd6634ffe3111f44794ab930e38227f3, type: 2}
-  _subSkill: {fileID: 11400000, guid: d1f68eca8c202334ba37d5ba382933fe, type: 2}
+  _mainSkill: {fileID: 11400000, guid: 52ee15443f169c04daae0ac435152cea, type: 2}
+  _subSkill: {fileID: 11400000, guid: 0c323595b6a649746a20217e7cacc4a2, type: 2}
 --- !u!114 &5494225067557164905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +447,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 0}
   fireBallPrefab: {fileID: 0}
   projectileSpeed: 10
+  firePoint: {fileID: 0}
 --- !u!114 &4979263557358587242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +488,7 @@ MonoBehaviour:
   _hunterRank: 0
   _rebirthCount: 0
   _rebirthBonus: 1
+  _weaponPoint: {fileID: 0}
 --- !u!61 &1937194379421797426
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -519,7 +521,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0008, y: 0.17}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -530,7 +532,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.13, y: 0.35}
   m_EdgeRadius: 0
 --- !u!210 &2531228296965979456
 SortingGroup:
@@ -544,6 +546,37 @@ SortingGroup:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!1 &7774062352740514279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5337126138050164641}
+  m_Layer: 0
+  m_Name: weaponPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5337126138050164641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7774062352740514279}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2663784221303562326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7981559439157783515
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +690,8 @@ Transform:
   m_LocalPosition: {x: -0.059, y: 0.039, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5337126138050164641}
   m_Father: {fileID: 5801135616765599190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2550362137250181106

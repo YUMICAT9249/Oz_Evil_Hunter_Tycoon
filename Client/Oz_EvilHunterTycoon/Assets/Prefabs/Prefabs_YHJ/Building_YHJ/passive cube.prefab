@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uD328\uC2DC\uBE0C \uD050\uBE0C"
   maxHp: 0
-  buildingType: 0
+  buildingType: 7
 --- !u!114 &8717757278489438879
 MonoBehaviour:
   m_ObjectHideFlags: 0

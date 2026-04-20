@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: -409296001399880336}
   - component: {fileID: 7977253807172300011}
   - component: {fileID: 5396521322599827017}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Berserker_A
   m_TagString: Hunter
   m_Icon: {fileID: 0}
@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd29dc15da600774fb54a5f3bf555bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainSkill: {fileID: 11400000, guid: 825f40dc866df0f409e08c06c0a4683e, type: 2}
-  _subSkill: {fileID: 11400000, guid: 3a6e55517c401434e965e0380986b07b, type: 2}
+  _mainSkill: {fileID: 11400000, guid: 873c0b2795ed7d54f97e0e09fd2bfdd6, type: 2}
+  _subSkill: {fileID: 11400000, guid: 4488d2d6b3f930f4e95e8af1fbda2a52, type: 2}
 --- !u!114 &5481046814120020770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 0}
   fireBallPrefab: {fileID: 0}
   projectileSpeed: 10
+  firePoint: {fileID: 0}
 --- !u!114 &-409296001399880336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +231,7 @@ MonoBehaviour:
   _hunterRank: 0
   _rebirthCount: 0
   _rebirthBonus: 1
+  _weaponPoint: {fileID: 0}
 --- !u!61 &7977253807172300011
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,7 +264,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0008, y: 0.17}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -273,7 +275,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.13, y: 0.35}
   m_EdgeRadius: 0
 --- !u!210 &5396521322599827017
 SortingGroup:
@@ -400,7 +402,8 @@ Transform:
   m_LocalPosition: {x: -0.053, y: 0.053, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7577383273978282166}
   m_Father: {fileID: 1148529221700565262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5800338716424192664
@@ -712,3 +715,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6734103675004403237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7577383273978282166}
+  m_Layer: 0
+  m_Name: weaponPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7577383273978282166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6734103675004403237}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01, y: -0.06, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8518393353726311637}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

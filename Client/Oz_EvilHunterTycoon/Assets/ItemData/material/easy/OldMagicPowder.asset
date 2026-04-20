@@ -14,10 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: OldMagicPowder
   itemName: "\uC624\uB798\uB41C \uB9C8\uBC95\uAC00\uB8E8"
-  icon: {fileID: 0}
+  icon: {fileID: 1899956058, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 0.43137255, b: 0, a: 1}
   itemKind: 3
   effectType: 0
   value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
-  attack: 0
-  defense: 0
+  equipmentSlot: 0
+  equipmentHunterJop: 0
+  hp: 0
+  damage: 0
+  defence: 0
+  criticalChance: 0
+  dodgeChance: 0
+  attackCooldown: 0
+  moveSpeed: 0
+  itemPrefab: {fileID: 1544111623582718425, guid: 1a1791195eebf7e4b8c7af85685785f1, type: 3}

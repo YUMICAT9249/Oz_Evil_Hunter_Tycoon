@@ -20,10 +20,44 @@ MonoBehaviour:
     unlockItemIDs: []
     healAmount: 0
     autoHealHpPercent: 0
-    reviveGoldCost: 0
+    reviveGoldCost: 30
     reviveDelay: 30
     canUseMainSkill: 0
     canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0
+  - level: 2
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 90
+    reviveDelay: 25
+    canUseMainSkill: 0
+    canUseSubSkill: 1
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0
+  - level: 3
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 270
+    reviveDelay: 15
+    canUseMainSkill: 1
+    canUseSubSkill: 1
     trainingGoldCost: 0
     trainingDuration: 0
     requiredRebirthCountMin: 0

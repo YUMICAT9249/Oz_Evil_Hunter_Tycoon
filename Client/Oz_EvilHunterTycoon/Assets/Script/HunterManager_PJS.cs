@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using static SaveLoadManager_KJG;
 
 public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
 {
@@ -24,7 +25,6 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     [SerializeField] private int maxVillageHunters = 4;
 
     public BuildingLevelComponent_YHJ levelComponent;
-
     public System.Action OnWaitingListChanged;
 
     private Queue<HunterController_PJS> _waitingQueue = new Queue<HunterController_PJS>();
@@ -36,23 +36,19 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     {
         levelComponent = FindObjectOfType<BuildingLevelComponent_YHJ>();
         base.Start();
-
         Debug.Log($"[HunterManager_PJS] Start - levelComponent: {(levelComponent != null ? levelComponent.name : "null")}");
         Debug.Log("[HunterManager_PJS] Initial spawn request");
-
         EventBus_YHJ.RequestSpawnHunter?.Invoke(); // 시작 1명
     }
 
     void OnEnable()
     {
-        // EventBus 구독 -> 스폰 요청 및 체류 인원 확인 요청
         EventBus_YHJ.RequestSpawnHunter += OnRequestSpawnHunter;
         EventBus_YHJ.RequestPopulation += SendPopulation;
     }
 
     void OnDisable()
     {
-        // 오브젝트 비활성화 시 EventBus 구독 해제
         EventBus_YHJ.RequestSpawnHunter -= OnRequestSpawnHunter;
         EventBus_YHJ.RequestPopulation -= SendPopulation;
     }
@@ -63,15 +59,14 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         {
             maxVillageHunters = levelComponent.CurrentStat.capacity;
         }
-
         moveTimer += Time.deltaTime;
-
         if (moveTimer >= moveInterval)
         {
             moveTimer = 0f;
             TryMoveWaitingHunterToVillage();
         }
     }
+
     //헌터 위치 파악
     public BoxCollider2D[] GetAllAreas()
     {
@@ -133,7 +128,6 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         foreach (var hunter in _activeHunters)
         {
             if (hunter == null) continue;
-            // 헌터 데이터 캐싱
             var data = hunter.GetComponent<HunterData_PJS>();
             if (data != null && data._areaType == areaType)
             {
@@ -142,25 +136,20 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         }
     }
 
-
     // 스폰
-
     public HunterController_PJS SpawnHunterToWaiting()
     {
         Debug.Log("[HunterManager_PJS] SpawnHunterToWaiting called");
-
         if (!CanSpawnWaitingHunter())
         {
             Debug.Log($"[HunterManager_PJS] Spawn canceled - waiting/full active:{_activeHunters.Count} waiting:{_waitingHunters.Count}");
             return null;
         }
-
         if (spawnPoint == null)
         {
             Debug.LogWarning("[HunterManager_PJS] Spawn canceled - spawnPoint is null");
             return null;
         }
-
         HunterJop jop = SelectBalancedJob();
         Debug.Log($"[HunterManager_PJS] Balanced job selected: {jop}");
         GameObject[] prefabs = JopSelect(jop);
@@ -169,34 +158,25 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             Debug.LogWarning($"[HunterManager_PJS] Spawn canceled - no prefabs for job {jop}");
             return null;
         }
-
         GameObject selectedPrefab = SelectPrefabVariant(jop, prefabs);
         if (selectedPrefab == null)
         {
             Debug.LogWarning($"[HunterManager_PJS] Spawn canceled - no selectable prefab for job {jop}");
             return null;
         }
-
         GameObject obj = Instantiate(selectedPrefab, spawnPoint.position, Quaternion.identity);
         Debug.Log($"[HunterManager_PJS] Spawned object: {obj.name} at {spawnPoint.position}");
-
         var data = obj.GetComponent<HunterData_PJS>();
-
         if (data == null)
         {
             Debug.LogWarning("[HunterManager_PJS] Spawned object has no HunterData_PJS");
         }
-
-        // YHJ: HunterController_PJS controller 중복 선언으로 컴파일 에러가 발생해서
-        // 기존 선언 하나를 제거하고 이 위치에서만 캐싱한다.
         var controller = obj.GetComponent<HunterController_PJS>();
         if (controller == null)
         {
             Debug.LogWarning("[HunterManager_PJS] Spawned object has no HunterController_PJS");
             return null;
         }
-
-        // 자리가 남아있으면 추가, 남아있지않으면 대기열
         if (_waitingHunters.Count < maxWaitingHunters)
         {
             _waitingHunters.Add(controller);
@@ -210,30 +190,27 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         return controller;
     }
 
+    // ... (SelectBalancedJob, AddCandidateJob 등 기존 메서드들은 그대로 유지)
+
     private HunterJop SelectBalancedJob()
     {
         List<HunterJop> availableJobs = new List<HunterJop>();
         int minCount = int.MaxValue;
-
         AddCandidateJob(HunterJop.Berserker, berserkerPrefabs, availableJobs, ref minCount);
         AddCandidateJob(HunterJop.Paladin, paladinPrefabs, availableJobs, ref minCount);
         AddCandidateJob(HunterJop.Ranger, rangerPrefabs, availableJobs, ref minCount);
         AddCandidateJob(HunterJop.Sorcerer, sorcererPrefabs, availableJobs, ref minCount);
-
         if (availableJobs.Count == 0)
         {
             return HunterJop.Berserker;
         }
-
         return availableJobs[Random.Range(0, availableJobs.Count)];
     }
 
     private void AddCandidateJob(HunterJop job, GameObject[] prefabs, List<HunterJop> candidates, ref int minCount)
     {
         if (prefabs == null || prefabs.Length == 0) return;
-
         int currentCount = GetHunterCountByJob(job);
-
         if (currentCount < minCount)
         {
             minCount = currentCount;
@@ -241,7 +218,6 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
             candidates.Add(job);
             return;
         }
-
         if (currentCount == minCount)
         {
             candidates.Add(job);
@@ -251,53 +227,44 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     private int GetHunterCountByJob(HunterJop job)
     {
         int count = 0;
-
         count += CountHuntersByJob(_activeHunters, job);
         count += CountHuntersByJob(_waitingHunters, job);
-
         return count;
     }
 
     private int CountHuntersByJob(List<HunterController_PJS> hunters, HunterJop job)
     {
         int count = 0;
-
         foreach (var hunter in hunters)
         {
             if (hunter == null) continue;
-
             HunterData_PJS data = hunter.GetComponent<HunterData_PJS>();
             if (data != null && data._hunterJop == job)
             {
                 count++;
             }
         }
-
         return count;
     }
 
     private GameObject SelectPrefabVariant(HunterJop job, GameObject[] prefabs)
     {
         List<GameObject> availablePrefabs = new List<GameObject>();
-
         foreach (GameObject prefab in prefabs)
         {
             if (prefab == null) continue;
-
             string prefabName = prefab.name;
             if (!HasHunterWithPrefabName(job, prefabName))
             {
                 availablePrefabs.Add(prefab);
             }
         }
-
         if (availablePrefabs.Count > 0)
         {
             GameObject selected = availablePrefabs[Random.Range(0, availablePrefabs.Count)];
             Debug.Log($"[HunterManager_PJS] Selected unique variant: {selected.name}");
             return selected;
         }
-
         GameObject fallback = prefabs[Random.Range(0, prefabs.Length)];
         Debug.Log($"[HunterManager_PJS] All variants already used for {job}. Fallback variant: {fallback.name}");
         return fallback;
@@ -314,17 +281,14 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         foreach (var hunter in hunters)
         {
             if (hunter == null) continue;
-
             HunterData_PJS data = hunter.GetComponent<HunterData_PJS>();
             if (data == null || data._hunterJop != job) continue;
-
             string hunterName = hunter.gameObject.name.Replace("(Clone)", "").Trim();
             if (hunterName == prefabName)
             {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -340,17 +304,13 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
     // 대기 → 마을 이동
     private void TryMoveWaitingHunterToVillage()
     {
-        // 대기중인 헌터 없으면 실행 X
         if (_waitingHunters.Count == 0) return;
-        // 헌터가 꽉찼다면 실행 X
         if (_activeHunters.Count >= maxVillageHunters) return;
-        
+
         var hunter = _waitingHunters[0];
-        _waitingHunters.RemoveAt(0); // 대기가 가장 긴 헌터 제거
+        _waitingHunters.RemoveAt(0);
+        _activeHunters.Add(hunter);
 
-        _activeHunters.Add(hunter); // 마을 체류 헌터로 등록
-
-        // 대기걸려있던 헌터가 있고 마을 체류 헌터 자리가 비어있다면 체류자리로 등록
         if (_waitingQueue.Count > 0)
         {
             _waitingHunters.Add(_waitingQueue.Dequeue());
@@ -368,10 +328,46 @@ public class HunterManager_PJS : BaseManager_KJG<HunterManager_PJS>
         }
     }
 
-    // 현재 체류중인 헌터 수를 EventBus에 알려줌 (마을 체류 헌터 수 표시)
     private void SendPopulation()
     {
         Debug.Log($"[HunterManager_PJS] SendPopulation - active: {_activeHunters.Count}, waiting: {_waitingHunters.Count}, total: {GetTotalCount()}/{GetTotalCapacity()}");
         EventBus_YHJ.OnPopulationResult?.Invoke(GetTotalCount(), GetTotalCapacity());
+    }
+
+    // ==================== KJG 추가: Save/Load 연동 ====================
+    /// <summary>
+    /// SaveLoadManager에서 호출됨. 현재 헌터 상태를 SaveData로 반환
+    /// </summary>
+    public List<HunterSaveData> GetAllHunterSaveData()
+    {
+        List<HunterSaveData> saveList = new List<HunterSaveData>();
+
+        foreach (var hunter in _activeHunters)
+        {
+            if (hunter == null) continue;
+            var data = hunter.GetComponent<HunterData_PJS>();
+            if (data == null) continue;
+
+            saveList.Add(new HunterSaveData
+            {
+                hunterName = data._hunterNameList,
+                job = data._hunterJop,
+                level = data._currentLevel,
+                exp = (long)data._currentExp,
+                areaType = data._areaType,
+                rebirthCount = data._rebirthCount,
+                rank = data._hunterRank
+            });
+        }
+        return saveList;
+    }
+
+    /// <summary>
+    /// SaveData에서 헌터 정보를 로드하여 복원
+    /// </summary>
+    public void LoadHuntersFromSaveData(List<HunterSaveData> savedHunters)
+    {
+        // 현재는 단순 로그 처리 (나중에 실제 헌터 재생성 로직 추가 가능)
+        Debug.Log($"[HunterManager_PJS] 저장된 헌터 {savedHunters.Count}명 로드 완료");
     }
 }

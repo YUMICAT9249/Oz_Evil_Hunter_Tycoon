@@ -11,13 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4adf6b3df340dd0468ceaf4a4aeba818, type: 3}
   m_Name: Ruby
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 304040536, guid: dfc920e4cab74b5c8e44a2c5a2bf3355, type: 3}
   itemID: Ruby
   itemName: "\uB8E8\uBE44"
   icon: {fileID: -208175348, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  itemColor: {r: 1, g: 1, b: 1, a: 1}
   itemKind: 3
   effectType: 0
-  value: 0
+  value: 0
+  effectDuration: 0
+  usePercentValue: 0
   isStackable: 1
-  attack: 0
-  defense: 0

@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b48d39ab2969749af771055c64d489, type: 3}
+  m_Name: PassiveTowerLevelData
+  m_EditorClassIdentifier: 
+  levelStats:
+  - level: 1
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs:
+    - passive_bank
+    - passive_library
+    - passive_life_fountain
+    - passive_courage_stone
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0
+  - level: 2
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs:
+    - passive_bank_level_2
+    - passive_library_level_2
+    - passive_life_fountain_level_2
+    - passive_courage_stone_level_2
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0
+  - level: 3
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs:
+    - passive_bank_level_3
+    - passive_library_level_3
+    - passive_life_fountain_level_3
+    - passive_courage_stone_level_3
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 0
+    maxDungeonFloor: 0

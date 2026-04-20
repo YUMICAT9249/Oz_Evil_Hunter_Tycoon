@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b48d39ab2969749af771055c64d489, type: 3}
+  m_Name: DungeonEntranceLevelData
+  m_EditorClassIdentifier: 
+  levelStats:
+  - level: 1
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 1
+    maxDungeonFloor: 25
+  - level: 2
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 26
+    maxDungeonFloor: 50
+  - level: 3
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 51
+    maxDungeonFloor: 75
+  - level: 4
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 76
+    maxDungeonFloor: 100
+  - level: 5
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 101
+    maxDungeonFloor: 125
+  - level: 6
+    capacity: 0
+    workSpeed: 0
+    upgradeCost: 0
+    unlockItemIDs: []
+    healAmount: 0
+    autoHealHpPercent: 0
+    reviveGoldCost: 0
+    reviveDelay: 0
+    canUseMainSkill: 0
+    canUseSubSkill: 0
+    trainingGoldCost: 0
+    trainingDuration: 0
+    requiredRebirthCountMin: 0
+    requiredRebirthCountMax: 0
+    minDungeonFloor: 126
+    maxDungeonFloor: 999

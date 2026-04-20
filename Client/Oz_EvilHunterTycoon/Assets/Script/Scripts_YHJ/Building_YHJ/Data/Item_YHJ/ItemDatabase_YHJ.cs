@@ -16,7 +16,7 @@ public class ItemDatabase_YHJ : MonoBehaviour
     void Awake()
     {
 #if UNITY_EDITOR
-        // ¡Ú YHJ: Assets/ItemData ¾Æ·¡ÀÇ ItemData_YHJ¸¦ ÀÚµ¿ ¼öÁıÇØ »õ Àåºñ µ¥ÀÌÅÍ°¡ ´©¶ôµÇÁö ¾Êµµ·Ï º¸Á¶
+        // â˜… YHJ: Assets/ItemData ì•„ë˜ì˜ ItemData_YHJë¥¼ ìë™ ìˆ˜ì§‘í•´ ìƒˆ ì¥ë¹„ ë°ì´í„°ê°€ ëˆ„ë½ë˜ì§€ ì•Šë„ë¡ ë³´ì¡°
         RefreshEditorItemList();
 #endif
 
@@ -46,7 +46,7 @@ public class ItemDatabase_YHJ : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    // ¡Ú YHJ: ¼öµ¿ ¸®½ºÆ® °ü¸® ½Ç¼ö¸¦ ÁÙÀÌ±â À§ÇØ ¿¡µğÅÍ¿¡¼­ ItemData ¿¡¼Â ¸ñ·ÏÀ» ÀÚµ¿À¸·Î °»½Å
+    // â˜… YHJ: ìˆ˜ë™ ë¦¬ìŠ¤íŠ¸ ê´€ë¦¬ ì‹¤ìˆ˜ë¥¼ ì¤„ì´ê¸° ìœ„í•´ ì—ë””í„°ì—ì„œ ItemData ì—ì…‹ ëª©ë¡ì„ ìë™ìœ¼ë¡œ ê°±ì‹ 
     private void RefreshEditorItemList()
     {
         string[] guids = AssetDatabase.FindAssets("t:ItemData_YHJ", new[] { "Assets/ItemData" });
@@ -74,8 +74,8 @@ public class ItemDatabase_YHJ : MonoBehaviour
         return null;
     }
 
-    // ¡Ú YHJ TODO: HunterData_PJS.SetWeapon/SetArmor/SetGloves/SetBoots¿¡¼­
-    // itemID¸¦ ³Ñ°Ü Àåºñ µ¥ÀÌÅÍ Á¶È¸ ÈÄ ½½·Ô/Á÷¾÷±îÁö ÇÑ ¹ø¿¡ °Ë»çÇÒ ¶§ »ç¿ëÇÒ °Í
+    // â˜… YHJ TODO: HunterData_PJS.SetWeapon/SetArmor/SetGloves/SetBootsì—ì„œ
+    // itemIDë¥¼ ë„˜ê²¨ ì¥ë¹„ ë°ì´í„° ì¡°íšŒ í›„ ìŠ¬ë¡¯/ì§ì—…ê¹Œì§€ í•œ ë²ˆì— ê²€ì‚¬í•  ë•Œ ì‚¬ìš©í•  ê²ƒ
     public bool TryGetEquipmentData(string itemID, EquipmentSlot_YHJ slot, HunterJop hunterJop, out ItemData_YHJ itemData)
     {
         itemData = Get(itemID);

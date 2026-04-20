@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2180914355084869407}
-  - component: {fileID: 5911428050955483033}
   - component: {fileID: -6854442318999307854}
   m_Layer: 0
   m_Name: road
@@ -34,21 +33,6 @@ Transform:
   - {fileID: 4093907407063167450}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5911428050955483033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4901616389152144399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af186f3bd0cf07245a15f6b7534ef2e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayName: Unknown Object
-  maxHp: 100
-  buildingType: 0
 --- !u!114 &-6854442318999307854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uAE38"
   maxHp: 0
+  isPrePlaced: 0
+  prePlacedBuildingID: 
+  prePlacedLevelData: {fileID: 0}
+  prePlacedSize: {x: 1, y: 1}
+  isPreview: 0
   buildingType: 0
 --- !u!1 &6266850074516562810
 GameObject:

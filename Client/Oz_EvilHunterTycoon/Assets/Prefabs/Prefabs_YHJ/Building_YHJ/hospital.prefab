@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ccbc2bf6699f0d48bd8dad9f9e767ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bandageID: Bandage
 --- !u!114 &-2426510699098535541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78ea9abeda084a4c98d9c1faf90b833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  processInterval: 2
+  processInterval: 10
 --- !u!114 &4505197779741404295
 MonoBehaviour:
   m_ObjectHideFlags: 0
