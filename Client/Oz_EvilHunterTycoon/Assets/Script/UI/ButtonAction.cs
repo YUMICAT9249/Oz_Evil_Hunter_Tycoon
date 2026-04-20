@@ -16,6 +16,7 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
         DifficultyClose,
         HunterInfoUI,
         HunterWait,
+        BossCalling
     }
 
     public buttionActionType actionType;
@@ -44,6 +45,9 @@ public class ButtonAction : MonoBehaviour, IPointerUpHandler
                 break;
             case buttionActionType.HunterWait:
                 UiManager.Instance.HunterWait();
+                break;
+            case buttionActionType.BossCalling:
+                
                 break;
 
 
