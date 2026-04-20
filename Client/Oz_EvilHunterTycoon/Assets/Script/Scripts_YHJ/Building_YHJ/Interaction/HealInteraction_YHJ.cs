@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,6 +122,7 @@ public class HealInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
             queue.Enqueue(unit);
         }
 
+        Manager_KJG.Audio?.PlaySFX("CD01042");
         EventBus_YHJ.OnInteractionResult?.Invoke
         (
             unit,

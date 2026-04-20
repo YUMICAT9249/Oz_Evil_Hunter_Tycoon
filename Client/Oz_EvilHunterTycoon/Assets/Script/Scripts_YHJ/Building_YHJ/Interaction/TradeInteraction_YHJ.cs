@@ -147,6 +147,7 @@ public class TradeInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
             NotifyTradeRequestChanged();
         }
 
+        Manager_KJG.Audio?.PlaySFX("CD01042");
         EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Success);
     }
 

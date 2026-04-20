@@ -37,6 +37,7 @@ public class PotionShopInteraction_YHJ : MonoBehaviour, IBuildingInteraction_YHJ
         // inventory.RemoveItem(potionID, 1);
         // unit.AddItem(...);
 
+        Manager_KJG.Audio?.PlaySFX("CD01042");
         EventBus_YHJ.OnInteractionResult?.Invoke(unit, InteractionResult_YHJ.Success);
     }
 
