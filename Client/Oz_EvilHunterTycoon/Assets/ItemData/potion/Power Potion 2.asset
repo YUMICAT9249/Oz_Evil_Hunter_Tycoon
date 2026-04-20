@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -14,23 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: Power Potion 2
   itemName: Power Potion 2
-  icon: {fileID: 422721350, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
+  icon: {fileID: 422721350, guid: 32cd2e78b81939b4b80dead7f55a387d, type: 3}
   itemColor: {r: 1, g: 1, b: 1, a: 1}
-  itemKind: 1
-  effectType: 5
-  value: 20
+  itemKind: 0
+  effectType: 0
+  value: 0
   effectDuration: 0
-  usePercentValue: 1
+  usePercentValue: 0
   isStackable: 1
   equipmentSlot: 0
   equipmentHunterJop: 0
   hp: 0
   damage: 0
-  defence: 20
+  defence: 0
   criticalChance: 0
   dodgeChance: 0
   attackCooldown: 0
   moveSpeed: 0
-  itemPrefab: {fileID: 27205418766082779, guid: 395521b615690b64da709d7bf857e965, type: 3}
-
-
+  itemPrefab: {fileID: 0}
