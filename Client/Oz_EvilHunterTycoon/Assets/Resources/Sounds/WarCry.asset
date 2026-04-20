@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71d103c1f79e9514eb4e071f9c96e411, type: 3}
-  m_Name: Skill_ThunderBolt
+  m_Name: WarCry
   m_EditorClassIdentifier: 
-  soundId: Skill_ThunderBolt
-  clip: {fileID: 8300000, guid: 6b702018ab69a264696d87b1ba86284f, type: 3}
-  mixerGroup: {fileID: 0}
+  soundId: Skill_WarCry
+  clip: {fileID: 8300000, guid: 2d9e2e6b9d9c3d24e8130b698e697d5a, type: 3}
+  mixerGroup: {fileID: 386566303705783938, guid: fd5ae837ae9fdcb4fa7186715b422cee, type: 2}
   volume: 1
   pitch: 1
   loop: 0
