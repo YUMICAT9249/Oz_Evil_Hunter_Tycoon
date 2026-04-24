@@ -41,6 +41,10 @@ public class BossSpawner_JBJ : MonoBehaviour
         Boss_JBJ bossScript = boss.GetComponent<Boss_JBJ>();
         bossScript.InitBoss(this);
 
+        Monster_JBJ monster = boss.GetComponent<Monster_JBJ>();
+        monster.minBounds = transform.position + new Vector3(-5f, -5f, 0);
+        monster.maxBounds = transform.position + new Vector3(5f, 5f, 0);
+
         bossAlive = true;
 
         Debug.Log("보스가 소환되었습니다!");
